@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, Paper, Tabs, Tab, AppBar, Grid } from "@material-ui/core";
 import MainSlide from "./../components/MainSlide";
 import SecondarySlide from "./../components/SecondarySlide";
+import DisplayCard from "./../components/DisplayCard";
 
 class Home extends Component {
   state = {
@@ -10,84 +11,187 @@ class Home extends Component {
       {
         outerTitle: "lectures",
         innerTitle: "Dr : m.Hammad",
-        folderID: "folderID"
+        actualContent: [
+          {
+            title: "Lec1",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec2",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec3",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec4",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec5",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec6",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec7",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec8",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec9",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec10",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Lec11",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          }
+        ]
       },
       {
         outerTitle: "Notes",
         innerTitle: "Eng : mo salah",
-        folderID: "https://betengan"
+        actualContent: [
+          {
+            title: "Note1",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note2",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note3",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note4",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note5",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note6",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note7",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note8",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note9",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note10",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Note11",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          }
+        ]
       },
       {
         outerTitle: "videos",
         innerTitle: "recorded lectures",
-        folderID: "https://betengan"
+        actualContent: [
+          {
+            title: "Lectures",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Section",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "Islam Magdy",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          }
+        ]
       },
       {
         outerTitle: "revition",
         innerTitle: "revisions",
-        folderID: "https://betengan"
+        actualContent: [
+          {
+            title: "rev 1",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "rev2",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "rev3",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          }
+        ]
       },
       {
         outerTitle: "summary",
         innerTitle: "Eng : mo salah",
-        folderID: "https://betengan"
-      }
-    ],
-    actualContent: [
-      {
-        title: "Lec1",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec2",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec3",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec4",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec5",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec6",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec7",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec8",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec9",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec10",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-      },
-      {
-        title: "Lec11",
-        pdf:
-          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+        actualContent: [
+          {
+            title: "fuck 1",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "hello ",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          },
+          {
+            title: "salam ya balad el kalam",
+            pdf:
+              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+          }
+        ]
       }
     ],
     PrimarySliderSelectedIndex: 0,
@@ -95,7 +199,7 @@ class Home extends Component {
   };
 
   handlePrimeTabClick = index => {
-    this.setState({ PrimarySliderSelectedIndex: index });
+    this.setState({ PrimarySliderSelectedIndex: index ,SecondarySliderSelectedIndex:0});
   };
 
   handleSecondaryTabClick = index => {
@@ -117,9 +221,12 @@ class Home extends Component {
           handleClick={this.handlePrimeTabClick}
         />
         <SecondarySlide
-          content={this.state.actualContent}
+          content={this.state.content[this.state.PrimarySliderSelectedIndex]}
           handleClick={this.handleSecondaryTabClick}
           selectedIndex={this.state.SecondarySliderSelectedIndex}
+        />
+        <DisplayCard
+          content={this.state.content[this.state.PrimarySliderSelectedIndex].actualContent[this.state.SecondarySliderSelectedIndex]}
         />
       </Grid>
     );

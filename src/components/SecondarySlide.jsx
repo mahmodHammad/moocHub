@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Paper, Tabs, Tab, AppBar, Grid } from "@material-ui/core";
+import { Tabs, Tab, AppBar } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 const styles={
     topmargin :{
@@ -21,7 +21,7 @@ function SecondarySlide({content ,classes ,handleClick ,selectedIndex}) {
             scrollButtons="on"
             justify="center"
           >
-            {content.map((cont, N) => (
+            {content.actualContent.map((cont, N) => (
               <Tab
                 value={N}
                 key={N}
