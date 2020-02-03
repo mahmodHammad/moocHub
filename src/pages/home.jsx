@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Paper, Tabs, Tab, AppBar, Grid } from "@material-ui/core";
 import MainSlide from "./../components/MainSlide";
+import SecondarySlide from "./../components/SecondarySlide";
 
 class Home extends Component {
   state = {
@@ -9,63 +10,7 @@ class Home extends Component {
       {
         outerTitle: "lectures",
         innerTitle: "Dr : m.Hammad",
-        folderID: [
-          {
-            title: "Lec1",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec2",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec3",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec4",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec5",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec6",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec7",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec8",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec9",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec10",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec11",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          }
-        ]
+        folderID: "folderID"
       },
       {
         outerTitle: "Notes",
@@ -88,12 +33,75 @@ class Home extends Component {
         folderID: "https://betengan"
       }
     ],
-    PrimarySliderSelectedIndex: 0
+    actualContent: [
+      {
+        title: "Lec1",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec2",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec3",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec4",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec5",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec6",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec7",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec8",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec9",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec10",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      },
+      {
+        title: "Lec11",
+        pdf:
+          "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
+      }
+    ],
+    PrimarySliderSelectedIndex: 0,
+    SecondarySliderSelectedIndex: 0
   };
 
-  handleTabClick = inp => {
-    this.setState({ PrimarySliderSelectedIndex: inp });
+  handlePrimeTabClick = index => {
+    this.setState({ PrimarySliderSelectedIndex: index });
   };
+
+  handleSecondaryTabClick = index => {
+    this.setState({ SecondarySliderSelectedIndex: index });
+  };
+
   render() {
     return (
       <Grid container alignContent="center" justify="center">
@@ -106,32 +114,13 @@ class Home extends Component {
         <MainSlide
           content={this.state.content}
           selectedIndex={this.state.PrimarySliderSelectedIndex}
-          handleClick={this.handleTabClick}
+          handleClick={this.handlePrimeTabClick}
         />
-
-        <AppBar
-          position="static"
-          centered="true"
-          color="primary"
-          className="addmargin"
-        >
-          <Tabs
-            value={1}
-            textColor="inherit"
-            variant="scrollable"
-            scrollButtons="on"
-            justify="center"
-          >
-            {this.state.content[0].folderID.map((content, N) => (
-              <Tab
-                value={N}
-                key={N}
-                label={content.title}
-                onClick={() => this.handleTabClick(content.title)}
-              />
-            ))}
-          </Tabs>
-        </AppBar>
+        <SecondarySlide
+          content={this.state.actualContent}
+          handleClick={this.handleSecondaryTabClick}
+          selectedIndex={this.state.SecondarySliderSelectedIndex}
+        />
       </Grid>
     );
   }
