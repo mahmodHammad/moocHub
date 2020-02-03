@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Paper, Tabs, Tab, AppBar, Grid } from "@material-ui/core";
+import MainSlide from "./../components/MainSlide";
 
 class Home extends Component {
   state = {
@@ -87,34 +88,33 @@ class Home extends Component {
         folderID: "https://betengan"
       }
     ],
-    selected:null
+    PrimarySliderSelectedIndex: 0
   };
 
-  handleTabClick=(inp)=>{
-      console.log(inp)
-  }
+  handleTabClick = inp => {
+    this.setState({ PrimarySliderSelectedIndex: inp });
+  };
   render() {
     return (
       <Grid container alignContent="center" justify="center">
+        <Grid item sm={12}>
           <Typography variant="h3" align="center">
             {this.state.name}
           </Typography>
+        </Grid>
 
-            <Paper position="static" centered="true">
-              <Tabs
-                value={0}
-                textColor="inherit"
-                variant="scrollable"
-                scrollButtons="on"
-                justify="center"
-              >
-                {this.state.content.map((content ,N) => (
-                  <Tab value={N} key={N} label={content.outerTitle} />
-                ))}
-              </Tabs>
-            </Paper>
+        <MainSlide
+          content={this.state.content}
+          selectedIndex={this.state.PrimarySliderSelectedIndex}
+          handleClick={this.handleTabClick}
+        />
 
-        <AppBar position="static" centered="true" color="secondary">
+        <AppBar
+          position="static"
+          centered="true"
+          color="primary"
+          className="addmargin"
+        >
           <Tabs
             value={1}
             textColor="inherit"
@@ -122,8 +122,13 @@ class Home extends Component {
             scrollButtons="on"
             justify="center"
           >
-            {this.state.content[0].folderID.map((content,N) => (
-              <Tab value={N} key={N} label={content.title} onClick={()=>this.handleTabClick(content.title)}/>
+            {this.state.content[0].folderID.map((content, N) => (
+              <Tab
+                value={N}
+                key={N}
+                label={content.title}
+                onClick={() => this.handleTabClick(content.title)}
+              />
             ))}
           </Tabs>
         </AppBar>
