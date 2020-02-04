@@ -4,6 +4,7 @@ import MainSlide from "./../components/MainSlide";
 import SecondarySlide from "./../components/SecondarySlide";
 import DisplayCard from "./../components/DisplayCard";
 import Pdf from "./../components/PdfIframe";
+import Gapi from './../components/Gapi';
 class Home extends Component {
   state = {
     name: "2nd - Electrical",
@@ -242,6 +243,7 @@ class Home extends Component {
         </React.Fragment>
         )} */}
 
+<Gapi/>
 
       </Grid>
     );
