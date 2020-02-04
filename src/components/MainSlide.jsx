@@ -7,6 +7,7 @@ const styles={
     }
 }
 function MainSlide({content ,classes ,handleClick ,selectedIndex}) {
+  console.log(content)
     return (
         <Paper position="static" centered="true" className={classes.topmargin}  >
         <Tabs

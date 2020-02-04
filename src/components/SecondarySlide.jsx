@@ -21,11 +21,11 @@ function SecondarySlide({content ,classes ,handleClick ,selectedIndex}) {
             scrollButtons="on"
             justify="center"
           >
-            {content.actualContent.map((cont, N) => (
+            {content.map((cont, N) => (
               <Tab
                 value={N}
                 key={N}
-                label={cont.title}
+                label={cont.name}
                 onClick={() => handleClick(N)}
               />
             ))}

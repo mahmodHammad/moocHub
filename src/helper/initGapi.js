@@ -5,6 +5,7 @@ var listchindrens = (folderID)=>{
     window.gapi.client.drive.files
       .list({ q })
       .then(e => {
+        // console.log(e)
         resolve(e.result);
       })
       .catch(err => {
