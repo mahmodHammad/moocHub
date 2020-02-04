@@ -3,8 +3,7 @@ import {
   Typography,
   Grid,
   CardContent,
-  Card,
-  Link
+  Card
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 const styles = {
@@ -18,7 +17,7 @@ const styles = {
     textAlign: "center"
   }
 };
-function DisplayCard({ content, selectedIndex, classes }) {
+function DisplayCard({ content,classes }) {
   return (
     <Grid
       item
@@ -26,10 +25,9 @@ function DisplayCard({ content, selectedIndex, classes }) {
     >
       <Card className={classes.topmargin}>
         <CardContent className={classes.align}>
-          <Typography color="textSecondary" gutterBottom variant="h4">
-            {content.title}
+          <Typography color="textSecondary"  variant="h5">
+            {content}
           </Typography>
-          <Link href={content.pdf}>{content.title}</Link>
         </CardContent>
       </Card>
     </Grid>

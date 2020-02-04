@@ -1,17 +1,15 @@
-var listchindrens = (folderID)=>{
-
-  return  new Promise((resolve, reject) => {
+var listchindrens = folderID => {
+  return new Promise((resolve, reject) => {
     let q = transformFolderID(folderID);
     window.gapi.client.drive.files
       .list({ q })
       .then(e => {
-        // console.log(e)
         resolve(e.result);
       })
       .catch(err => {
         console.error(err);
       });
-  })
+  });
 };
 
 // to make it    "1DQNrFndwdH1_D_026miRfwM7nA1duKVF" in parents
