@@ -3,7 +3,7 @@ import { Typography, Paper, Tabs, Tab, AppBar, Grid } from "@material-ui/core";
 import MainSlide from "./../components/MainSlide";
 import SecondarySlide from "./../components/SecondarySlide";
 import DisplayCard from "./../components/DisplayCard";
-
+import Pdf from "./../components/PdfIframe";
 class Home extends Component {
   state = {
     name: "2nd - Electrical",
@@ -194,12 +194,15 @@ class Home extends Component {
         ]
       }
     ],
-    PrimarySliderSelectedIndex: 0,
-    SecondarySliderSelectedIndex: 0
+    PrimarySliderSelectedIndex: false,
+    SecondarySliderSelectedIndex: false
   };
 
   handlePrimeTabClick = index => {
-    this.setState({ PrimarySliderSelectedIndex: index ,SecondarySliderSelectedIndex:0});
+    this.setState({
+      PrimarySliderSelectedIndex: index,
+      SecondarySliderSelectedIndex: false
+    });
   };
 
   handleSecondaryTabClick = index => {
@@ -220,14 +223,26 @@ class Home extends Component {
           selectedIndex={this.state.PrimarySliderSelectedIndex}
           handleClick={this.handlePrimeTabClick}
         />
-        <SecondarySlide
-          content={this.state.content[this.state.PrimarySliderSelectedIndex]}
-          handleClick={this.handleSecondaryTabClick}
-          selectedIndex={this.state.SecondarySliderSelectedIndex}
-        />
+        {this.state.PrimarySliderSelectedIndex !== false && (
+          <SecondarySlide
+            content={this.state.content[this.state.PrimarySliderSelectedIndex]}
+            handleClick={this.handleSecondaryTabClick}
+            selectedIndex={this.state.SecondarySliderSelectedIndex}
+          />
+        )}
+    {/* {this.state.SecondarySliderSelectedIndex !== false && (
+        <React.Fragment>
         <DisplayCard
-          content={this.state.content[this.state.PrimarySliderSelectedIndex].actualContent[this.state.SecondarySliderSelectedIndex]}
+          content={
+            this.state.content[this.state.PrimarySliderSelectedIndex]
+              .actualContent[this.state.SecondarySliderSelectedIndex]
+          }
         />
+        <Pdf fileId="10BZCBv5srn366ho6Qb1i55rQ8PVqQBro" />
+        </React.Fragment>
+        )} */}
+
+
       </Grid>
     );
   }

@@ -1,10 +1,6 @@
 import React from "react";
 import {
   Typography,
-  Paper,
-  Tabs,
-  Tab,
-  AppBar,
   Grid,
   CardContent,
   Card,
@@ -27,9 +23,6 @@ function DisplayCard({ content, selectedIndex, classes }) {
     <Grid
       item
       className={classes.width}
-      justify="center"
-      alignContent="center"
-      alignItems="center"
     >
       <Card className={classes.topmargin}>
         <CardContent className={classes.align}>

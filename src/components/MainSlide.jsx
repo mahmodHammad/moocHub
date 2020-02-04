@@ -14,7 +14,7 @@ function MainSlide({content ,classes ,handleClick ,selectedIndex}) {
           textColor="inherit"
           variant="scrollable"
           scrollButtons="on"
-          justify="center"
+          indicatorColor="primary"
         >
           {content.map((content ,N) => (
             <Tab value={N} key={N} label={content.outerTitle} onClick={()=>handleClick(N)}/>
