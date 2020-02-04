@@ -4,71 +4,20 @@ import MainSlide from "./../components/MainSlide";
 import SecondarySlide from "./../components/SecondarySlide";
 import DisplayCard from "./../components/DisplayCard";
 import Pdf from "./../components/PdfIframe";
-import Gapi from './../components/Gapi';
+import getFiles from "../helper/initGapi";
+
+var API_KEY = "AIzaSyBaYqW1LaG3Oua5aT40u6AqmaasNVPkwe0";
+
 class Home extends Component {
   state = {
+    gapiReady:false,
     name: "2nd - Electrical",
     content: [
       {
         outerTitle: "lectures",
         innerTitle: "Dr : m.Hammad",
-        actualContent: [
-          {
-            title: "Lec1",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec2",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec3",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec4",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec5",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec6",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec7",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec8",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec9",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec10",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          },
-          {
-            title: "Lec11",
-            pdf:
-              "https://drive.google.com/file/d/10BZCBv5srn366ho6Qb1i55rQ8PVqQBro/view"
-          }
-        ]
+        folderid:"1f_ZUyvVEZ1JxpXkJIFHwbCBrSjyoRTSt",
+        actualContent: false
       },
       {
         outerTitle: "Notes",
@@ -199,10 +148,34 @@ class Home extends Component {
     SecondarySliderSelectedIndex: false
   };
 
+  loadApi = () => {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+
+    script.addEventListener("load", () => {
+      window.gapi.load("client", () => {
+        window.gapi.client.setApiKey(API_KEY);
+        window.gapi.client.load("drive", "v3", () => {
+          this.setState({ gapiReady: true });
+        });
+      });
+    });
+    document.body.appendChild(script);
+  };
+
+
+
   handlePrimeTabClick = index => {
+
+    getFiles(this.state.content[index].folderid).then((e)=>console.log(e))
+    // actualContent ===false ? make http request to get actual content
+    // rqueast take some time ...
+    // after objain ...  set state actual content
+
     this.setState({
       PrimarySliderSelectedIndex: index,
       SecondarySliderSelectedIndex: false
+
     });
   };
 
@@ -210,6 +183,10 @@ class Home extends Component {
     this.setState({ SecondarySliderSelectedIndex: index });
   };
 
+  componentDidMount() {
+    this.loadApi()
+  }
+  
   render() {
     return (
       <Grid container alignContent="center" justify="center">
@@ -224,14 +201,16 @@ class Home extends Component {
           selectedIndex={this.state.PrimarySliderSelectedIndex}
           handleClick={this.handlePrimeTabClick}
         />
-        {this.state.PrimarySliderSelectedIndex !== false && (
+
+        {/* {this.state.PrimarySliderSelectedIndex !== false && (
           <SecondarySlide
             content={this.state.content[this.state.PrimarySliderSelectedIndex]}
             handleClick={this.handleSecondaryTabClick}
             selectedIndex={this.state.SecondarySliderSelectedIndex}
           />
-        )}
-    {/* {this.state.SecondarySliderSelectedIndex !== false && (
+        )} */}
+{/* 
+    {this.state.SecondarySliderSelectedIndex !== false && (
         <React.Fragment>
         <DisplayCard
           content={
@@ -243,7 +222,8 @@ class Home extends Component {
         </React.Fragment>
         )} */}
 
-<Gapi/>
+{/* <Gapi/> */}
+{this.state.gapiReady && <h1>GAPI is loaded and ready to use.</h1>}
 
       </Grid>
     );
