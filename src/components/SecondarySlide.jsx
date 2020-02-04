@@ -25,7 +25,7 @@ function SecondarySlide({ content, classes, handleClick, selectedIndex }) {
           <Tab
             value={N}
             key={N}
-            label={cont.name}
+            label={`Lec ${N +1}`}
             onClick={() => handleClick(N)}
           />
         ))}

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Typography,
-  Grid,
   CardContent,
   Card
 } from "@material-ui/core";
@@ -19,10 +18,6 @@ const styles = {
 };
 function DisplayCard({ content,classes }) {
   return (
-    <Grid
-      item
-      className={classes.width}
-    >
       <Card className={classes.topmargin}>
         <CardContent className={classes.align}>
           <Typography color="textSecondary"  variant="h5">
@@ -30,7 +25,6 @@ function DisplayCard({ content,classes }) {
           </Typography>
         </CardContent>
       </Card>
-    </Grid>
   );
 }
 

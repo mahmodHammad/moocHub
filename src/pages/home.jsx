@@ -12,7 +12,7 @@ const API_KEY = "AIzaSyBaYqW1LaG3Oua5aT40u6AqmaasNVPkwe0";
 class Home extends Component {
   state = {
     gapiReady: false,
-    name: "2nd - Electrical",
+    name: "Electronics",
     content: [
       {
         outerTitle: "lectures",
@@ -98,32 +98,40 @@ class Home extends Component {
     } = this.state;
     return (
       <Grid container alignContent="center" justify="center">
-        <DisplayComunityName name={name} />
+        <Grid item sm={12}>
+          <DisplayComunityName name={name} />
+        </Grid>
 
-        <MainSlide
-          content={content}
-          selectedIndex={PrimarySliderSelectedIndex}
-          handleClick={this.handlePrimeTabClick}
-        />
-
-        {PrimarySliderSelectedIndex !== false &&
-          content[PrimarySliderSelectedIndex].actualContent !== false && (
-            <SecondarySlide
-              content={content[PrimarySliderSelectedIndex].actualContent}
-              handleClick={this.handleSecondaryTabClick}
-              selectedIndex={SecondarySliderSelectedIndex}
+        {this.state.gapiReady && (
+          <Grid item xs={11}>
+            <MainSlide
+              content={content}
+              selectedIndex={PrimarySliderSelectedIndex}
+              handleClick={this.handlePrimeTabClick}
             />
-          )}
+          </Grid>
+        )}
+
+        <Grid item xs={12}>
+          {PrimarySliderSelectedIndex !== false &&
+            content[PrimarySliderSelectedIndex].actualContent !== false && (
+              <SecondarySlide
+                content={content[PrimarySliderSelectedIndex].actualContent}
+                handleClick={this.handleSecondaryTabClick}
+                selectedIndex={SecondarySliderSelectedIndex}
+              />
+            )}
+        </Grid>
 
         {SecondarySliderSelectedIndex !== false && (
           <React.Fragment>
-            <DisplayCard
+            {/* <DisplayCard
               content={
                 content[this.state.PrimarySliderSelectedIndex].actualContent[
                   SecondarySliderSelectedIndex
                 ].name
               }
-            />
+            /> */}
             <Pdf
               fileId={
                 content[this.state.PrimarySliderSelectedIndex].actualContent[

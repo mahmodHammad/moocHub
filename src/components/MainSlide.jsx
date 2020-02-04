@@ -8,11 +8,12 @@ const styles = {
 };
 function MainSlide({ content, classes, handleClick, selectedIndex }) {
   return (
-    <Paper position="static" centered="true" className={classes.topmargin}>
+    <Paper position="static">
       <Tabs
+      className={classes.topmargin}
         value={selectedIndex}
-        textColor="inherit"
         variant="scrollable"
+        textColor="inherit"
         scrollButtons="on"
         indicatorColor="primary"
       >

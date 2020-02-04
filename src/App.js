@@ -10,12 +10,12 @@ import Navbar from "./components/Navbar";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#364f6b"
+      main: "#1769aa"
     },
     secondary: {
       light: "#0066ff",
-      main: "#fc5185",
-      contrastText: "#ffcc00"
+      main: "#ec9e0f",
+      contrastText: "#222266"
     }
   }
 });
@@ -28,12 +28,13 @@ function App() {
           <Navbar />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Sigunup} />
+              <Route exact path="/"       component={Home}   />
+              <Route exact path="/login"  component={Login}  />
+              <Route exact path="/signup" component={Sigunup}/>
             </Switch>
           </div>
         </BrowserRouter>
+
       </div>
     </MuiThemeProvider>
   );
