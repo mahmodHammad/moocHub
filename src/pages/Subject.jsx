@@ -95,14 +95,14 @@ class Home extends Component {
       <Grid container alignContent="center" justify="center">
         {/******  display subject name  ******/}
 
-        <Grid item sm={12}>
+        <Grid item xs={12}>
           <DisplayComunityName name={subjectName} />
         </Grid>
 
         {/******  display MainSlider   ******/}
 
         {this.state.content !== false && (
-          <Grid item>
+          <Grid item xs={12} md={"auto"}>
             <MainSlide
               content={content}
               selectedIndex={PrimarySliderSelectedIndex}
@@ -117,6 +117,7 @@ class Home extends Component {
           {PrimarySliderSelectedIndex !== false &&
             content[PrimarySliderSelectedIndex].actualContent !== false && (
               <SecondarySlide
+                parentName={content[PrimarySliderSelectedIndex].name}
                 content={content[PrimarySliderSelectedIndex].actualContent}
                 handleClick={this.handleSecondaryTabClick}
                 selectedIndex={SecondarySliderSelectedIndex}
@@ -129,10 +130,10 @@ class Home extends Component {
         {SecondarySliderSelectedIndex !== false && (
           <React.Fragment>
             <Pdf
-              fileId={
+              file={
                 content[this.state.PrimarySliderSelectedIndex].actualContent[
                   SecondarySliderSelectedIndex
-                ].id
+                ]
               }
             />
           </React.Fragment>

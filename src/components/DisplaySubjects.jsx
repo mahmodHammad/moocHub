@@ -3,7 +3,7 @@ import { Grid, CardContent, Button,Card  } from "@material-ui/core";
 import {Link} from "react-router-dom"
 export default function DisplaySubjects({ folder }) {
   return (
-    <Grid item sm={6} key={folder.id}>
+    <Grid item xs={12} md={6} key={folder.id}>
       <Card>
         <CardContent>
           <Button

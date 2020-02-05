@@ -54,7 +54,7 @@ class Home extends Component {
   render() {
     return (
       <Grid container justify="center" spacing={3}>
-        <Grid item sm={12}>
+        <Grid item xs={12}>
           <Typography variant="h3" align="center">
             {this.state.name}
           </Typography>

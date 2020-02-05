@@ -1,19 +1,24 @@
 import React from "react";
-import { Tabs, Tab, AppBar } from "@material-ui/core";
+import { Tabs, Tab, AppBar, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 const styles = {
   topmargin: {
     margin: "20px 0 0 0"
+  },
+  center: {
+    margin: "auto"
   }
 };
-function SecondarySlide({ content, classes, handleClick, selectedIndex }) {
-    console.log(content)
-    content.map(c=>{
-      if(c.mimeType ==="application/vnd.google-apps.folder"){
-        console.log(c.name , c.id)
-      }
-      
-    })
+function SecondarySlide({
+  parentName,
+  content,
+  classes,
+  handleClick,
+  selectedIndex
+}) {
+  const SubparentName = parentName.substr(0, 3);
+
+  console.log(parentName);
   return (
     <AppBar
       position="static"
@@ -26,13 +31,13 @@ function SecondarySlide({ content, classes, handleClick, selectedIndex }) {
         textColor="inherit"
         variant="scrollable"
         scrollButtons="on"
-        justify="center"
       >
         {content.map((cont, N) => (
           <Tab
+            className={classes.center}
             value={N}
             key={N}
-            label={cont.name}
+            label={`${SubparentName} ${N + 1}`}
             onClick={() => handleClick(N)}
           />
         ))}

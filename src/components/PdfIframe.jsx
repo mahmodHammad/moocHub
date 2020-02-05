@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../helper/getPdfUrl";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { Button, ButtonGroup ,Typography } from "@material-ui/core";
 const styles = {
   fullwidth: {
     width: "98vw",
@@ -13,10 +13,14 @@ const styles = {
   }
 };
 
-function PdfIframe({ fileId, classes }) {
-  const fileurl = IdtoUrl(fileId);
+function PdfIframe({ file, classes }) {
+  console.log(file)
+  const fileurl = IdtoUrl(file.id);
   return (
     <div className={classes.center}>
+      <Typography variant="h6">
+        {file.name}
+      </Typography>
       <ButtonGroup
         size="small"
         variant="contained"
