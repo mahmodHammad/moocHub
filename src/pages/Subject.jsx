@@ -21,6 +21,32 @@ class Home extends Component {
     PrimarySliderSelectedIndex: false,
     SecondarySliderSelectedIndex: false
   };
+  loadApi = () => {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+    return new Promise((resolve, reject) => {
+      script.addEventListener("load", () => {
+        window.gapi.load("client", () => {
+          window.gapi.client.setApiKey(API_KEY);
+          window.gapi.client.load("drive", "v3", () => {
+            resolve();
+            this.setState({ gapiReady: true });
+          });
+        });
+      });
+      document.body.appendChild(script);
+    });
+  };
+
+  loadSubjects = subjects => {
+    let content = [];
+    subjects.map(
+      s =>
+        s.mimeType === "application/vnd.google-apps.folder" && content.push(s)
+    );
+    console.log(content);
+    this.setState({ content });
+  };
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
@@ -28,7 +54,7 @@ class Home extends Component {
     // rqueast take some time ...
     // after objain ...  set state actual content
     this.state.content[index].actualContent === false &&
-      getFiles(this.state.content[index].folderid).then(theactualContent => {
+      getFiles(this.state.content[index].id).then(theactualContent => {
         let [content] = [this.state.content];
         content[index].actualContent = theactualContent.files;
         this.setState({ content });
@@ -44,98 +70,96 @@ class Home extends Component {
     this.setState({ SecondarySliderSelectedIndex: index });
   };
 
-  loadSubjects = subjects => {
-    let content = [];
-    subjects.map(
-      s =>
-        s.mimeType === "application/vnd.google-apps.folder" && content.push(s)
-    );
-    console.log(content);
-    this.setState({ content });
+  loadContent = subjects => {
+    let realcontent = subjects.files
+      .filter(d => {
+        return d.mimeType === "application/vnd.google-apps.folder";
+      })
+      .map(({ name, id }) => {
+        const actualContent=false
+        return { name, id ,actualContent};
+      });
+    console.log("realcontent is :", realcontent);
+    this.setState({ content: realcontent });
   };
-  
+
   componentDidMount() {
-   const subjectName = this.props.match.params.subjectName
-   const folderid=this.props.match.params.subjectId
-   
-   this.setState({subjectName ,folderid})
-   
-
-      getFiles(folderid).then(folders =>{
-        console.log(folders)
-        // this.setState({content:folders.files})
-      }
+    this.loadApi().then(() => {
+      getFiles(this.state.drive).then(folders =>
+        this.loadSubjects(folders.files)
       );
+    });
   }
-  
+
+  componentDidMount() {
+    const subjectName = this.props.match.params.subjectName;
+    const folderid = this.props.match.params.subjectId;
+
+    this.setState({ subjectName, folderid });
+
+    this.loadApi().then(() =>
+      getFiles(folderid).then(folders => {
+        this.loadContent(folders);
+      })
+    );
+  }
+
   render() {
-    console.log(this)
-    console.log("folderID is : " , this.props.match.params.subjectId)
-    console.log("subjectName is : " , this.props.match.params.subjectName)
-    return (<div>
-      {this.state.subjectName}
-
-    </div>)
+    console.log("XX", this.state.content);
+    console.log("folderID is : ", this.props.match.params.subjectId);
+    console.log("subjectName is : ", this.props.match.params.subjectName);
     //////// Destructure from state ////////
-    // const {
-    //   content,
-    //   name,
-    //   PrimarySliderSelectedIndex,
-    //   SecondarySliderSelectedIndex
-    // } = this.state;
-    // return (
-    //   <Grid container alignContent="center" justify="center">
-    //     {/******  display subject name  ******/}
+    const {
+      content,
+      name,
+      PrimarySliderSelectedIndex,
+      SecondarySliderSelectedIndex
+    } = this.state;
+    return (
+      <Grid container alignContent="center" justify="center">
+        {/******  display subject name  ******/}
 
-    //     <Grid item sm={12}>
-    //       <DisplayComunityName name={name} />
-    //     </Grid>
+        <Grid item sm={12}>
+          <DisplayComunityName name={name} />
+        </Grid>
 
-    //     {/******  display MainSlider   ******/}
+        {/******  display MainSlider   ******/}
 
+          <Grid item xs={11}>
+            <MainSlide
+              content={content}
+              selectedIndex={PrimarySliderSelectedIndex}
+              handleClick={this.handlePrimeTabClick}
+            />
+          </Grid>
+        {/******  display Secondary slider depending on the selected prime  ******/}
 
-    //       <Grid item xs={11}>
-    //         <MainSlide
-    //           content={content}
-    //           selectedIndex={PrimarySliderSelectedIndex}
-    //           handleClick={this.handlePrimeTabClick}
-    //         />
-    //       </Grid>
-    //     {/******  display Secondary slider depending on the selected prime  ******/}
+        <Grid item xs={12}>
+          {PrimarySliderSelectedIndex !== false &&
+            content[PrimarySliderSelectedIndex].actualContent !== false && (
+              <SecondarySlide
+                content={content[PrimarySliderSelectedIndex].actualContent}
+                handleClick={this.handleSecondaryTabClick}
+                selectedIndex={SecondarySliderSelectedIndex}
+              />
+            )}
+        </Grid>
 
-    //     <Grid item xs={12}>
-    //       {PrimarySliderSelectedIndex !== false &&
-    //         content[PrimarySliderSelectedIndex].actualContent !== false && (
-    //           <SecondarySlide
-    //             content={content[PrimarySliderSelectedIndex].actualContent}
-    //             handleClick={this.handleSecondaryTabClick}
-    //             selectedIndex={SecondarySliderSelectedIndex}
-    //           />
-    //         )}
-    //     </Grid>
+        {/******  display content depending on the selected secondary  ******/}
 
-    //     {/******  display content depending on the selected secondary  ******/}
-
-    //     {SecondarySliderSelectedIndex !== false && (
-    //       <React.Fragment>
-    //         {/* <DisplayCard
-    //           content={
-    //             content[this.state.PrimarySliderSelectedIndex].actualContent[
-    //               SecondarySliderSelectedIndex
-    //             ].name
-    //           }
-    //         /> */}
-    //         <Pdf
-    //           fileId={
-    //             content[this.state.PrimarySliderSelectedIndex].actualContent[
-    //               SecondarySliderSelectedIndex
-    //             ].id
-    //           }
-    //         />
-    //       </React.Fragment>
-    //     )}
-    //   </Grid>
-    // );
+        {SecondarySliderSelectedIndex !== false && (
+          <React.Fragment>
+            <Pdf
+              fileId={
+                content[this.state.PrimarySliderSelectedIndex].actualContent[
+                  SecondarySliderSelectedIndex
+                ].id
+              }
+            />
+          </React.Fragment>
+        )}
+      </Grid>
+    );
   }
 }
 
