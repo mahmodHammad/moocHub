@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Sigunup from "./pages/signup";
 import Navbar from "./components/Navbar";
+import Subject from "./pages/Subject";
 
 const theme = createMuiTheme({
   palette: {
@@ -14,12 +15,11 @@ const theme = createMuiTheme({
     },
     secondary: {
       light: "#0066ff",
-      main: "#ec9e0f",
-      contrastText: "#222266"
+      main: "#e2f3f5",
+      contrastText: "#222244s"
     }
   }
 });
-
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
@@ -31,6 +31,7 @@ function App() {
               <Route exact path="/"       component={Home}   />
               <Route exact path="/login"  component={Login}  />
               <Route exact path="/signup" component={Sigunup}/>
+              <Route exact path="/subject" component={Subject}/>
             </Switch>
           </div>
         </BrowserRouter>

@@ -7,6 +7,13 @@ const styles = {
   }
 };
 function SecondarySlide({ content, classes, handleClick, selectedIndex }) {
+    console.log(content)
+    content.map(c=>{
+      if(c.mimeType ==="application/vnd.google-apps.folder"){
+        console.log(c.name , c.id)
+      }
+      
+    })
   return (
     <AppBar
       position="static"
@@ -25,7 +32,7 @@ function SecondarySlide({ content, classes, handleClick, selectedIndex }) {
           <Tab
             value={N}
             key={N}
-            label={`Lec ${N +1}`}
+            label={cont.name}
             onClick={() => handleClick(N)}
           />
         ))}
