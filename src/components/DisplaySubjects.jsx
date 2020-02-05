@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, CardContent, Button,Card ,Link } from "@material-ui/core";
-
+import { Grid, CardContent, Button,Card  } from "@material-ui/core";
+import {Link} from "react-router-dom"
 export default function DisplaySubjects({ folder }) {
   return (
     <Grid item sm={6} key={folder.id}>
@@ -8,7 +8,7 @@ export default function DisplaySubjects({ folder }) {
         <CardContent>
           <Button
             component={Link}
-            to="/subject"
+            to={`/subject/${folder.name}/${folder.id}`}
             fullWidth
             variant="contained"
             color="primary"

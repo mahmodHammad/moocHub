@@ -31,7 +31,8 @@ function App() {
               <Route exact path="/"       component={Home}   />
               <Route exact path="/login"  component={Login}  />
               <Route exact path="/signup" component={Sigunup}/>
-              <Route exact path="/subject" component={Subject}/>
+              {/* <Route exact path="/subject" component={Subject}/> */}
+              <Route exact path="/subject/:subjectName/:subjectId" component={Subject}/>
             </Switch>
           </div>
         </BrowserRouter>

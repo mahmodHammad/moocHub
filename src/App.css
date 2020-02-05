@@ -20,13 +20,15 @@ body{
 }
 a{
   text-decoration: none;
-  color: inherit;
+}
+a:hover{
+  text-decoration: none !important;
 }
 
 .addmargin{
   margin:2px auto
 }
-/* git add . && git commit -am "Making secondary slider component " */
 .center{
   justify-Content: center;
 }
+/* git add . && git commit -am "Making secondary slider component " */

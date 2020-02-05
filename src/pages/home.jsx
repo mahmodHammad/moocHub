@@ -64,7 +64,7 @@ class Home extends Component {
         <Grid container item sm={10} spacing={4}>
           {this.state.content !== false &&
             this.state.content.map(folder => (
-              <DisplaySubjects folder={folder}/>
+              <DisplaySubjects folder={folder} key={folder.id}/>
             ))}
           {/********************subjects ********************/}
         </Grid>
