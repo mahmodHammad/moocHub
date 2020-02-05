@@ -5,7 +5,7 @@ import MainSlide from "../components/MainSlide";
 import SecondarySlide from "../components/SecondarySlide";
 import DisplayCard from "../components/DisplayCard";
 import Pdf from "../components/PdfIframe";
-import getFiles from "../helper/initGapi";
+import getFiles from "../helper/getfiles";
 import DisplayComunityName from "../components/DisplayComunityName";
 import API_KEY from "../config/gapi";
 
@@ -13,11 +13,7 @@ class Home extends Component {
   state = {
     subjectName: "",
     folderid: false,
-    content: [
-      {
-        actualContent: false
-      }
-    ],
+    content: false,
     PrimarySliderSelectedIndex: false,
     SecondarySliderSelectedIndex: false
   };
@@ -40,11 +36,7 @@ class Home extends Component {
 
   loadSubjects = subjects => {
     let content = [];
-    subjects.map(
-      s =>
-        s.mimeType === "application/vnd.google-apps.folder" && content.push(s)
-    );
-    console.log(content);
+    subjects.map(s => content.push(s));
     this.setState({ content });
   };
 
@@ -54,7 +46,7 @@ class Home extends Component {
     // rqueast take some time ...
     // after objain ...  set state actual content
     this.state.content[index].actualContent === false &&
-      getFiles(this.state.content[index].id).then(theactualContent => {
+      getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
         content[index].actualContent = theactualContent.files;
         this.setState({ content });
@@ -71,25 +63,12 @@ class Home extends Component {
   };
 
   loadContent = subjects => {
-    let realcontent = subjects.files
-      .filter(d => {
-        return d.mimeType === "application/vnd.google-apps.folder";
-      })
-      .map(({ name, id }) => {
-        const actualContent=false
-        return { name, id ,actualContent};
-      });
-    console.log("realcontent is :", realcontent);
+    let realcontent = subjects.files.map(({ name, id }) => {
+      const actualContent = false;
+      return { name, id, actualContent };
+    });
     this.setState({ content: realcontent });
   };
-
-  componentDidMount() {
-    this.loadApi().then(() => {
-      getFiles(this.state.drive).then(folders =>
-        this.loadSubjects(folders.files)
-      );
-    });
-  }
 
   componentDidMount() {
     const subjectName = this.props.match.params.subjectName;
@@ -98,20 +77,17 @@ class Home extends Component {
     this.setState({ subjectName, folderid });
 
     this.loadApi().then(() =>
-      getFiles(folderid).then(folders => {
+      getFiles(folderid,"folder").then(folders => {
         this.loadContent(folders);
       })
     );
   }
 
   render() {
-    console.log("XX", this.state.content);
-    console.log("folderID is : ", this.props.match.params.subjectId);
-    console.log("subjectName is : ", this.props.match.params.subjectName);
     //////// Destructure from state ////////
     const {
       content,
-      name,
+      subjectName,
       PrimarySliderSelectedIndex,
       SecondarySliderSelectedIndex
     } = this.state;
@@ -120,18 +96,21 @@ class Home extends Component {
         {/******  display subject name  ******/}
 
         <Grid item sm={12}>
-          <DisplayComunityName name={name} />
+          <DisplayComunityName name={subjectName} />
         </Grid>
 
         {/******  display MainSlider   ******/}
 
-          <Grid item xs={11}>
+        {this.state.content !== false && (
+          <Grid item>
             <MainSlide
               content={content}
               selectedIndex={PrimarySliderSelectedIndex}
               handleClick={this.handlePrimeTabClick}
             />
           </Grid>
+        )}
+
         {/******  display Secondary slider depending on the selected prime  ******/}
 
         <Grid item xs={12}>

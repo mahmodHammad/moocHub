@@ -8,7 +8,7 @@ const styles = {
 };
 function MainSlide({ content, classes, handleClick, selectedIndex }) {
   return (
-    <Paper position="static">
+    <Paper elevation={2}>
       <Tabs
       className={classes.topmargin}
         value={selectedIndex}

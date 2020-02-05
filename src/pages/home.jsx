@@ -1,6 +1,6 @@
 ////////  ////////
 import React, { Component } from "react";
-import getFiles from "../helper/initGapi";
+import getFiles from "../helper/getfiles";
 import API_KEY from "../config/gapi";
 import { Link } from "react-router-dom";
 import DisplaySubjects from './../components/DisplaySubjects';
@@ -39,14 +39,13 @@ class Home extends Component {
     let content = [];
     subjects.map(
       s =>
-        s.mimeType === "application/vnd.google-apps.folder" && content.push(s)
+      content.push(s)
     );
-    console.log(content);
     this.setState({ content });
   };
   componentDidMount() {
     this.loadApi().then(() => {
-      getFiles(this.state.drive).then(folders =>
+      getFiles(this.state.drive ,"folder").then(folders =>
         this.loadSubjects(folders.files)
       );
     });
