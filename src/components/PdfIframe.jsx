@@ -2,6 +2,19 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../helper/getPdfUrl";
 import { Button, ButtonGroup ,Typography } from "@material-ui/core";
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+
+
+
+import DoneIcon from '@material-ui/icons/Done';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import HomeIcon from '@material-ui/icons/Home';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import AddIcon from '@material-ui/icons/Add';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 const styles = {
   fullwidth: {
     width: "98vw",
@@ -26,10 +39,10 @@ function PdfIframe({ file, classes ,addToTodo}) {
         color="secondary"
         aria-label="contained primary button group"
       >
-        <Button>scroll</Button>
-        <Button size="small">Download</Button>
-        <Button size="small" onClick={()=>addToTodo(file)}>Add to list</Button>
-        <Button size="small">Pin</Button>
+        <Button><ArrowDownwardIcon color="primary"/></Button>
+        <Button size="small"><GetAppIcon color="primary"/></Button>
+        <Button size="small" onClick={()=>addToTodo(file)}><AddIcon color="primary"/></Button>
+        <Button size="small">    <AttachFileIcon color="primary"/></Button>
       </ButtonGroup>
 
       <iframe

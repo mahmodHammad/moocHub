@@ -31,4 +31,13 @@ a:hover{
 .center{
   justify-Content: center;
 }
+.updowm{
+  transform: ease 3s;
+}
+.updowm:hover{
+  background-color: #1769aa;
+  color: #fff;
+
+}
+
 /* git add . && git commit -am " " */

@@ -36,8 +36,8 @@ export default class Navbar extends Component {
           </IconButton>
           <div className="nav-container">
             <Button color="inherit" component={Link} to='/'>      home      </Button>
-            <Button color="inherit" component={Link} to='/signup'>signup    </Button>
-            <Button color="inherit" component={Link} to='/login'> login     </Button>
+            {/* <Button color="inherit" component={Link} to='/signup'>signup    </Button> */}
+            {/* <Button color="inherit" component={Link} to='/login'> login     </Button> */}
             <Button color="inherit" component={Link} to='/login'> departments</Button>
           </div>
           </Toolbar>

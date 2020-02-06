@@ -11,6 +11,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import DeleteIcon from "@material-ui/icons/Delete";
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+import CloseIcon from '@material-ui/icons/Close';
+
 export default function PersistentDrawerLeft({
   open,
   closefn,
@@ -36,18 +39,17 @@ export default function PersistentDrawerLeft({
         <List>
           {/* data**************************************************************/}
           <Typography variant="h6" align="center" color="primary">
-            study List
+            study List <FlightTakeoffIcon/>
           </Typography>
           {todo.map((text, index) => (
             <ListItem key={text.id}>
               <ListItemText primary={`${index + 1}) ${text.name}`} />
-              <Icon color="action" >
-                <DeleteIcon
-                  color="action"
+              
+                <CloseIcon
+                  color="primary"
                   onClick={() => removeFromTodo(text)}
                 />
-              </Icon>
-            </ListItem>
+           </ListItem>
           ))}
         </List>
         <Divider />
