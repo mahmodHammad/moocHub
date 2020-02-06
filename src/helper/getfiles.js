@@ -11,7 +11,7 @@ var listchindrens = (folderID , type) => {
     window.gapi.client.drive.files
       .list({ q ,orderBy:"createdTime",spaces:"drive",fields:"files(name ,id)" })
       .then(e => {
-        console.log(e)
+        // console.log(e)
         resolve(e.result);
       })
       .catch(err => {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
@@ -23,53 +23,55 @@ const theme = createMuiTheme({
   }
 });
 
-
 export default class App extends Component {
-  state={
+  state = {
     drive: "0B0OtL1j7jam_bWR3THZhd1RnbEE",
-    todo:[],
+    todo: [],
     content: [],
-    name:"3-Computer"
-  }
+    name: "3-Computer"
+  };
 
-addToTodo=(item)=>{
-  let [todo] = [this.state.todo]
-  todo.push(item)
-  this.setState({todo})
-  console.log("addded !!!",item)
-  console.log(this.state.todo)
-}
+  addToTodo = item => {
+    let [todo] = [this.state.todo];
+    let found = todo.indexOf(item);
+    if (found === -1) {
+      todo.push(item);
+      this.setState({ todo });
+    }
+  };
 
-loadApi = () => {
-  const script = document.createElement("script");
-  script.src = "https://apis.google.com/js/client.js";
-  return new Promise((resolve, reject) => {
-    script.addEventListener("load", () => {
-      window.gapi.load("client", () => {
-        window.gapi.client.setApiKey(API_KEY);
-        window.gapi.client.load("drive", "v3", () => {
-          resolve();
-          this.setState({ gapiReady: true });
+  removeFromTodo = () => {};
+
+  loadApi = () => {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+    return new Promise((resolve, reject) => {
+      script.addEventListener("load", () => {
+        window.gapi.load("client", () => {
+          window.gapi.client.setApiKey(API_KEY);
+          window.gapi.client.load("drive", "v3", () => {
+            resolve();
+            this.setState({ gapiReady: true });
+          });
         });
       });
+      document.body.appendChild(script);
     });
-    document.body.appendChild(script);
-  });
-};
+  };
 
-loadSubjects = subjects => {
-  let content = [];
-  subjects.map(
-    s =>
-    content.push(s)
-  );
-  this.setState({ content });
-};
+  loadSubjects = subjects => {
+    let content = [];
+    subjects.map(s => content.push(s));
+    this.setState({ content });
+  };
 
-
+  removeFromTodo=(item)=>{
+    let todo = this.state.todo.filter(e=>e.id!==item.id)
+    this.setState({todo})
+  }
   componentDidMount() {
     this.loadApi().then(() => {
-      getFiles(this.state.drive ,"folder").then(folders =>
+      getFiles(this.state.drive, "folder").then(folders =>
         this.loadSubjects(folders.files)
       );
     });
@@ -78,20 +80,36 @@ loadSubjects = subjects => {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <BrowserRouter>
-          <Navbar todo={this.state.todo} />
-          <div className="container">
-            <Switch>
-              <Route exact path="/"       render={props=><Home {...props} content={this.state.content} name={this.state.name}/>}  />
-              <Route exact path="/login"  component={Login}  />
-              <Route exact path="/signup" component={Sigunup}/>
-              <Route exact path="/subject/:subjectName/:subjectId" render={props=><Subject {...props} addToTodo={this.addToTodo}/>} />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </div>
-    </MuiThemeProvider>
-    )
+        <div className="App">
+          <BrowserRouter>
+            <Navbar todo={this.state.todo} removeFromTodo={this.removeFromTodo} />
+            <div className="container">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <Home
+                      {...props}
+                      content={this.state.content}
+                      name={this.state.name}
+                    />
+                  )}
+                />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Sigunup} />
+                <Route
+                  exact
+                  path="/subject/:subjectName/:subjectId"
+                  render={props => (
+                    <Subject {...props} addToTodo={this.addToTodo} />
+                  )}
+                />
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </div>
+      </MuiThemeProvider>
+    );
   }
 }

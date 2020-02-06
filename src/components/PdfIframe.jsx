@@ -14,7 +14,6 @@ const styles = {
 };
 
 function PdfIframe({ file, classes ,addToTodo}) {
-  console.log(file)
   const fileurl = IdtoUrl(file.id);
   return (
     <div className={classes.center}>

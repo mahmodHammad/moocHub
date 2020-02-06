@@ -98,7 +98,6 @@ class Home extends Component {
 
   render() {
     //////// Destructure from state ////////
-    console.log("content ", this.state.content);
     const {
       content,
       subjectName,
