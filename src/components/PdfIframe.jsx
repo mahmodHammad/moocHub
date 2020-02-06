@@ -29,6 +29,8 @@ function PdfIframe({ file, classes }) {
       >
         <Button>scroll</Button>
         <Button size="small">Download</Button>
+        <Button size="small">Add to list</Button>
+        <Button size="small">Pin</Button>
       </ButtonGroup>
 
       <iframe

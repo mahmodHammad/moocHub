@@ -8,6 +8,7 @@ import Sigunup from "./pages/signup";
 import Navbar from "./components/Navbar";
 import Subject from "./pages/Subject";
 
+
 const theme = createMuiTheme({
   palette: {
     primary: {

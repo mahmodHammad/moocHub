@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import MainSlide from "../components/MainSlide";
 import SecondarySlide from "../components/SecondarySlide";
-import DisplayCard from "../components/DisplayCard";
 import Pdf from "../components/PdfIframe";
 import getFiles from "../helper/getfiles";
 import DisplayComunityName from "../components/DisplayComunityName";
@@ -17,6 +16,20 @@ class Home extends Component {
     PrimarySliderSelectedIndex: false,
     SecondarySliderSelectedIndex: false
   };
+
+  content = [
+    {
+      name: "Lectures",
+      id: "0B0OtL1j7jam_U3haNXF4ZTA5UWM",
+      actualContent: false
+    },
+    {
+      name: "Sections",
+      id: "0B0OtL1j7jam_OVp2dmpZYURUQjQ",
+      actualContent: false
+    }
+  ];
+
   loadApi = () => {
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/client.js";
@@ -77,7 +90,7 @@ class Home extends Component {
     this.setState({ subjectName, folderid });
 
     this.loadApi().then(() =>
-      getFiles(folderid,"folder").then(folders => {
+      getFiles(folderid, "folder").then(folders => {
         this.loadContent(folders);
       })
     );
@@ -85,6 +98,7 @@ class Home extends Component {
 
   render() {
     //////// Destructure from state ////////
+    console.log("content ", this.state.content);
     const {
       content,
       subjectName,
@@ -136,6 +150,7 @@ class Home extends Component {
                 ]
               }
             />
+            
           </React.Fragment>
         )}
       </Grid>

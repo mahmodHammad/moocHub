@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import getFiles from "../helper/getfiles";
 import API_KEY from "../config/gapi";
-import { Link } from "react-router-dom";
 import DisplaySubjects from './../components/DisplaySubjects';
 import {
   Grid,
@@ -60,9 +59,7 @@ class Home extends Component {
             {this.state.name}
           </Typography>
         </Grid>
-<audio controls="controls">
-  <source src="https://docs.google.com/uc?export=download&id=19xD34WaTKGSH4or8F3V2EKnwFa3mdm_s" type="audio/mp3"/>
-</audio>
+
         {/********************subjects ********************/}
         <Grid container item sm={10} spacing={4}>
           {this.state.content !== false &&

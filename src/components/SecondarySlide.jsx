@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, Tab, AppBar, Box } from "@material-ui/core";
+import { Tabs, Tab, AppBar } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 const styles = {
   topmargin: {
