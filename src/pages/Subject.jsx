@@ -144,6 +144,7 @@ class Home extends Component {
         {SecondarySliderSelectedIndex !== false && (
           <React.Fragment>
             <Pdf
+              addToTodo={this.props.addToTodo}
               file={
                 content[this.state.PrimarySliderSelectedIndex].actualContent[
                   SecondarySliderSelectedIndex

@@ -42,7 +42,7 @@ export default class Navbar extends Component {
           </div>
           </Toolbar>
         </AppBar>
-          <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose}/>
+          <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={this.props.todo}/>
       </div>
     );
   }

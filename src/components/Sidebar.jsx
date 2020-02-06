@@ -9,9 +9,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-export default function PersistentDrawerLeft({open ,closefn}) {
+export default function PersistentDrawerLeft({ open, closefn, todo }) {
   const theme = useTheme();
-    let isopen=open
+  let isopen = open;
+  console.log("**************",todo)
   return (
     <div>
       <Drawer variant="persistent" anchor="left" open={isopen}>
@@ -24,18 +25,15 @@ export default function PersistentDrawerLeft({open ,closefn}) {
             )}
           </IconButton>
         </div>
-        
         <Divider />
 
         <List>
           {/* data*************************************************************8 */}
-          {["Lec 3 thermodynamics", "Starred", "Send email", "Drafts"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
+          {todo.map((text, index) => (
+              <ListItem button key={text.id}>
+                <ListItemText primary={text.name} secondary={text.id} />
               </ListItem>
-            )
-          )}
+            ))}
         </List>
         <Divider />
       </Drawer>
