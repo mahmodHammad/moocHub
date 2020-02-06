@@ -9,6 +9,12 @@ import Navbar from "./components/Navbar";
 import Subject from "./pages/Subject";
 import API_KEY from "./config/gapi";
 import getFiles from "./helper/getfiles";
+import Pdf from "./components/PdfIframe";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const theme = createMuiTheme({
   palette: {
@@ -28,7 +34,8 @@ export default class App extends Component {
     drive: "0B0OtL1j7jam_bWR3THZhd1RnbEE",
     todo: [],
     content: [],
-    name: "3-Computer"
+    name: "3rd-Computer",
+    contentToBeRendered: []
   };
 
   addToTodo = item => {
@@ -39,8 +46,6 @@ export default class App extends Component {
       this.setState({ todo });
     }
   };
-
-  removeFromTodo = () => {};
 
   loadApi = () => {
     const script = document.createElement("script");
@@ -65,10 +70,10 @@ export default class App extends Component {
     this.setState({ content });
   };
 
-  removeFromTodo=(item)=>{
-    let todo = this.state.todo.filter(e=>e.id!==item.id)
-    this.setState({todo})
-  }
+  removeFromTodo = item => {
+    let todo = this.state.todo.filter(e => e.id !== item.id);
+    this.setState({ todo });
+  };
   componentDidMount() {
     this.loadApi().then(() => {
       getFiles(this.state.drive, "folder").then(folders =>
@@ -82,7 +87,10 @@ export default class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div className="App">
           <BrowserRouter>
-            <Navbar todo={this.state.todo} removeFromTodo={this.removeFromTodo} />
+            <Navbar
+              todo={this.state.todo}
+              removeFromTodo={this.removeFromTodo}
+            />
             <div className="container">
               <Switch>
                 <Route
@@ -106,6 +114,22 @@ export default class App extends Component {
                   )}
                 />
               </Switch>
+              {this.state.todo.length!==0&&
+              <ExpansionPanel>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  >
+                  <Typography>studying content</Typography>
+                </ExpansionPanelSummary>
+                {this.state.todo.map(e => (
+                  <ExpansionPanelDetails>
+                    <Pdf file={e} />
+                  </ExpansionPanelDetails>
+                ))}
+              </ExpansionPanel>
+              }
             </div>
           </BrowserRouter>
         </div>
