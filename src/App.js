@@ -42,11 +42,17 @@ export default class App extends Component {
     let [todo] = [this.state.todo];
     let found = todo.indexOf(item);
     if (found === -1) {
+      item.existInTodo=true
       todo.push(item);
-      this.setState({ todo });
+      this.setState({ todo  });
     }
   };
-
+  
+  removeFromTodo = item => {
+    item.existInTodo=false
+    let todo = this.state.todo.filter(e => e.id !== item.id)
+    this.setState({ todo });
+  };
   loadApi = () => {
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/client.js";
@@ -70,10 +76,6 @@ export default class App extends Component {
     this.setState({ content });
   };
 
-  removeFromTodo = item => {
-    let todo = this.state.todo.filter(e => e.id !== item.id);
-    this.setState({ todo });
-  };
   componentDidMount() {
     this.loadApi().then(() => {
       getFiles(this.state.drive, "folder").then(folders =>
@@ -111,26 +113,13 @@ export default class App extends Component {
                   exact
                   path="/subject/:subjectName/:subjectId"
                   render={props => (
-                    <Subject {...props} addToTodo={this.addToTodo} />
+                    <Subject {...props} addToTodo={this.addToTodo} removeFromTodo={this.removeFromTodo}/>
                   )}
                 />
               </Switch>
-              {this.state.todo.length!==0&&
-              <ExpansionPanel>
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  >
-                  <Typography>studying content</Typography>
-                </ExpansionPanelSummary>
-                {this.state.todo.map(e => (
-                  <ExpansionPanelDetails key={e.id}>
-                    <Pdf file={e} />
-                  </ExpansionPanelDetails>
+              {this.state.todo.length!==0&&this.state.todo.map(e => (
+                    <Pdf key={e.id} file={e}removeFromTodo={this.removeFromTodo} addToTodo={this.addToTodo} display={true}/>
                 ))}
-              </ExpansionPanel>
-              }
             </div>
           </BrowserRouter>
         </div>

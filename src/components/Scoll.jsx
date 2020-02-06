@@ -12,21 +12,31 @@ const styles = {
     right: "1vw"
   },
   border: {
-      border:"1px solid #88b",
-      borderRadius:"50%",
-      cursor: "pointer",
-      display:"block",
-      margin:"4px",
-      zIndex:"10000"
+    border: "1px solid #88b",
+    borderRadius: "50%",
+    cursor: "pointer",
+    display: "block",
+    margin: "4px",
+    zIndex: "10000"
   }
 };
 
 function Scoll({ classes }) {
   return (
     <div className={classes.absolute}>
-      <div >
-          <ArrowDropUpIcon color="primary" className={`${classes.border} updowm`} />
-          <ArrowDropDownIcon color="primary" className={`${classes.border} updowm`} />
+      <div>
+        <ArrowDropUpIcon
+          color="primary"
+          className={`${classes.border} updowm`}
+          onClick={() =>
+            window.scrollBy({top:-window.innerHeight ,left:0 ,behavior:"smooth"})
+          }
+        />
+        <ArrowDropDownIcon
+          color="primary"
+          className={`${classes.border} updowm`}
+          onClick={() => window.scrollBy({top:window.innerHeight ,left:0 ,behavior:"smooth"})}
+        />
       </div>
     </div>
   );
