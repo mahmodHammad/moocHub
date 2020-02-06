@@ -7,6 +7,8 @@ import Login from "./pages/login";
 import Sigunup from "./pages/signup";
 import Navbar from "./components/Navbar";
 import Subject from "./pages/Subject";
+import API_KEY from "./config/gapi";
+import getFiles from "./helper/getfiles";
 
 const theme = createMuiTheme({
   palette: {
@@ -24,8 +26,12 @@ const theme = createMuiTheme({
 
 export default class App extends Component {
   state={
-    todo:[]
+    drive: "0B0OtL1j7jam_bWR3THZhd1RnbEE",
+    todo:[],
+    content: [],
+    name:"3-Computer"
   }
+
 addToTodo=(item)=>{
   let [todo] = [this.state.todo]
   todo.push(item)
@@ -33,6 +39,42 @@ addToTodo=(item)=>{
   console.log("addded !!!",item)
   console.log(this.state.todo)
 }
+
+loadApi = () => {
+  const script = document.createElement("script");
+  script.src = "https://apis.google.com/js/client.js";
+  return new Promise((resolve, reject) => {
+    script.addEventListener("load", () => {
+      window.gapi.load("client", () => {
+        window.gapi.client.setApiKey(API_KEY);
+        window.gapi.client.load("drive", "v3", () => {
+          resolve();
+          this.setState({ gapiReady: true });
+        });
+      });
+    });
+    document.body.appendChild(script);
+  });
+};
+
+loadSubjects = subjects => {
+  let content = [];
+  subjects.map(
+    s =>
+    content.push(s)
+  );
+  this.setState({ content });
+};
+
+
+  componentDidMount() {
+    this.loadApi().then(() => {
+      getFiles(this.state.drive ,"folder").then(folders =>
+        this.loadSubjects(folders.files)
+      );
+    });
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -41,7 +83,7 @@ addToTodo=(item)=>{
           <Navbar todo={this.state.todo} />
           <div className="container">
             <Switch>
-              <Route exact path="/"       component={Home}   />
+              <Route exact path="/"       render={props=><Home {...props} content={this.state.content} name={this.state.name}/>}  />
               <Route exact path="/login"  component={Login}  />
               <Route exact path="/signup" component={Sigunup}/>
               <Route exact path="/subject/:subjectName/:subjectId" render={props=><Subject {...props} addToTodo={this.addToTodo}/>} />
