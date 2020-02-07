@@ -55,66 +55,50 @@ export default class App extends Component {
     this.setState({ todo });
   };
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
-  lood = s => {
-    return new Promise((resolve, reject) => {
-      getFiles(s.id, "folder").then(nestedFolder => {
-        resolve(nestedFolder);
+  nestedItems = [];
+  start = () => {
+    loadApi().then(() => {
+      getFiles(this.state.drive, "folder").then(folders => {
+        this.loadSubjects(folders.files);
       });
     });
   };
-  nestedItems = [];
-  loadSubjects = (subjects) => {
+
+  loadSubjects = subjects => {
     let content = [];
-    subjects.map((s,index) => {
+    subjects.map((s, index) => {
       if (s.name[0] === "_") {
         s.name = s.name.substr(1);
         s.hasNestedFolder = true;
+        //this line costed me 4 hourses :(
+        s.nestedFolder =[]
         content.push(s);
-        this.nestedItems.push({...s,index:index});
+        this.nestedItems.push({ ...s, index });
       } else {
         content.push(s);
       }
     });
-    // console.log("hoooof", content);
     this.setState({ content });
     this.latelood(this.nestedItems);
+  };
+
+  // for Nested content :
+  latelood = nestedItems => {
+    nestedItems.map(folder => {
+      this.subFolderLoader(folder);
+    });
   };
 
   subFolderLoader = subcontent => {
     return new Promise((resolve, reject) => {
       getFiles(subcontent.id, "folder").then(folder => {
-        subcontent.nestedFolder = folder;
-        resolve(subcontent);
+        resolve(folder);
       });
-    }).then((sContent) => {
-      let [content]=[this.state.content]
-      content[sContent.index].nestedFolder=sContent
-      console.log("after getting ", content);
+    }).then(sContent => {
+
+      let [content] = [this.state.content];
+      content[subcontent.index].nestedFolder = sContent;
       this.setState({ content });
-    });
-  };
-
-  latelood = nestedItems => {
-    nestedItems.map(folder => {
-      this.subFolderLoader(folder);
-    });
-
-    // getFiles(hasNestedContent.id , "folder").then(folder=>{
-    //   hasNestedContent.nestedFolder = folder;
-    //   console.log("hasNestedContent" , hasNestedContent)
-    // })
-
-    // let [content]=[this.state.content]
-    // console.log("conten : " , content)
-    // console.log("holdy shit content : " , this.state.content)
-  };
-
-  start = () => {
-    loadApi().then(() => {
-      getFiles(this.state.drive, "folder").then(folders => {
-        // console.log(`getting files at App.js`, folders);
-        this.loadSubjects(folders.files);
-      });
     });
   };
 
@@ -123,7 +107,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.content);
     return (
       <MuiThemeProvider theme={theme}>
         {/* <Demo /> */}
