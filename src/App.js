@@ -62,29 +62,57 @@ export default class App extends Component {
       });
     });
   };
-  loadSubjects = subjects => {
+  nestedItems = [];
+  loadSubjects = (subjects) => {
     let content = [];
-    subjects.map(s => {
+    subjects.map((s,index) => {
       if (s.name[0] === "_") {
-        s.hasNestedFolder = true;
         s.name = s.name.substr(1);
-
-        this.lood(s).then(e => {
-          s.nestedFolder = e;
-        });
+        s.hasNestedFolder = true;
         content.push(s);
+        this.nestedItems.push({...s,index:index});
       } else {
         content.push(s);
       }
     });
-    console.log("hoooof", content);
+    // console.log("hoooof", content);
     this.setState({ content });
+    this.latelood(this.nestedItems);
+  };
+
+  subFolderLoader = subcontent => {
+    return new Promise((resolve, reject) => {
+      getFiles(subcontent.id, "folder").then(folder => {
+        subcontent.nestedFolder = folder;
+        resolve(subcontent);
+      });
+    }).then((sContent) => {
+      let [content]=[this.state.content]
+      content[sContent.index].nestedFolder=sContent
+      console.log("after getting ", content);
+      this.setState({ content });
+    });
+  };
+
+  latelood = nestedItems => {
+    nestedItems.map(folder => {
+      this.subFolderLoader(folder);
+    });
+
+    // getFiles(hasNestedContent.id , "folder").then(folder=>{
+    //   hasNestedContent.nestedFolder = folder;
+    //   console.log("hasNestedContent" , hasNestedContent)
+    // })
+
+    // let [content]=[this.state.content]
+    // console.log("conten : " , content)
+    // console.log("holdy shit content : " , this.state.content)
   };
 
   start = () => {
     loadApi().then(() => {
       getFiles(this.state.drive, "folder").then(folders => {
-        console.log(`getting files at App.js`, folders);
+        // console.log(`getting files at App.js`, folders);
         this.loadSubjects(folders.files);
       });
     });
