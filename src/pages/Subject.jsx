@@ -6,7 +6,7 @@ import SecondarySlide from "../components/SecondarySlide";
 import Pdf from "../components/PdfIframe";
 import getFiles from "../helper/getfiles";
 import DisplayComunityName from "../components/DisplayComunityName";
-import API_KEY from "../config/gapi";
+import loadApi from "../helper/loadApi"
 
 class Home extends Component {
   state = {
@@ -30,22 +30,6 @@ class Home extends Component {
     }
   ];
 
-  loadApi = () => {
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/client.js";
-    return new Promise((resolve, reject) => {
-      script.addEventListener("load", () => {
-        window.gapi.load("client", () => {
-          window.gapi.client.setApiKey(API_KEY);
-          window.gapi.client.load("drive", "v3", () => {
-            resolve();
-            this.setState({ gapiReady: true });
-          });
-        });
-      });
-      document.body.appendChild(script);
-    });
-  };
 
   loadSubjects = subjects => {
     let content = [];
@@ -89,7 +73,7 @@ class Home extends Component {
 
     this.setState({ subjectName, folderid });
 
-    this.loadApi().then(() =>
+    loadApi().then(() =>
       getFiles(folderid, "folder").then(folders => {
         this.loadContent(folders);
       })

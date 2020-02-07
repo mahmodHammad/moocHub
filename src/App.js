@@ -7,7 +7,6 @@ import Login from "./pages/login";
 import Sigunup from "./pages/signup";
 import Navbar from "./components/Navbar";
 import Subject from "./pages/Subject";
-import API_KEY from "./config/gapi";
 import getFiles from "./helper/getfiles";
 import Pdf from "./components/PdfIframe";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -16,6 +15,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Scroll from "./components/Scoll";
+import loadApi from "./helper/loadApi";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -35,12 +35,7 @@ export default class App extends Component {
     todo: [],
     content: [],
     name: "3rd-Computer",
-    contentToBeRendered: [],
-    dom: [
-      <h1>Hello world 1</h1>,
-      <h1>Hello world 2</h1>,
-      <h1>Hello world 3</h1>
-    ]
+    contentToBeRendered: []
   };
 
   addToTodo = item => {
@@ -58,22 +53,6 @@ export default class App extends Component {
     let todo = this.state.todo.filter(e => e.id !== item.id);
     this.setState({ todo });
   };
-  loadApi = () => {
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/client.js";
-    return new Promise((resolve, reject) => {
-      script.addEventListener("load", () => {
-        window.gapi.load("client", () => {
-          window.gapi.client.setApiKey(API_KEY);
-          window.gapi.client.load("drive", "v3", () => {
-            resolve();
-            this.setState({ gapiReady: true });
-          });
-        });
-      });
-      document.body.appendChild(script);
-    });
-  };
 
   loadSubjects = subjects => {
     let content = [];
@@ -82,7 +61,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.loadApi().then(() => {
+    loadApi().then(() => {
       getFiles(this.state.drive, "folder").then(folders =>
         this.loadSubjects(folders.files)
       );
@@ -138,9 +117,6 @@ export default class App extends Component {
                 ))}
             </div>
           </BrowserRouter>
-          {this.state.dom.map(e=>{
-            console.log(e)
-          })}
         </div>
       </MuiThemeProvider>
     );
