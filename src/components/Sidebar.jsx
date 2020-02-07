@@ -9,10 +9,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 import Icon from "@material-ui/core/Icon";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import CloseIcon from '@material-ui/icons/Close';
+import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 
 export default function PersistentDrawerLeft({
   open,
@@ -39,10 +41,13 @@ export default function PersistentDrawerLeft({
         <List>
           {/* data**************************************************************/}
           <Typography variant="h6" align="center" color="primary">
-            study List <FlightTakeoffIcon/>
+            study List <GolfCourseIcon/>
           </Typography>
           {todo.map((text, index) => (
             <ListItem key={text.id}>
+              <Link href={`#${text.id}`}>
+                <FlightTakeoffIcon/>
+              </Link>
               <ListItemText primary={`${index + 1}) ${text.name}`} />
               
                 <CloseIcon

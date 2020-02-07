@@ -4,7 +4,9 @@ body{
 sans-serif;
 overflow-x: hidden;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 .container{
   margin: 20px auto 0 auto;
 }
@@ -20,6 +22,7 @@ body{
 }
 a{
   text-decoration: none;
+  color: inherit;
 }
 a:hover{
   text-decoration: none !important;

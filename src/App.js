@@ -15,7 +15,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Scroll from "./components/Scoll"
+import Scroll from "./components/Scoll";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -35,22 +35,27 @@ export default class App extends Component {
     todo: [],
     content: [],
     name: "3rd-Computer",
-    contentToBeRendered: []
+    contentToBeRendered: [],
+    dom: [
+      <h1>Hello world 1</h1>,
+      <h1>Hello world 2</h1>,
+      <h1>Hello world 3</h1>
+    ]
   };
 
   addToTodo = item => {
     let [todo] = [this.state.todo];
     let found = todo.indexOf(item);
     if (found === -1) {
-      item.existInTodo=true
+      item.existInTodo = true;
       todo.push(item);
-      this.setState({ todo  });
+      this.setState({ todo });
     }
   };
-  
+
   removeFromTodo = item => {
-    item.existInTodo=false
-    let todo = this.state.todo.filter(e => e.id !== item.id)
+    item.existInTodo = false;
+    let todo = this.state.todo.filter(e => e.id !== item.id);
     this.setState({ todo });
   };
   loadApi = () => {
@@ -88,7 +93,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-        <Scroll/>
+          <Scroll />
           <BrowserRouter>
             <Navbar
               todo={this.state.todo}
@@ -113,15 +118,29 @@ export default class App extends Component {
                   exact
                   path="/subject/:subjectName/:subjectId"
                   render={props => (
-                    <Subject {...props} addToTodo={this.addToTodo} removeFromTodo={this.removeFromTodo}/>
+                    <Subject
+                      {...props}
+                      addToTodo={this.addToTodo}
+                      removeFromTodo={this.removeFromTodo}
+                    />
                   )}
                 />
               </Switch>
-              {this.state.todo.length!==0&&this.state.todo.map(e => (
-                    <Pdf key={e.id} file={e}removeFromTodo={this.removeFromTodo} addToTodo={this.addToTodo} display={true}/>
+              {this.state.todo.length !== 0 &&
+                this.state.todo.map(e => (
+                  <Pdf
+                    key={e.id}
+                    file={e}
+                    removeFromTodo={this.removeFromTodo}
+                    addToTodo={this.addToTodo}
+                    display={true}
+                  />
                 ))}
             </div>
           </BrowserRouter>
+          {this.state.dom.map(e=>{
+            console.log(e)
+          })}
         </div>
       </MuiThemeProvider>
     );

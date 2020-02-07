@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../helper/getPdfUrl";
-import { Button, ButtonGroup, Typography } from "@material-ui/core";
+import { Button, ButtonGroup, Typography ,Link } from "@material-ui/core";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 
 import DoneIcon from "@material-ui/icons/Done";
@@ -13,6 +13,9 @@ import AddIcon from "@material-ui/icons/Add";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+
 const styles = {
   fullwidth: {
     width: "98vw",
@@ -30,12 +33,18 @@ function PdfIframe({ file, classes, addToTodo, removeFromTodo, display }) {
   return (
     <div className={classes.center}>
       {display ? (
-        <iframe
-          title="lecture"
-          className={classes.fullwidth}
-          frameBorder="0"
-          src={fileurl.displayPdf}
-        ></iframe>
+        <React.Fragment>
+          <Link href={`#${file.id}`}>
+            <ExpandMoreIcon fontSize="large" color="primary" />
+          </Link>
+          <iframe
+            id={file.id}
+            title="lecture"
+            className={classes.fullwidth}
+            frameBorder="0"
+            src={fileurl.displayPdf}
+          ></iframe>
+        </React.Fragment>
       ) : (
         <React.Fragment>
           <Typography variant="h6">{file.name}</Typography>
@@ -45,11 +54,10 @@ function PdfIframe({ file, classes, addToTodo, removeFromTodo, display }) {
             color="secondary"
             aria-label="contained primary button group"
           >
-            <Button>
-              <ArrowDownwardIcon color="primary" />
-            </Button>
             <Button size="small">
+              <Link href={fileurl.downloadPdf}>
               <GetAppIcon color="primary" />
+              </Link>
             </Button>
             {file.existInTodo === true ? (
               <Button size="small" onClick={() => removeFromTodo(file)}>
@@ -60,9 +68,7 @@ function PdfIframe({ file, classes, addToTodo, removeFromTodo, display }) {
                 <AddIcon color="primary" />
               </Button>
             )}
-            <Button size="small">
-              <AttachFileIcon color="primary" />
-            </Button>
+            
           </ButtonGroup>
         </React.Fragment>
       )}
