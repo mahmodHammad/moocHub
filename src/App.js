@@ -71,7 +71,7 @@ export default class App extends Component {
         s.name = s.name.substr(1);
         s.hasNestedFolder = true;
         //this line costed me 4 hourses :(
-        s.nestedFolder =[]
+        s.nestedFolder = [];
         content.push(s);
         this.nestedItems.push({ ...s, index });
       } else {
@@ -90,12 +90,7 @@ export default class App extends Component {
   };
 
   subFolderLoader = subcontent => {
-    return new Promise((resolve, reject) => {
-      getFiles(subcontent.id, "folder").then(folder => {
-        resolve(folder);
-      });
-    }).then(sContent => {
-
+    getFiles(subcontent.id, "folder").then(sContent => {
       let [content] = [this.state.content];
       content[subcontent.index].nestedFolder = sContent;
       this.setState({ content });
