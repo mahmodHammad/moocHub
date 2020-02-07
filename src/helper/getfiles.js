@@ -5,8 +5,8 @@ var listchindrens = (folderID , type) => {
        q =transformFolderID(folderID)+" and mimeType = 'application/vnd.google-apps.folder'"
     }else if(type ==="pdf"){
       q =transformFolderID(folderID)+" and mimeType = 'application/pdf'"
-    }else{
-     q = transformFolderID(folderID);
+    }else if(type ==="_"){
+     q = transformFolderID(folderID)+" and name contains '_' " ;
     }
     window.gapi.client.drive.files
       .list({ q ,orderBy:"createdTime",spaces:"drive",fields:"files(name ,id)" })

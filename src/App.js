@@ -16,6 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Scroll from "./components/Scoll";
 import loadApi from "./helper/loadApi";
+import Demo from "./components/demo";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -31,7 +32,7 @@ const theme = createMuiTheme({
 
 export default class App extends Component {
   state = {
-    drive: "0B0OtL1j7jam_bWR3THZhd1RnbEE",
+    drive: "170Z-UhcsG4u5cyKdlEtk0OA22eEfjSBH",
     todo: [],
     content: [],
     name: "3rd-Computer",
@@ -53,24 +54,51 @@ export default class App extends Component {
     let todo = this.state.todo.filter(e => e.id !== item.id);
     this.setState({ todo });
   };
-
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
+  lood = s => {
+    return new Promise((resolve, reject) => {
+      getFiles(s.id, "folder").then(nestedFolder => {
+        resolve(nestedFolder);
+      });
+    });
+  };
   loadSubjects = subjects => {
     let content = [];
-    subjects.map(s => content.push(s));
+    subjects.map(s => {
+      if (s.name[0] === "_") {
+        s.hasNestedFolder = true;
+        s.name = s.name.substr(1);
+
+        this.lood(s).then(e => {
+          s.nestedFolder = e;
+        });
+        content.push(s);
+      } else {
+        content.push(s);
+      }
+    });
+    console.log("hoooof", content);
     this.setState({ content });
   };
 
-  componentDidMount() {
+  start = () => {
     loadApi().then(() => {
-      getFiles(this.state.drive, "folder").then(folders =>
-        this.loadSubjects(folders.files)
-      );
+      getFiles(this.state.drive, "folder").then(folders => {
+        console.log(`getting files at App.js`, folders);
+        this.loadSubjects(folders.files);
+      });
     });
+  };
+
+  componentDidMount() {
+    this.start();
   }
 
   render() {
+    console.log(this.state.content);
     return (
       <MuiThemeProvider theme={theme}>
+        {/* <Demo /> */}
         <div className="App">
           <Scroll />
           <BrowserRouter>
@@ -79,6 +107,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
             />
             <div className="container">
+              {/* START ROUTING  **********************************************/}
               <Switch>
                 <Route
                   exact
@@ -105,6 +134,8 @@ export default class App extends Component {
                   )}
                 />
               </Switch>
+              {/* end routing **********************************************/}
+
               {this.state.todo.length !== 0 &&
                 this.state.todo.map(e => (
                   <Pdf
