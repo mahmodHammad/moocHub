@@ -16,6 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Scroll from "./components/Scoll";
 import loadApi from "./helper/loadApi";
+import Demo from "./components/demo";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -31,10 +32,10 @@ const theme = createMuiTheme({
 
 export default class App extends Component {
   state = {
-    drive: "0B0OtL1j7jam_bWR3THZhd1RnbEE",
+    drive: "1h4EafC904ID9_MwVmpSFW9deShF0wtjD",
     todo: [],
     content: [],
-    name: "3rd-Computer",
+    name: "2nd-Electrical",
     contentToBeRendered: []
   };
 
@@ -53,24 +54,57 @@ export default class App extends Component {
     let todo = this.state.todo.filter(e => e.id !== item.id);
     this.setState({ todo });
   };
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
+  nestedItems = [];
+  start = () => {
+    loadApi().then(() => {
+      getFiles(this.state.drive, "folder").then(folders => {
+        this.loadSubjects(folders.files);
+      });
+    });
+  };
 
   loadSubjects = subjects => {
     let content = [];
-    subjects.map(s => content.push(s));
+    subjects.map((s, index) => {
+      if (s.name[0] === "_") {
+        s.name = s.name.substr(1);
+        s.hasNestedFolder = true;
+        //this line costed me 4 hourses :(
+        s.nestedFolder = [];
+        content.push(s);
+        this.nestedItems.push({ ...s, index });
+      } else {
+        content.push(s);
+      }
+    });
     this.setState({ content });
+    this.latelood(this.nestedItems);
+  };
+
+  // for Nested content :
+  latelood = nestedItems => {
+    nestedItems.map(folder => {
+      this.subFolderLoader(folder);
+    });
+  };
+
+  subFolderLoader = subcontent => {
+    getFiles(subcontent.id, "folder").then(sContent => {
+      let [content] = [this.state.content];
+      content[subcontent.index].nestedFolder = sContent;
+      this.setState({ content });
+    });
   };
 
   componentDidMount() {
-    loadApi().then(() => {
-      getFiles(this.state.drive, "folder").then(folders =>
-        this.loadSubjects(folders.files)
-      );
-    });
+    this.start();
   }
 
   render() {
     return (
       <MuiThemeProvider theme={theme}>
+        {/* <Demo /> */}
         <div className="App">
           <Scroll />
           <BrowserRouter>
@@ -79,6 +113,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
             />
             <div className="container">
+              {/* START ROUTING  **********************************************/}
               <Switch>
                 <Route
                   exact
@@ -105,6 +140,8 @@ export default class App extends Component {
                   )}
                 />
               </Switch>
+              {/* end routing **********************************************/}
+
               {this.state.todo.length !== 0 &&
                 this.state.todo.map(e => (
                   <Pdf

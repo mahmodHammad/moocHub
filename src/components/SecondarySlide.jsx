@@ -16,8 +16,13 @@ function SecondarySlide({
   handleClick,
   selectedIndex
 }) {
-  const SubparentName = parentName.substr(0, 3);
 
+  let  SubparentName 
+if(parentName[0]==="_"){
+  SubparentName = parentName.substr(1, 4);
+}else{
+  SubparentName = parentName.substr(0, 3);
+}
   console.log(parentName);
   return (
     <AppBar

@@ -17,19 +17,6 @@ class Home extends Component {
     SecondarySliderSelectedIndex: false
   };
 
-  content = [
-    {
-      name: "Lectures",
-      id: "0B0OtL1j7jam_U3haNXF4ZTA5UWM",
-      actualContent: false
-    },
-    {
-      name: "Sections",
-      id: "0B0OtL1j7jam_OVp2dmpZYURUQjQ",
-      actualContent: false
-    }
-  ];
-
 
   loadSubjects = subjects => {
     let content = [];
