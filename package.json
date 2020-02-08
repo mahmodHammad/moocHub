@@ -35,5 +35,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://europe-west1-moochub-2020.cloudfunctions.net/api"
+  "proxy": "https://europe-west1-moochub-2020.cloudfunctions.net/api",
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
+  }
 }
