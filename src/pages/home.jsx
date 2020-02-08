@@ -15,7 +15,7 @@ export default function home({ content, name }) {
 
       <Grid container item sm={10} spacing={4}>
         {content.map((folder, N) => {
-          return <DisplaySubjects folder={folder} key={folder.id || N} />;
+          return <DisplaySubjects folder={folder} key={folder.id || N} mdWidth={content.length%2===1?(N === content.length-1 ?12:6):6} />;
         })}
       </Grid>
     </Grid>
