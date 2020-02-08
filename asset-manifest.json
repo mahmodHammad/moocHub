@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/asu/static/css/main.5e77880f.chunk.css",
-    "main.js": "/asu/static/js/main.72418d0a.chunk.js",
-    "main.js.map": "/asu/static/js/main.72418d0a.chunk.js.map",
-    "runtime-main.js": "/asu/static/js/runtime-main.0f7b877e.js",
-    "runtime-main.js.map": "/asu/static/js/runtime-main.0f7b877e.js.map",
-    "static/js/2.cab34412.chunk.js": "/asu/static/js/2.cab34412.chunk.js",
-    "static/js/2.cab34412.chunk.js.map": "/asu/static/js/2.cab34412.chunk.js.map",
-    "index.html": "/asu/index.html",
-    "precache-manifest.571d5cc19d1106c2247c18c4e8b9e6c4.js": "/asu/precache-manifest.571d5cc19d1106c2247c18c4e8b9e6c4.js",
-    "service-worker.js": "/asu/service-worker.js",
-    "static/css/main.5e77880f.chunk.css.map": "/asu/static/css/main.5e77880f.chunk.css.map",
-    "static/js/2.cab34412.chunk.js.LICENSE.txt": "/asu/static/js/2.cab34412.chunk.js.LICENSE.txt"
+    "main.css": "/moocHub/static/css/main.5e77880f.chunk.css",
+    "main.js": "/moocHub/static/js/main.0a6ca349.chunk.js",
+    "main.js.map": "/moocHub/static/js/main.0a6ca349.chunk.js.map",
+    "runtime-main.js": "/moocHub/static/js/runtime-main.c39fb28a.js",
+    "runtime-main.js.map": "/moocHub/static/js/runtime-main.c39fb28a.js.map",
+    "static/js/2.cab34412.chunk.js": "/moocHub/static/js/2.cab34412.chunk.js",
+    "static/js/2.cab34412.chunk.js.map": "/moocHub/static/js/2.cab34412.chunk.js.map",
+    "index.html": "/moocHub/index.html",
+    "precache-manifest.1d524039ba12fc53cdf8fc952856486a.js": "/moocHub/precache-manifest.1d524039ba12fc53cdf8fc952856486a.js",
+    "service-worker.js": "/moocHub/service-worker.js",
+    "static/css/main.5e77880f.chunk.css.map": "/moocHub/static/css/main.5e77880f.chunk.css.map",
+    "static/js/2.cab34412.chunk.js.LICENSE.txt": "/moocHub/static/js/2.cab34412.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0f7b877e.js",
+    "static/js/runtime-main.c39fb28a.js",
     "static/js/2.cab34412.chunk.js",
     "static/css/main.5e77880f.chunk.css",
-    "static/js/main.72418d0a.chunk.js"
+    "static/js/main.0a6ca349.chunk.js"
   ]
 }
