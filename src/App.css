@@ -42,5 +42,7 @@ a:hover{
   color: #fff;
 
 }
-
+.margin{
+  padding: 0 !important;
+}
 /* git add . && git commit -am " " */

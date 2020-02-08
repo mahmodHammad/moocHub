@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme ,Button} from "@material-ui/core";
 import "./App.css";
 import Home from "./pages/home";
 import Login from "./pages/login";
@@ -8,15 +8,11 @@ import Sigunup from "./pages/signup";
 import Navbar from "./components/Navbar";
 import Subject from "./pages/Subject";
 import getFiles from "./helper/getfiles";
-import Pdf from "./components/PdfIframe";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 import Scroll from "./components/Scoll";
 import loadApi from "./helper/loadApi";
-import Demo from "./components/demo";
+import DisplayContent from "./components/DisplayContent"
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -36,7 +32,8 @@ export default class App extends Component {
     todo: [],
     content: [],
     name: "2nd-Electrical",
-    contentToBeRendered: []
+    contentToBeRendered: [],
+    collapse:true
   };
 
   addToTodo = item => {
@@ -54,6 +51,7 @@ export default class App extends Component {
     let todo = this.state.todo.filter(e => e.id !== item.id);
     this.setState({ todo });
   };
+
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
   nestedItems = [];
   start = () => {
@@ -141,17 +139,8 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
-
-              {this.state.todo.length !== 0 &&
-                this.state.todo.map(e => (
-                  <Pdf
-                    key={e.id}
-                    file={e}
-                    removeFromTodo={this.removeFromTodo}
-                    addToTodo={this.addToTodo}
-                    display={true}
-                  />
-                ))}
+              <Button onClick={()=>{this.setState({collapse : !this.state.collapse})}}> collapse</Button>
+                    <DisplayContent collapse={this.state.collapse} todo={this.state.todo} addToTodo={this.addToTodo} removeFromTodo={this.removeFromTodo}/>
             </div>
           </BrowserRouter>
         </div>

@@ -37,6 +37,17 @@ function PdfIframe({ file, classes, addToTodo, removeFromTodo, display }) {
           <Link href={`#${file.id}`}>
             <ExpandMoreIcon fontSize="large" color="primary" />
           </Link>
+
+          {file.existInTodo === true ? (
+              <Button size="small" onClick={() => removeFromTodo(file)}>
+                <RemoveCircleOutlineIcon color="primary" />
+              </Button>
+            ) : (
+              <Button size="small" onClick={() => addToTodo(file)}>
+                <AddIcon color="primary" />
+              </Button>
+            )}
+            
           <iframe
             id={file.id}
             title="lecture"
