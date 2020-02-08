@@ -2,7 +2,6 @@ import React from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { withStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
 
 const styles = {
   absolute: {

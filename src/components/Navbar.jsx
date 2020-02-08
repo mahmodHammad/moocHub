@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { AppBar, Toolbar, Button } from "@material-ui/core";
-import {Link} from 'react-router-dom'
 import Sidebar from "./Sidebar"
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import {Link} from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 
 export default class Navbar extends Component {
   state={
@@ -39,6 +41,7 @@ export default class Navbar extends Component {
             {/* <Button color="inherit" component={Link} to='/signup'>signup    </Button> */}
             {/* <Button color="inherit" component={Link} to='/login'> login     </Button> */}
             <Button color="inherit" component={Link} to='/login'> departments</Button>
+            <Button color="inherit" onClick={()=>this.props.handleCollapse()}>  <InsertEmoticonIcon /></Button>
           </div>
           </Toolbar>
         </AppBar>

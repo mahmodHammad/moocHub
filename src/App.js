@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme ,Button} from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+
+
 import "./App.css";
 import Home from "./pages/home";
 import Login from "./pages/login";
@@ -11,7 +13,7 @@ import getFiles from "./helper/getfiles";
 
 import Scroll from "./components/Scoll";
 import loadApi from "./helper/loadApi";
-import DisplayContent from "./components/DisplayContent"
+import DisplayContent from "./components/DisplayContent";
 
 const theme = createMuiTheme({
   palette: {
@@ -33,7 +35,7 @@ export default class App extends Component {
     content: [],
     name: "2nd-Electrical",
     contentToBeRendered: [],
-    collapse:true
+    collapse: true
   };
 
   addToTodo = item => {
@@ -95,6 +97,10 @@ export default class App extends Component {
     });
   };
 
+  handleCollapse = () => {
+    this.setState({ collapse: !this.state.collapse });
+  };
+
   componentDidMount() {
     this.start();
   }
@@ -109,6 +115,7 @@ export default class App extends Component {
             <Navbar
               todo={this.state.todo}
               removeFromTodo={this.removeFromTodo}
+              handleCollapse={this.handleCollapse}
             />
             <div className="container">
               {/* START ROUTING  **********************************************/}
@@ -139,8 +146,12 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
-              <Button onClick={()=>{this.setState({collapse : !this.state.collapse})}}> collapse</Button>
-                    <DisplayContent collapse={this.state.collapse} todo={this.state.todo} addToTodo={this.addToTodo} removeFromTodo={this.removeFromTodo}/>
+              <DisplayContent
+                collapse={this.state.collapse}
+                todo={this.state.todo}
+                addToTodo={this.addToTodo}
+                removeFromTodo={this.removeFromTodo}
+              />
             </div>
           </BrowserRouter>
         </div>

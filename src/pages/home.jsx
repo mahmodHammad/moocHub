@@ -1,6 +1,8 @@
 ////////  ////////
 import DisplaySubjects from "./../components/DisplaySubjects";
-import { Grid, Typography } from "@material-ui/core";
+import Typography  from "@material-ui/core/Typography";
+import Grid  from "@material-ui/core/Grid";
+
 import React from "react";
 
 export default function home({ content, name }) {
