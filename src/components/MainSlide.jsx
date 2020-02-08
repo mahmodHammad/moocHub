@@ -21,7 +21,7 @@ function MainSlide({ content, classes, handleClick, selectedIndex }) {
           <Tab
             value={N}
             key={N}
-            label={content.name}
+            label={content.name[0]==="_"?content.name.substr(1):content.name}
             onClick={() => handleClick(N)}
           />
         ))}
