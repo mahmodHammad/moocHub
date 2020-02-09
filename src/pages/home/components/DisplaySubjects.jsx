@@ -7,9 +7,7 @@ import Typography  from "@material-ui/core/Typography";
 
 import { Link } from "react-router-dom";
 export default function DisplaySubjects({ folder  ,mdWidth}) {
-  if (folder.hasNestedFolder) {
-    console.log("fuck", folder.nestedFolder.files);
-  }
+
   return (
     <Grid item xs={12} md={mdWidth} key={folder.id}>
       {folder.hasNestedFolder ? (

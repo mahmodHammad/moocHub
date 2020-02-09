@@ -13,6 +13,43 @@ state={
   content:[]
 }
  
+nestedItems = [];
+
+loadSubjects = subjects => {
+  console.log("subjects" , subjects)
+  let content = [];
+  subjects.map((s, index) => {
+    if (s.name[0] === "_") {
+      s.name = s.name.substr(1);
+      s.hasNestedFolder = true;
+      //this line costed me 4 hourses :(
+      s.nestedFolder = [];
+      content.push(s);
+      this.nestedItems.push({ ...s, index });
+    } else {
+      content.push(s);
+    }
+  });
+  this.setState({ content });
+  this.latelood(this.nestedItems);
+};
+
+// for Nested content :
+latelood = nestedItems => {
+  nestedItems.map(folder => {
+    this.subFolderLoader(folder);
+  });
+};
+
+subFolderLoader = subcontent => {
+  getFiles(subcontent.id, "folder").then(sContent => {
+    let [content] = [this.state.content];
+    content[subcontent.index].nestedFolder = sContent;
+    this.setState({ content });
+  });
+};
+
+
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     const id = this.props.match.params.subjectId;
@@ -22,10 +59,9 @@ state={
 
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
-        this.setState({ content: folders.files });
+        this.loadSubjects(folders.files)
       })
     );
-    console.log(this.state)
   }
 
   render() {

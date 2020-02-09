@@ -59,41 +59,7 @@ export default class App extends Component {
   };
 
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
-  nestedItems = [];
-
-  loadSubjects = subjects => {
-    let content = [];
-    subjects.map((s, index) => {
-      if (s.name[0] === "_") {
-        s.name = s.name.substr(1);
-        s.hasNestedFolder = true;
-        //this line costed me 4 hourses :(
-        s.nestedFolder = [];
-        content.push(s);
-        this.nestedItems.push({ ...s, index });
-      } else {
-        content.push(s);
-      }
-    });
-    this.setState({ content });
-    this.latelood(this.nestedItems);
-  };
-
-  // for Nested content :
-  latelood = nestedItems => {
-    nestedItems.map(folder => {
-      this.subFolderLoader(folder);
-    });
-  };
-
-  subFolderLoader = subcontent => {
-    getFiles(subcontent.id, "folder").then(sContent => {
-      let [content] = [this.state.content];
-      content[subcontent.index].nestedFolder = sContent;
-      this.setState({ content });
-    });
-  };
-
+ 
   handleCollapse = () => {
     this.setState({ collapse: !this.state.collapse });
   };
