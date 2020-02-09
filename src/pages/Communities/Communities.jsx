@@ -4,7 +4,8 @@ import Typography  from "@material-ui/core/Typography";
 import Grid  from "@material-ui/core/Grid";
 import React from "react";
 
-export default function home({ content, name ,communities}) {
+export default function home({communities }) {
+    console.log("it shold be empty",communities[0].content)
   return (
     <Grid container justify="center" spacing={3}>
       <Grid item xs={12}>

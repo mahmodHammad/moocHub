@@ -1,3 +1,8 @@
+// i stoped at trying to make App.js as a single source of truth 
+
+
+
+
 import React, { Component } from "react";
 import { HashRouter as BrowserRouter, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
@@ -15,7 +20,6 @@ import Communities from "../pages/Communities/Communities"
 import Subject from "../pages/subject/Subject";
 
 import Scroll from "./components/Scoll";
-import getFiles from "../helper/getfiles";
 
 const theme = createMuiTheme({
   palette: {
@@ -38,7 +42,6 @@ export default class App extends Component {
       { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7",content:[] },
     ],
     todo: [],
-    content: [],
     collapse: true
   };
 
@@ -64,6 +67,18 @@ export default class App extends Component {
     this.setState({ collapse: !this.state.collapse });
   };
 
+
+
+  getContent = ()=>{
+    let [communities]=[this.state.communities]
+    
+    console.log(communities)
+  }
+  componentDidMount() {
+    this.getContent()
+  }
+  
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -87,6 +102,7 @@ export default class App extends Component {
                       {...props}
                       content={this.state.content}
                       communities={this.state.communities}
+                      getContent={this.getContent}
                     />
                   )}
                 />
@@ -111,6 +127,7 @@ export default class App extends Component {
                     {...props}
                     addToTodo={this.addToTodo}
                     removeFromTodo={this.removeFromTodo}
+                    communities={this.state.communities}
                   />
                 )}
               />

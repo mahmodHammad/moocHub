@@ -13,6 +13,8 @@ state={
   content:[]
 }
  
+////////////////////////////////////////// Start Handling Nesting  }>-
+
 nestedItems = [];
 
 loadSubjects = subjects => {
@@ -48,14 +50,13 @@ subFolderLoader = subcontent => {
     this.setState({ content });
   });
 };
+////////////////////////////////////////// End Handling Nesting  }>-
 
 
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     const id = this.props.match.params.subjectId;
-
     this.setState({ name, id });
-    console.log(name , id)
 
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
