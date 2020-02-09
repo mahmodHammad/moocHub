@@ -1,23 +1,26 @@
 import React from "react";
-import { Grid, CardContent, Button, Card, Typography } from "@material-ui/core";
+import Grid  from "@material-ui/core/Grid";
+import CardContent  from "@material-ui/core/CardContent";
+import Button  from "@material-ui/core/Button";
+import Card  from "@material-ui/core/Card";
+import Typography  from "@material-ui/core/Typography";
+
 import { Link } from "react-router-dom";
-export default function DisplaySubjects({ folder }) {
-  if (folder.hasNestedFolder) {
-    console.log("fuck", folder.nestedFolder.files);
-  }
+export default function DisplaySubjects({ folder  ,mdWidth}) {
 
   return (
-    <Grid item xs={12} md={6} key={folder.id}>
+    <Grid item xs={12} md={mdWidth} key={folder.id}>
       {folder.hasNestedFolder ? (
         <Card>
           <CardContent>
-            <Typography variant="h5" align="center" gutterBottom>
+            <Typography variant="h6" align="center" gutterBottom>
               {folder.name}
             </Typography>
+
             <Grid item container spacing={4}>
               {folder.nestedFolder.files !== undefined &&
                 folder.nestedFolder.files.map(folder => (
-                  <Grid key={folder.id} item xs={6} container>
+                  <Grid key={folder.id} item xs container>
                     <Button
                     size="small"
                       component={Link}

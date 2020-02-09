@@ -3,6 +3,7 @@ body{
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif;
 overflow-x: hidden;
+background: url("../assets/back1.svg") ;
 }
 html {
   scroll-behavior: smooth;
@@ -42,5 +43,7 @@ a:hover{
   color: #fff;
 
 }
-
+.margin{
+  padding: 0 !important;
+}
 /* git add . && git commit -am " " */

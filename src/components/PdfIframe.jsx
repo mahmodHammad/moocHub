@@ -1,18 +1,14 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../helper/getPdfUrl";
-import { Button, ButtonGroup, Typography ,Link } from "@material-ui/core";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
+import Button  from "@material-ui/core/Button";
+import ButtonGroup  from "@material-ui/core/ButtonGroup";
+import Typography  from "@material-ui/core/Typography";
+import Link  from "@material-ui/core/Link";
 
-import DoneIcon from "@material-ui/icons/Done";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import HomeIcon from "@material-ui/icons/Home";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import AddIcon from "@material-ui/icons/Add";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
@@ -37,6 +33,17 @@ function PdfIframe({ file, classes, addToTodo, removeFromTodo, display }) {
           <Link href={`#${file.id}`}>
             <ExpandMoreIcon fontSize="large" color="primary" />
           </Link>
+
+          {file.existInTodo === true ? (
+              <Button size="small" onClick={() => removeFromTodo(file)}>
+                <RemoveCircleOutlineIcon color="primary" />
+              </Button>
+            ) : (
+              <Button size="small" onClick={() => addToTodo(file)}>
+                <AddIcon color="primary" />
+              </Button>
+            )}
+
           <iframe
             id={file.id}
             title="lecture"
