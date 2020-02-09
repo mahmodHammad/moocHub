@@ -18,6 +18,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
             <Typography variant="h6" align="center" gutterBottom>
               {folder.name}
             </Typography>
+
             <Grid item container spacing={4}>
               {folder.nestedFolder.files !== undefined &&
                 folder.nestedFolder.files.map(folder => (

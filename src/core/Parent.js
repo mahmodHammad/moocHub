@@ -4,16 +4,16 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
 
 import "./App.css";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Sigunup from "./pages/signup";
-import Navbar from "./components/Navbar";
-import Subject from "./pages/Subject";
-import getFiles from "./helper/getfiles";
+import Home from "../pages/home/home";
+import Login from "../pages/login";
+import Sigunup from "../pages/signup";
+import Navbar from "../components/Navbar";
+import Subject from "../pages/subject/Subject";
+import getFiles from "../helper/getfiles";
 
-import Scroll from "./components/Scoll";
-import loadApi from "./helper/loadApi";
-import DisplayContent from "./components/DisplayContent";
+import Scroll from "../components/Scoll";
+import loadApi from "../helper/loadApi";
+import DisplayContent from "../components/DisplayContent";
 
 const theme = createMuiTheme({
   palette: {

@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 
 export default function DisplayComunityName({ name }) {
   return (
-      <Typography variant="h4" align="center">
+      <Typography variant="h5" align="center">
         {name}
       </Typography>
   );

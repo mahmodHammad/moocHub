@@ -3,6 +3,7 @@ body{
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif;
 overflow-x: hidden;
+background: url("../assets/back1.svg") ;
 }
 html {
   scroll-behavior: smooth;
