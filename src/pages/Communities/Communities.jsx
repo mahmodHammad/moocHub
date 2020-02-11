@@ -6,7 +6,7 @@ import React from "react";
 import { Redirect } from 'react-router-dom';
 
 export default function home({communities }) {
-  if(window.localStorage.getItem("community").length>0){
+  if(window.localStorage.getItem("community")){
     return <Redirect to={ window.localStorage.getItem("community")}/>
   }
     return (

@@ -37,9 +37,9 @@ const theme = createMuiTheme({
 export default class App extends Component {
   state = {
     communities: [
-      { name: "1st Electrical", id: "1PRU8pyKz4lBlEm1HHkcoHOqnZBnH-6_n",content:[] },
-      { name: "2nd Electrical", id: "1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe",content:[] },
-      { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7",content:[] },
+      { name: "1st Electrical", id: "1PRU8pyKz4lBlEm1HHkcoHOqnZBnH-6_n" },
+      { name: "2nd Electrical", id: "1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe"},
+      { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
     ],
     todo: [],
     collapse: true
@@ -68,12 +68,6 @@ export default class App extends Component {
   };
 
 
-   componentWillMount() {
-    // 2nd%20Electrical/1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe
-    // this.props.history.replace('/')
-    // window.location="/2nd%20Electrical/1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe"
-  }
- 
   render() {
     console.log("LS" , window.localStorage.getItem("community"))
     return (
@@ -82,7 +76,9 @@ export default class App extends Component {
         <div className="App">
           <Scroll />
           <BrowserRouter>
+          {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
             <Navbar
+              communities={this.state.communities}
               todo={this.state.todo}
               removeFromTodo={this.removeFromTodo}
               handleCollapse={this.handleCollapse}
@@ -103,7 +99,6 @@ export default class App extends Component {
                   )}
                 />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Sigunup} />
                 <Route
                   exact
                   path="/subject/:subjectName/:subjectId"
