@@ -4,7 +4,7 @@
 
 
 import React, { Component } from "react";
-import { HashRouter as BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter as BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 import Home from "../pages/home/home";
@@ -68,18 +68,14 @@ export default class App extends Component {
   };
 
 
-
-  getContent = ()=>{
-    let [communities]=[this.state.communities]
-    
-    console.log(communities)
+   componentWillMount() {
+    // 2nd%20Electrical/1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe
+    // this.props.history.replace('/')
+    // window.location="/2nd%20Electrical/1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe"
   }
-  componentDidMount() {
-    this.getContent()
-  }
-  
-
+ 
   render() {
+    console.log("LS" , window.localStorage.getItem("community"))
     return (
       <MuiThemeProvider theme={theme}>
         {/* <Demo /> */}

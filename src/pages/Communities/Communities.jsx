@@ -3,10 +3,13 @@ import DisplayCommunity from "./components/DisplayCommunity";
 import Typography  from "@material-ui/core/Typography";
 import Grid  from "@material-ui/core/Grid";
 import React from "react";
+import { Redirect } from 'react-router-dom';
 
 export default function home({communities }) {
-    console.log("it shold be empty",communities[0].content)
-  return (
+  if(window.localStorage.getItem("community").length>0){
+    return <Redirect to={ window.localStorage.getItem("community")}/>
+  }
+    return (
     <Grid container justify="center" spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4" align="center" color="primary">
