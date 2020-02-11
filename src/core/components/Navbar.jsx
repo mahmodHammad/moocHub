@@ -10,7 +10,7 @@ import Grow from "@material-ui/core/Grow";
 
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
-import {Link} from 'react-router-dom'
+import {Link ,Redirect ,withRouter} from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
@@ -32,6 +32,9 @@ popref = React.createRef()
    handleSelect=(community)=>{
      this.handleClose();
      window.localStorage.setItem("community", `/${community.name}/${community.id}`);
+     console.log(this.props)
+    
+    //  this.props.history.push("/");
    }
 
   handleDrawerOpen = () => {
@@ -43,6 +46,10 @@ popref = React.createRef()
   toggleDrawer=()=>{
     this.setState({drawerOpen:!this.state.drawerOpen})
   }
+  componentDidMount() {
+    console.log(this.props)
+  }
+  
   render() {
     
     return (
@@ -94,7 +101,7 @@ popref = React.createRef()
                   <MenuList
                     id="menu-list-grow"
                   >
-                    {this.props.communities.map(e=> <MenuItem  key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
+                    {this.props.communities.map(e=> <MenuItem component={Link} to="/" key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
                     
                   </MenuList>
                 </ClickAwayListener>

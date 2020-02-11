@@ -43,6 +43,7 @@ latelood = nestedItems => {
   });
 };
 
+// XXXXXXXXXXXXXXXXX BUG HERE  {cannot set property 'nestedFolder of undefinded'}XXXXXXXXXXXXXXXXXX
 subFolderLoader = subcontent => {
   getFiles(subcontent.id, "folder").then(sContent => {
     let [content] = [this.state.content];
@@ -63,6 +64,7 @@ subFolderLoader = subcontent => {
         this.loadSubjects(folders.files)
       })
     );
+  console.log(this.props)
   }
 
   render() {
