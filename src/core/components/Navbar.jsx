@@ -21,7 +21,7 @@ export default class Navbar extends Component {
     drawerOpen:false,
     menuOpen :false
   }
-
+popref = React.createRef()
 
    handleToggle=()=>{
      this.setState({menuOpen:!this.state.menuOpen})
@@ -29,7 +29,10 @@ export default class Navbar extends Component {
    handleClose=()=>{
     this.setState({menuOpen:false})
    }
-
+   handleSelect=(community)=>{
+     this.handleClose();
+     window.localStorage.setItem("community", `/${community.name}/${community.id}`);
+   }
 
   handleDrawerOpen = () => {
     this.setState({drawerOpen:true})
@@ -61,7 +64,7 @@ export default class Navbar extends Component {
         <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 7px"}} >  Nerds Room  </Button>
           
         <Button color="inherit"  variant="outlined" color="secondary"
-            aria-haspopup="true" onClick={()=>this.handleToggle()}> 
+            aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref}> 
           departments
           </Button>
 
@@ -71,10 +74,12 @@ export default class Navbar extends Component {
     </AppBar>
       <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={this.props.todo} removeFromTodo={this.props.removeFromTodo}/>
      <Popper
-          open={this.state.menuOpen}
-          role={undefined}
-          transition
-          disablePortal
+        anchorEl={this.popref.current}
+        placement={"right-start"}
+        open={this.state.menuOpen}
+        role={undefined}
+        transition
+        disablePortal
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -89,9 +94,8 @@ export default class Navbar extends Component {
                   <MenuList
                     id="menu-list-grow"
                   >
-                    <MenuItem onClick={()=>this.handleClose()}>Profile</MenuItem>
-                    <MenuItem onClick={()=>this.handleClose()}>My account</MenuItem>
-                    <MenuItem onClick={()=>this.handleClose()}>Logout</MenuItem>
+                    {this.props.communities.map(e=> <MenuItem  key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
+                    
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
