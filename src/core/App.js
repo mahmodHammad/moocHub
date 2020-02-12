@@ -1,19 +1,14 @@
-// i stoped at trying to make App.js as a single source of truth 
-
-
-
-
 import React, { Component } from "react";
-import { HashRouter as BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter as BrowserRouter, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 import Home from "../pages/home/home";
 import Navbar from "./components/Navbar";
-/* 
-responsibel for having knowlage of all states
-make routing
-provide theme
-*/
+
+import getFiles from "./../helper/getfiles";
+import loadApi from "./../helper/loadApi";
+
+
 import Communities from "../pages/Communities/Communities" 
 import Subject from "../pages/subject/Subject";
 
@@ -40,6 +35,7 @@ export default class App extends Component {
       { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
     ],
     todo: [],
+    content:[],
     collapse: true
   };
 
@@ -59,15 +55,69 @@ export default class App extends Component {
     this.setState({ todo });
   };
 
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^vvvvvvvvvv^v^v^v^
  
   handleCollapse = () => {
     this.setState({ collapse: !this.state.collapse });
   };
  
 
+
+nestedItems = [];
+
+loadSubjects = subjects => {
+  let content = [];
+  subjects.map((s, index) => {
+    if (s.name[0] === "_") {
+      s.name = s.name.substr(1);
+      s.hasNestedFolder = true;
+
+      //this line costed me 4 hourses :(
+      s.nestedFolder = [];
+      content.push(s);
+      this.nestedItems.push({ ...s, index });
+    } else {
+      content.push(s);
+    }
+  });
+  this.setState({ content });
+  this.latelood(this.nestedItems);
+};
+
+// for Nested content :
+latelood = nestedItems => {
+  nestedItems.map(folder => {
+    this.subFolderLoader(folder);
+  });
+};
+
+subFolderLoader = subcontent => {
+  getFiles(subcontent.id, "folder").then(sContent => {
+    let [content] = [this.state.content];
+    content[subcontent.index].nestedFolder = sContent;
+    this.setState({ content });
+  });
+};
+////////////////////////////////////////// End Handling Nesting  }>-
+
+getCommunity =()=>{
+  const defaultCommunity  = window.localStorage.getItem("community")
+  const id= defaultCommunity.split("/")[2]
+  loadApi().then(() =>
+  getFiles(id, "folder").then(folders => {
+    this.loadSubjects(folders.files)
+  })
+);
+}
+
+  componentDidMount() {
+    this.getCommunity()
+  }
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
   render() {
-    console.log("LS" , window.localStorage.getItem("community"))
     return (
       <MuiThemeProvider theme={theme}>
         {/* <Demo /> */}
@@ -80,6 +130,7 @@ export default class App extends Component {
               todo={this.state.todo}
               removeFromTodo={this.removeFromTodo}
               handleCollapse={this.handleCollapse}
+              getCommunity={this.getCommunity}
             />
             <div className="container">
               {/* START ROUTING  **********************************************/}
@@ -90,7 +141,6 @@ export default class App extends Component {
                   render={props => (
                     <Communities
                       {...props}
-                      content={this.state.content}
                       communities={this.state.communities}
                       getContent={this.getContent}
                     />
@@ -116,6 +166,7 @@ export default class App extends Component {
                     addToTodo={this.addToTodo}
                     removeFromTodo={this.removeFromTodo}
                     communities={this.state.communities}
+                    content={this.state.content}
                   />
                 )}
               />

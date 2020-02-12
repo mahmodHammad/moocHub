@@ -34,7 +34,7 @@ export default class Navbar extends Component {
     drawerOpen:false,
     menuOpen :false
   }
-popref = React.createRef()
+  popref = React.createRef()
 
    handleToggle=()=>{
      this.setState({menuOpen:!this.state.menuOpen})
@@ -45,9 +45,7 @@ popref = React.createRef()
    handleSelect=(community)=>{
      this.handleClose();
      window.localStorage.setItem("community", `/${community.name}/${community.id}`);
-     console.log(this.props)
-    
-    //  this.props.history.push("/");
+    this.props.getCommunity()
    }
 
   handleDrawerOpen = () => {
@@ -58,9 +56,6 @@ popref = React.createRef()
   };
   toggleDrawer=()=>{
     this.setState({drawerOpen:!this.state.drawerOpen})
-  }
-  componentDidMount() {
-    console.log(this.props)
   }
   
   render() {
