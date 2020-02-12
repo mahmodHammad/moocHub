@@ -8,8 +8,6 @@ import { HashRouter as BrowserRouter, Route, Switch, Redirect } from "react-rout
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 import Home from "../pages/home/home";
-import Login from "../pages/login";
-import Sigunup from "../pages/signup";
 import Navbar from "./components/Navbar";
 /* 
 responsibel for having knowlage of all states
@@ -98,7 +96,6 @@ export default class App extends Component {
                     />
                   )}
                 />
-                <Route exact path="/login" component={Login} />
                 <Route
                   exact
                   path="/subject/:subjectName/:subjectId"

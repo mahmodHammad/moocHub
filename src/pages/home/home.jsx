@@ -77,7 +77,7 @@ subFolderLoader = subcontent => {
           </Typography>
         </Grid>
   
-        <Grid container item xs={9} md={10} spacing={4}>
+        <Grid container item xs={11} md={10} spacing={4}>
           {content.map((folder, N) => {
             return <DisplaySubjects folder={folder} key={folder.id || N} mdWidth={content.length%2===1?(N === content.length-1 ?12:6):6} />;
           })}

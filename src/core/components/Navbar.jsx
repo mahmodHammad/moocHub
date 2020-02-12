@@ -16,6 +16,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import Paper  from '@material-ui/core/Paper';
 
+
+
+
+import DetailsIcon from '@material-ui/icons/Details';
+import EjectIcon from '@material-ui/icons/Eject';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import HistoryIcon from '@material-ui/icons/History';
+import SchoolIcon from '@material-ui/icons/School';
+import ScatterPlotIcon from '@material-ui/icons/ScatterPlot';
+import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
+import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
+import HomeIcon from '@material-ui/icons/Home';
 export default class Navbar extends Component {
   state={
     drawerOpen:false,
@@ -55,7 +68,7 @@ popref = React.createRef()
     return (
     
 <div>
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar >
     <IconButton
         color="inherit"
@@ -66,23 +79,24 @@ popref = React.createRef()
         <MenuIcon />
       </IconButton>
       <div className="nav-container">
-        <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 5px"}}>      home      </Button>
+        <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 6px 0 0"}} size="small">      home     </Button>
         
-        <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 7px"}} >  Nerds Room  </Button>
+        <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 3px" }}  size="small">  Nerds Room   </Button>
           
-        <Button color="inherit"  variant="outlined" color="secondary"
-            aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref}> 
-          departments
+        <Button color="inherit"  variant="outlined" color="secondary" style={{"margin":"0  0 0 6px" }}
+            aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref} size="small">  
+          departments  
           </Button>
 
-        <Button color="inherit" onClick={()=>this.props.handleCollapse()}>  <InsertEmoticonIcon /></Button>
+        {/* <Button color="inherit" onClick={()=>this.props.handleCollapse()}>  <InsertEmoticonIcon /></Button> */}
       </div>
       </Toolbar>
     </AppBar>
       <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={this.props.todo} removeFromTodo={this.props.removeFromTodo}/>
      <Popper
+     className="updowm"
         anchorEl={this.popref.current}
-        placement={"right-start"}
+        placement={"bottom-start"}
         open={this.state.menuOpen}
         role={undefined}
         transition
