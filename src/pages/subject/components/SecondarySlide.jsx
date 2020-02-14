@@ -16,8 +16,15 @@ const styles = {
   center: {
     margin: "auto"
   },
-  op:{
-    opacity:"0.8"
+  op: {
+    opacity: "0.86"
+  },
+  inline:{
+    display:"inline"
+  },
+  add:{
+    width:"33%",
+    display:"inline"
   }
 };
 function SecondarySlide({
@@ -36,32 +43,35 @@ function SecondarySlide({
   console.log(parentName);
 
   return (
-    <Grid container spacing={2} className={classes.topmargin} justify="center">
-      
-      {content.map((cont , N)=>(
-         <Grid item xs={8} key={cont.id} className={classes.op}>
-        <Card >
-          <CardContent>
-            <Typography
-              color="textSecondary"
-              variant="subtitle1"
-              component="h2"
-            >
-              {SubparentName + (N+1)}
-            </Typography>
+    <Grid container spacing={2} className={classes.topmargin} justify="center" color="primary">
+      {content.map((cont, N) => (
+        <Grid continer item xs={8} key={cont.id} className={classes.op}>
+          <Card>
+            <CardContent>
+              <Grid item xs={2} className={classes.inline}>
+               <span>
+                  {SubparentName + (N + 1)}
+               </span>
+              </Grid>
+              <Grid item xs={4} className={classes.inline}>
+              
+              <span>
 
-            <Typography
-              color="textSecondary"
-              variant="body2"
-              component="h3"
-            >
-              {cont.name}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+                  {cont.name}
+              </span>
+              </Grid>
+              <Grid item xs={5} className={classes.inline}>
+
+<span className={classes.add}>
+
+                  <Button size="small">Learn More</Button>
+</span>
+</Grid>
+
+            </CardContent>
+          </Card>
+        </Grid>
       ))}
-     
     </Grid>
     // <AppBar
     //   position="static"
