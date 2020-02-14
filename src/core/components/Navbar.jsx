@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar"
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
 import Popper from "@material-ui/core/Popper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -12,13 +11,12 @@ import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Link ,Redirect ,withRouter} from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import Paper  from '@material-ui/core/Paper';
 
 
 
-
+import MenuIcon from '@material-ui/icons/Menu';
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import DetailsIcon from '@material-ui/icons/Details';
 import EjectIcon from '@material-ui/icons/Eject';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';

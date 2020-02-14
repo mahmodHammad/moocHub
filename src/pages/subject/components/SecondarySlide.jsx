@@ -7,6 +7,9 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
@@ -19,12 +22,19 @@ const styles = {
   op: {
     opacity: "0.86"
   },
-  inline:{
-    display:"inline"
+  inline: {
+    display: "inline"
   },
-  add:{
-    width:"33%",
-    display:"inline"
+  container: { display: "flex", flexDirection: "row" ,justifyContent:" center" },
+  cardText:{
+    flexGrow:"38"
+
+  },
+  add: {
+    // width: "33%",
+    flexGrow:"1",
+    float:"right",
+    alignSelf: "center"
   }
 };
 function SecondarySlide({
@@ -43,31 +53,22 @@ function SecondarySlide({
   console.log(parentName);
 
   return (
-    <Grid container spacing={2} className={classes.topmargin} justify="center" color="primary">
+    <Grid
+      container
+      spacing={3}
+      className={classes.topmargin}
+      justify="center"
+      color="primary"
+    >
       {content.map((cont, N) => (
-        <Grid continer item xs={8} key={cont.id} className={classes.op}>
+        <Grid item xs={10} md={5} key={cont.id} className={classes.op}>
           <Card>
-            <CardContent>
-              <Grid item xs={2} className={classes.inline}>
-               <span>
-                  {SubparentName + (N + 1)}
-               </span>
-              </Grid>
-              <Grid item xs={4} className={classes.inline}>
-              
-              <span>
+            <CardContent className={classes.container}>
+              <span className={classes.cardText}>{cont.name}</span>
+              <AddCircleIcon  className={classes.add} size="large" color="primary" onClick={()=>console.log("cli")}>
+          
 
-                  {cont.name}
-              </span>
-              </Grid>
-              <Grid item xs={5} className={classes.inline}>
-
-<span className={classes.add}>
-
-                  <Button size="small">Learn More</Button>
-</span>
-</Grid>
-
+              </AddCircleIcon>
             </CardContent>
           </Card>
         </Grid>
