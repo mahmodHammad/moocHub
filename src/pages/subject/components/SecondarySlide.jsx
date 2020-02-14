@@ -42,8 +42,8 @@ function SecondarySlide({
   parentName,
   content,
   classes,
-  handleClick,
-  selectedIndex
+  removeFromTodo,
+  addToTodo
 }) {
  
   return (
@@ -54,7 +54,7 @@ function SecondarySlide({
       justify="center"
     >
       {content.map((cont, N) => (
-        <Content key={cont.id}  content={cont}/>
+        <Content key={cont.id}  content={cont} addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
       ))}
     </Grid>
   );

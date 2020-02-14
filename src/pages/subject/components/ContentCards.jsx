@@ -21,7 +21,7 @@ const styles = {
     justifyContent: " center"
   },
   cardText: {
-    flexGrow: "40"
+    flexGrow: "20"
   },
   add: {
     // width: "33%",
@@ -31,7 +31,7 @@ const styles = {
   }
 };
 
-function ComponentName({ content, classes }) {
+function ComponentName({ content, classes,addToTodo,removeFromTodo }) {
   const [addContent, setContent] = useState(true);
   return (
     <Grid item xs={9} md={5} className={classes.op}>
@@ -45,6 +45,7 @@ function ComponentName({ content, classes }) {
               size="large"
               color="primary"
               onClick={() => {
+                addToTodo(content)
                 setContent(!addContent);
               }}
             />
@@ -54,6 +55,7 @@ function ComponentName({ content, classes }) {
               size="large"
               color="primary"
               onClick={() => {
+                removeFromTodo(content)
                 setContent(!addContent);
               }}
             />

@@ -62,8 +62,7 @@ class Home extends Component {
     const {
       content,
       subjectName,
-      PrimarySliderSelectedIndex,
-      SecondarySliderSelectedIndex
+      PrimarySliderSelectedIndex
     } = this.state;
     return (
       <Grid container alignContent="center" justify="center">
@@ -93,28 +92,11 @@ class Home extends Component {
               <SecondarySlide
                 parentName={content[PrimarySliderSelectedIndex].name}
                 content={content[PrimarySliderSelectedIndex].actualContent}
-                handleClick={this.handleSecondaryTabClick}
-                selectedIndex={SecondarySliderSelectedIndex}
+                removeFromTodo={this.props.removeFromTodo}
+                addToTodo={this.props.addToTodo}
               />
             )}
         </Grid>
-
-        {/******  display content depending on the selected secondary  ******/}
-
-        {SecondarySliderSelectedIndex !== false && (
-          <React.Fragment>
-            <Pdf
-            display={false}
-              removeFromTodo={this.props.removeFromTodo}
-              addToTodo={this.props.addToTodo}
-              file={
-                content[PrimarySliderSelectedIndex].actualContent[
-                  SecondarySliderSelectedIndex
-                ]
-              }
-            />
-          </React.Fragment>
-        )}
       </Grid>
     );
   }
