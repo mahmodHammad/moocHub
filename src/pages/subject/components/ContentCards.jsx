@@ -31,7 +31,7 @@ const styles = {
   }
 };
 
-function ComponentName({ content, classes,addToTodo,removeFromTodo }) {
+function ComponentName({ content, classes, addToTodo, removeFromTodo }) {
   const [addContent, setContent] = useState(true);
   return (
     <Grid item xs={9} md={5} className={classes.op}>
@@ -45,7 +45,7 @@ function ComponentName({ content, classes,addToTodo,removeFromTodo }) {
               size="large"
               color="primary"
               onClick={() => {
-                addToTodo(content)
+                addToTodo(content);
                 setContent(!addContent);
               }}
             />
@@ -55,7 +55,7 @@ function ComponentName({ content, classes,addToTodo,removeFromTodo }) {
               size="large"
               color="primary"
               onClick={() => {
-                removeFromTodo(content)
+                removeFromTodo(content);
                 setContent(!addContent);
               }}
             />
