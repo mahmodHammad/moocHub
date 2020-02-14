@@ -4,9 +4,15 @@ body{
 sans-serif;
 overflow-x: hidden;
 background: url("../assets/back1.svg") ;
+background-color: #e6f4fb;
+margin: 0;
+padding: 0;
+max-width: 100%;
 }
 html {
   scroll-behavior: smooth;
+overflow-x: hidden;
+
 }
 .container{
   margin: 80px auto 0 auto;
@@ -16,11 +22,6 @@ html {
   margin: auto;
 }
 
-body{
-  background-color: #e6f4fb;
-  margin: 0;
-  padding: 0;
-}
 a{
   text-decoration: none;
   color: inherit;

@@ -6,27 +6,19 @@ import React, { Component } from "react";
  
 
 export default class home extends Component {
-  state = {
-    name: ""
-    };
 
-  ////////////////////////////////////////// Start Handling Nesting  }>-
-
-  componentDidMount() {
-    const name = this.props.match.params.subjectName;
-    // const id = this.props.match.params.subjectId;
-    this.setState({ name });
-  }
 
 
   render() {
+    const name = this.props.match.params.subjectName;
     const { content } = this.props;
     console.log(content);
+
     return (
       <Grid container justify="center" spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h4" align="center">
-            {this.state.name}
+            {name}
           </Typography>
         </Grid>
 
@@ -47,3 +39,4 @@ export default class home extends Component {
     );
   }
 }
+

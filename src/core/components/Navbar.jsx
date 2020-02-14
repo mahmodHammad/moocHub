@@ -74,11 +74,11 @@ export default class Navbar extends Component {
         <MenuIcon />
       </IconButton>
       <div className="nav-container">
-        <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 6px 0 0"}} size="small">      home     </Button>
+        <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 2px 0 0","fontSize":"0.68em"}} size="small">      home     </Button>
         
-        <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 3px" }}  size="small">  Nerds Room   </Button>
+        <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 3px","fontSize":"0.77em" }}  size="small">  Nerds Room   </Button>
           
-        <Button color="inherit"  variant="outlined" color="secondary" style={{"margin":"0  0 0 6px" }}
+        <Button color="inherit"  variant="outlined" color="secondary" style={{"margin":"0  0 0 2px" ,"fontSize":"0.68em"}}
             aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref} size="small">  
           departments  
           </Button>
@@ -87,6 +87,7 @@ export default class Navbar extends Component {
       </div>
       </Toolbar>
     </AppBar>
+    
       <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={this.props.todo} removeFromTodo={this.props.removeFromTodo}/>
      <Popper
      className="updowm"

@@ -17,17 +17,8 @@ class Home extends Component {
     SecondarySliderSelectedIndex: false
   };
 
-  loadSubjects = subjects => {
-    let content = [];
-    subjects.map(s => content.push(s));
-    this.setState({ content });
-  };
-
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    // actualContent ===false ? make http request to get actual content
-    // rqueast take some time ...
-    // after objain ...  set state actual content
     this.state.content[index].actualContent === false &&
       getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
@@ -117,7 +108,7 @@ class Home extends Component {
               removeFromTodo={this.props.removeFromTodo}
               addToTodo={this.props.addToTodo}
               file={
-                content[this.state.PrimarySliderSelectedIndex].actualContent[
+                content[PrimarySliderSelectedIndex].actualContent[
                   SecondarySliderSelectedIndex
                 ]
               }
