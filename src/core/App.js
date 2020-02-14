@@ -103,7 +103,12 @@ subFolderLoader = subcontent => {
 
 getCommunity =()=>{
   const defaultCommunity  = window.localStorage.getItem("community")
-  const id= defaultCommunity.split("/")[2]
+  let id
+  if(defaultCommunity){
+  id = defaultCommunity.split("/")[2]
+  }else{
+    id=this.state.communities[0].id
+  }
   loadApi().then(() =>
   getFiles(id, "folder").then(folders => {
     this.loadSubjects(folders.files)
