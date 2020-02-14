@@ -74,14 +74,12 @@ export default class Navbar extends Component {
       <div className="nav-container">
         <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 2px 0 0","fontSize":"0.68em"}} size="small">      home     </Button>
         
-        <Button color="inherit" component={Link} to='/de7'variant="outlined" color="secondary" style={{"margin":"0 3px","fontSize":"0.77em" }}  size="small">  Nerds Room   </Button>
+        <Button color="inherit" component={Link} to='/nerds'variant="outlined" color="secondary" style={{"margin":"0 3px","fontSize":"0.77em" }}  size="small">  Nerds Room   </Button>
           
         <Button color="inherit"  variant="outlined" color="secondary" style={{"margin":"0  0 0 2px" ,"fontSize":"0.68em"}}
             aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref} size="small">  
           departments  
           </Button>
-
-        {/* <Button color="inherit" onClick={()=>this.props.handleCollapse()}>  <InsertEmoticonIcon /></Button> */}
       </div>
       </Toolbar>
     </AppBar>

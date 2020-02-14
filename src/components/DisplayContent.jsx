@@ -2,7 +2,7 @@ import React from "react";
 import Pdf from "./PdfIframe";
 import Fade  from '@material-ui/core/Collapse';
 
-export default function DisplayContent({ todo, addToTodo, removeFromTodo ,collapse}) {
+export default function DisplayContent({ todo, removeFromTodo ,collapse=true}) {
   return (
     <React.Fragment>
       <Fade  in={collapse}>
@@ -12,8 +12,6 @@ export default function DisplayContent({ todo, addToTodo, removeFromTodo ,collap
               key={e.id}
               file={e}
               removeFromTodo={removeFromTodo}
-              addToTodo={addToTodo}
-              display={true}
             />
           ))}
       </Fade >

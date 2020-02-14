@@ -12,7 +12,6 @@ export default class home extends Component {
   render() {
     const name = this.props.match.params.subjectName;
     const { content } = this.props;
-    console.log(content);
 
     return (
       <Grid container justify="center" spacing={3}>

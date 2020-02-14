@@ -28,7 +28,7 @@ const styles = {
   },
   container: { display: "flex", flexDirection: "row" ,justifyContent:" center" },
   cardText:{
-    flexGrow:"38"
+    flexGrow:"48"
 
   },
   add: {
