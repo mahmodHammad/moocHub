@@ -48,12 +48,22 @@ export default class App extends Component {
       item.existInTodo = true;
       todo.push(item);
       this.setState({ todo });
+
+      
+      let tostring = JSON.stringify(todo)
+      window.localStorage.setItem("todo",tostring)
+    let f =   window.localStorage.getItem("todo")
+    console.log(f)
+    console.log(JSON.parse(f))
+      
+   
     }
   };
 
   removeFromTodo = item => {
     item.existInTodo = false;
     let todo = this.state.todo.filter(e => e.id !== item.id);
+    window.localStorage.setItem("todo",todo)
     this.setState({ todo });
   };
 
