@@ -49,21 +49,16 @@ export default class App extends Component {
       todo.push(item);
       this.setState({ todo });
 
-      
       let tostring = JSON.stringify(todo)
       window.localStorage.setItem("todo",tostring)
-    let f =   window.localStorage.getItem("todo")
-    console.log(f)
-    console.log(JSON.parse(f))
-      
-   
     }
   };
 
   removeFromTodo = item => {
     item.existInTodo = false;
     let todo = this.state.todo.filter(e => e.id !== item.id);
-    window.localStorage.setItem("todo",todo)
+
+    window.localStorage.setItem("todo",JSON.stringify(todo))
     this.setState({ todo });
   };
 
@@ -122,6 +117,13 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getCommunity();
+    let  gettodo = window.localStorage.getItem("todo")
+    if(gettodo){
+     console.log(gettodo)
+    let todo = JSON.parse(gettodo)
+     this.setState({todo})
+     console.log(todo)
+    }
   }
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
