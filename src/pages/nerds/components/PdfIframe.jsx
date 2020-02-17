@@ -9,9 +9,7 @@ import Link from "@material-ui/core/Link";
 
 import GetAppIcon from "@material-ui/icons/GetApp";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
-// import AddIcon from "@material-ui/icons/Add";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
 
@@ -30,13 +28,12 @@ function PdfIframe({ file, classes, removeFromTodo }) {
   const fileurl = IdtoUrl(file.id);
   const [display, setdisplay] = useState(false);
   return (
-    <div className={classes.center}  id={file.id}>
+    <div className={classes.center} id={file.id}>
       {display ? (
         <React.Fragment>
           <Typography variant="body1">{file.name}</Typography>
 
           <ButtonGroup
-
             size="small"
             variant="contained"
             color="secondary"
@@ -61,13 +58,12 @@ function PdfIframe({ file, classes, removeFromTodo }) {
             )}
           </ButtonGroup>
 
-          <iframe
-           
-            title="lecture"
-            className={classes.fullwidth}
-            frameBorder="0"
-            src={fileurl.displayPdf}
-          ></iframe>
+            <iframe
+              title="lecture"
+              className={classes.fullwidth}
+              frameBorder="0"
+              src={fileurl.displayPdf}
+            ></iframe>
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -81,7 +77,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
           >
             <Button>
               <UnfoldMoreIcon
-               size="small" 
+                size="small"
                 onClick={() => {
                   setdisplay(true);
                 }}
@@ -90,7 +86,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
 
             <Button>
               <Link href={fileurl.downloadPdf}>
-                <GetAppIcon  size="small"  color="primary" />
+                <GetAppIcon size="small" color="primary" />
               </Link>
             </Button>
 

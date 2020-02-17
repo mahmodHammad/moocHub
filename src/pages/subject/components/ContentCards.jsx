@@ -28,6 +28,9 @@ const styles = {
     flexGrow: "1",
     float: "right",
     alignSelf: "center"
+  },
+  margin:{
+    margin:"2vh 2vw"
   }
 };
 function isExistOnTodo(todo, content) {
@@ -38,11 +41,11 @@ function isExistOnTodo(todo, content) {
 function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
   const [addContent, setContent] = useState(true);
   return (
-    <Grid item xs={9} md={5} className={classes.op}>
+    <Grid item xs={9} md={5} className={classes.op , classes.margin}>
       <Card>
         <CardContent className={classes.container}>
           <span className={classes.cardText}>{content.name}</span>
-{isExistOnTodo(todo , content)}
+          {isExistOnTodo(todo, content)}
           {addContent === true ? (
             <AddCircleIcon
               className={classes.add}

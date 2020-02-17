@@ -49,7 +49,6 @@ function SecondarySlide({
   return (
     <Grid
       container
-      spacing={3}
       className={classes.topmargin}
       justify="center"
     >

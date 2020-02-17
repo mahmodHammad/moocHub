@@ -46,3 +46,11 @@ a:hover{
   padding: 0 !important;
 }
 /* git add . && git commit -am " " */
+
+.warning{
+text-align: center;
+font-size: 1.4 em;
+color: rgb(170, 0, 0);
+font-weight: bold;
+text-transform: capitalize;
+}
