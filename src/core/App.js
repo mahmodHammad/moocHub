@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter as BrowserRouter, Route, Switch } from "react-router-dom";
+import {  BrowserRouter, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 import Home from "../pages/home/home";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import IdtoUrl from "../helper/getPdfUrl";
+import IdtoUrl from "../../../helper/getPdfUrl";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +9,7 @@ import Link from "@material-ui/core/Link";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 // import AddIcon from "@material-ui/icons/Add";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
@@ -29,12 +29,13 @@ function PdfIframe({ file, classes, removeFromTodo }) {
   const fileurl = IdtoUrl(file.id);
   const [display, setdisplay] = useState(false);
   return (
-    <div className={classes.center}>
+    <div className={classes.center}  id={file.id}>
       {display ? (
         <React.Fragment>
           <Typography variant="body1">{file.name}</Typography>
 
           <ButtonGroup
+          
             size="small"
             variant="contained"
             color="secondary"
@@ -47,11 +48,11 @@ function PdfIframe({ file, classes, removeFromTodo }) {
                 }}
               />
             </Button>
-            {/* <Button>
+            <Button>
               <Link href={`#${file.id}`}>
                 <ExpandMoreIcon fontSize="large" color="primary" />
               </Link>
-            </Button> */}
+            </Button>
             {file.existInTodo === true && (
               <Button size="small" onClick={() => removeFromTodo(file)}>
                 <RemoveCircleOutlineIcon color="primary" />
@@ -60,7 +61,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
           </ButtonGroup>
 
           <iframe
-            id={file.id}
+           
             title="lecture"
             className={classes.fullwidth}
             frameBorder="0"

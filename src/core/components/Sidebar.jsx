@@ -9,10 +9,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-// import Link from "@material-ui/core/Link";
-// import Icon from "@material-ui/core/Icon";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
+import Link from "@material-ui/core/Link";
+import Icon from "@material-ui/core/Icon";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import CloseIcon from '@material-ui/icons/Close';
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 
@@ -45,9 +45,10 @@ export default function PersistentDrawerLeft({
           </Typography>
           {todo.map((text, index) => (
             <ListItem key={text.id}>
-               {/* <Link href={`#${text.id}`}>
+              {/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx if route is in nerds -> href = #id else go to nerds then scroll to the href */}
+               <Link href={`/nerds/#${text.id}`}>
                  <FlightTakeoffIcon/>
-               </Link> */}
+               </Link>
               <ListItemText primary={`${index + 1}) ${text.name}`} />
               
                 <CloseIcon
