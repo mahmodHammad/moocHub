@@ -132,6 +132,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         {/* <Demo /> */}
+      {console.log("process.env.PUBLIC_URL",process.env.PUBLIC_URL)}
         <div className="App">
           <Scroll />
           <BrowserRouter>
@@ -146,8 +147,9 @@ export default class App extends Component {
               {/* START ROUTING  **********************************************/}
               <Switch>
                 <Route
+                
                   exact
-                  path="/"
+                  path={process.env.PUBLIC_URL +"/"}
                   render={props => (
                     <Communities
                       {...props}
@@ -158,18 +160,19 @@ export default class App extends Component {
                 />
                 <Route
                   exact
-                  path="/subject/:subjectName/:subjectId"
+                  path={process.env.PUBLIC_URL +"/subject/:subjectName/:subjectId"}
                   render={props => (
                     <Subject
                       {...props}
                       addToTodo={this.addToTodo}
                       removeFromTodo={this.removeFromTodo}
+                      todo={this.state.todo}
                     />
                   )}
                 />
                 <Route
                   exact
-                  path="/:subjectName/:subjectId"
+                  path={process.env.PUBLIC_URL +"/:subjectName/:subjectId" }
                   render={props => (
                     <Home
                       {...props}
@@ -183,7 +186,7 @@ export default class App extends Component {
 
                 <Route
                   exact
-                  path="/nerds"
+                  path= {process.env.PUBLIC_URL+"/nerds"}
                   render={props => (
                     <Nerds
                       {...props}

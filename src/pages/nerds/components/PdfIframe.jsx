@@ -1,3 +1,4 @@
+// works form window routing not hash routing
 import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../../../helper/getPdfUrl";
@@ -35,7 +36,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
           <Typography variant="body1">{file.name}</Typography>
 
           <ButtonGroup
-          
+
             size="small"
             variant="contained"
             color="secondary"
@@ -50,7 +51,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
             </Button>
             <Button>
               <Link href={`#${file.id}`}>
-                <ExpandMoreIcon fontSize="large" color="primary" />
+                <ExpandMoreIcon fontSize="small" color="primary" />
               </Link>
             </Button>
             {file.existInTodo === true && (
@@ -80,6 +81,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
           >
             <Button>
               <UnfoldMoreIcon
+               size="small" 
                 onClick={() => {
                   setdisplay(true);
                 }}
@@ -88,7 +90,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
 
             <Button>
               <Link href={fileurl.downloadPdf}>
-                <GetAppIcon color="primary" />
+                <GetAppIcon  size="small"  color="primary" />
               </Link>
             </Button>
 

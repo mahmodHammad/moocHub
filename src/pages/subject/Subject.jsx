@@ -13,7 +13,7 @@ class Home extends Component {
     folderid: false,
     content: false,
     PrimarySliderSelectedIndex: false,
-    SecondarySliderSelectedIndex: false
+    SecondarySliderSelectedIndex: false,
   };
 
   //////// get files after clicking on prime slide  ////////
@@ -64,7 +64,7 @@ class Home extends Component {
       PrimarySliderSelectedIndex
     } = this.state;
     return (
-      <Grid container alignContent="center" justify="center">
+      <Grid container  justify="center">
         {/******  display subject name  ******/}
 
         <Grid item xs={12}>
@@ -93,6 +93,7 @@ class Home extends Component {
                 content={content[PrimarySliderSelectedIndex].actualContent}
                 removeFromTodo={this.props.removeFromTodo}
                 addToTodo={this.props.addToTodo}
+                todo={this.props.todo}
               />
             )}
         </Grid>

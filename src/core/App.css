@@ -2,7 +2,6 @@ body{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif;
-overflow-x: hidden;
 background: url("../assets/back1.svg") ;
 background-color: #e6f4fb;
 margin: 0;
@@ -11,7 +10,6 @@ max-width: 100%;
 }
 html {
   scroll-behavior: smooth;
-overflow-x: hidden;
 
 }
 .container{

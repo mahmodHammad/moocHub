@@ -14,9 +14,9 @@ export default class home extends Component {
     const { content } = this.props;
 
     return (
-      <Grid container justify="center" spacing={3}>
+      <Grid container justify="center" >
         <Grid item xs={12}>
-          <Typography variant="h4" align="center">
+          <Typography variant="h4" align="center" style={{"margin":"1vh 0 5vh  0"}}>
             {name}
           </Typography>
         </Grid>

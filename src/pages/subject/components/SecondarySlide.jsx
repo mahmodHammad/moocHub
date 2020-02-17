@@ -39,11 +39,11 @@ const styles = {
   }
 };
 function SecondarySlide({
-  parentName,
   content,
   classes,
   removeFromTodo,
-  addToTodo
+  addToTodo,
+  todo
 }) {
  
   return (
@@ -54,7 +54,7 @@ function SecondarySlide({
       justify="center"
     >
       {content.map((cont, N) => (
-        <Content key={cont.id}  content={cont} addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
+        <Content key={cont.id}  content={cont} todo={todo} addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
       ))}
     </Grid>
   );

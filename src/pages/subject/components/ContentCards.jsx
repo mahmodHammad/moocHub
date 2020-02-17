@@ -30,15 +30,19 @@ const styles = {
     alignSelf: "center"
   }
 };
+function isExistOnTodo(todo, content) {
+  console.log(todo, content);
+  todo.map(e => (e.id === content.id ? true : false));
+}
 
-function ComponentName({ content, classes, addToTodo, removeFromTodo }) {
+function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
   const [addContent, setContent] = useState(true);
   return (
     <Grid item xs={9} md={5} className={classes.op}>
       <Card>
         <CardContent className={classes.container}>
           <span className={classes.cardText}>{content.name}</span>
-
+{isExistOnTodo(todo , content)}
           {addContent === true ? (
             <AddCircleIcon
               className={classes.add}
