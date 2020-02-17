@@ -8,8 +8,8 @@ import Link from "@material-ui/core/Link";
 
 import GetAppIcon from "@material-ui/icons/GetApp";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
-import AddIcon from "@material-ui/icons/Add";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// import AddIcon from "@material-ui/icons/Add";
+// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
@@ -47,11 +47,11 @@ function PdfIframe({ file, classes, removeFromTodo }) {
                 }}
               />
             </Button>
-            <Button>
+            {/* <Button>
               <Link href={`#${file.id}`}>
                 <ExpandMoreIcon fontSize="large" color="primary" />
               </Link>
-            </Button>
+            </Button> */}
             {file.existInTodo === true && (
               <Button size="small" onClick={() => removeFromTodo(file)}>
                 <RemoveCircleOutlineIcon color="primary" />

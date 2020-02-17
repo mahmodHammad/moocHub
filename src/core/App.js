@@ -75,9 +75,9 @@ export default class App extends Component {
         //this line costed me 4 hourses :(
         s.nestedFolder = [];
         content.push(s);
-        this.nestedItems.push({ ...s, index });
+        return this.nestedItems.push({ ...s, index });
       } else {
-        content.push(s);
+        return content.push(s);
       }
     });
     this.setState({ content });
@@ -87,7 +87,7 @@ export default class App extends Component {
   // for Nested content :
   latelood = nestedItems => {
     nestedItems.map(folder => {
-      this.subFolderLoader(folder);
+      return this.subFolderLoader(folder);
     });
   };
 

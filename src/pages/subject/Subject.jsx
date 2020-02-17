@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
-import Pdf from "../../components/PdfIframe";
 import getFiles from "../../helper/getfiles";
 import DisplayComunityName from "./components/DisplayComunityName";
 import loadApi from "../../helper/loadApi"
