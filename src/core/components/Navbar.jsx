@@ -31,7 +31,8 @@ export default class Navbar extends Component {
   state={
     drawerOpen:false,
     menuOpen :false
-  }
+    }
+
   popref = React.createRef()
 
    handleToggle=()=>{
@@ -46,9 +47,6 @@ export default class Navbar extends Component {
     this.props.getCommunity()
    }
 
-  handleDrawerOpen = () => {
-    this.setState({drawerOpen:true})
-  };
   handleDrawerClose = () => {
     this.setState({drawerOpen:false})
   };
@@ -57,20 +55,30 @@ export default class Navbar extends Component {
   }
   
   render() {
+    const {todo ,removeFromTodo ,communities}=this.props
     
-    return (
+  return (
     
-<div>
+  <div>
     <AppBar position="fixed">
       <Toolbar >
-    <IconButton
+      {todo.length? <IconButton
         color="inherit"
         aria-label="open drawer"
         edge="start"
+        
         onClick={()=>this.toggleDrawer()}
       >
         <MenuIcon />
-      </IconButton>
+      </IconButton>:<IconButton
+        color="primary"
+        aria-label="open drawer"
+        edge="start"
+      >
+        <MenuIcon />
+      </IconButton>}
+   
+
       <div className="nav-container">
         <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 2px 0 0","fontSize":"0.68em"}} size="small">      home     </Button>
         
@@ -84,9 +92,10 @@ export default class Navbar extends Component {
       </Toolbar>
     </AppBar>
     
-      <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={this.props.todo} removeFromTodo={this.props.removeFromTodo}/>
+    {todo.length&&<Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>}
+
      <Popper
-     className="updowm"
+        className="updowm"
         anchorEl={this.popref.current}
         placement={"bottom-start"}
         open={this.state.menuOpen}
@@ -107,7 +116,7 @@ export default class Navbar extends Component {
                   <MenuList
                     id="menu-list-grow"
                   >
-                    {this.props.communities.map(e=> <MenuItem component={Link} to="/" key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
+                    {communities.map(e=> <MenuItem component={Link} to="/" key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
                     
                   </MenuList>
                 </ClickAwayListener>
