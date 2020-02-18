@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
-import Pdf from "../../components/PdfIframe";
 import getFiles from "../../helper/getfiles";
 import DisplayComunityName from "./components/DisplayComunityName";
 import loadApi from "../../helper/loadApi"
@@ -14,20 +13,11 @@ class Home extends Component {
     folderid: false,
     content: false,
     PrimarySliderSelectedIndex: false,
-    SecondarySliderSelectedIndex: false
-  };
-
-  loadSubjects = subjects => {
-    let content = [];
-    subjects.map(s => content.push(s));
-    this.setState({ content });
+    SecondarySliderSelectedIndex: false,
   };
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    // actualContent ===false ? make http request to get actual content
-    // rqueast take some time ...
-    // after objain ...  set state actual content
     this.state.content[index].actualContent === false &&
       getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
@@ -71,11 +61,10 @@ class Home extends Component {
     const {
       content,
       subjectName,
-      PrimarySliderSelectedIndex,
-      SecondarySliderSelectedIndex
+      PrimarySliderSelectedIndex
     } = this.state;
     return (
-      <Grid container alignContent="center" justify="center">
+      <Grid container  justify="center">
         {/******  display subject name  ******/}
 
         <Grid item xs={12}>
@@ -102,28 +91,12 @@ class Home extends Component {
               <SecondarySlide
                 parentName={content[PrimarySliderSelectedIndex].name}
                 content={content[PrimarySliderSelectedIndex].actualContent}
-                handleClick={this.handleSecondaryTabClick}
-                selectedIndex={SecondarySliderSelectedIndex}
+                removeFromTodo={this.props.removeFromTodo}
+                addToTodo={this.props.addToTodo}
+                todo={this.props.todo}
               />
             )}
         </Grid>
-
-        {/******  display content depending on the selected secondary  ******/}
-
-        {SecondarySliderSelectedIndex !== false && (
-          <React.Fragment>
-            <Pdf
-            display={false}
-              removeFromTodo={this.props.removeFromTodo}
-              addToTodo={this.props.addToTodo}
-              file={
-                content[this.state.PrimarySliderSelectedIndex].actualContent[
-                  SecondarySliderSelectedIndex
-                ]
-              }
-            />
-          </React.Fragment>
-        )}
       </Grid>
     );
   }
