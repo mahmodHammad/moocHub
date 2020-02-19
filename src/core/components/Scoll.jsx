@@ -28,13 +28,13 @@ function Scoll({ classes }) {
           color="primary"
           className={`${classes.border} updowm`}
           onClick={() =>
-            window.scrollBy({top:-window.innerHeight-25 ,left:0 })
+            window.scrollBy({top:-window.innerHeight-55 ,left:0 })
           }
         />
         <ArrowDropDownIcon
           color="primary"
           className={`${classes.border} updowm`}
-          onClick={() => window.scrollBy({top:window.innerHeight+25 ,left:0 })}
+          onClick={() => window.scrollBy({top:window.innerHeight+55 ,left:0 })}
         />
       </div>
     </div>

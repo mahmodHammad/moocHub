@@ -44,7 +44,7 @@ export default function PersistentDrawerLeft({
           {todo.map((text, index) => (
             <ListItem key={text.id}>
               {/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx if route is in nerds -> href = #id else go to nerds then scroll to the href */}
-               <Link href={`/nerds/#${text.id}`}>
+               <Link href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}>
                  <FlightTakeoffIcon/>
                </Link>
               <ListItemText primary={`${index + 1}) ${text.name}`} />

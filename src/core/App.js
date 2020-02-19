@@ -129,13 +129,14 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
+    console.log("updated woow")
     return (
       <MuiThemeProvider theme={theme}>
         {/* <Demo /> */}
       {console.log("process.env.PUBLIC_URL",process.env.PUBLIC_URL)}
         <div className="App">
           <Scroll />
-          <BrowserRouter>
+          <BrowserRouter basename={process.env.PUBLIC_URL}> 
             {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
             <Navbar
               communities={this.state.communities}
@@ -149,7 +150,7 @@ export default class App extends Component {
                 <Route
                 
                   exact
-                  path={process.env.PUBLIC_URL +"/"}
+                  path="/"
                   render={props => (
                     <Communities
                       {...props}
@@ -160,7 +161,7 @@ export default class App extends Component {
                 />
                 <Route
                   exact
-                  path={process.env.PUBLIC_URL +"/subject/:subjectName/:subjectId"}
+                  path="/subject/:subjectName/:subjectId"
                   render={props => (
                     <Subject
                       {...props}
@@ -172,7 +173,7 @@ export default class App extends Component {
                 />
                 <Route
                   exact
-                  path={process.env.PUBLIC_URL +"/:subjectName/:subjectId" }
+                  path="/:subjectName/:subjectId" 
                   render={props => (
                     <Home
                       {...props}
@@ -186,7 +187,7 @@ export default class App extends Component {
 
                 <Route
                   exact
-                  path= {process.env.PUBLIC_URL+"/nerds"}
+                  path= "/nerds"
                   render={props => (
                     <Nerds
                       {...props}
