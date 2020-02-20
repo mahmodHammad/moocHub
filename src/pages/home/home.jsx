@@ -16,12 +16,12 @@ export default class home extends Component {
     return (
       <Grid container justify="center" >
         <Grid item xs={12}>
-          <Typography variant="h4" align="center" style={{"margin":"1vh 0 5vh  0"}}>
+          <Typography variant="h4" align="center" style={{"margin":"0 0 4vh  0"}}>
             {name}
           </Typography>
         </Grid>
 
-        <Grid container item xs={11} md={10} spacing={4}>
+        <Grid container item xs={11} md={10} spacing={4} className="cardContent">
           {content.map((folder, N) => {
             return (
               <DisplaySubjects

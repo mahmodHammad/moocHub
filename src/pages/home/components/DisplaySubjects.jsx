@@ -13,7 +13,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
       {folder.hasNestedFolder ? (
         <Card>
           <CardContent>
-            <Typography variant="h6" align="center" gutterBottom>
+            <Typography variant="h6" align="center" color="primary" gutterBottom>
               {folder.name}
             </Typography>
 
@@ -29,7 +29,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
                       variant="contained"
                       color="primary"
                     >
-                      {folder.name}
+                          <Typography color="secondary" variant="inherit" >{folder.name}</Typography>
                     </Button>
                   </Grid>
                 ))}
@@ -47,7 +47,9 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
               variant="contained"
               color="primary"
             >
-              {folder.name}
+              <Typography color="secondary" variant="inherit" >{folder.name}</Typography>
+             
+              
             </Button>
           </CardContent>
         </Card>
