@@ -11,7 +11,7 @@ const styles = {
     right: "1vw"
   },
   border: {
-    border: "1px solid #88b",
+    border: "1px solid #f07b3f",
     borderRadius: "50%",
     cursor: "pointer",
     display: "block",
@@ -25,15 +25,13 @@ function Scoll({ classes }) {
     <div className={classes.absolute}>
       <div>
         <ArrowDropUpIcon
-          color="primary"
-          className={`${classes.border} updowm`}
+          className={`${classes.border} updowm col2`}
           onClick={() =>
             window.scrollBy({top:-window.innerHeight-55 ,left:0 })
           }
         />
         <ArrowDropDownIcon
-          color="primary"
-          className={`${classes.border} updowm`}
+          className={`${classes.border} updowm col2`}
           onClick={() => window.scrollBy({top:window.innerHeight+55 ,left:0 })}
         />
       </div>

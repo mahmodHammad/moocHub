@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {  BrowserRouter, Route, Switch } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
 import "./App.css";
 import Home from "../pages/home/home";
 import Navbar from "./components/Navbar";
@@ -14,15 +14,53 @@ import Subject from "../pages/subject/Subject";
 import Scroll from "./components/Scoll";
 import Nerds from './../pages/nerds/Nerds';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+
 const theme = createMuiTheme({
+  // #ffd460
+  // #f07b3f
+  // #ea5455
+  // #2d4059
+
+  
+  // overrides: {
+  //   MuiButton: {
+  //     root: {
+  //       fontSize: '0.7rem',
+  //     color:"red"
+
+  //     }
+  //   },
+  //   MuiCardContent:{
+  //     fontSize: '4.7rem',
+  //     color:"red"
+  //   },
+  //   MuiButttonGroup:{
+  //     fontSize: '4.7rem',
+  //     color:"red"
+  //   }
+  // },
   palette: {
     primary: {
-      main: "#1769aa"
+      main: "#2d4059"
     },
     secondary: {
-      light: "#0066ff",
-      main: "#e2f3f5",
-      contrastText: "#222244s"
+      light: "#fff",
+      main: "#ffd460",
+      contrastText: "#000"
+    },
+    error :{
+      light: "#fff",
+      main: "#ff0400",
+      contrastText: "#000"
+    },success:{
+      light: "#4ff",
+      main: "#00ff60",
+      contrastText: "#000"
+    },
+    background: {
+      default: "#f0f0f0"
     }
   }
 });
@@ -129,12 +167,11 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
-    console.log("updated woow")
     return (
       <MuiThemeProvider theme={theme}>
+            <CssBaseline />
         {/* <Demo /> */}
-      {console.log("process.env.PUBLIC_URL",process.env.PUBLIC_URL)}
-        <div className="App">
+        <div className="App" >
           <Scroll />
           <BrowserRouter basename={process.env.PUBLIC_URL}> 
             {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
@@ -144,7 +181,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
             />
-            <div className="container">
+            <div className="container" >
               {/* START ROUTING  **********************************************/}
               <Switch>
                 <Route

@@ -7,12 +7,27 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-import CloseIcon from '@material-ui/icons/Close';
-import GolfCourseIcon from '@material-ui/icons/GolfCourse';
+import CloseIcon from "@material-ui/icons/Close";
+import GolfCourseIcon from "@material-ui/icons/GolfCourse";
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import { makeStyles } from '@material-ui/core/styles';
+import '../style.css'
+
+
+const useStyles = makeStyles({
+  list: {
+    width: 290,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
+
+
 
 export default function PersistentDrawerLeft({
   open,
@@ -20,12 +35,13 @@ export default function PersistentDrawerLeft({
   todo,
   removeFromTodo
 }) {
+  const classes = useStyles();
   const theme = useTheme();
   let isopen = open;
   return (
     <div>
-      <Drawer variant="persistent" anchor="left" open={isopen}>
-        <div>
+      <SwipeableDrawer variant="persistent" anchor="left" open={isopen}>
+        <div  className={classes.list}>
           <IconButton onClick={closefn}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -33,34 +49,35 @@ export default function PersistentDrawerLeft({
               <ChevronRightIcon />
             )}
           </IconButton>
-        </div>
-        <Divider />
+     
+          <Divider/>
+         
 
         <List>
           {/* data**************************************************************/}
-          <Typography variant="h6" align="center" color="primary">
-            study List <GolfCourseIcon/>
+          <Typography variant="h6" align="center"  className="col2">
+            Study List <GolfCourseIcon />
           </Typography>
+
           {todo.map((text, index) => (
-            <ListItem key={text.id}>
-              {/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx if route is in nerds -> href = #id else go to nerds then scroll to the href */}
-               <Link href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}>
-                 <FlightTakeoffIcon/>
-               </Link>
-              <ListItemText primary={`${index + 1}) ${text.name}`} />
-              
-                <CloseIcon
-                  color="primary"
-                  onClick={() => removeFromTodo(text)}
-                />
-           </ListItem>
+            <div>
+            <ListItem key={text.id} >
+              <ListItemText  component={Link} href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}>
+                <Link color="primary" href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}> {text.name} </Link>
+              </ListItemText>
+              <CloseIcon  fontSize="small" className="col3 todoRemove"  onClick={() => removeFromTodo(text)} />
+              <Divider />
+            </ListItem>
+              <Divider/>
+            </div>
+            
           ))}
         </List>
-        <Divider />
-      </Drawer>
+        </div>
+      </SwipeableDrawer>
       <main>
         <div />
       </main>
-      </div>
+    </div>
   );
 }

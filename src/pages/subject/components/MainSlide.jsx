@@ -18,7 +18,7 @@ function MainSlide({ content, classes, handleClick, selectedIndex }) {
         variant="scrollable"
         textColor="inherit"
         scrollButtons="on"
-        indicatorColor="primary"
+        indicatorColor="secondary"
       >
         {content.map((content, N) => (
           <Tab

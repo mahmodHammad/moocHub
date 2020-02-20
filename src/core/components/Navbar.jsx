@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar"
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -9,11 +9,13 @@ import Grow from "@material-ui/core/Grow";
 
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Link } from "react-router-dom";
-import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
+import {Link } from 'react-router-dom'
+import IconButton from '@material-ui/core/IconButton';
+import Paper  from '@material-ui/core/Paper';
 
-import MenuIcon from "@material-ui/icons/Menu";
+
+
+import MenuIcon from '@material-ui/icons/Menu';
 // import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 // import DetailsIcon from '@material-ui/icons/Details';
 // import EjectIcon from '@material-ui/icons/Eject';
@@ -26,125 +28,83 @@ import MenuIcon from "@material-ui/icons/Menu";
 // import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
 // import HomeIcon from '@material-ui/icons/Home';
 export default class Navbar extends Component {
-  state = {
-    drawerOpen: false,
-    menuOpen: false
-  };
+  state={
+    drawerOpen:false,
+    menuOpen :false
+    }
 
-  popref = React.createRef();
+  popref = React.createRef()
 
-  handleToggle = () => {
-    this.setState({ menuOpen: !this.state.menuOpen });
-  };
-  handleClose = () => {
-    this.setState({ menuOpen: false });
-  };
-  handleSelect = community => {
-    this.handleClose();
-    window.localStorage.setItem(
-      "community",
-      `/${community.name}/${community.id}`
-    );
-    this.props.getCommunity();
-  };
+   handleToggle=()=>{
+     this.setState({menuOpen:!this.state.menuOpen})
+   }
+   handleClose=()=>{
+    this.setState({menuOpen:false})
+   }
+   handleSelect=(community)=>{
+     this.handleClose();
+     window.localStorage.setItem("community", `/${community.name}/${community.id}`);
+    this.props.getCommunity()
+   }
 
   handleDrawerClose = () => {
-    this.setState({ drawerOpen: false });
+    this.setState({drawerOpen:false})
   };
-  toggleDrawer = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
-  };
-
+  toggleDrawer=()=>{
+    this.setState({drawerOpen:!this.state.drawerOpen})
+  }
+  
   render() {
-    const { todo, removeFromTodo, communities } = this.props;
+    const {todo ,removeFromTodo ,communities}=this.props
+    
+  return (
+    
+  <div>
+    <AppBar position="static" className="nav">
+      <Toolbar >
+      {todo.length? <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        
+        onClick={()=>this.toggleDrawer()}
+      >
+        <MenuIcon />
+      </IconButton>:<IconButton
+        color="primary"
+        aria-label="open drawer"
+        edge="start"
+      >
+        <MenuIcon />
+      </IconButton>}
+   
 
-    return (
-      <div>
-        <AppBar position="static" className="nav">
-          <Toolbar>
-            {todo.length ? (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={() => this.toggleDrawer()}
-              >
-                <MenuIcon />
-              </IconButton>
-            ) : (
-              <IconButton color="primary" aria-label="open drawer" edge="start">
-                <MenuIcon />
-              </IconButton>
-            )}
+      <div className="nav-container">
+        <Button color="inherit" component={Link} to='/' variant="outlined" color="secondary"  style={{"margin":"0 2px 0 0","fontSize":"0.68em"}} size="small">      home     </Button>
+        
+        <Button color="inherit" component={Link} to='/nerds'variant="outlined" color="secondary" style={{"margin":"0 3px","fontSize":"0.77em" }}  size="small">  Nerds Room   </Button>
+          
+        <Button color="inherit"  variant="outlined" color="secondary" style={{"margin":"0  0 0 2px" ,"fontSize":"0.68em"}}
+            aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref} size="small">  
+          departments  
+          </Button>
+      </div>
+      </Toolbar>
+    </AppBar>
+    
+    {todo.length?
+    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>:
+    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>
+    }
 
-            <div className="nav-container">
-              <Button
-                color="inherit"
-                component={Link}
-                to="/"
-                variant="outlined"
-                color="secondary"
-                style={{ margin: "0 2px 0 0", fontSize: "0.68em" }}
-                size="small"
-              >
-                {" "}
-                home{" "}
-              </Button>
-
-              <Button
-                color="inherit"
-                component={Link}
-                to="/nerds"
-                variant="outlined"
-                color="secondary"
-                style={{ margin: "0 3px", fontSize: "0.77em" }}
-                size="small"
-              >
-                {" "}
-                Nerds Room{" "}
-              </Button>
-
-              <Button
-                color="inherit"
-                variant="outlined"
-                color="secondary"
-                style={{ margin: "0  0 0 2px", fontSize: "0.68em" }}
-                aria-haspopup="true"
-                onClick={() => this.handleToggle()}
-                ref={this.popref}
-                size="small"
-              >
-                departments
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-{/*XXXXXXmay be cleaned later */}
-        {todo.length ? (
-          <Sidebar
-            open={this.state.drawerOpen}
-            closefn={this.handleDrawerClose}
-            todo={todo}
-            removeFromTodo={removeFromTodo}
-          />
-        ) : (
-          <Sidebar
-            open={false}
-            closefn={this.handleDrawerClose}
-            todo={todo}
-            removeFromTodo={removeFromTodo}
-          />
-        )}
-
-        <Popper
-          className="updowm"
-          anchorEl={this.popref.current}
-          placement={"bottom-start"}
-          open={this.state.menuOpen}
-          role={undefined}
-          transition
-          disablePortal
+     <Popper
+        className="updowm"
+        anchorEl={this.popref.current}
+        placement={"bottom-start"}
+        open={this.state.menuOpen}
+        role={undefined}
+        transition
+        disablePortal
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -155,25 +115,19 @@ export default class Navbar extends Component {
               }}
             >
               <Paper>
-                <ClickAwayListener onClickAway={() => this.handleClose()}>
-                  <MenuList id="menu-list-grow">
-                    {communities.map(e => (
-                      <MenuItem
-                        component={Link}
-                        to="/"
-                        key={e.id}
-                        onClick={() => this.handleSelect(e)}
-                      >
-                        {e.name}
-                      </MenuItem>
-                    ))}
+                <ClickAwayListener onClickAway={()=>this.handleClose()}>
+                  <MenuList
+                    id="menu-list-grow"
+                  >
+                    {communities.map(e=> <MenuItem component={Link} to="/" key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
+                    
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
-      </div>
+          </div>
     );
   }
 }
