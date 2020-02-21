@@ -2,16 +2,7 @@
 import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../../../helper/getPdfUrl";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-
-import GetAppIcon from "@material-ui/icons/GetApp";
-import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
-import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
 import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";

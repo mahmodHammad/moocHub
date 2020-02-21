@@ -92,10 +92,9 @@ export default class Navbar extends Component {
       </Toolbar>
     </AppBar>
     
-    {todo.length?
-    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>:
-    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>
-    }
+  
+    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} toggleDrawer={this.toggleDrawer}  todo={todo} removeFromTodo={removeFromTodo}/>
+    
 
      <Popper
         className="updowm"

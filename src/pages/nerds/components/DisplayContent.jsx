@@ -11,8 +11,8 @@ export default function DisplayContent({
     <React.Fragment>
       {todo.length !== 0 &&
         todo.map(e => (
-          <List>
-            <Pdf key={e.id} file={e} removeFromTodo={removeFromTodo} />
+          <List key={e.id}>
+            <Pdf file={e} removeFromTodo={removeFromTodo} />
           </List>
         ))}
     </React.Fragment>

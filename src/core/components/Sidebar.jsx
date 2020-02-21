@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -28,19 +28,20 @@ const useStyles = makeStyles({
 });
 
 
-
 export default function PersistentDrawerLeft({
   open,
   closefn,
   todo,
-  removeFromTodo
+  removeFromTodo,
+  toggleDrawer
 }) {
+  const [IsOpen, setIsOpen] = useState(false)
   const classes = useStyles();
   const theme = useTheme();
   let isopen = open;
   return (
     <div>
-      <SwipeableDrawer variant="persistent" anchor="left" open={isopen}>
+      <SwipeableDrawer anchor="left" onOpen={()=>toggleDrawer()}  onClose={()=>toggleDrawer()} open={isopen}>
         <div  className={classes.list}>
           <IconButton onClick={closefn}>
             {theme.direction === "ltr" ? (
@@ -60,8 +61,8 @@ export default function PersistentDrawerLeft({
           </Typography>
 
           {todo.map((text, index) => (
-            <div>
-            <ListItem key={text.id} >
+            <div key={text.id}>
+            <ListItem>
               <ListItemText  component={Link} href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}>
                 <Link color="primary" href={`${process.env.PUBLIC_URL}/nerds/#${text.id}`}> {text.name} </Link>
               </ListItemText>

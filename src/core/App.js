@@ -157,10 +157,8 @@ export default class App extends Component {
     this.getCommunity();
     let  gettodo = window.localStorage.getItem("todo")
     if(gettodo){
-     console.log(gettodo)
     let todo = JSON.parse(gettodo)
      this.setState({todo})
-     console.log(todo)
     }
   }
 
