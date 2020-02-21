@@ -11,7 +11,6 @@ import loadApi from "./../helper/loadApi";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
 
-import Scroll from "./components/Scoll";
 import Nerds from './../pages/nerds/Nerds';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -170,7 +169,6 @@ export default class App extends Component {
             <CssBaseline />
         {/* <Demo /> */}
         <div className="App" >
-          <Scroll />
           <BrowserRouter basename={process.env.PUBLIC_URL}> 
             {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
             <Navbar

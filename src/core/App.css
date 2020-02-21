@@ -34,9 +34,7 @@ a:hover{
 .center{
   justify-Content: center;
 }
-.updowm{
-  z-index: 100000000000000 !important;
-}
+
 .updowm:hover{
   background-color: #f07b3f;
   color: #fff;
@@ -61,10 +59,6 @@ min-height: "0px"!important ;
 }
 /* git add . && git commit -am " " */
 
-
-
-
-
-.align-left{
-  text-align: left;
+.Zindex{
+  z-index: 0 !important;
 }

@@ -8,13 +8,15 @@ export default function DisplayContent({
   collapse = true
 }) {
   return (
-    <React.Fragment>
+    <div >
       {todo.length !== 0 &&
         todo.map(e => (
-          <List key={e.id}>
+          <div key={e.id}> 
+          <List className="Zindex">
             <Pdf file={e} removeFromTodo={removeFromTodo} />
           </List>
+          </div>
         ))}
-    </React.Fragment>
+    </div>
   );
 }

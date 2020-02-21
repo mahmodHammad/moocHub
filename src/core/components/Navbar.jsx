@@ -60,8 +60,8 @@ export default class Navbar extends Component {
   return (
     
   <div>
-    <AppBar position="static" className="nav">
-      <Toolbar >
+    <AppBar position="sticky" className="nav">
+      <Toolbar  variant="dense"  >
       {todo.length? <IconButton
         color="inherit"
         aria-label="open drawer"

@@ -16,7 +16,7 @@ export default class home extends Component {
     return (
       <Grid container justify="center" >
         <Grid item xs={12}>
-          <Typography variant="h4" align="center" style={{"margin":"0 0 4vh  0"}}>
+          <Typography variant="h5"  color="primary" align="center" style={{"margin":"5px 0 40px  0"}}>
             {communityName}
           </Typography>
         </Grid>
