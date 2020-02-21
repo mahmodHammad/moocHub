@@ -60,8 +60,8 @@ export default class Navbar extends Component {
   return (
     
   <div>
-    <AppBar position="static" className="nav">
-      <Toolbar >
+    <AppBar position="sticky" className="nav">
+      <Toolbar  variant="dense"  >
       {todo.length? <IconButton
         color="inherit"
         aria-label="open drawer"
@@ -92,10 +92,9 @@ export default class Navbar extends Component {
       </Toolbar>
     </AppBar>
     
-    {todo.length?
-    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>:
-    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} todo={todo} removeFromTodo={removeFromTodo}/>
-    }
+  
+    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} toggleDrawer={this.toggleDrawer}  todo={todo} removeFromTodo={removeFromTodo}/>
+    
 
      <Popper
         className="updowm"

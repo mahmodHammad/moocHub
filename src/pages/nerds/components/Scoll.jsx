@@ -8,7 +8,8 @@ const styles = {
     position: "fixed",
     opacity: "0.3",
     bottom: "1vh",
-    right: "1vw"
+    right: "0.5vw",
+    zIndex:"100"
   },
   border: {
     border: "1px solid #f07b3f",

@@ -34,9 +34,7 @@ a:hover{
 .center{
   justify-Content: center;
 }
-.updowm{
-  z-index: 100000000000000 !important;
-}
+
 .updowm:hover{
   background-color: #f07b3f;
   color: #fff;
@@ -52,16 +50,15 @@ font-size: 1.4 em;
 color: rgb(170, 0, 0);
 font-weight: bold;
 text-transform: capitalize;
+padding: 60px;
 }
 
 .nav {
 min-height: "0px"!important ;
+
 }
 /* git add . && git commit -am " " */
 
-
-
-
-.MuiButton-text{
-  color:green
+.Zindex{
+  z-index: 0 !important;
 }
