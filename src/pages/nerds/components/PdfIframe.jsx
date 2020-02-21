@@ -12,6 +12,7 @@ import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
+import CloseIcon from "@material-ui/icons/Close";
 
 const styles = {
   fullwidth: {
@@ -28,81 +29,77 @@ function PdfIframe({ file, classes, removeFromTodo }) {
   const fileurl = IdtoUrl(file.id);
   const [display, setdisplay] = useState(false);
   return (
-    <div className={classes.center} id={file.id}>
-      {display ? (
-        <React.Fragment>
-          <Typography variant="body1">{file.name}</Typography>
+    <div key={file.id} className={classes.center} id={file.id}>
+      <Typography
+        variant="h6"
+        component="span"
+        onClick={() => {
+          setdisplay(!display);
+        }}
+      >
+        {file.name}{" "}
+      </Typography>
 
-          <ButtonGroup
-            size="small"
-            variant="contained"
-            color="secondary"
-            aria-label="contained primary button group"
-          >
-            <Button>
-              <UnfoldLessIcon
-                onClick={() => {
-                  setdisplay(false);
-                }}
-              />
-            </Button>
-            <Button>
-              <Link href={`#${file.id}`}>
-                <ExpandMoreIcon fontSize="small" color="primary" />
-              </Link>
-            </Button>
-            {file.existInTodo === true && (
-              <Button size="small" onClick={() => removeFromTodo(file)}>
-                <RemoveCircleOutlineIcon color="primary" />
-              </Button>
-            )}
-          </ButtonGroup>
-
-            <iframe
-              title="lecture"
-              className={classes.fullwidth}
-              frameBorder="0"
-              src={fileurl.displayPdf}
-            ></iframe>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Typography variant="h6">{file.name}</Typography>
-
-          <ButtonGroup
-            size="small"
-            variant="contained"
-            color="secondary"
-            aria-label="contained primary button group"
-          >
-            <Button>
-              <UnfoldMoreIcon
-                size="small"
-                onClick={() => {
-                  setdisplay(true);
-                }}
-              />
-            </Button>
-
-            <Button>
-              <Link href={fileurl.downloadPdf}>
-                <GetAppIcon size="small" color="primary" />
-              </Link>
-            </Button>
-
-            {file.existInTodo === true && (
-              <Button>
-                <RemoveCircleOutlineIcon
-                  onClick={() => removeFromTodo(file)}
-                  color="primary"
-                />
-              </Button>
-            )}
-          </ButtonGroup>
-        </React.Fragment>
+      <CloseIcon
+        fontSize="small"
+        className="col3 todoRemove"
+        onClick={() => removeFromTodo(file)}
+      />
+   
+      {display && (
+        <iframe
+          title="lecture"
+          className={classes.fullwidth}
+          frameBorder="0"
+          src={fileurl.displayPdf}
+        ></iframe>
       )}
     </div>
   );
 }
 
 export default withStyles(styles)(PdfIframe);
+
+// {display ?
+//   <iframe
+//     title="lecture"
+//     className={classes.fullwidth}
+//     frameBorder="0"
+//     src={fileurl.displayPdf}
+//   ></iframe>
+
+//   : (
+//     <React.Fragment>
+// <Typography variant="h6" onClick={() => {
+//         setdisplay(!display);
+//       }}>{file.name} </Typography>
+
+// <ButtonGroup
+//   size="small"
+//   variant="contained"
+//   color="secondary"
+//   aria-label="contained primary button group"
+// >
+//   <Button>
+//     <UnfoldMoreIcon
+//       size="small"
+
+//     />
+//   </Button>
+
+//   <Button>
+//     <Link href={fileurl.downloadPdf}>                <GetAppIcon size="small" color="primary" />
+//     </Link>
+//   </Button>
+
+//   {file.existInTodo === true && (
+//     <Button>
+//       <RemoveCircleOutlineIcon
+//         onClick={() => removeFromTodo(file)}
+//         color="primary"
+//       />
+//     </Button>
+//   )}
+// </ButtonGroup>
+// </React.Fragment>
+// )}
