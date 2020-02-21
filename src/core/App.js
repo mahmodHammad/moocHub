@@ -42,11 +42,11 @@ const theme = createMuiTheme({
   // },
   palette: {
     primary: {
-      main: "#2d4059"
+      main: "#333"
     },
     secondary: {
       light: "#fff",
-      main: "#ffd460",
+      main: "#d72323",
       contrastText: "#000"
     },
     error :{

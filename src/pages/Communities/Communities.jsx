@@ -15,7 +15,7 @@ export default function home({communities }) {
         <Typography variant="h4" align="center" color="primary">
           Faculty Of Engineering 
         </Typography>
-        <Typography variant="h6" align="center" >
+        <Typography variant="h6" align="center"  color="secondary">
           Ain Shams University 
         </Typography>
       </Grid>

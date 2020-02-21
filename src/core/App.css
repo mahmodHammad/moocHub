@@ -1,3 +1,19 @@
+.col1{
+  color: #fff !important; 
+}
+.bcol1{
+  background-color: #fff !important; 
+}
+.col2{
+  color: #d72323;
+}
+.col3{
+  color: #ea5454;
+}
+.col4{
+  color: #801336;
+}
+
 body{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -12,6 +28,7 @@ html {
   scroll-behavior: smooth;
 
 }
+
 .container{
   margin: 20px auto 0 auto;
 }

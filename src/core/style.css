@@ -1,16 +1,3 @@
-.col1{
-    color: #ffd460;
-    
-}
-.col2{
-    color: #f07b3f;
-}
-.col3{
-    color: #ea5455;
-}
-.col4{
-    color: #2d4059;
-}
 
 .todoRemove{
     border: #ea545479 solid 0.7px;
@@ -24,4 +11,7 @@
     background-color: #ffffff57;
     padding: 0 10px 10px 10px;
     border-radius: 30px;
+}
+.float{
+    z-index: 10000;
 }

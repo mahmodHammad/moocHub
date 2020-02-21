@@ -16,7 +16,7 @@ export default function DisplaySubjects({ community, mdWidth }) {
         to={`/${community.name}/${community.id}`}
         fullWidth
         variant="contained"
-        color="secondary"
+        className="bcol1"
       >
         {community.name}
       </Button>
