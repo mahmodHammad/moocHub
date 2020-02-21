@@ -13,6 +13,10 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import UnfoldMoreIcon from "@material-ui/icons/UnfoldMore";
 import UnfoldLessIcon from "@material-ui/icons/UnfoldLess";
 import CloseIcon from "@material-ui/icons/Close";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import Container from "@material-ui/core/Container";
 
 const styles = {
   fullwidth: {
@@ -30,22 +34,27 @@ function PdfIframe({ file, classes, removeFromTodo }) {
   const [display, setdisplay] = useState(false);
   return (
     <div key={file.id} className={classes.center} id={file.id}>
-      <Typography
-        variant="h6"
-        component="span"
-        onClick={() => {
-          setdisplay(!display);
-        }}
-      >
-        {file.name}{" "}
-      </Typography>
-
-      <CloseIcon
-        fontSize="small"
-        className="col3 todoRemove"
-        onClick={() => removeFromTodo(file)}
-      />
-   
+      <Container  maxWidth="lg">
+      <ListItem className="NerdsListItem">
+        <ListItemText>
+          <Typography
+            variant="h6"
+            component="span"
+            color="primary"
+            onClick={() => {
+              setdisplay(!display);
+            }}
+          >
+            {file.name}
+          </Typography>
+        </ListItemText>
+        <CloseIcon
+          fontSize="small"
+          className="col3 todoRemove"
+          onClick={() => removeFromTodo(file)}
+        />
+      </ListItem>
+      </Container>
       {display && (
         <iframe
           title="lecture"
@@ -54,6 +63,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
           src={fileurl.displayPdf}
         ></iframe>
       )}
+      <Divider />
     </div>
   );
 }

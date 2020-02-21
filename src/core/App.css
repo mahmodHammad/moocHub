@@ -52,16 +52,19 @@ font-size: 1.4 em;
 color: rgb(170, 0, 0);
 font-weight: bold;
 text-transform: capitalize;
+padding: 60px;
 }
 
 .nav {
 min-height: "0px"!important ;
+
 }
 /* git add . && git commit -am " " */
 
 
 
 
-.MuiButton-text{
-  color:green
+
+.align-left{
+  text-align: left;
 }
