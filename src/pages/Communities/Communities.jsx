@@ -5,6 +5,9 @@ import Grid  from "@material-ui/core/Grid";
 import React from "react";
 import { Redirect } from 'react-router-dom';
 
+import particlesParams from "../../config/particles"
+import Particles from "react-particles-js";
+
 export default function home({communities ,ChooseCommumity }) {
 
   // to make user see his subjects directly withou choosing his community again
@@ -13,21 +16,28 @@ export default function home({communities ,ChooseCommumity }) {
   }
 
     return (
-    <Grid container justify="center" spacing={3}>
+      <div  className="communityCont">
+    <Grid container justify="center">
+       <Particles
+        className="particles"
+          params={particlesParams}
+        />
       <Grid item xs={12}>
-        <Typography variant="h4" align="center" color="primary">
+        <div className="communityLabel">
+        <Typography variant="h4"  align="center" color="primary" >
           Faculty Of Engineering 
         </Typography>
         <Typography variant="h6" align="center"  color="secondary">
           Ain Shams University 
         </Typography>
+        </div>
       </Grid>
-
-      <Grid container item xs={8} md={10} spacing={5}>
+      <Grid container item xs={8} md={9} spacing={4} className="communiities" >
         {communities.map((community, N) => {
           return <DisplayCommunity ChooseCommumity={ChooseCommumity} community={community} key={community.id || N} mdWidth={communities.length%2===1?(N === communities.length-1 ?12:6):6} />;
         })}
       </Grid>
     </Grid>
+    </div>
   );
 }

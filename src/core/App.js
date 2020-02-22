@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import getFiles from "./../helper/getfiles";
@@ -12,7 +13,6 @@ import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
-import Particles from "react-particles-js";
 
 const theme = createMuiTheme({
   // overrides: {
@@ -169,29 +169,6 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Particles
-        className="particles"
-          params={{
-            particles: {
-              number: {
-                value: 50,
-                max: 100
-              },
-              color: { value: "#a22" },
-              size: {
-                value: 2
-            }
-            },
-            "interactivity": {
-              "events": {
-                  "onhover": {
-                      "enable": true,
-                      "mode": "repulse"
-                  }
-              }
-          }
-          }}
-        />
         <CssBaseline />
         {/* <Demo /> */}
         <div className="App">
@@ -206,6 +183,7 @@ export default class App extends Component {
             <div className="container">
               {/* START ROUTING  **********************************************/}
               <Switch>
+                >
                 <Route
                   exact
                   path="/"

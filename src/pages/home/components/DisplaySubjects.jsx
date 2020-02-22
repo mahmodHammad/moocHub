@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 export default function DisplaySubjects({ folder  ,mdWidth}) {
 
   return (
-    <Grid item xs={12} md={mdWidth} key={folder.id}>
+    <Grid item xs={12} md={mdWidth} key={folder.id} className="subjectButtonCont">
       {folder.hasNestedFolder ? (
-        <Card>
+        <Card >
           <CardContent>
             <Typography variant="h6" align="center" color="primary" gutterBottom>
               {folder.name} 

@@ -7,6 +7,9 @@ import getFiles from "../../helper/getfiles";
 import DisplayComunityName from "./components/DisplayComunityName";
 import loadApi from "../../helper/loadApi"
 
+import particlesParams from "../../config/particles"
+import Particles from "react-particles-js";
+
 class Home extends Component {
   state = {
     subjectName: "",
@@ -66,6 +69,10 @@ class Home extends Component {
     return (
       <Grid container  justify="center">
         {/******  display subject name  ******/}
+        <Particles
+        className="particles"
+          params={particlesParams}
+        />
 
         <Grid item xs={12}>
           <DisplayComunityName name={subjectName} />
