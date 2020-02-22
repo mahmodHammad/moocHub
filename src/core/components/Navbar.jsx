@@ -13,7 +13,14 @@ const useStyles = makeStyles(theme => ({
   logo: {
     flexGrow: 1,
     justifyContent: "left",
-    fontWeight: "bold"
+    fontWeight: "bold",
+  },
+  logo1:{
+    // paddingLeft:"0"
+  },
+  study:{
+    padding:" 2px 9px",
+    fontSize:"0.7125rem"
   },
   root: {
     flexGrow: 1
@@ -37,14 +44,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: "0.7rem"
   }
 }));
-
-// handleToggle = () => {
-//   this.setState({ menuOpen: !this.state.menuOpen });
-// };
-// handleClose = () => {
-//   this.setState({ menuOpen: false });
-// };
-
 // handleSelect = community => {
 //   this.handleClose();
 //   window.localStorage.setItem(
@@ -70,7 +69,7 @@ export default function Navbar({ todo, removeFromTodo, communities }) {
             <MenuIcon />
           </IconButton>
           <div className={classes.logo}>
-            <Button color="inherit" component={Link} to="/" size="large">
+            <Button color="inherit" component={Link} to="/" size="large"  className={classes.logo1}>
               <Typography align="left" color="inherit">
                 Asu
               </Typography>
@@ -80,6 +79,7 @@ export default function Navbar({ todo, removeFromTodo, communities }) {
           <div>
             <Button
               size="small"
+              className={classes.study}
               variant="outlined"
               color="secondary"
               component={Link}
