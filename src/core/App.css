@@ -74,8 +74,12 @@ padding: 60px;
 min-height: "0px"!important ;
 
 }
-/* git add . && git commit -am " " */
 
 .Zindex{
   z-index: 0 !important;
 }
+.contactus{
+  float: right;
+  text-align: right;
+}
+/* git add . && git commit -am " " */
