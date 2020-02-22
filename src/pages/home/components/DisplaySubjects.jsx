@@ -14,7 +14,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
         <Card>
           <CardContent>
             <Typography variant="h6" align="center" color="primary" gutterBottom>
-              {folder.name}
+              {folder.name} 
             </Typography>
 
             <Grid item container spacing={4}>
@@ -29,7 +29,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
                       variant="contained"
                       color="primary"
                     >
-                          <Typography color="secondary" variant="inherit" >{folder.name}</Typography>
+                          <Typography color="inherit" variant="inherit" >{folder.name}</Typography>
                     </Button>
                   </Grid>
                 ))}
@@ -47,7 +47,7 @@ export default function DisplaySubjects({ folder  ,mdWidth}) {
               variant="contained"
               color="primary"
             >
-              <Typography color="secondary" variant="inherit" >{folder.name}</Typography>
+              <Typography color="inherit" variant="inherit" >{folder.name}</Typography>
              
               
             </Button>

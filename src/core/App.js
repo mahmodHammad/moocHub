@@ -1,28 +1,21 @@
 import React, { Component } from "react";
 import {  BrowserRouter, Route, Switch } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
 import "./App.css";
-import Home from "../pages/home/home";
-import Navbar from "./components/Navbar";
+import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import getFiles from "./../helper/getfiles";
 import loadApi from "./../helper/loadApi";
 
+import Navbar from "./components/Navbar";
+import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
-
 import Nerds from './../pages/nerds/Nerds';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const theme = createMuiTheme({
-  // #ffd460
-  // #f07b3f
-  // #ea5455
-  // #2d4059
-
-  
   // overrides: {
   //   MuiButton: {
   //     root: {
@@ -42,11 +35,11 @@ const theme = createMuiTheme({
   // },
   palette: {
     primary: {
-      main: "#2d4059"
+      main: "#333"
     },
     secondary: {
       light: "#fff",
-      main: "#ffd460",
+      main: "#d72323",
       contrastText: "#000"
     },
     error :{
@@ -75,7 +68,7 @@ export default class App extends Component {
     ],
     todo: [],
     content: [],
-    collapse: true
+    collapse: true,
   };
 
   addToTodo = item => {
@@ -137,20 +130,30 @@ export default class App extends Component {
   };
   ////////////////////////////////////////// End Handling Nesting  }>-
 
+load=(id)=>{
+  loadApi().then(() =>
+    getFiles(id, "folder").then(folders => {
+      this.loadSubjects(folders.files);
+    }))
+}
+
+ChooseCommumity=(community)=>{
+  const id = community.id
+  const name = community.name
+  this.load(id)
+  window.localStorage.setItem("community", `/${name}/${id}`);
+}
+
   getCommunity = () => {
     const defaultCommunity = window.localStorage.getItem("community");
     let id;
     if (defaultCommunity) {
       id = defaultCommunity.split("/")[2];
-    } else {
-      id = this.state.communities[0].id;
+      this.load(id)
     }
-    loadApi().then(() =>
-      getFiles(id, "folder").then(folders => {
-        this.loadSubjects(folders.files);
-      })
-    );
   };
+
+// load todo,community  from local storage
 
   componentDidMount() {
     this.getCommunity();
@@ -188,19 +191,7 @@ export default class App extends Component {
                     <Communities
                       {...props}
                       communities={this.state.communities}
-                      getContent={this.getContent}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/subject/:subjectName/:subjectId"
-                  render={props => (
-                    <Subject
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
+                      ChooseCommumity={this.ChooseCommumity}
                     />
                   )}
                 />
@@ -217,7 +208,18 @@ export default class App extends Component {
                     />
                   )}
                 />
-
+                <Route
+                  exact
+                  path="/subject/:subjectName/:subjectId"
+                  render={props => (
+                    <Subject
+                      {...props}
+                      addToTodo={this.addToTodo}
+                      removeFromTodo={this.removeFromTodo}
+                      todo={this.state.todo}
+                    />
+                  )}
+                />
                 <Route
                   exact
                   path= "/nerds"

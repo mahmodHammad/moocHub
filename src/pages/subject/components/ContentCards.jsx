@@ -25,7 +25,6 @@ const styles = {
     flexGrow: "20"
   },
   add: {
-    // width: "33%",
     flexGrow: "1",
     float: "right",
     alignSelf: "center"
@@ -35,7 +34,6 @@ const styles = {
   }
 };
 function isExistOnTodo(todo, content) {
-  console.log(todo, content);
   let flag = false;
   todo.forEach(e => {
     if (e.id === content.id) flag = true;
@@ -56,9 +54,9 @@ function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
 
           { isExistOnTodo(todo, content) === false ? (
             <AddCircleIcon
-              className={classes.add}
+            className={`${classes.add}`}
               size="large"
-              color="secondary"
+              color="primary"
               onClick={() => {
                 addToTodo(content);
                 setContent(!addContent);
