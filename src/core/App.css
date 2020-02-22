@@ -69,17 +69,8 @@ font-weight: bold;
 text-transform: capitalize;
 padding: 60px;
 }
-
-.nav {
-min-height: "0px"!important ;
-
-}
-
 .Zindex{
   z-index: 0 !important;
 }
-.contactus{
-  float: right;
-  text-align: right;
-}
+
 /* git add . && git commit -am " " */
