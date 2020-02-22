@@ -2,15 +2,16 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-import { Link } from "react-router-dom";
-export default function DisplaySubjects({ community, mdWidth }) {
+import { Link ,Redirect} from "react-router-dom";
+export default function DisplaySubjects({ community, mdWidth,ChooseCommumity }) {
 
   return (
     <Grid item xs={12} md={mdWidth} key={community.id}>
       <Button
         onClick={() => {
-          window.localStorage.setItem("community", `/${community.name}/${community.id}`);
+           ChooseCommumity(community)
         }}
+        
         size="medium"
         component={Link}
         to={`/${community.name}/${community.id}`}

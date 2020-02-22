@@ -75,7 +75,7 @@ export default class App extends Component {
     ],
     todo: [],
     content: [],
-    collapse: true
+    collapse: true,
   };
 
   addToTodo = item => {
@@ -117,6 +117,7 @@ export default class App extends Component {
         return content.push(s);
       }
     });
+    console.log(content)
     this.setState({ content });
     this.latelood(this.nestedItems);
   };
@@ -137,21 +138,31 @@ export default class App extends Component {
   };
   ////////////////////////////////////////// End Handling Nesting  }>-
 
+ChooseCommumity=(community)=>{
+  const id = community.id
+  const name = community.name
+  window.localStorage.setItem("community", `/${name}/${id}`);
+
+  loadApi().then(() =>
+    getFiles(id, "folder").then(folders => {
+      this.loadSubjects(folders.files);
+    }))
+}
+
   getCommunity = () => {
     const defaultCommunity = window.localStorage.getItem("community");
     let id;
     if (defaultCommunity) {
       id = defaultCommunity.split("/")[2];
-    } else {
-      id = this.state.communities[0].id;
+      loadApi().then(() =>
+        getFiles(id, "folder").then(folders => {
+          this.loadSubjects(folders.files);
+      }))
     }
-    loadApi().then(() =>
-      getFiles(id, "folder").then(folders => {
-        this.loadSubjects(folders.files);
-      })
-    );
   };
 
+// load todo,community  from local storage
+// 
   componentDidMount() {
     this.getCommunity();
     let  gettodo = window.localStorage.getItem("todo")
@@ -188,19 +199,7 @@ export default class App extends Component {
                     <Communities
                       {...props}
                       communities={this.state.communities}
-                      getContent={this.getContent}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/subject/:subjectName/:subjectId"
-                  render={props => (
-                    <Subject
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
+                      ChooseCommumity={this.ChooseCommumity}
                     />
                   )}
                 />
@@ -217,7 +216,18 @@ export default class App extends Component {
                     />
                   )}
                 />
-
+                <Route
+                  exact
+                  path="/subject/:subjectName/:subjectId"
+                  render={props => (
+                    <Subject
+                      {...props}
+                      addToTodo={this.addToTodo}
+                      removeFromTodo={this.removeFromTodo}
+                      todo={this.state.todo}
+                    />
+                  )}
+                />
                 <Route
                   exact
                   path= "/nerds"
