@@ -1,28 +1,21 @@
 import React, { Component } from "react";
 import {  BrowserRouter, Route, Switch } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
 import "./App.css";
-import Home from "../pages/home/home";
-import Navbar from "./components/Navbar";
+import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import getFiles from "./../helper/getfiles";
 import loadApi from "./../helper/loadApi";
 
+import Navbar from "./components/Navbar";
+import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
-
 import Nerds from './../pages/nerds/Nerds';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const theme = createMuiTheme({
-  // #ffd460
-  // #f07b3f
-  // #ea5455
-  // #2d4059
-
-  
   // overrides: {
   //   MuiButton: {
   //     root: {
@@ -117,7 +110,6 @@ export default class App extends Component {
         return content.push(s);
       }
     });
-    console.log(content)
     this.setState({ content });
     this.latelood(this.nestedItems);
   };
@@ -138,15 +130,18 @@ export default class App extends Component {
   };
   ////////////////////////////////////////// End Handling Nesting  }>-
 
-ChooseCommumity=(community)=>{
-  const id = community.id
-  const name = community.name
-  window.localStorage.setItem("community", `/${name}/${id}`);
-
+load=(id)=>{
   loadApi().then(() =>
     getFiles(id, "folder").then(folders => {
       this.loadSubjects(folders.files);
     }))
+}
+
+ChooseCommumity=(community)=>{
+  const id = community.id
+  const name = community.name
+  this.load(id)
+  window.localStorage.setItem("community", `/${name}/${id}`);
 }
 
   getCommunity = () => {
@@ -154,15 +149,12 @@ ChooseCommumity=(community)=>{
     let id;
     if (defaultCommunity) {
       id = defaultCommunity.split("/")[2];
-      loadApi().then(() =>
-        getFiles(id, "folder").then(folders => {
-          this.loadSubjects(folders.files);
-      }))
+      this.load(id)
     }
   };
 
 // load todo,community  from local storage
-// 
+
   componentDidMount() {
     this.getCommunity();
     let  gettodo = window.localStorage.getItem("todo")
