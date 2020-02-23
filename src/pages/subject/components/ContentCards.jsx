@@ -30,7 +30,7 @@ const styles = {
     alignSelf: "center"
   },
   margin: {
-    margin: "2vh 2vw"
+    margin: "16px"
   }
 };
 function isExistOnTodo(todo, content) {
@@ -45,7 +45,7 @@ function isExistOnTodo(todo, content) {
 function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
   const [addContent, setContent] = useState(true);
   return (
-    <Grid item xs={9} md={5} className={(classes.op, classes.margin)}>
+    <Grid item xs={9} md={5} className={classes.margin}>
       <Card >
         <CardContent  className={classes.container}>
           
@@ -65,8 +65,8 @@ function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
           ) : (
             <RemoveCircleIcon
               className={`${classes.add} col3`}
+               
               size="large"
-              
               onClick={() => {
                 removeFromTodo(content);
                 setContent(!addContent);

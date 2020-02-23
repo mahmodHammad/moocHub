@@ -28,8 +28,8 @@ export default class home extends Component {
             {communityName}
           </Typography>
         </div>
-
-      <Grid container justify="center" className="cardContainer" >
+<div  className="cardContainer">
+      <Grid container justify="center" >
 
         <Grid container item xs={11} md={10} spacing={4} className="cardContent">
           {content.map((folder, N) => {
@@ -45,6 +45,7 @@ export default class home extends Component {
           })}
         </Grid>
       </Grid>
+      </div>
       </React.Fragment>
     );
   }

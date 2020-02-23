@@ -180,7 +180,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
             />
-            <div className="container">
+            <div>
               {/* START ROUTING  **********************************************/}
               <Switch>
                 >
