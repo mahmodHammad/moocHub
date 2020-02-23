@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -96,6 +96,7 @@ export default function Navbar({ todo, removeFromTodo, communities }) {
         setopen={setopen}
         todo={todo}
         removeFromTodo={removeFromTodo}
+        communities={communities}
       />
     </div>
   );

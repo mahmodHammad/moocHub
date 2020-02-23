@@ -1,7 +1,7 @@
 export default {
   "particles": {
     "number": {
-      "value": 40,
+      "value": 0,
       "density": {
         "enable": true,
         "value_area": 900
@@ -56,11 +56,11 @@ export default {
     "detect_on": "canvas",
     "events": {
       "onhover": {
-        "enable": true,
+        "enable": false,
         "mode": "repulse"
       },
       "onclick": {
-        "enable": true,
+        "enable": false,
         "mode": "push"
       },
       "resize": true
