@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import {  BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { MuiThemeProvider, createMuiTheme, Button } from "@material-ui/core";
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 import getFiles from "./../helper/getfiles";
 import loadApi from "./../helper/loadApi";
@@ -11,9 +12,7 @@ import Navbar from "./components/Navbar";
 import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
-import Nerds from './../pages/nerds/Nerds';
-
-
+import Nerds from "./../pages/nerds/Nerds";
 
 const theme = createMuiTheme({
   // overrides: {
@@ -42,11 +41,12 @@ const theme = createMuiTheme({
       main: "#d72323",
       contrastText: "#000"
     },
-    error :{
+    error: {
       light: "#fff",
       main: "#ff0400",
       contrastText: "#000"
-    },success:{
+    },
+    success: {
       light: "#4ff",
       main: "#00ff60",
       contrastText: "#000"
@@ -68,7 +68,7 @@ export default class App extends Component {
     ],
     todo: [],
     content: [],
-    collapse: true,
+    collapse: true
   };
 
   addToTodo = item => {
@@ -79,8 +79,8 @@ export default class App extends Component {
       todo.push(item);
       this.setState({ todo });
 
-      let tostring = JSON.stringify(todo)
-      window.localStorage.setItem("todo",tostring)
+      let tostring = JSON.stringify(todo);
+      window.localStorage.setItem("todo", tostring);
     }
   };
 
@@ -88,10 +88,9 @@ export default class App extends Component {
     item.existInTodo = false;
     let todo = this.state.todo.filter(e => e.id !== item.id);
 
-    window.localStorage.setItem("todo",JSON.stringify(todo))
+    window.localStorage.setItem("todo", JSON.stringify(todo));
     this.setState({ todo });
   };
-
 
   nestedItems = [];
 
@@ -130,37 +129,38 @@ export default class App extends Component {
   };
   ////////////////////////////////////////// End Handling Nesting  }>-
 
-load=(id)=>{
-  loadApi().then(() =>
-    getFiles(id, "folder").then(folders => {
-      this.loadSubjects(folders.files);
-    }))
-}
+  load = id => {
+    loadApi().then(() =>
+      getFiles(id, "folder").then(folders => {
+        this.loadSubjects(folders.files);
+      })
+    );
+  };
 
-ChooseCommumity=(community)=>{
-  const id = community.id
-  const name = community.name
-  this.load(id)
-  window.localStorage.setItem("community", `/${name}/${id}`);
-}
+  ChooseCommumity = community => {
+    const id = community.id;
+    const name = community.name;
+    this.load(id);
+    window.localStorage.setItem("community", `/${name}/${id}`);
+  };
 
   getCommunity = () => {
     const defaultCommunity = window.localStorage.getItem("community");
     let id;
     if (defaultCommunity) {
       id = defaultCommunity.split("/")[2];
-      this.load(id)
+      this.load(id);
     }
   };
 
-// load todo,community  from local storage
+  // load todo,community  from local storage
 
   componentDidMount() {
     this.getCommunity();
-    let  gettodo = window.localStorage.getItem("todo")
-    if(gettodo){
-    let todo = JSON.parse(gettodo)
-     this.setState({todo})
+    let gettodo = window.localStorage.getItem("todo");
+    if (gettodo) {
+      let todo = JSON.parse(gettodo);
+      this.setState({ todo });
     }
   }
 
@@ -169,10 +169,10 @@ ChooseCommumity=(community)=>{
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-            <CssBaseline />
+        <CssBaseline />
         {/* <Demo /> */}
-        <div className="App" >
-          <BrowserRouter basename={process.env.PUBLIC_URL}> 
+        <div className="App">
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
             {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
             <Navbar
               communities={this.state.communities}
@@ -180,11 +180,11 @@ ChooseCommumity=(community)=>{
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
             />
-            <div className="container" >
+            <div>
               {/* START ROUTING  **********************************************/}
               <Switch>
+                >
                 <Route
-                
                   exact
                   path="/"
                   render={props => (
@@ -197,7 +197,7 @@ ChooseCommumity=(community)=>{
                 />
                 <Route
                   exact
-                  path="/:subjectName/:subjectId" 
+                  path="/:subjectName/:subjectId"
                   render={props => (
                     <Home
                       {...props}
@@ -222,7 +222,7 @@ ChooseCommumity=(community)=>{
                 />
                 <Route
                   exact
-                  path= "/nerds"
+                  path="/nerds"
                   render={props => (
                     <Nerds
                       {...props}

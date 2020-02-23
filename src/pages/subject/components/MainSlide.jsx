@@ -11,7 +11,8 @@ const styles = {
 };
 function MainSlide({ content, classes, handleClick, selectedIndex }) {
   return (
-    <Paper elevation={2}>
+    <div  className="z-10">
+    <Paper elevation={2} >
       <Tabs
       className={classes.topmargin}
         value={selectedIndex}
@@ -30,6 +31,7 @@ function MainSlide({ content, classes, handleClick, selectedIndex }) {
         ))}
       </Tabs>
     </Paper>
+    </div>
   );
 }
 

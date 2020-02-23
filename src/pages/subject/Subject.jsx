@@ -4,8 +4,10 @@ import { Grid } from "@material-ui/core";
 import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
 import getFiles from "../../helper/getfiles";
-import DisplayComunityName from "./components/DisplayComunityName";
-import loadApi from "../../helper/loadApi"
+import loadApi from "../../helper/loadApi";
+import particlesParams from "../../config/particles";
+import Particles from "react-particles-js";
+import Typography from "@material-ui/core/Typography";
 
 class Home extends Component {
   state = {
@@ -13,7 +15,7 @@ class Home extends Component {
     folderid: false,
     content: false,
     PrimarySliderSelectedIndex: false,
-    SecondarySliderSelectedIndex: false,
+    SecondarySliderSelectedIndex: false
   };
 
   //////// get files after clicking on prime slide  ////////
@@ -58,46 +60,45 @@ class Home extends Component {
 
   render() {
     //////// Destructure from state ////////
-    const {
-      content,
-      subjectName,
-      PrimarySliderSelectedIndex
-    } = this.state;
+    const { content, subjectName, PrimarySliderSelectedIndex } = this.state;
     return (
-      <Grid container  justify="center">
-        {/******  display subject name  ******/}
+      <div>
+          <Particles className="particles" params={particlesParams} />
 
-        <Grid item xs={12}>
-          <DisplayComunityName name={subjectName} />
-        </Grid>
+        <Typography variant="h5" align="center" className="subjectLabel">
+          {subjectName}
+        </Typography>
+        <Grid container justify="center">
+          {/******  display subject name  ******/}
 
-        {/******  display MainSlider   ******/}
+          {/******  display MainSlider   ******/}
 
-        {this.state.content !== false && (
-          <Grid item xs={12} md={"auto"}>
-            <MainSlide
-              content={content}
-              selectedIndex={PrimarySliderSelectedIndex}
-              handleClick={this.handlePrimeTabClick}
-            />
-          </Grid>
-        )}
-
-        {/******  display Secondary slider depending on the selected prime  ******/}
-
-        <Grid item xs={12}>
-          {PrimarySliderSelectedIndex !== false &&
-            content[PrimarySliderSelectedIndex].actualContent !== false && (
-              <SecondarySlide
-                parentName={content[PrimarySliderSelectedIndex].name}
-                content={content[PrimarySliderSelectedIndex].actualContent}
-                removeFromTodo={this.props.removeFromTodo}
-                addToTodo={this.props.addToTodo}
-                todo={this.props.todo}
+          {this.state.content !== false && (
+            <Grid item xs={12} md={"auto"}>
+              <MainSlide
+                content={content}
+                selectedIndex={PrimarySliderSelectedIndex}
+                handleClick={this.handlePrimeTabClick}
               />
-            )}
+            </Grid>
+          )}
+
+          {/******  display Secondary slider depending on the selected prime  ******/}
+
+          <Grid item xs={12}>
+            {PrimarySliderSelectedIndex !== false &&
+              content[PrimarySliderSelectedIndex].actualContent !== false && (
+                <SecondarySlide
+                  parentName={content[PrimarySliderSelectedIndex].name}
+                  content={content[PrimarySliderSelectedIndex].actualContent}
+                  removeFromTodo={this.props.removeFromTodo}
+                  addToTodo={this.props.addToTodo}
+                  todo={this.props.todo}
+                />
+              )}
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

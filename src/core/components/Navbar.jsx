@@ -1,132 +1,102 @@
-import React, { Component } from "react";
-import Sidebar from "./Sidebar"
+import React, { useState } from "react";
+import Sidebar from "./Sidebar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Popper from "@material-ui/core/Popper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
+import { Link } from "react-router-dom";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import MenuIcon from "@material-ui/icons/Menu";
+import { makeStyles } from "@material-ui/core/styles";
 
-import MenuList from "@material-ui/core/MenuList";
-import MenuItem from "@material-ui/core/MenuItem";
-import {Link } from 'react-router-dom'
-import IconButton from '@material-ui/core/IconButton';
-import Paper  from '@material-ui/core/Paper';
-
-
-
-import MenuIcon from '@material-ui/icons/Menu';
-// import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-// import DetailsIcon from '@material-ui/icons/Details';
-// import EjectIcon from '@material-ui/icons/Eject';
-// import GroupWorkIcon from '@material-ui/icons/GroupWork';
-// import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-// import HistoryIcon from '@material-ui/icons/History';
-// import SchoolIcon from '@material-ui/icons/School';
-// import ScatterPlotIcon from '@material-ui/icons/ScatterPlot';
-// import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
-// import UnfoldLessIcon from '@material-ui/icons/UnfoldLess';
-// import HomeIcon from '@material-ui/icons/Home';
-export default class Navbar extends Component {
-  state={
-    drawerOpen:false,
-    menuOpen :false
+const useStyles = makeStyles(theme => ({
+  logo: {
+    flexGrow: 1,
+    justifyContent: "left",
+    fontWeight: "bold",
+  },
+  logo1:{
+    // paddingLeft:"0"
+  },
+  study:{
+    padding:" 2px 9px",
+    fontSize:"0.7125rem"
+  },
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  contact: {
+    position: "relative",
+    "&:hover": {
+      color: "green"
+    },
+    marginLeft: 10,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto"
     }
-
-  popref = React.createRef()
-
-   handleToggle=()=>{
-     this.setState({menuOpen:!this.state.menuOpen})
-   }
-   handleClose=()=>{
-    this.setState({menuOpen:false})
-   }
-   handleSelect=(community)=>{
-     this.handleClose();
-     window.localStorage.setItem("community", `/${community.name}/${community.id}`);
-    this.props.getCommunity()
-   }
-
-  handleDrawerClose = () => {
-    this.setState({drawerOpen:false})
-  };
-  toggleDrawer=()=>{
-    this.setState({drawerOpen:!this.state.drawerOpen})
+  },
+  contactbtn: {
+    fontSize: "0.7rem"
   }
-  
-  render() {
-    const {todo ,removeFromTodo ,communities}=this.props
-    
+}));
+// handleSelect = community => {
+//   this.handleClose();
+//   window.localStorage.setItem(
+//     "community",
+//     `/${community.name}/${community.id}`
+//   );
+//   this.props.getCommunity();
+// };
+
+export default function Navbar({ todo, removeFromTodo, communities }) {
+  const [open, setopen] = useState(false);
+  const classes = useStyles();
   return (
-    
-  <div>
-    <AppBar position="sticky" className="nav">
-      <Toolbar  variant="dense"  >
-      {todo.length? <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        
-        onClick={()=>this.toggleDrawer()}
-      >
-        <MenuIcon />
-      </IconButton>:<IconButton
-        color="primary"
-        aria-label="open drawer"
-        edge="start"
-      >
-        <MenuIcon />
-      </IconButton>}
-   
-
-      <div className="nav-container">
-        <Button color="inherit" component={Link} to='/' variant="outlined"   style={{"margin":"0 2px 0 0","fontSize":"0.68em"}} size="small">      home     </Button>
-        
-        <Button color="inherit" component={Link} to='/nerds'variant="outlined"  style={{"margin":"0 3px","fontSize":"0.77em" }}  size="small">  Nerds Room   </Button>
-          
-        <Button color="inherit"  variant="outlined"  style={{"margin":"0  0 0 2px" ,"fontSize":"0.68em"}}
-            aria-haspopup="true" onClick={()=>this.handleToggle()} ref={this.popref} size="small">  
-          departments  
-          </Button>
-      </div>
-      </Toolbar>
-    </AppBar>
-    
-  
-    <Sidebar open={this.state.drawerOpen} closefn={this.handleDrawerClose} toggleDrawer={this.toggleDrawer}  todo={todo} removeFromTodo={removeFromTodo}/>
-    
-
-     <Popper
-        className="float"
-        anchorEl={this.popref.current}
-        placement={"bottom-start"}
-        open={this.state.menuOpen}
-        role={undefined}
-        transition
-        disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom" ? "center top" : "center bottom"
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={()=>this.handleClose()}>
-                  <MenuList
-                    id="menu-list-grow"
-                  >
-                    {communities.map(e=> <MenuItem component={Link} to="/" key={e.id} onClick={()=>this.handleSelect(e)}>{e.name}</MenuItem> )}
-                    
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+    <div>
+      <AppBar position="sticky">
+        <Toolbar variant="dense">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={() => setopen(!open)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <div className={classes.logo}>
+            <Button color="inherit" component={Link} to="/" size="large"  className={classes.logo1}>
+              <Typography align="left" color="inherit">
+                Asu
+              </Typography>
+              <Typography color="secondary">Engineer </Typography>
+            </Button>
           </div>
-    );
-  }
+          <div>
+            <Button
+              size="small"
+              className={classes.study}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/nerds"
+            >
+              Study Room
+            </Button>
+          </div>
+        </Toolbar>
+      </AppBar>
+
+      <Sidebar
+        open={open}
+        setopen={setopen}
+        todo={todo}
+        removeFromTodo={removeFromTodo}
+      />
+    </div>
+  );
 }

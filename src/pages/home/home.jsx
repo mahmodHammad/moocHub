@@ -3,6 +3,10 @@ import DisplaySubjects from "./components/DisplaySubjects";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import React, { Component } from "react";
+
+
+import particlesParams from "../../config/particles"
+import Particles from "react-particles-js";
  
 
 export default class home extends Component {
@@ -14,12 +18,18 @@ export default class home extends Component {
     const { content } = this.props;
 
     return (
-      <Grid container justify="center" >
-        <Grid item xs={12}>
-          <Typography variant="h5"  color="primary" align="center" style={{"margin":"5px 0 40px  0"}}>
+      <React.Fragment>
+         <Particles
+          className="particles"
+          params={particlesParams}
+        />
+        <div className="communityLabel">
+          <Typography variant="h5"  color="primary" align="center" >
             {communityName}
           </Typography>
-        </Grid>
+        </div>
+<div  className="cardContainer">
+      <Grid container justify="center" >
 
         <Grid container item xs={11} md={10} spacing={4} className="cardContent">
           {content.map((folder, N) => {
@@ -35,6 +45,8 @@ export default class home extends Component {
           })}
         </Grid>
       </Grid>
+      </div>
+      </React.Fragment>
     );
   }
 }
