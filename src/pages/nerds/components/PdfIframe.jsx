@@ -20,7 +20,7 @@ const styles = {
   }
 };
 
-function PdfIframe({ file, classes, removeFromTodo }) {
+function PdfIframe({ file, classes, removeFromTodo ,parentId }) {
   const fileurl = IdtoUrl(file.id);
   const [display, setdisplay] = useState(false);
   return (
@@ -42,7 +42,7 @@ function PdfIframe({ file, classes, removeFromTodo }) {
         <CloseIcon
           fontSize="small"
           className="col3 todoRemove"
-          onClick={() => removeFromTodo(file)}
+          onClick={() => removeFromTodo(file ,parentId)}
         />
       </ListItem>
       </Container>

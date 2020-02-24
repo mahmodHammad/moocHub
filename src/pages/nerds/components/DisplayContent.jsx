@@ -21,7 +21,7 @@ export default function DisplayContent({
           >
             {e.name}
           </Typography>
-           {e.value.map(item=> <Pdf file={item} removeFromTodo={removeFromTodo} />)}
+           {e.value.map(item=> <Pdf file={item} removeFromTodo={removeFromTodo}  parentId={e.id}/>)}
            
           </List>
           </div>

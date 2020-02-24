@@ -59,7 +59,7 @@ export default class App extends Component {
         value: [
           { name: "1st Mechanical", id: "f1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
           { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
-          { name: "3rd Mechatronics", id: "0B3_mDus1ACCwUWhoeF8yVk8wR0k" },
+          { name: "3rd Mechatronics", id: "0B3_mDus1ACCwUWhoeF8yVk8wR0k" }
         ]
       },
       {
@@ -77,7 +77,7 @@ export default class App extends Component {
           { name: "1st Arch", id: "0B9GyMOM6UwfqSE1mX2ppTktfSDQ" },
           { name: "2nd Arch", id: "0B0-_8JJUkW9uMklLUDN5Um5mejg" }
         ]
-      },
+      }
     ],
     todo: [],
     content: [],
@@ -92,7 +92,6 @@ export default class App extends Component {
   // 2- push item in content array
   // }
   addToTodo = (item, parent) => {
-    
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
 
@@ -130,12 +129,26 @@ export default class App extends Component {
     window.localStorage.setItem("todo", tostring);
   };
 
-  
-  removeFromTodo = item => {
-    let todo = this.state.todo.filter(e => e.id !== item.id);
+  removeFromTodo = (item, parentId) => {
+    let [todo] = [this.state.todo];
 
-    window.localStorage.setItem("todo", JSON.stringify(todo));
-    this.setState({ todo });
+    let filteredTodo = todo.map(subject => {
+      if (subject.id === parentId) {
+        let filteredSubject = subject.value.filter(
+          content => content.id !== item.id
+        );
+        console.log(filteredSubject);
+          subject.value = filteredSubject;
+          return subject; 
+      } else return subject;
+    });
+
+    let notEmptyTodo = filteredTodo.filter(subject => subject.value.length!==0)
+    console.log(notEmptyTodo);
+
+    // let filteredTodo = todo.filter(e => e.id !== item.id);
+    this.setState({ todo: notEmptyTodo });
+    window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
   nestedItems = [];
@@ -158,7 +171,6 @@ export default class App extends Component {
     this.setState({ content });
     this.latelood(this.nestedItems);
   };
-
 
   // for Nested content :
   latelood = nestedItems => {

@@ -82,7 +82,7 @@ function ComponentName({
               className={`${classes.add} col3`}
               size="large"
               onClick={() => {
-                removeFromTodo(content);
+                removeFromTodo(content ,subject.id);
                 setContent(!addContent);
               }}
             />

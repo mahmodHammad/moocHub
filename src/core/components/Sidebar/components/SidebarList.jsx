@@ -62,6 +62,7 @@ export default function SidebarList({
 
                 <NestedSidebarList
                   data={item.value}
+                  parentId={item.id}
                   open={NestedOpen === N}
                   isTodo={isTodo}
                   removeFromTodo={removeFromTodo}

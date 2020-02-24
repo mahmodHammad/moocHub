@@ -10,11 +10,13 @@ import CloseIcon from "@material-ui/icons/Close";
 
 export default function NestedSidebarList({
   data,
+  parentId,
   open,
   isTodo,
   removeFromTodo,
   handleSelect
-}) {
+})
+{
   return (
     <List>
       <Collapse in={open} timeout="auto">
@@ -31,7 +33,7 @@ export default function NestedSidebarList({
                 <CloseIcon
                   fontSize="small"
                   className="col3 todoRemove"
-                  onClick={() => removeFromTodo(item)}
+                  onClick={() => removeFromTodo(item ,parentId)}
                 />
               </React.Fragment>
             ) : (
