@@ -44,8 +44,8 @@ export default function PersistentDrawerLeft({
           </IconButton>
           <Divider />
 
-          <SidebarList data={todo} title="Study LIst"  hasRemovabel={true} open={true} removeFromTodo={removeFromTodo}/>
-          <SidebarList data={communities} title="Departments"  hasRemovabel={false} open={false}removeFromTodo={removeFromTodo}/>
+          {/* <SidebarList data={todo} title="Study LIst"  hasRemovabel={true} open={true} removeFromTodo={removeFromTodo}/> */}
+          <SidebarList data={communities} title="Departments"  hasRemovabel={false} open={false} />
         </div>
       </SwipeableDrawer>
       <main>

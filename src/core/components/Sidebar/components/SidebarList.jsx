@@ -1,56 +1,75 @@
-import React , { useState }  from 'react'
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from "@material-ui/core/Collapse";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 
-import CloseIcon from "@material-ui/icons/Close";
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import NestedSidebarList from "./NestedSidebarList";
 
 /**
- * 
+ *
  * @param {title} param0 string - title of list
  * @param {todo} param0 array of objects{id , name} - content  of list
- * 
+ *
  */
-export default function SidebarList({title ,data ,open,hasRemovabel,removeFromTodo }) {
-const [visible, setvisible] = useState(open )
+export default function SidebarList({
+  title,
+  data,
+  open,
+  hasRemovabel,
+  removeFromTodo
+}) {
+  const [visible, setvisible] = useState(open);
+  const [NestedOpen, setNestedOpen] = useState(false);
 
-    return (
-     
-        <List>
-        <Typography variant="h6" component="div" align="center" color="secondary" onClick={()=>{setvisible(!visible)}}>
-          {title}
-          {visible?<ExpandLess />:<ExpandMore/>}
-        </Typography>
+  return (
+    <List>
+      <Typography
+        variant="h6"
+        component="div"
+        align="center"
+        color="secondary"
+        onClick={() => {
+          setvisible(!visible);
+        }}
+      >
+        {title}
+        {visible ? <ExpandLess /> : <ExpandMore />}
+      </Typography>
 
-        <Collapse in={visible} timeout="auto" >
-        {data.map((item) => (
+      <Collapse in={visible} timeout="auto">
+        {/* display array's childrens */}
+        {data.map((item,N )=> (
           <div key={item.id}>
             <ListItem>
-              <ListItemText
-                component={Link}
-                href={`${process.env.PUBLIC_URL}/nerds/#${item.id}`}
-              > 
-                  {item.name} 
+              <ListItemText>
+                 
+                  <Typography onClick={()=>NestedOpen===N?setNestedOpen(false):setNestedOpen(N)}>
+                    {item.name}
+                    {NestedOpen===N?<ExpandLess fontSize="small"/>:<ExpandMore fontSize="small"/>}
+                  </Typography>
+                  {NestedOpen===N? <NestedSidebarList data={item.value} open={true}  /> : <NestedSidebarList data={item.value} open={false}  /> }
+               
               </ListItemText>
 
-              {hasRemovabel===true && <CloseIcon
-                fontSize="small"
-                className="col3 todoRemove"
-                onClick={() => removeFromTodo(item)}
-              />}
-             
               <Divider />
             </ListItem>
             <Divider />
           </div>
         ))}
-       </Collapse>
-      </List>
-    )
+      </Collapse>
+    </List>
+  );
+}
+
+{
+  /* <CloseIcon
+  fontSize="small"
+  className="col3 todoRemove"
+  onClick={() => removeFromTodo(item)}
+/>; */
 }
