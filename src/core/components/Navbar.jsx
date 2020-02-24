@@ -44,16 +44,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: "0.7rem"
   }
 }));
-// handleSelect = community => {
-//   this.handleClose();
-//   window.localStorage.setItem(
-//     "community",
-//     `/${community.name}/${community.id}`
-//   );
-//   this.props.getCommunity();
-// };
 
-export default function Navbar({ todo, removeFromTodo, communities }) {
+export default function Navbar({ todo, removeFromTodo, communities ,getCommunity }) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
   return (
@@ -97,6 +89,7 @@ export default function Navbar({ todo, removeFromTodo, communities }) {
         todo={todo}
         removeFromTodo={removeFromTodo}
         communities={communities}
+        getCommunity={getCommunity}
       />
     </div>
   );

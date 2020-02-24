@@ -12,8 +12,8 @@ const useStyles = makeStyles({
   fullList: {
     width: "auto"
   },
-  op:{
-    opacity:0.98
+  op: {
+    opacity: 0.98
   }
 });
 
@@ -22,30 +22,45 @@ export default function PersistentDrawerLeft({
   setopen,
   todo,
   removeFromTodo,
-  communities
+  communities,
+  getCommunity
 }) {
   const classes = useStyles();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
- 
-  return (     
+
+  return (
     <div>
       <SwipeableDrawer
-      className={classes.op}
+        className={classes.op}
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
         anchor="left"
-        onOpen={ ()=>setopen(true)}
-        onClose={()=> setopen(false)}
+        onOpen={() => setopen(true)}
+        onClose={() => setopen(false)}
         open={open}
       >
         <div className={classes.list}>
-          <IconButton onClick={()=> setopen(false)}>
-              <ChevronLeftIcon />
+          <IconButton onClick={() => setopen(false)}>
+            <ChevronLeftIcon />
           </IconButton>
           <Divider />
 
           {/* <SidebarList data={todo} title="Study LIst"  hasRemovabel={true} open={true} removeFromTodo={removeFromTodo}/> */}
-          <SidebarList data={communities} title="Departments"  hasRemovabel={false} open={false} />
+          <SidebarList
+            data={communities}
+            title="Departments"
+            isTodo={false}
+            open={false}
+            handleClose={setopen}
+            handleSelect={community => {
+              setopen(false);
+              window.localStorage.setItem(
+                "community",
+                `/${community.name}/${community.id}`
+              );
+              getCommunity();
+            }}
+          />
         </div>
       </SwipeableDrawer>
       <main>

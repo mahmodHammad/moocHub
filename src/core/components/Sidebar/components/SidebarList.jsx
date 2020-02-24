@@ -13,15 +13,17 @@ import NestedSidebarList from "./NestedSidebarList";
 /**
  *
  * @param {title} param0 string - title of list
- * @param {todo} param0 array of objects{id , name} - content  of list
+ * @param {todo} param1 array of objects{id , name} - content  of list
  *
  */
 export default function SidebarList({
   title,
   data,
   open,
-  hasRemovabel,
-  removeFromTodo
+  isTodo,
+  removeFromTodo,
+  handleClose,
+  handleSelect
 }) {
   const [visible, setvisible] = useState(open);
   const [NestedOpen, setNestedOpen] = useState(false);
@@ -42,18 +44,31 @@ export default function SidebarList({
       </Typography>
 
       <Collapse in={visible} timeout="auto">
-        {/* display array's childrens */}
-        {data.map((item,N )=> (
+        {data.map((item, N) => (
           <div key={item.id}>
             <ListItem>
               <ListItemText>
-                 
-                  <Typography onClick={()=>NestedOpen===N?setNestedOpen(false):setNestedOpen(N)}>
-                    {item.name}
-                    {NestedOpen===N?<ExpandLess fontSize="small"/>:<ExpandMore fontSize="small"/>}
-                  </Typography>
-                  {NestedOpen===N? <NestedSidebarList data={item.value} open={true}  /> : <NestedSidebarList data={item.value} open={false}  /> }
-               
+                <Typography
+                  onClick={() =>
+                    NestedOpen === N ? setNestedOpen(false) : setNestedOpen(N)
+                  }
+                >
+                  {item.name}
+                  {NestedOpen === N ? (
+                    <ExpandLess fontSize="small" />
+                  ) : (
+                    <ExpandMore fontSize="small" />
+                  )}
+                </Typography>
+
+                <NestedSidebarList
+                  data={item.value}
+                  open={NestedOpen === N}
+                  isTodo={isTodo}
+                  removeFromTodo={removeFromTodo}
+                  handleClose={handleClose}
+                  handleSelect={handleSelect}
+                />
               </ListItemText>
 
               <Divider />
@@ -64,12 +79,4 @@ export default function SidebarList({
       </Collapse>
     </List>
   );
-}
-
-{
-  /* <CloseIcon
-  fontSize="small"
-  className="col3 todoRemove"
-  onClick={() => removeFromTodo(item)}
-/>; */
 }
