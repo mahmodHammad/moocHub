@@ -57,18 +57,27 @@ export default class App extends Component {
         name: "Mechanical",
         id: "m",
         value: [
-          { name: "1nd Mechanical", id: "f1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
-          { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
+          { name: "1st Mechanical", id: "f1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
+          { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
+          { name: "3rd Mechatronics", id: "0B3_mDus1ACCwUWhoeF8yVk8wR0k" },
         ]
       },
       {
-        name: "Test",
-        id: "t",
+        name: "Civil",
+        id: "c",
         value: [
-          { name: "1nd Test", id: "a1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
-          { name: "2nd Test", id: "s1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
+          { name: "1st Civil", id: "0B7EstwAvkoD3ZDNtczhKT2s1UFU" },
+          { name: "2nd Civil", id: "0B0EmS0KiTgSdSXE2bUZ4a1J2VGc" }
         ]
-      }
+      },
+      {
+        name: "Architecture",
+        id: "a",
+        value: [
+          { name: "1st Arch", id: "0B9GyMOM6UwfqSE1mX2ppTktfSDQ" },
+          { name: "2nd Arch", id: "0B0-_8JJUkW9uMklLUDN5Um5mejg" }
+        ]
+      },
     ],
     todo: [],
     content: [],
@@ -195,6 +204,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getCommunity();
+    // window.localStorage.clear()
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
       let todo = JSON.parse(gettodo);

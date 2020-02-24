@@ -46,7 +46,15 @@ export default function PersistentDrawerLeft({
           </IconButton>
           <Divider />
 
-          {/* <SidebarList data={todo} title="Study LIst"  hasRemovabel={true} open={true} removeFromTodo={removeFromTodo}/> */}
+          <SidebarList
+            data={todo}
+            title="Study List"
+            hasRemovabel={true}
+            open={true}
+            removeFromTodo={removeFromTodo}
+            isTodo={true}
+            handleSelect={(f)=>setopen(false)}
+          />
           <SidebarList
             data={communities}
             title="Departments"
@@ -59,7 +67,7 @@ export default function PersistentDrawerLeft({
                 "community",
                 `/${community.name}/${community.id}`
               );
-              getCommunity();             
+              getCommunity();
             }}
           />
         </div>
