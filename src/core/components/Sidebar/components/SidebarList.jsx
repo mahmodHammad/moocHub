@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import NestedSidebarList from "./NestedSidebarList";
+import { Redirect } from 'react-router-dom';
 
 /**
  *

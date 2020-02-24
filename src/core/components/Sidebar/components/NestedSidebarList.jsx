@@ -35,10 +35,9 @@ export default function NestedSidebarList({
                 >
               </React.Fragment>
             ) : (
-              <ListItemText>
-                <Link href={`/${item.name}/${item.id}`} onClick={()=>handleSelect(item)}>
+              <ListItemText onClick={()=>handleSelect(item)}>
+                  {/* XXXXXXXXXXXXXX  Link Make Page Refresh ------we will look for other approach later */}
                   {item.name}
-                </Link>
 
                 {/* component={Link}  onClick={()=>handleSelect(item)} */}
               </ListItemText>

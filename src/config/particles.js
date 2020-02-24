@@ -16,7 +16,7 @@ export default {
       "anim": {
         "enable": false,
         "speed": 1,
-        "opacity_min": 0.2,
+        "opacity_min": 0.4,
         "sync": false
       }
     },
