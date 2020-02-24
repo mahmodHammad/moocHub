@@ -34,10 +34,16 @@ const styles = {
   }
 };
 
-function isExistOnTodo(todo, content) {
+function isExistOnTodo(todo, content ,parent) {
   let flag = false;
   todo.forEach(e => {
-    if (e.id === content.id) flag = true;
+    if (e.id === parent.id){
+      e.value.forEach(item=>{
+        if(item.id === content.id){
+          flag=true
+        }
+      })
+    } 
   });
 
   return flag;
@@ -61,7 +67,7 @@ function ComponentName({
             {content.name}
           </Link>
 
-          {isExistOnTodo(todo, content) === false ? (
+          {isExistOnTodo(todo, content ,subject) === false ? (
             <AddCircleIcon
               className={`${classes.add}`}
               size="large"

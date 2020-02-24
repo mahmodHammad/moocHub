@@ -70,16 +70,7 @@ export default class App extends Component {
         ]
       }
     ],
-    todo: [
-      // {
-      //   name: "Logic",
-      //   id: "fwaeij",
-      //   value: [
-      //     { name: "1nd Test", id: "a1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
-      //     { name: "2nd Test", id: "s1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
-      //   ]
-      // }
-    ],
+    todo: [],
     content: [],
     collapse: true
   };
@@ -94,7 +85,6 @@ export default class App extends Component {
   addToTodo = (item, parent) => {
     
     let [todo] = [this.state.todo];
-
     let indexOfSubject = false;
 
     todo.forEach((subj, index) => {
@@ -106,13 +96,12 @@ export default class App extends Component {
     // if not exist {create one}
     if (indexOfSubject === false) {
       todo.push({ ...parent, value: [{ ...item }] });
-      console.log("Not exist", todo);
     }
     // else {get index then push item to it's value property}
     else {
       let value = todo[indexOfSubject].value;
-
       let found = value.indexOf(item);
+
       value.forEach((content, index) => {
         if (content.id === item.id) {
           found = index;
@@ -120,15 +109,11 @@ export default class App extends Component {
           found = -1;
         }
       });
-      // console.log("found", found);
-      // console.log("value", value);
-      // console.log("item", item);
       if (found === -1) {
         value.push({ ...item });
         console.log(" exist", todo);
       }
     }
-
     console.log(todo);
     this.setState({ todo });
     // store it in local storage
