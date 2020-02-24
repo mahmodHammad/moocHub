@@ -33,6 +33,7 @@ const styles = {
     margin: "16px"
   }
 };
+
 function isExistOnTodo(todo, content) {
   let flag = false;
   todo.forEach(e => {
@@ -42,30 +43,37 @@ function isExistOnTodo(todo, content) {
   return flag;
 }
 
-function ComponentName({ content, classes, addToTodo, removeFromTodo, todo }) {
+function ComponentName({
+  content,
+  classes,
+  addToTodo,
+  removeFromTodo,
+  todo,
+  subject
+}) {
   const [addContent, setContent] = useState(true);
   return (
     <Grid item xs={9} md={5} className={classes.margin}>
-      <Card >
-        <CardContent  className={classes.container}>
-          
+      <Card>
+        <CardContent className={classes.container}>
           {/*XXXXXXXXXXXXXXXxx On Click display content  */}
-          <Link href="#" className={classes.cardText} >{content.name}</Link>
+          <Link href="#" className={classes.cardText}>
+            {content.name}
+          </Link>
 
-          { isExistOnTodo(todo, content) === false ? (
+          {isExistOnTodo(todo, content) === false ? (
             <AddCircleIcon
-            className={`${classes.add}`}
+              className={`${classes.add}`}
               size="large"
               color="primary"
               onClick={() => {
-                addToTodo(content);
+                addToTodo(content, subject);
                 setContent(!addContent);
               }}
             />
           ) : (
             <RemoveCircleIcon
               className={`${classes.add} col3`}
-               
               size="large"
               onClick={() => {
                 removeFromTodo(content);

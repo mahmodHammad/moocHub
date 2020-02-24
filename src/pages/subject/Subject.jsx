@@ -11,8 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 class Home extends Component {
   state = {
-    subjectName: "",
-    folderid: false,
+    subject: {},
     content: false,
     PrimarySliderSelectedIndex: false,
     SecondarySliderSelectedIndex: false
@@ -46,27 +45,27 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    const subjectName = this.props.match.params.subjectName;
-    const folderid = this.props.match.params.subjectId;
-
-    this.setState({ subjectName, folderid });
+    const name = this.props.match.params.subjectName;
+    const id = this.props.match.params.subjectId;
+    const subject = { name, id };
+    this.setState({ subject });
 
     loadApi().then(() =>
-      getFiles(folderid, "folder").then(folders => {
-        this.loadContent(folders);
+      getFiles(id, "folder").then(subjectContent => {
+        this.loadContent(subjectContent);
       })
     );
   }
 
   render() {
     //////// Destructure from state ////////
-    const { content, subjectName, PrimarySliderSelectedIndex } = this.state;
+    const { content, subject, PrimarySliderSelectedIndex } = this.state;
     return (
       <div>
-          <Particles className="particles" params={particlesParams} />
+        <Particles className="particles" params={particlesParams} />
 
         <Typography variant="h5" align="center" className="subjectLabel">
-          {subjectName}
+          {subject.name}
         </Typography>
         <Grid container justify="center">
           {/******  display subject name  ******/}
@@ -89,7 +88,7 @@ class Home extends Component {
             {PrimarySliderSelectedIndex !== false &&
               content[PrimarySliderSelectedIndex].actualContent !== false && (
                 <SecondarySlide
-                  parentName={content[PrimarySliderSelectedIndex].name}
+                  subject={subject}
                   content={content[PrimarySliderSelectedIndex].actualContent}
                   removeFromTodo={this.props.removeFromTodo}
                   addToTodo={this.props.addToTodo}

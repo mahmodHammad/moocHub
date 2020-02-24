@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import ListItemText from "@material-ui/core/ListItemText";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom"
 import CloseIcon from "@material-ui/icons/Close";
 // import Divider from "@material-ui/core/Divider";
 
@@ -23,7 +23,7 @@ export default function NestedSidebarList({
               <React.Fragment>
                 <ListItemText
                   component={Link}
-                  href={`${process.env.PUBLIC_URL}/nerds/#${item.id}`}
+                  to={`${process.env.PUBLIC_URL}/nerds/#${item.id}`}
                 >
                   {item.name}
                 </ListItemText>
@@ -35,9 +35,11 @@ export default function NestedSidebarList({
                 >
               </React.Fragment>
             ) : (
-              <ListItemText onClick={()=>handleSelect(item)}>
-                  {/* XXXXXXXXXXXXXX  Link Make Page Refresh ------we will look for other approach later */}
+              <ListItemText>
+                  {/* XXXXXXXXXXXXXX Link Make Page Refresh ------we will look for other approach later */}
+                <Link to={`/${item.name}/${item.id}`} onClick={()=>handleSelect(item)}>
                   {item.name}
+                </Link>
 
                 {/* component={Link}  onClick={()=>handleSelect(item)} */}
               </ListItemText>

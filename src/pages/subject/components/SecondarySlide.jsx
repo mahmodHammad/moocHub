@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Content from './ContentCards'
+import Content from "./ContentCards";
 import { withStyles } from "@material-ui/core/styles";
 const styles = {
   topmargin: {
@@ -15,15 +15,18 @@ const styles = {
   inline: {
     display: "inline"
   },
-  container: { display: "flex", flexDirection: "row" ,justifyContent:" center" },
-  cardText:{
-    flexGrow:"48"
-
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: " center"
+  },
+  cardText: {
+    flexGrow: "48"
   },
   add: {
     // width: "33%",
-    flexGrow:"1",
-    float:"right",
+    flexGrow: "1",
+    float: "right",
     alignSelf: "center"
   }
 };
@@ -32,17 +35,24 @@ function SecondarySlide({
   classes,
   removeFromTodo,
   addToTodo,
-  todo
+  todo,
+  subject
 }) {
- 
   return (
-    <Grid 
+    <Grid
       container
-      className={ `cardContent ${classes.topmargin}`}
+      className={`cardContent ${classes.topmargin}`}
       justify="center"
     >
-      {content.map((cont) => (
-        <Content key={cont.id}  content={cont} todo={todo} addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
+      {content.map(cont => (
+        <Content
+          key={cont.id}
+          content={cont}
+          todo={todo}
+          addToTodo={addToTodo}
+          removeFromTodo={removeFromTodo}
+          subject={subject}
+        />
       ))}
     </Grid>
   );

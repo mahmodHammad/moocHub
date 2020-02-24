@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch ,Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
@@ -15,23 +15,6 @@ import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 
 const theme = createMuiTheme({
-  // overrides: {
-  //   MuiButton: {
-  //     root: {
-  //       fontSize: '0.7rem',
-  //     color:"red"
-
-  //     }
-  //   },
-  //   MuiCardContent:{
-  //     fontSize: '4.7rem',
-  //     color:"red"
-  //   },
-  //   MuiButttonGroup:{
-  //     fontSize: '4.7rem',
-  //     color:"red"
-  //   }
-  // },
   palette: {
     primary: {
       main: "#333"
@@ -62,7 +45,7 @@ export default class App extends Component {
     communities: [
       {
         name: "Electrical",
-        id:"e",
+        id: "e",
         value: [
           { name: "1st Electrical", id: "1PRU8pyKz4lBlEm1HHkcoHOqnZBnH-6_n" },
           { name: "2nd Electrical", id: "1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe" },
@@ -72,7 +55,7 @@ export default class App extends Component {
       },
       {
         name: "Mechanical",
-        id:"m",
+        id: "m",
         value: [
           { name: "1nd Mechanical", id: "f1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
           { name: "2nd Mechanical", id: "1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
@@ -80,33 +63,81 @@ export default class App extends Component {
       },
       {
         name: "Test",
-        id:"t",
+        id: "t",
         value: [
           { name: "1nd Test", id: "a1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
           { name: "2nd Test", id: "s1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
         ]
       }
     ],
-    todo: [],
+    todo: [
+      // {
+      //   name: "Logic",
+      //   id: "fwaeij",
+      //   value: [
+      //     { name: "1nd Test", id: "a1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" },
+      //     { name: "2nd Test", id: "s1DyV0e0I0bhsMdU2eiAiPhY_MqkB9r1F7" }
+      //   ]
+      // }
+    ],
     content: [],
     collapse: true
   };
 
-  addToTodo = item => {
+  // 1 -destructure parent
+  // 2- check if it deosn't exist
+  // 3- if doesn't exist {todo.push({...parent})}
+  // 4- if exist {
+  // 1- get subject
+  // 2- push item in content array
+  // }
+  addToTodo = (item, parent) => {
+    
     let [todo] = [this.state.todo];
-    let found = todo.indexOf(item);
-    if (found === -1) {
-      item.existInTodo = true;
-      todo.push(item);
-      this.setState({ todo });
 
-      let tostring = JSON.stringify(todo);
-      window.localStorage.setItem("todo", tostring);
+    let indexOfSubject = false;
+
+    todo.forEach((subj, index) => {
+      if (subj.id === parent.id) {
+        indexOfSubject = index;
+      }
+    });
+
+    // if not exist {create one}
+    if (indexOfSubject === false) {
+      todo.push({ ...parent, value: [{ ...item }] });
+      console.log("Not exist", todo);
     }
+    // else {get index then push item to it's value property}
+    else {
+      let value = todo[indexOfSubject].value;
+
+      let found = value.indexOf(item);
+      value.forEach((content, index) => {
+        if (content.id === item.id) {
+          found = index;
+        } else {
+          found = -1;
+        }
+      });
+      // console.log("found", found);
+      // console.log("value", value);
+      // console.log("item", item);
+      if (found === -1) {
+        value.push({ ...item });
+        console.log(" exist", todo);
+      }
+    }
+
+    console.log(todo);
+    this.setState({ todo });
+    // store it in local storage
+    let tostring = JSON.stringify(todo);
+    window.localStorage.setItem("todo", tostring);
   };
 
+  
   removeFromTodo = item => {
-    item.existInTodo = false;
     let todo = this.state.todo.filter(e => e.id !== item.id);
 
     window.localStorage.setItem("todo", JSON.stringify(todo));
@@ -133,6 +164,7 @@ export default class App extends Component {
     this.setState({ content });
     this.latelood(this.nestedItems);
   };
+
 
   // for Nested content :
   latelood = nestedItems => {
