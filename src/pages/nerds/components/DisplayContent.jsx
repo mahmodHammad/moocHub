@@ -1,6 +1,7 @@
 import React from "react";
 import Pdf from "./PdfIframe";
 import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
 
 export default function DisplayContent({
   todo,
@@ -13,7 +14,15 @@ export default function DisplayContent({
         todo.map(e => (
           <div key={e.id}> 
           <List className="Zindex">
-            <Pdf file={e} removeFromTodo={removeFromTodo} />
+          <Typography
+            variant="h5"
+            component="span"
+            color="secondary"
+          >
+            {e.name}
+          </Typography>
+           {e.value.map(item=> <Pdf file={item} removeFromTodo={removeFromTodo}  parentId={e.id}/>)}
+           
           </List>
           </div>
         ))}
