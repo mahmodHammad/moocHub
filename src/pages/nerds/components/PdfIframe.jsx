@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import Container from "@material-ui/core/Container";
 import Pdf from "./Pdf";
 
@@ -20,11 +19,11 @@ function PdfIframe({ file, classes, removeFromTodo ,parentId }) {
   const [display, setdisplay] = useState(false);
   return (
     <div key={file.id} className={classes.center} id={file.id}>
-      <Container  maxWidth="lg">
+      
       <ListItem className="NerdsListItem">
         <ListItemText>
           <Typography
-            variant="h6"
+            variant="body2"
             component="span"
             color="primary"
             onClick={() => {
@@ -40,11 +39,9 @@ function PdfIframe({ file, classes, removeFromTodo ,parentId }) {
           onClick={() => removeFromTodo(file ,parentId)}
         />
       </ListItem>
-      </Container>
       {display && (
         <Pdf pdfId={file.id}/>
       )}
-      <Divider />
     </div>
   );
 }
