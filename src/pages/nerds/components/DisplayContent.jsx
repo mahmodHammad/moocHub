@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 export default function DisplayContent({
   todo,
   removeFromTodo,
-  collapse = true
 }) {
   return (
     <div >
