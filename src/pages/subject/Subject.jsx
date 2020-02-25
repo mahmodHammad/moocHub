@@ -6,6 +6,8 @@ import SecondarySlide from "./components/SecondarySlide";
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
 import particlesParams from "../../config/particles";
+
+
 import Particles from "react-particles-js";
 import Typography from "@material-ui/core/Typography";
 
@@ -63,7 +65,6 @@ class Home extends Component {
     return (
       <div>
         <Particles className="particles" params={particlesParams} />
-
         <Typography variant="h5" align="center" className="subjectLabel">
           {subject.name}
         </Typography>

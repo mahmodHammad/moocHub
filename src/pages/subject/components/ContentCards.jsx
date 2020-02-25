@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
-// import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
 import { withStyles } from "@material-ui/core/styles";
 
+import PopContent from "../components/PopContent";
 const styles = {
   op: {
     opacity: "0.75"
@@ -34,16 +32,16 @@ const styles = {
   }
 };
 
-function isExistOnTodo(todo, content ,parent) {
+function isExistOnTodo(todo, content, parent) {
   let flag = false;
   todo.forEach(e => {
-    if (e.id === parent.id){
-      e.value.forEach(item=>{
-        if(item.id === content.id){
-          flag=true
+    if (e.id === parent.id) {
+      e.value.forEach(item => {
+        if (item.id === content.id) {
+          flag = true;
         }
-      })
-    } 
+      });
+    }
   });
 
   return flag;
@@ -58,34 +56,71 @@ function ComponentName({
   subject
 }) {
   const [addContent, setContent] = useState(true);
+  const [Pop, setPop] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setPop(true);
+  };
+
+  const handleClose = () => {
+    setPop(false);
+  };
+  const handleAdd = () => {
+    setPop(false);
+    addToTodo(content, subject);
+  };
+  const handleRemove = () => {
+    setPop(false);
+    removeFromTodo(content, subject);
+  };
   return (
     <Grid item xs={9} md={5} className={classes.margin}>
       <Card>
         <CardContent className={classes.container}>
-          {/*XXXXXXXXXXXXXXXxx On Click display content  */}
-          <Link href="#" className={classes.cardText}>
+          <Typography className={classes.cardText} onClick={handleClickOpen}>
             {content.name}
-          </Link>
+          </Typography>
 
-          {isExistOnTodo(todo, content ,subject) === false ? (
-            <AddCircleIcon
-              className={`${classes.add}`}
-              size="large"
-              color="primary"
-              onClick={() => {
-                addToTodo(content, subject);
-                setContent(!addContent);
-              }}
-            />
+          {isExistOnTodo(todo, content, subject) === false ? (
+            <React.Fragment>
+              <PopContent
+                handleClose={handleClose}
+                handleSelect={handleAdd}
+                Pop={Pop}
+                content={content}
+                subject={subject}
+                isAdd={true}
+              />
+              <AddCircleIcon
+                className={`${classes.add}`}
+                size="large"
+                color="primary"
+                onClick={() => {
+                  addToTodo(content, subject);
+                  setContent(!addContent);
+                }}
+              />
+            </React.Fragment>
           ) : (
-            <RemoveCircleIcon
-              className={`${classes.add} col3`}
-              size="large"
-              onClick={() => {
-                removeFromTodo(content ,subject.id);
-                setContent(!addContent);
-              }}
-            />
+            <React.Fragment>
+              <PopContent
+                handleClose={handleClose}
+                handleSelect={handleRemove}
+                Pop={Pop}
+                content={content}
+                subject={subject}
+                isAdd={false}
+              />
+              <RemoveCircleIcon
+                className={`${classes.add}`}
+                color="secondary"
+                size="large"
+                onClick={() => {
+                  removeFromTodo(content, subject.id);
+                  setContent(!addContent);
+                }}
+              />
+            </React.Fragment>
           )}
         </CardContent>
       </Card>

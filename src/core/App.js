@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
@@ -215,8 +215,8 @@ export default class App extends Component {
   // load todo,community  from local storage
 
   componentDidMount() {
-    this.getCommunity();
     // window.localStorage.clear()
+    this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
       let todo = JSON.parse(gettodo);
@@ -230,7 +230,6 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <Demo /> */}
         <div className="App">
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             {/*XXXXXXXXXX Giving the whole communities is not a good idea __ i only need name & ID XXXXXXXXXxX*/}
