@@ -4,8 +4,6 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import NestedSidebarList from "./NestedSidebarList";

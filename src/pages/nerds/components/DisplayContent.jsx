@@ -1,7 +1,6 @@
 import React from "react";
 import Pdf from "./PdfIframe";
 import List from "@material-ui/core/List";
-import Container from "@material-ui/core/Container";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
@@ -15,18 +14,20 @@ export default function DisplayContent({ todo, removeFromTodo }) {
             <List className="Zindex">
               <ListItem>
                 <ListItemText>
-                  {e.name}{" "}
-                  {e.value.map(item => (
-                    <Pdf
-                      file={item}
-                      removeFromTodo={removeFromTodo}
-                      parentId={e.id}
-                    />
-                  ))}
+                  {e.name}
                 </ListItemText>
               </ListItem>
+             {e.value.map(item => (
+                    <React.Fragment key={item.id}>
+                      <Pdf
+                        file={item}
+                        removeFromTodo={removeFromTodo}
+                        parentId={e.id}
+                      />
+                    </React.Fragment>
+                  ))}
             </List>
-            <Divider/>
+            <Divider />
           </div>
         ))}
     </div>
