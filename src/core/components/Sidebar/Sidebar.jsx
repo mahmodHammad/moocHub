@@ -2,13 +2,13 @@ import React from "react";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SidebarList from "./components/SidebarList";
 
+import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 280
   },
   fullList: {
     width: "auto"
@@ -55,6 +55,8 @@ export default function PersistentDrawerLeft({
             isTodo={true}
             handleSelect={(f)=>setopen(false)}
           />
+            <Divider/>
+
           <SidebarList
             data={communities}
             title="Departments"

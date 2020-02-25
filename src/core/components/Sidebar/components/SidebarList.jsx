@@ -4,11 +4,26 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import NestedSidebarList from "./NestedSidebarList";
+
+
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles({
+  MainList:{
+    fontWeight:"bolderd",
+    color:"#000"
+  },
+  listItem: {
+    // backgroundColor:"#aaa"
+    marginLeft:12,
+    paddingRight: 27,
+    color:"#333"
+
+  }
+});
+
 /**
  *
  * @param {title} param0 string - title of list
@@ -26,41 +41,49 @@ export default function SidebarList({
 }) {
   const [visible, setvisible] = useState(open);
   const [NestedOpen, setNestedOpen] = useState(false);
+  const classes = useStyles();
 
   return (
     <List>
-      <Typography
-        variant="h6"
-        component="div"
-        align="center"
-        color="secondary"
+      <ListItem
+        button
+        className={classes.MainList}
         onClick={() => {
           setvisible(!visible);
         }}
       >
-        {title}
-        {visible ? <ExpandLess /> : <ExpandMore />}
-      </Typography>
-
+        <ListItemText>
+          <Typography variant="body1" color="inherit">
+            {title}
+          </Typography>
+        </ListItemText>
+            {visible ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
       <Collapse in={visible} timeout="auto">
         {data.map((item, N) => (
           <div key={item.id}>
-            <ListItem>
-              <ListItemText>
-                <Typography
-                  onClick={() =>
-                    NestedOpen === N ? setNestedOpen(false) : setNestedOpen(N)
-                  }
-                >
+            {/* {N > 0 && <Divider variant="middle" light={true} />} */}
+            <ListItem
+        className={classes.listItem}
+              button
+              onClick={() =>
+                NestedOpen === N ? setNestedOpen(false) : setNestedOpen(N)
+              }
+            >
+              <ListItemText >
+                <Typography color="primary" variant="body2">
                   {item.name}
-                  {NestedOpen === N ? (
-                    <ExpandLess fontSize="small" />
-                  ) : (
-                    <ExpandMore fontSize="small" />
-                  )}
                 </Typography>
 
-                <NestedSidebarList
+                </ListItemText>
+                        {NestedOpen === N ? (
+                          <ExpandLess fontSize="small" color="primary" />
+                        ) : (
+                          <ExpandMore fontSize="small" />
+                        )}
+
+            </ListItem>
+            <NestedSidebarList
                   data={item.value}
                   parentId={item.id}
                   open={NestedOpen === N}
@@ -69,11 +92,6 @@ export default function SidebarList({
                   handleClose={handleClose}
                   handleSelect={handleSelect}
                 />
-              </ListItemText>
-
-              <Divider />
-            </ListItem>
-            <Divider />
           </div>
         ))}
       </Collapse>
