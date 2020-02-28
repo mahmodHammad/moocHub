@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export default function DisplaySubjects({ folder, mdWidth }) {
   return (
     <Grid item xs={12} md={mdWidth} key={folder.id} className="z-10">
-      {folder.hasNestedFolder ? (
+      {folder.isDivided ? (
         <Card>
           <CardContent>
             <Typography
@@ -22,8 +22,8 @@ export default function DisplaySubjects({ folder, mdWidth }) {
             </Typography>
 
             <Grid item container spacing={4}>
-              {folder.nestedFolder.files !== undefined &&
-                folder.nestedFolder.files.map(folder => (
+              {folder.divided.files !== undefined &&
+                folder.divided.files.map(folder => (
                   <Grid key={folder.id} item xs container>
                     <Button
                       size="small"

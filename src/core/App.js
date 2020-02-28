@@ -79,46 +79,43 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
-
-  nestedItems = [];
-
-  loadSubjects = subjects => {
+  loadContent = subjects => {
+    let dividedSubjects = [];
     let content = [];
     subjects.map((s, index) => {
       if (s.name[0] === "_") {
         s.name = s.name.substr(1);
-        s.hasNestedFolder = true;
+        s.isDivided = true;
 
         //this line costed me 4 hourses :(
-        s.nestedFolder = [];
+        s.divided = [];
         content.push(s);
-        return this.nestedItems.push({ ...s, index });
+        return dividedSubjects.push({ ...s, index });
       } else {
         return content.push(s);
       }
     });
     this.setState({ content });
-    this.latelood(this.nestedItems);
+    this.latelood(dividedSubjects);
   };
 
   // for Nested content :
-  latelood = nestedItems => {
-    nestedItems.map(folder => this.subFolderLoader(folder));
-  };
-
-  subFolderLoader = subcontent => {
-    getFiles(subcontent.id, "folder").then(sContent => {
-      let [content] = [this.state.content];
-      content[subcontent.index].nestedFolder = sContent;
-      this.setState({ content });
+  latelood = dividedSubjects => {
+    dividedSubjects.map(folder => {
+      getFiles(folder.id, "folder").then(subjectContent => {
+        let [content] = [this.state.content];
+        content[folder.index].divided = subjectContent;
+        this.setState({ content });
+      });
     });
   };
+
   ////////////////////////////////////////// End Handling Nesting  }>-
 
-  load = id => {
+  loadSubject = id => {
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
-        this.loadSubjects(folders.files);
+        this.loadContent(folders.files);
       })
     );
   };
@@ -126,7 +123,7 @@ export default class App extends Component {
   ChooseCommumity = community => {
     const id = community.id;
     const name = community.name;
-    this.load(id);
+    this.loadSubject(id);
     window.localStorage.setItem("community", `/${name}/${id}`);
   };
 
@@ -135,14 +132,17 @@ export default class App extends Component {
     let id;
     if (defaultCommunity) {
       id = defaultCommunity.split("/")[2];
-      this.load(id);
+      this.loadSubject(id);
     }
   };
 
   // load todo,community  from local storage
 
+  clearLocalStorage = () => {
+    window.localStorage.clear();
+  };
+
   componentDidMount() {
-    // window.localStorage.clear()
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -154,7 +154,7 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
-    console.log(this.state.content)
+    console.log(this.state.content);
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -165,6 +165,7 @@ export default class App extends Component {
               todo={this.state.todo}
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
+              clearLocalStorage={this.clearLocalStorage}
             />
             <div>
               {/* START ROUTING  **********************************************/}
