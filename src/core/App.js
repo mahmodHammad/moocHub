@@ -96,11 +96,11 @@ export default class App extends Component {
       }
     });
     this.setState({ content });
-    this.latelood(dividedSubjects);
+    this.loadDividedSubjects(dividedSubjects);
   };
 
   // for Nested content :
-  latelood = dividedSubjects => {
+  loadDividedSubjects = dividedSubjects => {
     dividedSubjects.map(folder => {
       getFiles(folder.id, "folder").then(subjectContent => {
         let [content] = [this.state.content];
