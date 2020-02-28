@@ -19,11 +19,12 @@ const styles = {
 };
 
 function handleToggleContent(openedItems ,setopened ,oldDisplay ,setdisplay ,file){
-  
   console.log(openedItems , oldDisplay)
-  let [opened]=[openedItems]
+
   if(oldDisplay){
     setdisplay(false);
+    const withoutReduncancy = openedItems.filter(e=>e.id!==file.id)
+    setopened(withoutReduncancy)
   }
   else{
     setdisplay(true);
