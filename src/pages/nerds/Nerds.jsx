@@ -4,9 +4,11 @@ import DisplayContent from "./components/DisplayContent";
 import  Typography  from '@material-ui/core/Typography';
 export default function Nerds({ todo, removeFromTodo }) {
   const [opened, setopened] = useState([])
+  console.log("oopen" ,opened)
   return (
     <div>
-      <Scroll opened />
+      <Scroll opened={opened} />
+
       {todo.length ? (
         <DisplayContent
           todo={todo}

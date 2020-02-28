@@ -154,7 +154,6 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
-    console.log(this.state.content);
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />

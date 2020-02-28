@@ -2,6 +2,7 @@ import React from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { withStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
 
 const styles = {
   absolute: {
@@ -9,7 +10,7 @@ const styles = {
     opacity: "0.3",
     bottom: "1vh",
     right: "0.5vw",
-    zIndex:"100"
+    zIndex: "100"
   },
   border: {
     border: "1px solid #f07b3f",
@@ -21,21 +22,23 @@ const styles = {
   }
 };
 
-function Scoll({ classes }) {
+function Scoll({ classes, opened }) {
+  console.log("fff",opened)
   return (
     <div className={classes.absolute}>
-      <div>
-        <ArrowDropUpIcon
-          className={`${classes.border} updowm col2`}
-          onClick={() =>
-            window.scrollBy({top:-window.innerHeight-55 ,left:0 })
-          }
-        />
+      {opened.length&& <div>
+        <Link href={`/nerds/#${opened[0].id}`}>
+          <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
+        </Link>
+
         <ArrowDropDownIcon
           className={`${classes.border} updowm col2`}
-          onClick={() => window.scrollBy({top:window.innerHeight+55 ,left:0 })}
+          onClick={() =>
+            window.scrollBy({ top: window.innerHeight + 55, left: 0 })
+          }
         />
-      </div>
+      </div>}
+     
     </div>
   );
 }

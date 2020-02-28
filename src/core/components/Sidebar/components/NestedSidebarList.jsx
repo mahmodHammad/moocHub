@@ -37,10 +37,6 @@ export default function NestedSidebarList({
             {isTodo === true ? (
               <ListItem
                 className={classes.listItem}
-                button
-                component={MuiLink}
-                href={`${process.env.PUBLIC_URL}/nerds/#${item.id}`}
-                onClick={handleSelect}
               >
                 <ListItemText primary={item.name}  primaryTypographyProps={{variant:"subtitle2"}}/>
                 <CloseIcon

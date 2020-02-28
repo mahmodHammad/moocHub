@@ -18,17 +18,22 @@ const styles = {
   }
 };
 
-function handleToggleContent(openedItems ,setopened ,oldDisplay ,setdisplay ,file){
-  console.log(openedItems , oldDisplay)
+function handleToggleContent(
+  openedItems,
+  setopened,
+  oldDisplay,
+  setdisplay,
+  file
+) {
+  console.log(openedItems, oldDisplay);
 
-  if(oldDisplay){
+  if (oldDisplay) {
     setdisplay(false);
-    const withoutReduncancy = openedItems.filter(e=>e.id!==file.id)
-    setopened(withoutReduncancy)
-  }
-  else{
+    const withoutReduncancy = openedItems.filter(e => e.id !== file.id);
+    setopened(withoutReduncancy);
+  } else {
     setdisplay(true);
-    setopened([...openedItems , file])
+    setopened([...openedItems, file]);
   }
 }
 
@@ -42,13 +47,12 @@ function PdfIframe({
 }) {
   const [display, setdisplay] = useState(false);
   return (
-    <div key={file.id} className={classes.center} id={file.id}>
+    <div key={file.id} className={classes.center}>
       <ListItem
         button
         className={classes.listItem}
         onClick={() => {
-          handleToggleContent(opened ,setopened ,display ,setdisplay ,file)
-          
+          handleToggleContent(opened, setopened, display, setdisplay, file);
         }}
       >
         <ListItemText
@@ -65,7 +69,7 @@ function PdfIframe({
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
-      {display && <Pdf pdfId={file.id} />}
+      {display && <Pdf  pdfId={file.id} />}
     </div>
   );
 }

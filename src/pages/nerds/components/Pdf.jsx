@@ -15,6 +15,7 @@ function PdfIframe({ pdfId, classes }) {
 
   return (
     <iframe
+      id={pdfId}
       title="lecture"
       className={classes.fullwidth}
       frameBorder="0"
