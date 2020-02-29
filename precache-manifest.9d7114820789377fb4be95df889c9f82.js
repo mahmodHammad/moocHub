@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b43097cd8b14d99b77300c46fde13cc5",
+    "revision": "0e2d12bc3c499c2a772b485b021d3e37",
     "url": "/moocHub/index.html"
   },
   {
-    "revision": "b8ada3491a04c47b7f53",
+    "revision": "db90c12608278cbacc9d",
     "url": "/moocHub/static/css/main.1bb77148.chunk.css"
   },
   {
-    "revision": "a3f290f9a96b7731d12c",
-    "url": "/moocHub/static/js/2.ac703c2f.chunk.js"
+    "revision": "bbb6165c9f54f7324d7b",
+    "url": "/moocHub/static/js/2.2f4aea50.chunk.js"
   },
   {
     "revision": "3adc01bea76e7956dc3633ee898f6936",
-    "url": "/moocHub/static/js/2.ac703c2f.chunk.js.LICENSE.txt"
+    "url": "/moocHub/static/js/2.2f4aea50.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b8ada3491a04c47b7f53",
-    "url": "/moocHub/static/js/main.4d755a26.chunk.js"
+    "revision": "db90c12608278cbacc9d",
+    "url": "/moocHub/static/js/main.7f6d0d1f.chunk.js"
   },
   {
     "revision": "c4677de068c09f19c23d",
