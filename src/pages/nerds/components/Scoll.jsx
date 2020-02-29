@@ -24,17 +24,13 @@ const styles = {
 };
 function handleScroll (opened, isDown = true, At, setAt) {
   isDown?At ===opened.length-1 ? At=0:At++ :At===0?At=opened.length-1:At--
-  goToAnchor(opened[At].id)
+  if(At<opened.length){
+    goToAnchor(opened[At].id)
+  }
   setAt(At)
 }
 
-function ScrollTo(opened , At) {
-  console.log(At)
-  // Not remove this line ... it's for  a shitty bug 
-  if(At<opened.length){
-    return opened[At].id;
-  }
-}
+
 
 function Scoll({ classes, opened ,At, setAt}) {
   console.log("fff", opened);
