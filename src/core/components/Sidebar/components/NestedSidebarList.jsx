@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     paddingLeft: 10,
     marginLeft: 28,
     paddingRight: 44,
-    color:"#666"
+    color: "#666"
   }
 });
 
@@ -36,19 +36,19 @@ export default function NestedSidebarList({
           <React.Fragment key={item.id}>
             {isTodo === true ? (
               <ListItem
-                className={classes.listItem}
-                button
-                component={MuiLink}
-                href={`${process.env.PUBLIC_URL}/nerds/#${item.id}`}
-                onClick={handleSelect}
-              >
-                <ListItemText primary={item.name}  primaryTypographyProps={{variant:"subtitle2"}}/>
-                <CloseIcon
-                  fontSize="small"
-                  className="col3 todoRemove"
-                  onClick={() => removeFromTodo(item, parentId)}
-                />
-              </ListItem>
+              className={classes.listItem}
+              button
+              component={Link}
+              to={`${process.env.PUBLIC_URL}/nerds`}
+              onClick={handleSelect}
+            >
+              <ListItemText primary={item.name}  primaryTypographyProps={{variant:"subtitle2"}}/>
+              <CloseIcon
+                fontSize="small"
+                className="col3 todoRemove"
+                onClick={() => removeFromTodo(item, parentId)}
+              />
+            </ListItem>
             ) : (
               <ListItem
                 className={classes.listItem}
@@ -57,7 +57,10 @@ export default function NestedSidebarList({
                 to={`/${item.name}/${item.id}`}
                 onClick={() => handleSelect(item)}
               >
-                <ListItemText primary={item.name}   primaryTypographyProps={{variant:"subtitle2"}}/>
+                <ListItemText
+                  primary={item.name}
+                  primaryTypographyProps={{ variant: "subtitle2" }}
+                />
               </ListItem>
             )}
           </React.Fragment>

@@ -1,16 +1,21 @@
-import React from "react";
+import React ,{useState} from "react";
 import Scroll from "./components/Scoll";
 import DisplayContent from "./components/DisplayContent";
 import  Typography  from '@material-ui/core/Typography';
-export default function Nerds({ todo, addToTodo, removeFromTodo }) {
+export default function Nerds({ todo, removeFromTodo }) {
+  const [opened, setopened] = useState([])
+  const [At, setAt] = useState(0)
+  console.log("oopen" ,opened)
   return (
     <div>
-      <Scroll />
+      <Scroll opened={opened} At={At} setAt={setAt}/>
+
       {todo.length ? (
         <DisplayContent
           todo={todo}
-          addToTodo={addToTodo}
           removeFromTodo={removeFromTodo}
+          setopened={setopened}
+          opened={opened}
         />
       ) : (
         <div className="warning">

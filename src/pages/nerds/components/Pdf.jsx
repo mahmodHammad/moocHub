@@ -12,10 +12,10 @@ const styles = {
 
 function PdfIframe({ pdfId, classes }) {
   const fileurl = IdtoUrl(pdfId);
-  console.log(pdfId)
 
   return (
     <iframe
+      id={pdfId}
       title="lecture"
       className={classes.fullwidth}
       frameBorder="0"

@@ -11,31 +11,65 @@ const styles = {
     margin: "auto",
     textAlign: "center"
   },
-  listItem:{
+  listItem: {
     paddingLeft: 25,
     paddingRight: 44,
-    color:"#666"
+    color: "#666"
   }
 };
 
-function PdfIframe({ file, classes, removeFromTodo ,parentId }) {
+function handleToggleContent(
+  openedItems,
+  setopened,
+  oldDisplay,
+  setdisplay,
+  file
+) {
+  console.log(openedItems, oldDisplay);
+
+  if (oldDisplay) {
+    setdisplay(false);
+    const withoutReduncancy = openedItems.filter(e => e.id !== file.id);
+    setopened(withoutReduncancy);
+  } else {
+    setdisplay(true);
+    setopened([...openedItems, file]);
+  }
+}
+
+function PdfIframe({
+  file,
+  classes,
+  removeFromTodo,
+  parentId,
+  opened,
+  setopened
+}) {
   const [display, setdisplay] = useState(false);
   return (
-    <div key={file.id} className={classes.center} id={file.id}>
-      
-      <ListItem button className={classes.listItem}   onClick={() => {
-              setdisplay(!display);
-            }}>
-        <ListItemText primary= {file.name} primaryTypographyProps={{variant:"body2",component:"span",color:"primary"}}/>
+    <div key={file.id} className={classes.center}>
+      <ListItem
+        button
+        className={classes.listItem}
+        onClick={() => {
+          handleToggleContent(opened, setopened, display, setdisplay, file);
+        }}
+      >
+        <ListItemText
+          primary={file.name}
+          primaryTypographyProps={{
+            variant: "body2",
+            component: "span",
+            color: "primary"
+          }}
+        />
         <CloseIcon
           fontSize="small"
           className="col3 todoRemove"
-          onClick={() => removeFromTodo(file ,parentId)}
+          onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
-      {display && (
-        <Pdf pdfId={file.id}/>
-      )}
+      {display && <Pdf  pdfId={file.id} />}
     </div>
   );
 }

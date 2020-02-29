@@ -2,6 +2,7 @@ import React from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { withStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
 
 const styles = {
   absolute: {
@@ -9,7 +10,7 @@ const styles = {
     opacity: "0.3",
     bottom: "1vh",
     right: "0.5vw",
-    zIndex:"100"
+    zIndex: "100"
   },
   border: {
     border: "1px solid #f07b3f",
@@ -20,22 +21,34 @@ const styles = {
     zIndex: "10000"
   }
 };
+function handleScroll (opened, isDown = true, At, setAt) {
+  isDown?At ===opened.length-1 ? At=0:At++ :At===0?At=opened.length-1:At--
+  setAt(At)
+}
 
-function Scoll({ classes }) {
+function ScrollTo(opened , At) {
+  console.log(At)
+  // Not remove this line ... it's for  a shitty bug 
+  if(At<opened.length){
+    return opened[At].id;
+  }
+}
+
+function Scoll({ classes, opened ,At, setAt}) {
+  console.log("fff", opened);
   return (
     <div className={classes.absolute}>
-      <div>
-        <ArrowDropUpIcon
-          className={`${classes.border} updowm col2`}
-          onClick={() =>
-            window.scrollBy({top:-window.innerHeight-55 ,left:0 })
-          }
-        />
-        <ArrowDropDownIcon
-          className={`${classes.border} updowm col2`}
-          onClick={() => window.scrollBy({top:window.innerHeight+55 ,left:0 })}
-        />
-      </div>
+      {opened.length ? (
+        <div>
+          <Link href={`/nerds/#${ScrollTo(opened,At)}`} onClick={()=>handleScroll(opened, false ,At, setAt)}>
+            <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
+          </Link>
+
+          <Link href={`/nerds/#${ScrollTo(opened ,At)}`} onClick={()=>handleScroll(opened, true ,At, setAt)}>
+            <ArrowDropDownIcon className={`${classes.border} updowm col2`} />
+          </Link>
+        </div>
+      ):<span></span>}
     </div>
   );
 }

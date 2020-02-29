@@ -8,15 +8,17 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
-
+import BugReportIcon from '@material-ui/icons/BugReport';
 const useStyles = makeStyles(theme => ({
+  bug:{
+    opacity:"0.5",
+    fontSize:"15px",
+    color:"aaa"
+  },
   logo: {
     flexGrow: 1,
     justifyContent: "left",
     fontWeight: "bold",
-  },
-  logo1:{
-    // paddingLeft:"0"
   },
   study:{
     padding:" 2px 9px",
@@ -45,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Navbar({ todo, removeFromTodo, communities ,getCommunity }) {
+export default function Navbar({ todo, removeFromTodo, communities ,getCommunity,clearLocalStorage }) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
   return (
@@ -79,6 +81,7 @@ export default function Navbar({ todo, removeFromTodo, communities ,getCommunity
             >
               Study Room
             </Button>
+            <BugReportIcon className={classes.bug} onClick={clearLocalStorage}/>
           </div>
         </Toolbar>
       </AppBar>
