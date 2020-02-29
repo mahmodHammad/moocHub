@@ -28,7 +28,10 @@ function handleScroll (opened, isDown = true, At, setAt) {
 
 function ScrollTo(opened , At) {
   console.log(At)
-  return opened[At].id;
+  // to fix a shitty bug that make At  length  at deleting item opened array 
+  if(At<opened.length){
+    return opened[At].id;
+  }
 }
 
 function Scoll({ classes, opened ,At, setAt}) {
