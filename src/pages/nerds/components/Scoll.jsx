@@ -24,8 +24,8 @@ const styles = {
 };
 function handleScroll (opened, isDown = true, At, setAt) {
   isDown?At ===opened.length-1 ? At=0:At++ :At===0?At=opened.length-1:At--
-  setAt(At)
   goToAnchor(opened[At].id)
+  setAt(At)
 }
 
 function ScrollTo(opened , At) {

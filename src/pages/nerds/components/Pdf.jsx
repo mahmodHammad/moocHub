@@ -6,7 +6,7 @@ import ScrollableAnchor from 'react-scrollable-anchor'
 
 const styles = {
   fullwidth: {
-    width: "100%",
+    width: "95%",
     height: "99vh"
   }
 };
