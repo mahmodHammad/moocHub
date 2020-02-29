@@ -2,12 +2,23 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import IdtoUrl from "../../../helper/getPdfUrl";
-import ScrollableAnchor from 'react-scrollable-anchor'
+import ScrollableAnchor from "react-scrollable-anchor";
 
 const styles = {
-  fullwidth: {
-    width: "95%",
-    height: "99vh"
+  root: {
+    width: "100%",
+    height: "98%",
+    zIndex: "3"
+  },
+  container: {
+    width: "100%",
+    height: "98vh",
+    background: "rgba(105, 104, 104, 0.25)"
+  },
+  loading: {
+    position: "relative",
+    top: "50%",
+    zIndex: "-1"
   }
 };
 
@@ -16,12 +27,16 @@ function PdfIframe({ pdfId, classes }) {
 
   return (
     <ScrollableAnchor id={pdfId}>
-      <iframe
-        title="lecture"
-        className={classes.fullwidth}
-        frameBorder="0"
-        src={fileurl.displayPdf}
-      ></iframe>
+      <div className={`${classes.container}`}>
+        <div className={classes.loading}>Loading... </div>
+          <iframe
+          
+            title="lecture"
+            className={`${classes.root}`}
+            frameBorder="0"
+            src={fileurl.displayPdf}
+          ></iframe>
+      </div>
     </ScrollableAnchor>
   );
 }
