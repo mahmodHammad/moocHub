@@ -2,6 +2,7 @@ import React ,{useState} from "react";
 import Scroll from "./components/Scoll";
 import DisplayContent from "./components/DisplayContent";
 import  Typography  from '@material-ui/core/Typography';
+import Video from "../../core/demo/Video"
 export default function Nerds({ todo, removeFromTodo }) {
   const [opened, setopened] = useState([])
   const [At, setAt] = useState(0)
@@ -10,6 +11,7 @@ export default function Nerds({ todo, removeFromTodo }) {
     <div>
       <Scroll opened={opened} At={At} setAt={setAt}/>
 
+      <Video/>
       {todo.length ? (
         <DisplayContent
           todo={todo}

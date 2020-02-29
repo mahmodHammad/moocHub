@@ -7,7 +7,7 @@ import ScrollableAnchor from "react-scrollable-anchor";
 const styles = {
   root: {
     width: "100%",
-    height: "98%",
+    height: "99vh",
     zIndex: "3"
   },
   container: {
@@ -27,8 +27,8 @@ function PdfIframe({ pdfId, classes }) {
 
   return (
     <ScrollableAnchor id={pdfId}>
-      <div className={`${classes.container}`}>
-        <div className={classes.loading}>Loading... </div>
+      {/* <div className={`${classes.container}`}> */}
+        {/* <div className={classes.loading}>Loading... </div> */}
           <iframe
           
             title="lecture"
@@ -36,7 +36,7 @@ function PdfIframe({ pdfId, classes }) {
             frameBorder="0"
             src={fileurl.displayPdf}
           ></iframe>
-      </div>
+      {/* </div> */}
     </ScrollableAnchor>
   );
 }
