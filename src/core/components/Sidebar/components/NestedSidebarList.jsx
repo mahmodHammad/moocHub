@@ -3,7 +3,6 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Collapse from "@material-ui/core/Collapse";
 import ListItemText from "@material-ui/core/ListItemText";
-import MuiLink from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 

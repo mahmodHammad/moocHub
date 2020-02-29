@@ -16,6 +16,8 @@ import Nerds from "./../pages/nerds/Nerds";
 import customTheme from "../config/theme";
 import communities from "../config/communities";
 
+import { configureAnchors } from 'react-scrollable-anchor'
+
 const theme = createMuiTheme({
   palette: customTheme
 });
@@ -149,6 +151,8 @@ export default class App extends Component {
       let todo = JSON.parse(gettodo);
       this.setState({ todo });
     }
+    
+configureAnchors({scrollDuration: 0})
   }
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
