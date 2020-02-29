@@ -38,7 +38,7 @@ function Scoll({ classes, opened ,At, setAt}) {
   console.log("fff", opened);
   return (
     <div className={classes.absolute}>
-      {opened.length && (
+      {opened.length ? (
         <div>
           <Link href={`/nerds/#${ScrollTo(opened,At)}`} onClick={()=>handleScroll(opened, false ,At, setAt)}>
             <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
@@ -48,7 +48,7 @@ function Scoll({ classes, opened ,At, setAt}) {
             <ArrowDropDownIcon className={`${classes.border} updowm col2`} />
           </Link>
         </div>
-      )}
+      ):<span></span>}
     </div>
   );
 }
