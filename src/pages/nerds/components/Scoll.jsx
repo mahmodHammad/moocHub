@@ -21,13 +21,21 @@ const styles = {
     zIndex: "10000"
   }
 };
-let test = "test";
 function handleScroll (opened, isDown = true, At, setAt) {
-  if(At ===opened.length-1){
-    At=0
-  }
-  else{
-    At++
+  if(isDown){
+    if(At ===opened.length-1 ){
+      At=0
+    }
+    else{
+      At++
+    }
+  }else{
+    if(At===0){
+      At=opened.length-1
+    }
+    else{
+      At--
+    }
   }
   setAt(At)
 }
@@ -43,7 +51,7 @@ function Scoll({ classes, opened ,At, setAt}) {
     <div className={classes.absolute}>
       {opened.length && (
         <div>
-          <Link href={`/nerds/#${ScrollTo(opened,At)}`} onClick={()=>handleScroll(opened, true ,At, setAt)}>
+          <Link href={`/nerds/#${ScrollTo(opened,At)}`} onClick={()=>handleScroll(opened, false ,At, setAt)}>
             <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
           </Link>
 
