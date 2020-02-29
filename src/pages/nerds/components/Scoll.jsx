@@ -21,24 +21,37 @@ const styles = {
     zIndex: "10000"
   }
 };
+let test = "test";
+function handleScroll (opened, isDown = true, At, setAt) {
+  if(At ===opened.length-1){
+    At=0
+  }
+  else{
+    At++
+  }
+  setAt(At)
+}
 
-function Scoll({ classes, opened }) {
-  console.log("fff",opened)
+function ScrollTo(opened , At) {
+  console.log(At)
+  return opened[At].id;
+}
+
+function Scoll({ classes, opened ,At, setAt}) {
+  console.log("fff", opened);
   return (
     <div className={classes.absolute}>
-      {opened.length&& <div>
-        <Link href={`/nerds/#${opened[0].id}`}>
-          <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
-        </Link>
+      {opened.length && (
+        <div>
+          <Link href={`/nerds/#${ScrollTo(opened,At)}`} onClick={()=>handleScroll(opened, true ,At, setAt)}>
+            <ArrowDropUpIcon className={`${classes.border} updowm col2`} />
+          </Link>
 
-        <ArrowDropDownIcon
-          className={`${classes.border} updowm col2`}
-          onClick={() =>
-            window.scrollBy({ top: window.innerHeight + 55, left: 0 })
-          }
-        />
-      </div>}
-     
+          <Link href={`/nerds/#${ScrollTo(opened ,At)}`} onClick={()=>handleScroll(opened, true ,At, setAt)}>
+            <ArrowDropDownIcon className={`${classes.border} updowm col2`} />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
