@@ -22,21 +22,7 @@ const styles = {
   }
 };
 function handleScroll (opened, isDown = true, At, setAt) {
-  if(isDown){
-    if(At ===opened.length-1 ){
-      At=0
-    }
-    else{
-      At++
-    }
-  }else{
-    if(At===0){
-      At=opened.length-1
-    }
-    else{
-      At--
-    }
-  }
+  isDown?At ===opened.length-1 ? At=0:At++ :At===0?At=opened.length-1:At--
   setAt(At)
 }
 
