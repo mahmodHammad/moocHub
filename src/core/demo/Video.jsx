@@ -5,6 +5,7 @@ import Duration from "./Duration";
 
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Slider from '@material-ui/core/Slider';
 
 // icons
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -29,7 +30,7 @@ class App extends Component {
     played: 0,
     loaded: 0,
     duration: 0,
-    playbackRate: 4.0,
+    playbackRate: 1.0,
     loop: false
   };
 
@@ -83,7 +84,6 @@ class App extends Component {
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
-    this.player.seekTo(parseFloat(e.target.value));
   };
 
   handleProgress = state => {
@@ -102,9 +102,21 @@ class App extends Component {
     return <button onClick={() => this.load(url)}>{label}</button>;
   };
 
+  progressbar=(event , value)=>{
+    this.setState({played : value/100 ,seeking: true })
+    this.player.seekTo(parseFloat((value/100)*this.state.duration));
+    // console.log("jey:",played)
+    console.log("hoooow:",value)
+  }
+  
   ref = player => {
     this.player = player;
   };
+
+  componentDidMount() {
+    this.load("https://www.youtube.com/watch?v=N9qYF9DZPdw")
+  }
+  
 
   render() {
     const {
@@ -153,11 +165,10 @@ class App extends Component {
             onDuration={this.handleDuration}
           />
         </div>
-        <LinearProgress
-          variant="buffer"
-          value={played * 100}
-          color="secondary"
-        />
+
+        <Slider value={played *100 }  onChange={this.progressbar} onMouseUp={this.handleSeekMouseUp}/>
+
+        
         <Button onClick={this.handlePlayPause}>
           {playing ? <PauseIcon /> : <PlayArrowIcon />}
         </Button>
