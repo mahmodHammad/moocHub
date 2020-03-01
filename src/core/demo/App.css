@@ -3,14 +3,18 @@
   text-align: left;
   vertical-align: top;
   margin: 10px;
+  width: 40%;
 }
 
 .player-wrapper {
-  width: 480px;
-  height: 270px;
+  width: 100%;
+  height:100vh;
 }
 
 .react-player {
   margin-bottom: 10px;
   background: rgba(0, 0, 0, .1);
+}
+.right{
+  width: 40%;
 }
