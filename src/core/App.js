@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import ReactPlayer from "react-player";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -15,6 +16,8 @@ import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 import customTheme from "../config/theme";
 import communities from "../config/communities";
+
+import { configureAnchors } from "react-scrollable-anchor";
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -149,6 +152,8 @@ export default class App extends Component {
       let todo = JSON.parse(gettodo);
       this.setState({ todo });
     }
+
+    configureAnchors({ scrollDuration: 0 });
   }
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

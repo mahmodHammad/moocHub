@@ -2,6 +2,7 @@ import React ,{useState} from "react";
 import Scroll from "./components/Scoll";
 import DisplayContent from "./components/DisplayContent";
 import  Typography  from '@material-ui/core/Typography';
+import Video from "../../core/demo/Video"
 export default function Nerds({ todo, removeFromTodo }) {
   const [opened, setopened] = useState([])
   const [At, setAt] = useState(0)
@@ -10,7 +11,8 @@ export default function Nerds({ todo, removeFromTodo }) {
     <div>
       <Scroll opened={opened} At={At} setAt={setAt}/>
 
-      {todo.length ? (
+      <Video/>
+      {/* {todo.length ? (
         <DisplayContent
           todo={todo}
           removeFromTodo={removeFromTodo}
@@ -22,7 +24,7 @@ export default function Nerds({ todo, removeFromTodo }) {
           <Typography variant="h5" >Study List Is Empty ! </Typography>
           you should add content first then come  again to see it here
         </div>
-      )}
+      )} */}
     </div>
   );
 }

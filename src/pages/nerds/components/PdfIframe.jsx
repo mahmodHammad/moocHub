@@ -5,6 +5,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Pdf from "./Pdf";
+import { goToAnchor } from 'react-scrollable-anchor'
+
 
 const styles = {
   center: {
@@ -35,6 +37,7 @@ function handleToggleContent(
     setdisplay(true);
     setopened([...openedItems, file]);
   }
+  goToAnchor(file.id)
 }
 
 function PdfIframe({
