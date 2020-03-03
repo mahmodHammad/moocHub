@@ -1,13 +1,13 @@
 import "./App.css";
 import React, { Component } from "react";
-import { findDOMNode } from 'react-dom'
+import { findDOMNode } from "react-dom";
 import ReactPlayer from "react-player";
 import Duration from "./Duration";
-import screenfull from 'screenfull'
+import screenfull from "screenfull";
 
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Slider from '@material-ui/core/Slider';
+import Slider from "@material-ui/core/Slider";
 
 // icons
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -19,6 +19,7 @@ import SpeedIcon from "@material-ui/icons/Speed";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 import Replay10Icon from "@material-ui/icons/Replay10";
+import { duration } from "@material-ui/core";
 
 class App extends Component {
   state = {
@@ -76,13 +77,14 @@ class App extends Component {
     this.setState({ playing: false });
   };
 
-  handleSeekChange = (e ,value) => {
-    this.setState({played : value/100 ,seeking: true })
-    this.player.seekTo(parseFloat((value/100)*this.state.duration));
+  handleSeekChange = (e, value) => {
+    this.setState({ played: value / 100, seeking: true });
+    this.player.seekTo(parseFloat((value / 100) * this.state.duration));
   };
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
+    console.log("mouse up ", this.state.seeking);
   };
 
   handleProgress = state => {
@@ -98,32 +100,26 @@ class App extends Component {
   };
 
   renderLoadButton = (url, label) => {
-    return <button onClick={() => this.load(url)}>{label}</button>;
+    return <Button variant="contained" onClick={() => this.load(url)}>{label}</Button>;
   };
 
   handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player))
-  }
-  handleGoTo=()=>{
-    this.setState({played : 0.5 ,seeking:true })
-    this.player.seekTo(parseFloat(0.5*this.state.duration));
+    screenfull.request(findDOMNode(this.player));
+  };
 
-    console.log("seeking", this.state.seeking)
+  handleGoTo = (sec, min = 0, houre = 0) => {
+    let TimeInSec = sec + min * 60 + houre * 60 * 60;
+    this.setState({ played: TimeInSec / this.state.duration, seeking: true });
+    this.player.seekTo(parseFloat(TimeInSec));
+  };
 
-  }
-  handleGotoUp=()=>{
-    console.log("mouse Up")
-    this.setState({seeking:false})
-
-  }
   ref = player => {
     this.player = player;
   };
 
   componentDidMount() {
-    this.load("https://www.youtube.com/watch?v=N9qYF9DZPdw")
+    this.load("https://www.youtube.com/watch?v=WfhoJsI07o0");
   }
-  
 
   render() {
     const {
@@ -171,11 +167,12 @@ class App extends Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration}
           />
-        <Slider value={played *100 }  onChange={this.handleSeekChange} onMouseUp={this.handleSeekMouseUp} />
+          <Slider
+            value={played * 100}
+            onChange={this.handleSeekChange}
+            onMouseUp={this.handleSeekMouseUp}
+          />
         </div>
-
-
-        
         <Button onClick={this.handlePlayPause}>
           {playing ? <PauseIcon /> : <PlayArrowIcon />}
         </Button>
@@ -189,8 +186,46 @@ class App extends Component {
           2x
         </Button>
         {/* <progress max={1} value={loaded} /> */}
-       <Button onClick={this.handleClickFullscreen}>Full screan </Button>
-       <Button onClick={this.handleGoTo} onMouseUp={this.handleGotoUp} color="secondary">1:0</Button>
+        <Button onClick={this.handleClickFullscreen}>Full screan </Button>
+       
+        <Button
+          onMouseDown={() => this.handleGoTo(41, 14)}
+          onMouseUp={this.handleSeekMouseUp}
+          variant="outlined"
+          color="secondary"
+        >
+          problem 1
+        </Button>
+        <Button
+          onMouseDown={() => this.handleGoTo(41, 40)}
+          onMouseUp={this.handleSeekMouseUp}
+          variant="outlined"
+          color="secondary"
+        >
+          problem 2
+        </Button>
+        <Button
+          onMouseDown={() => this.handleGoTo(16, 54)}
+          onMouseUp={this.handleSeekMouseUp}
+          variant="outlined"
+          color="secondary"
+        >
+          problem 3
+        </Button>
+        <Button
+          onMouseDown={() => this.handleGoTo(50, 58)}
+          onMouseUp={this.handleSeekMouseUp}
+          variant="outlined"
+          color="secondary"
+        >
+          problem 4
+        </Button>
+        <br/>
+        {this.renderLoadButton(
+          "https://www.youtube.com/watch?v=WfhoJsI07o0",
+          "Systems Sec1"
+        )}
+        
         {this.renderLoadButton(
           "https://www.youtube.com/watch?v=N9qYF9DZPdw",
           "Nerdy"
@@ -208,7 +243,7 @@ class App extends Component {
         <span>
           <Duration seconds={duration} />
         </span>
-       ~~~~played>
+        ~~~~played>
         <span>
           <Duration seconds={duration * played} />
         </span>
