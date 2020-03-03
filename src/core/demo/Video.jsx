@@ -1,7 +1,9 @@
 import "./App.css";
 import React, { Component } from "react";
+import { findDOMNode } from 'react-dom'
 import ReactPlayer from "react-player";
 import Duration from "./Duration";
+import screenfull from 'screenfull'
 
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -74,12 +76,9 @@ class App extends Component {
     this.setState({ playing: false });
   };
 
-  handleSeekMouseDown = e => {
-    this.setState({ seeking: true });
-  };
-
-  handleSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) });
+  handleSeekChange = (e ,value) => {
+    this.setState({played : value/100 ,seeking: true })
+    this.player.seekTo(parseFloat((value/100)*this.state.duration));
   };
 
   handleSeekMouseUp = e => {
@@ -102,13 +101,21 @@ class App extends Component {
     return <button onClick={() => this.load(url)}>{label}</button>;
   };
 
-  progressbar=(event , value)=>{
-    this.setState({played : value/100 ,seeking: true })
-    this.player.seekTo(parseFloat((value/100)*this.state.duration));
-    // console.log("jey:",played)
-    console.log("hoooow:",value)
+  handleClickFullscreen = () => {
+    screenfull.request(findDOMNode(this.player))
   }
-  
+  handleGoTo=()=>{
+    this.setState({played : 0.5 ,seeking:true })
+    this.player.seekTo(parseFloat(0.5*this.state.duration));
+
+    console.log("seeking", this.state.seeking)
+
+  }
+  handleGotoUp=()=>{
+    console.log("mouse Up")
+    this.setState({seeking:false})
+
+  }
   ref = player => {
     this.player = player;
   };
@@ -164,15 +171,14 @@ class App extends Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration}
           />
+        <Slider value={played *100 }  onChange={this.handleSeekChange} onMouseUp={this.handleSeekMouseUp} />
         </div>
 
-        <Slider value={played *100 }  onChange={this.progressbar} onMouseUp={this.handleSeekMouseUp}/>
 
         
         <Button onClick={this.handlePlayPause}>
           {playing ? <PauseIcon /> : <PlayArrowIcon />}
         </Button>
-        <SpeedIcon />
         <Button size="small" onClick={() => this.handleSetPlaybackRate(1)}>
           1x
         </Button>
@@ -182,18 +188,9 @@ class App extends Component {
         <Button size="small" onClick={() => this.handleSetPlaybackRate(2)}>
           2x
         </Button>
-        <progress max={1} value={played} />
-        <progress max={1} value={loaded} />
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step="any"
-          value={played}
-          onMouseDown={this.handleSeekMouseDown}
-          onChange={this.handleSeekChange}
-          onMouseUp={this.handleSeekMouseUp}
-        />
+        {/* <progress max={1} value={loaded} /> */}
+       <Button onClick={this.handleClickFullscreen}>Full screan </Button>
+       <Button onClick={this.handleGoTo} onMouseUp={this.handleGotoUp} color="secondary">1:0</Button>
         {this.renderLoadButton(
           "https://www.youtube.com/watch?v=N9qYF9DZPdw",
           "Nerdy"
@@ -207,15 +204,15 @@ class App extends Component {
           "mp3"
         )}
         {/* {played.toFixed(3)} */}
-        duration
+        duration>
         <span>
           <Duration seconds={duration} />
         </span>
-        played
+       ~~~~played>
         <span>
           <Duration seconds={duration * played} />
         </span>
-        remaining
+        ~~~~remaining>
         <span>
           <Duration seconds={duration * (1 - played)} />
         </span>
