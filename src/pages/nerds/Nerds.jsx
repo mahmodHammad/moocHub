@@ -12,7 +12,7 @@ export default function Nerds({ todo, removeFromTodo }) {
       <Scroll opened={opened} At={At} setAt={setAt}/>
 
       <Video/>
-      {/* {todo.length ? (
+      {todo.length ? (
         <DisplayContent
           todo={todo}
           removeFromTodo={removeFromTodo}
@@ -24,7 +24,7 @@ export default function Nerds({ todo, removeFromTodo }) {
           <Typography variant="h5" >Study List Is Empty ! </Typography>
           you should add content first then come  again to see it here
         </div>
-      )} */}
+      )}
     </div>
   );
 }

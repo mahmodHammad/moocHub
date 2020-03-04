@@ -7,14 +7,33 @@
 }
 
 .player-wrapper {
-  width: 100%;
-  height:100vh;
+  text-align: center;
+  margin: 20px 0 0px auto;
+  width:100% ;
+  height:52vw;
 }
 
 .react-player {
   margin-bottom: 10px;
   background: rgba(0, 0, 0, .1);
+  z-index: 0 !important;
 }
-.right{
-  width: 40%;
+.min{
+  font-size: 10px;
+}
+.content-buttons .MuiButton-label{
+  font-size: 10px;
+}
+.content-buttons {
+margin: 10px ;
+}
+.options{
+margin-top: -40px;
+z-index: 88!important;
+}
+.hideme{
+  z-index: 0 !important;
+}
+.ytp-scroll-min{
+  display: none;
 }
