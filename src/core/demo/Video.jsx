@@ -8,6 +8,7 @@ import screenfull from "screenfull";
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Slider from "@material-ui/core/Slider";
+import Container from "@material-ui/core/Container";
 
 // icons
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -23,6 +24,28 @@ import { duration } from "@material-ui/core";
 
 class App extends Component {
   state = {
+    content: [
+      {
+        title: "Sys section 1",
+        url: "https://www.youtube.com/watch?v=WfhoJsI07o0",
+        goto: [
+          { title: "Problem1", sec: 880 },
+          { title: "Problem2", sec: 2440 },
+          { title: "Problem3", sec: 3257 },
+          { title: "Problem4", sec: 3530 }
+        ]
+      },
+      {
+        title: "Logic-Lec 6",
+        url: "https://www.youtube.com/watch?v=CCrtGgJ4NIM",
+        goto: [
+          { title: "half adder ", sec: 4645 },
+          { title: "full adder ", sec: 4960 },
+          { title: "subtractor", sec: 6360 },
+          { title: "multiplier", sec: 7053 }
+        ]
+      }
+    ],
     url: null,
     pip: false,
     playing: true,
@@ -99,18 +122,45 @@ class App extends Component {
     this.setState({ duration });
   };
 
-  renderLoadButton = (url, label) => {
-    return <Button variant="contained" onClick={() => this.load(url)}>{label}</Button>;
+  renderLoadButton = (url, label, goto) => {
+    console.log("label", label);
+
+    return (
+      <div className="content-buttons">
+        <Button
+        
+          variant="contained"
+          color="primary"
+          onClick={() => this.load(url)}
+        >
+          {label}
+        </Button>
+        <br/>
+        {goto.map(({ title, sec }) => (
+          <Button
+          calssName="min"
+            size="small"
+            onMouseDown={() => this.handleGoTo(sec)}
+            onMouseUp={this.handleSeekMouseUp}
+            variant="outlined"
+          >
+            {title}
+          </Button>
+        ))}
+        <br />
+      </div>
+    );
   };
 
   handleClickFullscreen = () => {
     screenfull.request(findDOMNode(this.player));
   };
-
-  handleGoTo = (sec, min = 0, houre = 0) => {
-    let TimeInSec = sec + min * 60 + houre * 60 * 60;
-    this.setState({ played: TimeInSec / this.state.duration, seeking: true });
-    this.player.seekTo(parseFloat(TimeInSec));
+  convertTimeToSec(sec, min = 0, houre = 0) {
+    return sec + min * 60 + houre * 60 * 60;
+  }
+  handleGoTo = sec => {
+    this.setState({ played: sec / this.state.duration, seeking: true });
+    this.player.seekTo(parseFloat(sec));
   };
 
   ref = player => {
@@ -139,118 +189,75 @@ class App extends Component {
 
     return (
       <div className="app">
-        <div className="player-wrapper">
-          <ReactPlayer
-            ref={this.ref}
-            className="react-player"
-            width="100%"
-            height="100%"
-            url={url}
-            pip={pip}
-            playing={playing}
-            controls={controls}
-            light={light}
-            loop={loop}
-            playbackRate={playbackRate}
-            volume={volume}
-            muted={muted}
-            onReady={() => console.log("onReady")}
-            onStart={() => console.log("onStart")}
-            onPlay={this.handlePlay}
-            onEnablePIP={this.handleEnablePIP}
-            onDisablePIP={this.handleDisablePIP}
-            onPause={this.handlePause}
-            onBuffer={() => console.log("onBuffer")}
-            onSeek={e => console.log("onSeek", e)}
-            onEnded={this.handleEnded}
-            onError={e => console.log("onError", e)}
-            onProgress={this.handleProgress}
-            onDuration={this.handleDuration}
-          />
-          <Slider
-            value={played * 100}
-            onChange={this.handleSeekChange}
-            onMouseUp={this.handleSeekMouseUp}
-          />
-        </div>
-        <Button onClick={this.handlePlayPause}>
-          {playing ? <PauseIcon /> : <PlayArrowIcon />}
-        </Button>
-        <Button size="small" onClick={() => this.handleSetPlaybackRate(1)}>
-          1x
-        </Button>
-        <Button size="small" onClick={() => this.handleSetPlaybackRate(1.5)}>
-          1.5x
-        </Button>
-        <Button size="small" onClick={() => this.handleSetPlaybackRate(2)}>
-          2x
-        </Button>
-        {/* <progress max={1} value={loaded} /> */}
-        <Button onClick={this.handleClickFullscreen}>Full screan </Button>
-       
-        <Button
-          onMouseDown={() => this.handleGoTo(41, 14)}
-          onMouseUp={this.handleSeekMouseUp}
-          variant="outlined"
-          color="secondary"
-        >
-          problem 1
-        </Button>
-        <Button
-          onMouseDown={() => this.handleGoTo(41, 40)}
-          onMouseUp={this.handleSeekMouseUp}
-          variant="outlined"
-          color="secondary"
-        >
-          problem 2
-        </Button>
-        <Button
-          onMouseDown={() => this.handleGoTo(16, 54)}
-          onMouseUp={this.handleSeekMouseUp}
-          variant="outlined"
-          color="secondary"
-        >
-          problem 3
-        </Button>
-        <Button
-          onMouseDown={() => this.handleGoTo(50, 58)}
-          onMouseUp={this.handleSeekMouseUp}
-          variant="outlined"
-          color="secondary"
-        >
-          problem 4
-        </Button>
-        <br/>
-        {this.renderLoadButton(
-          "https://www.youtube.com/watch?v=WfhoJsI07o0",
-          "Systems Sec1"
-        )}
-        
-        {this.renderLoadButton(
-          "https://www.youtube.com/watch?v=N9qYF9DZPdw",
-          "Nerdy"
-        )}
-        {this.renderLoadButton(
-          "https://www.youtube.com/playlist?list=PL6ElMp8lKLCDH1p1nxVTiJLJ7d1r-l4o7",
-          "Playlist"
-        )}
-        {this.renderLoadButton(
-          "https://docs.google.com/uc?export=download&id=19xD34WaTKGSH4or8F3V2EKnwFa3mdm_s",
-          "mp3"
-        )}
-        {/* {played.toFixed(3)} */}
-        duration>
-        <span>
-          <Duration seconds={duration} />
-        </span>
-        ~~~~played>
-        <span>
-          <Duration seconds={duration * played} />
-        </span>
-        ~~~~remaining>
-        <span>
-          <Duration seconds={duration * (1 - played)} />
-        </span>
+        <Container variant="fluid">
+          <div className="player-wrapper">
+            <ReactPlayer
+              ref={this.ref}
+              className="react-player"
+              width="100%"
+              height="100%"
+              url={url}
+              pip={pip}
+              playing={playing}
+              controls={controls}
+              light={light}
+              loop={loop}
+              playbackRate={playbackRate}
+              volume={volume}
+              muted={muted}
+              onReady={() => console.log("onReady")}
+              onStart={() => console.log("onStart")}
+              onPlay={this.handlePlay}
+              onEnablePIP={this.handleEnablePIP}
+              onDisablePIP={this.handleDisablePIP}
+              onPause={this.handlePause}
+              onBuffer={() => console.log("onBuffer")}
+              onSeek={e => console.log("onSeek", e)}
+              onEnded={this.handleEnded}
+              onError={e => console.log("onError", e)}
+              onProgress={this.handleProgress}
+              onDuration={this.handleDuration}
+            />
+            <Slider
+              value={played * 100}
+              onChange={this.handleSeekChange}
+              onMouseUp={this.handleSeekMouseUp}
+            />
+          </div>
+          <Button onClick={this.handlePlayPause}>
+            {playing ? <PauseIcon /> : <PlayArrowIcon />}
+          </Button>
+          <Button size="small" onClick={() => this.handleSetPlaybackRate(1)}>
+            1x
+          </Button>
+          <Button size="small" onClick={() => this.handleSetPlaybackRate(1.5)}>
+            1.5x
+          </Button>
+          <Button size="small" onClick={() => this.handleSetPlaybackRate(2)}>
+            2x
+          </Button>
+          {/* <progress max={1} value={loaded} /> */}
+          <Button onClick={this.handleClickFullscreen}>Full screan </Button>
+          <br />
+          {this.state.content.map(video => {
+            console.log("video", video);
+            // return <Button> video.url </Button>
+            return this.renderLoadButton(video.url, video.title, video.goto);
+          })}
+          {/* {played.toFixed(3)} */}
+          duration>
+          <span>
+            <Duration seconds={duration} />
+          </span>
+          ~~~~played>
+          <span>
+            <Duration seconds={duration * played} />
+          </span>
+          ~~~~remaining>
+          <span>
+            <Duration seconds={duration * (1 - played)} />
+          </span>
+        </Container>
       </div>
     );
   }
