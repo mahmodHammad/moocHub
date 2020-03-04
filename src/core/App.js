@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import ReactPlayer from "react-player";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import getFiles from "./../helper/getfiles";

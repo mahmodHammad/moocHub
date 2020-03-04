@@ -37,13 +37,17 @@ class App extends Component {
       },
       {
         title: "Logic-Lec 6",
-        url: "https://www.youtube.com/embed?CCrtGgJ4NIM?wmode=transparent",
+        url: "https://www.youtube.com/watch?v=CCrtGgJ4NIM?wmode=transparent",
         goto: [
           { title: "half adder ", sec: 4645 },
           { title: "full adder ", sec: 4960 },
           { title: "subtractor", sec: 6360 },
           { title: "multiplier", sec: 7053 }
         ]
+      },{
+        title: "baqara",
+        url: "https://www.youtube.com/watch?v=n4POhvaC2ws?wmode=transparent",
+        goto: [  ]
       }
     ],
     url: null,
@@ -71,6 +75,7 @@ class App extends Component {
 
   handlePlayPause = () => {
     this.setState({ playing: !this.state.playing });
+   
   };
 
   handleToggleControls = () => {
@@ -112,7 +117,7 @@ class App extends Component {
   };
 
   handleProgress = state => {
-    console.log("onProgress", state);
+    // console.log("onProgress", state);
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state);
