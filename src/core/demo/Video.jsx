@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 
 // icons
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 // import MenuOpenIcon from "@material-ui/icons/MenuOpen";
@@ -44,10 +45,11 @@ class App extends Component {
           { title: "subtractor", sec: 6360 },
           { title: "multiplier", sec: 7053 }
         ]
-      },{
+      },
+      {
         title: "baqara",
         url: "https://www.youtube.com/watch?v=n4POhvaC2ws?wmode=transparent",
-        goto: [  ]
+        goto: []
       }
     ],
     url: null,
@@ -73,9 +75,9 @@ class App extends Component {
     });
   };
 
+
   handlePlayPause = () => {
     this.setState({ playing: !this.state.playing });
-   
   };
 
   handleToggleControls = () => {
@@ -112,8 +114,6 @@ class App extends Component {
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
-
-    console.log("mouse up ", this.state.seeking);
   };
 
   handleProgress = state => {
@@ -138,30 +138,41 @@ class App extends Component {
         >
           {label}
         </Button>
-        <br />
-        {goto.map(({ title, sec }) => (
-          <Button
-            key={sec}
-            className="min"
-            size="small"
-            onMouseDown={() => this.handleGoTo(sec)}
-            onMouseUp={this.handleSeekMouseUp}
-            variant="outlined"
-          >
-            {title}
-          </Button>
-        ))}
-        <br />
+
+        {this.renderContentButton(goto)}
       </div>
     );
   };
 
-  handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player));
+  renderContentButton = goto => {
+   
+      return goto.map(({ title, sec }) => (
+        <Button
+          key={sec}
+          className="min"
+          size="small"
+          onMouseDown={() => this.handleGoTo(sec)}
+          onMouseUp={this.handleSeekMouseUp}
+          variant="outlined"
+        >
+          {title}
+        </Button>
+      ));
+  
+  };
 
-    // XXXXXXXXXXXXXX this should work XXXXXXXXXXXXXXXX
+  handleClickFullscreen = () => {
+    // console.log()
+    console.log(this.vidRef.current)
+    screenfull.toggle(this.vidRef.current);
+    // will only work for phones or tablets
     window.screen.orientation.lock("landscape-primary");
   };
+  handleExitFullScrean = ()=>{
+    screenfull.exit(findDOMNode(this.player))
+    window.screen.orientation.lock("portrait");
+  }
+
   convertTimeToSec(sec, min = 0, houre = 0) {
     return sec + min * 60 + houre * 60 * 60;
   }
@@ -174,11 +185,13 @@ class App extends Component {
     this.player = player;
   };
 
+  vidRef = React.createRef()
   componentDidMount() {
     this.load("https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent");
   }
 
   render() {
+    console.log(this.vidRef)
     const {
       url,
       playing,
@@ -188,7 +201,6 @@ class App extends Component {
       muted,
       loop,
       played,
-      loaded,
       duration,
       playbackRate,
       pip
@@ -197,7 +209,7 @@ class App extends Component {
     return (
       <div className="app">
         <Container variant="fluid">
-          <div className="player-wrapper">
+          <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer
               ref={this.ref}
               width="100%"
@@ -248,23 +260,7 @@ class App extends Component {
               >
                 1.5x
               </Button>
-              {/* <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.25)}
-              >
-                1.25x
-              </Button> */}
 
-              {/* <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.75)}
-              >
-                1.75x
-              </Button> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -273,15 +269,18 @@ class App extends Component {
               >
                 2x
               </Button>
+
               <Button
                 variant="contained"
                 size="small"
                 onClick={this.handleClickFullscreen}
               >
-                <FullscreenIcon />
+                {screenfull.isFullscreen?<FullscreenExitIcon/>:<FullscreenIcon />}
+                                
               </Button>
             </div>
             <Slider
+              color="secondary"
               value={played * 100}
               onChange={this.handleSeekChange}
               onMouseUp={this.handleSeekMouseUp}
@@ -292,19 +291,11 @@ class App extends Component {
           {this.state.content.map(video => {
             return this.renderLoadButton(video.url, video.title, video.goto);
           })}
-          {/* {played.toFixed(3)} */}
-          {/* duration>
-          <span>
-            <Duration seconds={duration} />
-          </span> */}
           ~~~~played>
           <span>
             <Duration seconds={duration * played} />
           </span>
-          {/* ~~~~remaining>
-          <span>
-            <Duration seconds={duration * (1 - played)} />
-          </span> */}
+          {/* ~~~~remaining>   <Duration seconds={duration * (1 - played)} /> */}
         </Container>
       </div>
     );
