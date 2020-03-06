@@ -8,11 +8,13 @@ import screenfull from "screenfull";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Container from "@material-ui/core/Container";
-
 // icons
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import SettingsIcon from "@material-ui/icons/Settings";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import Forward10Icon from "@material-ui/icons/Forward10";
@@ -21,6 +23,15 @@ import PauseIcon from "@material-ui/icons/Pause";
 // import FastRewindIcon from "@material-ui/icons/FastRewind";
 // import Replay10Icon from "@material-ui/icons/Replay10";
 // import { duration } from "@material-ui/core";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Card from "@material-ui/core/Card";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
 
 class App extends Component {
   state = {
@@ -29,30 +40,32 @@ class App extends Component {
         title: "Sys section 1",
         url: "https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent",
         goto: [
-          { title: "Problem1", sec: 880 },
-          { title: "Problem2", sec: 2440 },
-          { title: "Problem3", sec: 3257 },
-          { title: "Problem4", sec: 3530 }
+          ["Problem1", 880],
+          ["Problem2", 2440],
+          ["Problem3", 3257],
+          ["Problem4", 3530]
         ]
       },
       {
         title: "Logic-Lec 6",
         url: "https://www.youtube.com/watch?v=CCrtGgJ4NIM?wmode=transparent",
         goto: [
-          { title: "half adder ", sec: 4645 },
-          { title: "full adder ", sec: 4960 },
-          { title: "subtractor", sec: 6360 },
-          { title: "multiplier", sec: 7053 }
+          ["half adder ", 4645],
+          ["full adder ", 4960],
+          ["subtractor", 6360],
+          ["multiplier", 7053]
         ]
-      },{
+      },
+      {
         title: "baqara",
         url: "https://www.youtube.com/watch?v=n4POhvaC2ws?wmode=transparent",
-        goto: [  ]
+        goto: []
       }
     ],
+    settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
     pip: false,
-    playing: true,
+    playing: false,
     controls: false,
     light: false,
     volume: 0.8,
@@ -61,7 +74,9 @@ class App extends Component {
     loaded: 0,
     duration: 0,
     playbackRate: 1.0,
-    loop: false
+    loop: false,
+    isRemaining: false,
+    openSettings: false
   };
 
   load = url => {
@@ -75,7 +90,6 @@ class App extends Component {
 
   handlePlayPause = () => {
     this.setState({ playing: !this.state.playing });
-   
   };
 
   handleToggleControls = () => {
@@ -112,8 +126,6 @@ class App extends Component {
 
   handleSeekMouseUp = e => {
     this.setState({ seeking: false });
-
-    console.log("mouse up ", this.state.seeking);
   };
 
   handleProgress = state => {
@@ -138,30 +150,38 @@ class App extends Component {
         >
           {label}
         </Button>
-        <br />
-        {goto.map(({ title, sec }) => (
-          <Button
-            key={sec}
-            className="min"
-            size="small"
-            onMouseDown={() => this.handleGoTo(sec)}
-            onMouseUp={this.handleSeekMouseUp}
-            variant="outlined"
-          >
-            {title}
-          </Button>
-        ))}
-        <br />
+
+        {this.renderContentButton(goto)}
       </div>
     );
   };
 
-  handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player));
+  renderContentButton = goto => {
+    return goto.map(([title, sec]) => (
+      <Button
+        key={sec}
+        className="min"
+        size="small"
+        onMouseDown={() => this.handleGoTo(sec)}
+        onMouseUp={this.handleSeekMouseUp}
+        variant="outlined"
+      >
+        {title}
+      </Button>
+    ));
+  };
 
-    // XXXXXXXXXXXXXX this should work XXXXXXXXXXXXXXXX
+  handleClickFullscreen = () => {
+    console.log(this.vidRef.current);
+    screenfull.toggle(this.vidRef.current);
+    // will only work for phones or tablets
     window.screen.orientation.lock("landscape-primary");
   };
+  handleExitFullScrean = () => {
+    screenfull.exit(findDOMNode(this.player));
+    window.screen.orientation.lock("portrait");
+  };
+
   convertTimeToSec(sec, min = 0, houre = 0) {
     return sec + min * 60 + houre * 60 * 60;
   }
@@ -174,6 +194,8 @@ class App extends Component {
     this.player = player;
   };
 
+  vidRef = React.createRef();
+  settingsRef = React.createRef();
   componentDidMount() {
     this.load("https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent");
   }
@@ -188,16 +210,18 @@ class App extends Component {
       muted,
       loop,
       played,
-      loaded,
       duration,
       playbackRate,
+      isRemaining,
+      openSettings,
+      settingOptions,
       pip
     } = this.state;
-
+    console.log(playbackRate);
     return (
-      <div className="app">
+      <div className="video">
         <Container variant="fluid">
-          <div className="player-wrapper">
+          <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer
               ref={this.ref}
               width="100%"
@@ -225,86 +249,101 @@ class App extends Component {
               onDuration={this.handleDuration}
             />
             <div className="options">
-              <Button
-                onClick={this.handlePlayPause}
-                variant="contained"
-                size="small"
-              >
-                {playing ? <PauseIcon /> : <PlayArrowIcon />}
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1)}
-              >
-                1x
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.5)}
-              >
-                1.5x
-              </Button>
-              {/* <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.25)}
-              >
-                1.25x
-              </Button> */}
+              <Slider
+                id="slider"
+                color="secondary"
+                value={played * 100}
+                onChange={this.handleSeekChange}
+                onMouseUp={this.handleSeekMouseUp}
+              />
+              <div className="options-group">
+                <div className="left">
+                  <Button
+                    className="cont"
+                    onClick={this.handlePlayPause}
+                    size="small"
+                  >
+                    {playing ? <PauseIcon /> : <PlayArrowIcon />}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      this.setState({ muted: !muted });
+                    }}
+                    className="cont"
+                  >
+                    {muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      this.setState({ isRemaining: !isRemaining });
+                    }}
+                  >
+                    {isRemaining ? (
+                      <span>
+                        <Duration seconds={duration * played} /> /{"  "}
+                        <Duration seconds={duration} />
+                      </span>
+                    ) : (
+                      <Duration seconds={duration * (1 - played)} />
+                    )}
+                  </Button>
+                </div>
 
-              {/* <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.75)}
-              >
-                1.75x
-              </Button> */}
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(2)}
-              >
-                2x
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                onClick={this.handleClickFullscreen}
-              >
-                <FullscreenIcon />
-              </Button>
+                <div className="right">
+                  <Button size="small">
+                    <SettingsIcon
+                      ref={this.settingsRef}
+                      onClick={() =>
+                        this.setState({ openSettings: !openSettings })
+                      }
+                    />
+                  </Button>
+
+                  <Button
+                    size="small"
+                    onClick={this.handleClickFullscreen}
+                    aria-haspopup="true"
+                  >
+                    {screenfull.isFullscreen ? (
+                      <FullscreenExitIcon />
+                    ) : (
+                      <FullscreenIcon />
+                    )}
+                  </Button>
+                </div>
+              </div>
             </div>
-            <Slider
-              value={played * 100}
-              onChange={this.handleSeekChange}
-              onMouseUp={this.handleSeekMouseUp}
-            />
           </div>
-          {/* <progress max={1} value={loaded} /> */}
           <br />
           {this.state.content.map(video => {
             return this.renderLoadButton(video.url, video.title, video.goto);
           })}
-          {/* {played.toFixed(3)} */}
-          {/* duration>
-          <span>
-            <Duration seconds={duration} />
-          </span> */}
-          ~~~~played>
-          <span>
-            <Duration seconds={duration * played} />
-          </span>
-          {/* ~~~~remaining>
-          <span>
-            <Duration seconds={duration * (1 - played)} />
-          </span> */}
+<div className="speed">
+
+          <Menu
+            id="long-menu"
+            className="speedMenu"
+            anchorEl={this.settingsRef.current}
+            keepMounted
+            open={openSettings}
+            onClose={() => console.log("closinf")}
+          >
+            {settingOptions.map(op => (
+              <MenuItem
+                className={op === playbackRate && "Selected"}
+                key={`op${op}`}
+                selected={false}
+                onClick={() => {
+                  this.handleSetPlaybackRate(op);
+                  this.setState({ openSettings: !openSettings });
+                }}
+              >
+                {`x ${op}`}
+              </MenuItem>
+            ))}
+          </Menu>
+</div>
+
         </Container>
       </div>
     );

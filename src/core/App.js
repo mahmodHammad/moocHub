@@ -103,7 +103,7 @@ export default class App extends Component {
   // for Nested content :
   loadDividedSubjects = dividedSubjects => {
     dividedSubjects.map(folder => {
-      getFiles(folder.id, "folder").then(subjectContent => {
+     return  getFiles(folder.id, "folder").then(subjectContent => {
         let [content] = [this.state.content];
         content[folder.index].divided = subjectContent;
         this.setState({ content });
