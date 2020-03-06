@@ -13,6 +13,8 @@ import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import SettingsIcon from "@material-ui/icons/Settings";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import Forward10Icon from "@material-ui/icons/Forward10";
@@ -21,11 +23,15 @@ import PauseIcon from "@material-ui/icons/Pause";
 // import FastRewindIcon from "@material-ui/icons/FastRewind";
 // import Replay10Icon from "@material-ui/icons/Replay10";
 // import { duration } from "@material-ui/core";
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
 
 class App extends Component {
   state = {
@@ -56,6 +62,7 @@ class App extends Component {
         goto: []
       }
     ],
+    settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
     pip: false,
     playing: false,
@@ -67,7 +74,9 @@ class App extends Component {
     loaded: 0,
     duration: 0,
     playbackRate: 1.0,
-    loop: false
+    loop: false,
+    isRemaining: false,
+    openSettings: false
   };
 
   load = url => {
@@ -163,7 +172,6 @@ class App extends Component {
   };
 
   handleClickFullscreen = () => {
-    // console.log()
     console.log(this.vidRef.current);
     screenfull.toggle(this.vidRef.current);
     // will only work for phones or tablets
@@ -187,6 +195,7 @@ class App extends Component {
   };
 
   vidRef = React.createRef();
+  settingsRef = React.createRef();
   componentDidMount() {
     this.load("https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent");
   }
@@ -203,11 +212,14 @@ class App extends Component {
       played,
       duration,
       playbackRate,
+      isRemaining,
+      openSettings,
+      settingOptions,
       pip
     } = this.state;
-
+    console.log(playbackRate);
     return (
-      <div className="app">
+      <div className="video">
         <Container variant="fluid">
           <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer
@@ -249,73 +261,89 @@ class App extends Component {
                   <Button
                     className="cont"
                     onClick={this.handlePlayPause}
-                    variant="span"
                     size="small"
                   >
                     {playing ? <PauseIcon /> : <PlayArrowIcon />}
                   </Button>
                   <Button
-                  onClick={()=>{this.setState({muted:!muted})}}
-                  className="cont">
-                    {muted?<VolumeOffIcon/>:<VolumeUpIcon/>}
-                    
+                    onClick={() => {
+                      this.setState({ muted: !muted });
+                    }}
+                    className="cont"
+                  >
+                    {muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
                   </Button>
-                  <Typography variant="span"><Duration seconds={duration * (1 - played)} /> </Typography>
+                  <Button
+                    onClick={() => {
+                      this.setState({ isRemaining: !isRemaining });
+                    }}
+                  >
+                    {isRemaining ? (
+                      <span>
+                        <Duration seconds={duration * played} /> /{"  "}
+                        <Duration seconds={duration} />
+                      </span>
+                    ) : (
+                      <Duration seconds={duration * (1 - played)} />
+                    )}
+                  </Button>
                 </div>
 
-                {/* <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1)}
-              >
-                1x
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(1.5)}
-              >
-                1.5x
-              </Button>
+                <div className="right">
+                  <Button size="small">
+                    <SettingsIcon
+                      ref={this.settingsRef}
+                      onClick={() =>
+                        this.setState({ openSettings: !openSettings })
+                      }
+                    />
+                  </Button>
 
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => this.handleSetPlaybackRate(2)}
-              >
-                2x
-              </Button> */}
-
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={this.handleClickFullscreen}
-                >
-                  {screenfull.isFullscreen ? (
-                    <FullscreenExitIcon />
-                  ) : (
-                    <FullscreenIcon />
-                  )}
-                </Button>
+                  <Button
+                    size="small"
+                    onClick={this.handleClickFullscreen}
+                    aria-haspopup="true"
+                  >
+                    {screenfull.isFullscreen ? (
+                      <FullscreenExitIcon />
+                    ) : (
+                      <FullscreenIcon />
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-          {/* <progress max={1} value={loaded} /> */}
-          <br />
-          <br />
-          <br />
-          <br />
           <br />
           {this.state.content.map(video => {
             return this.renderLoadButton(video.url, video.title, video.goto);
           })}
-          ~~~~played>
-          <span>
-            <Duration seconds={duration * played} />
-          </span>
+<div className="speed">
+
+          <Menu
+            id="long-menu"
+            className="speedMenu"
+            anchorEl={this.settingsRef.current}
+            keepMounted
+            open={openSettings}
+            onClose={() => console.log("closinf")}
+          >
+            {settingOptions.map(op => (
+              <MenuItem
+                className={op === playbackRate && "Selected"}
+                key={`op${op}`}
+                selected={false}
+                onClick={() => {
+                  this.handleSetPlaybackRate(op);
+                  this.setState({ openSettings: !openSettings });
+                }}
+              >
+                {`x ${op}`}
+              </MenuItem>
+            ))}
+          </Menu>
+</div>
+
         </Container>
       </div>
     );
