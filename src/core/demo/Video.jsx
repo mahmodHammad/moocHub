@@ -14,7 +14,6 @@ import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import SettingsIcon from "@material-ui/icons/Settings";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import Forward10Icon from "@material-ui/icons/Forward10";
@@ -26,42 +25,13 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import IconButton from "@material-ui/core/IconButton";
+import content from "./vidData"
 
 class App extends Component {
   state = {
-    content: [
-      {
-        title: "Sys section 1",
-        url: "https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent",
-        goto: [
-          ["Problem1", 880],
-          ["Problem2", 2440],
-          ["Problem3", 3257],
-          ["Problem4", 3530]
-        ]
-      },
-      {
-        title: "Logic-Lec 6",
-        url: "https://www.youtube.com/watch?v=CCrtGgJ4NIM?wmode=transparent",
-        goto: [
-          ["half adder ", 4645],
-          ["full adder ", 4960],
-          ["subtractor", 6360],
-          ["multiplier", 7053]
-        ]
-      },
-      {
-        title: "baqara",
-        url: "https://www.youtube.com/watch?v=n4POhvaC2ws?wmode=transparent",
-        goto: []
-      }
-    ],
+    content: content,
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
     pip: false,
