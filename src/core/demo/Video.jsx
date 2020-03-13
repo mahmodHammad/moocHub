@@ -27,11 +27,12 @@ import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import content from "./vidData"
+import videoContent from "./vidData";
 
 class App extends Component {
   state = {
-    content: content,
+    playing: 0,
+    content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
     pip: false,
@@ -49,9 +50,10 @@ class App extends Component {
     openSettings: false
   };
 
-  load = url => {
+  load = (url, order) => {
     this.setState({
       url,
+      order,
       played: 0,
       loaded: 0,
       pip: false
@@ -110,18 +112,16 @@ class App extends Component {
     this.setState({ duration });
   };
 
-  renderLoadButton = (url, label, goto) => {
+  renderLoadButton = (url, label, order, goto) => {
     return (
       <div className="content-buttons" key={url}>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => this.load(url)}
+          onClick={() => this.load(url, order)}
         >
           {label}
         </Button>
-
-        {this.renderContentButton(goto)}
       </div>
     );
   };
@@ -168,10 +168,13 @@ class App extends Component {
   settingsRef = React.createRef();
   componentDidMount() {
     this.load("https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent");
+    this.setState({ content: videoContent, playing: 0 });
   }
 
   render() {
     const {
+      content,
+      goto,
       url,
       playing,
       controls,
@@ -285,35 +288,40 @@ class App extends Component {
             </div>
           </div>
           <br />
-          {this.state.content.map(video => {
-            return this.renderLoadButton(video.url, video.title, video.goto);
+          {/* {goto&&this.renderContentButton(goto)} */}
+          {console.log(this.state.content)}
+          {content.map((video, order) => {
+            return this.renderLoadButton(
+              video.url,
+              video.title,
+              order,
+              video.goto
+            );
           })}
-<div className="speed">
-
-          <Menu
-            id="long-menu"
-            className="speedMenu"
-            anchorEl={this.settingsRef.current}
-            keepMounted
-            open={openSettings}
-            onClose={() => console.log("closinf")}
-          >
-            {settingOptions.map(op => (
-              <MenuItem
-                className={op === playbackRate && "Selected"}
-                key={`op${op}`}
-                selected={false}
-                onClick={() => {
-                  this.handleSetPlaybackRate(op);
-                  this.setState({ openSettings: !openSettings });
-                }}
-              >
-                {`x ${op}`}
-              </MenuItem>
-            ))}
-          </Menu>
-</div>
-
+          <div className="speed">
+            <Menu
+              id="long-menu"
+              className="speedMenu"
+              anchorEl={this.settingsRef.current}
+              keepMounted
+              open={openSettings}
+              onClose={() => console.log("closinf")}
+            >
+              {settingOptions.map(op => (
+                <MenuItem
+                  className={op === playbackRate && "Selected"}
+                  key={`op${op}`}
+                  selected={false}
+                  onClick={() => {
+                    this.handleSetPlaybackRate(op);
+                    this.setState({ openSettings: !openSettings });
+                  }}
+                >
+                  {`x ${op}`}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
         </Container>
       </div>
     );
