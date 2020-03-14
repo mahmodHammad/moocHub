@@ -31,7 +31,8 @@ import videoContent from "./vidData";
 
 class App extends Component {
   state = {
-    playing: 0,
+    goto: [],
+    order: 0,
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
@@ -51,7 +52,16 @@ class App extends Component {
   };
 
   load = (url, order) => {
+
+    let goto;
+    if(this.state.content[order]){
+       goto = this.state.content[order].goto;
+    }else{
+      goto=[]
+    }
+
     this.setState({
+      goto,
       url,
       order,
       played: 0,
@@ -167,8 +177,8 @@ class App extends Component {
   vidRef = React.createRef();
   settingsRef = React.createRef();
   componentDidMount() {
+    this.setState({ content: videoContent, order: 0 });
     this.load("https://www.youtube.com/watch?v=WfhoJsI07o0?wmode=transparent");
-    this.setState({ content: videoContent, playing: 0 });
   }
 
   render() {
@@ -190,7 +200,7 @@ class App extends Component {
       settingOptions,
       pip
     } = this.state;
-    console.log(playbackRate);
+    console.log("order", this.state.order);
     return (
       <div className="video">
         <Container variant="fluid">
@@ -288,7 +298,8 @@ class App extends Component {
             </div>
           </div>
           <br />
-          {/* {goto&&this.renderContentButton(goto)} */}
+          {goto && this.renderContentButton(goto)}
+
           {console.log(this.state.content)}
           {content.map((video, order) => {
             return this.renderLoadButton(

@@ -9,8 +9,8 @@
 .player-wrapper {
   text-align: center;
   margin: 20px 0 0px auto;
-  width: 100%;
-  height: 50vw;
+  width: 80%;
+  height: 40vw;
 }
 
 .react-player {
