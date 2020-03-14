@@ -42,7 +42,7 @@ class App extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: false,
-    isRemaining: false,
+    isRemaining: false
   };
 
   load = (url, order) => {
@@ -127,8 +127,6 @@ class App extends Component {
       </div>
     );
   };
-
-
 
   handleClickFullscreen = () => {
     console.log(this.vidRef.current);
@@ -247,9 +245,20 @@ class App extends Component {
                 </div>
 
                 <div className="right">
-                  {console.log("goto" , goto)}
-                  <Goto settingOptions={settingOptions} handleSetPlaybackRate={this.handleSetPlaybackRate} isSpeed={true} label="speed"/>
-                  <Goto content={goto} isContent={true} label="content" />
+                  {console.log("goto", goto)}
+                  <Goto
+                    settingOptions={settingOptions}
+                    handleSetPlaybackRate={this.handleSetPlaybackRate}
+                    isSpeed={true}
+                    label="speed"
+                  />
+                  <Goto
+                    content={goto}
+                    isContent={true}
+                    label="content"
+                    handleGoTo={this.handleGoTo}
+                    handleSeekMouseUp={this.handleSeekMouseUp}
+                  />
                   <Button
                     size="small"
                     onClick={this.handleClickFullscreen}
@@ -275,7 +284,6 @@ class App extends Component {
               video.goto
             );
           })}
-
         </Container>
       </div>
     );

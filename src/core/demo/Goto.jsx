@@ -19,7 +19,9 @@ export default function MenuListComposition({
   settingOptions,
   isContent,
   handleSetPlaybackRate,
-  isSpeed
+  isSpeed,
+  handleGoTo,
+  handleSeekMouseUp
 }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -54,7 +56,17 @@ export default function MenuListComposition({
     if (isContent) {
       // goto
       return content.map(([title, sec]) => (
-        <MenuItem key={sec} className="min" size="small" variant="outlined">
+        <MenuItem
+          key={sec}
+          className="min"
+          size="small"
+          variant="outlined"
+          onMouseDown={event => {
+            handleGoTo(sec);
+            handleClose(event);
+          }}
+          onMouseUp={handleSeekMouseUp}
+        >
           {title}
         </MenuItem>
       ));
@@ -66,10 +78,10 @@ export default function MenuListComposition({
           className="min"
           size="small"
           variant="outlined"
-          onClick={(event) =>{
+          onClick={event => {
             handleSetPlaybackRate(op);
-            handleClose(event)
-        }}
+            handleClose(event);
+          }}
         >
           {op}
         </MenuItem>
@@ -137,7 +149,9 @@ export default function MenuListComposition({
                     content,
                     settingOptions,
                     isContent,
-                    handleSetPlaybackRate
+                    handleSetPlaybackRate,
+                    handleGoTo,
+                    handleSeekMouseUp
                   )}
                 </MenuList>
               </ClickAwayListener>
