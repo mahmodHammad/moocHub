@@ -13,7 +13,6 @@ import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
-import SettingsIcon from "@material-ui/icons/Settings";
 // import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import Forward10Icon from "@material-ui/icons/Forward10";
@@ -24,9 +23,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 // import { duration } from "@material-ui/core";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
-
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import videoContent from "./vidData";
 
 class App extends Component {
@@ -36,7 +32,6 @@ class App extends Component {
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     url: null,
-    pip: false,
     playing: false,
     controls: false,
     light: false,
@@ -48,7 +43,6 @@ class App extends Component {
     playbackRate: 1.0,
     loop: false,
     isRemaining: false,
-    openSettings: false
   };
 
   load = (url, order) => {
@@ -64,8 +58,7 @@ class App extends Component {
       url,
       order,
       played: 0,
-      loaded: 0,
-      pip: false
+      loaded: 0
     });
   };
 
@@ -182,11 +175,8 @@ class App extends Component {
       duration,
       playbackRate,
       isRemaining,
-      openSettings,
-      settingOptions,
-      pip
+      settingOptions
     } = this.state;
-    console.log("order", this.state.order);
     return (
       <div className="video">
         <Container variant="fluid">
@@ -196,7 +186,6 @@ class App extends Component {
               width="100%"
               height="100%"
               url={url}
-              pip={pip}
               playing={playing}
               controls={controls}
               light={light}
@@ -207,8 +196,6 @@ class App extends Component {
               onReady={() => console.log("onReady")}
               onStart={() => console.log("onStart")}
               onPlay={this.handlePlay}
-              onEnablePIP={this.handleEnablePIP}
-              onDisablePIP={this.handleDisablePIP}
               onPause={this.handlePause}
               onBuffer={() => console.log("onBuffer")}
               onSeek={e => console.log("onSeek", e)}
@@ -263,15 +250,6 @@ class App extends Component {
                   {console.log("goto" , goto)}
                   <Goto settingOptions={settingOptions} handleSetPlaybackRate={this.handleSetPlaybackRate} isSpeed={true} label="speed"/>
                   <Goto content={goto} isContent={true} label="content" />
-                  <Button size="small">
-                    <SettingsIcon
-                      ref={this.settingsRef}
-                      onClick={() =>
-                        this.setState({ openSettings: !openSettings })
-                      }
-                    />
-                  </Button>
-
                   <Button
                     size="small"
                     onClick={this.handleClickFullscreen}
@@ -289,7 +267,6 @@ class App extends Component {
           </div>
           <br />
 
-          {console.log(this.state.content)}
           {content.map((video, order) => {
             return this.renderLoadButton(
               video.url,

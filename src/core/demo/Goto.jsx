@@ -44,21 +44,32 @@ export default function MenuListComposition({
     }
   }
 
-  function renderContentButton(content, settingOptions, isContent = false) {
+  function renderContentButton(
+    content,
+    settingOptions,
+    isContent = false,
+    handleSetPlaybackRate
+  ) {
     console.log(content, settingOptions);
     if (isContent) {
+      // goto
       return content.map(([title, sec]) => (
         <MenuItem key={sec} className="min" size="small" variant="outlined">
           {title}
         </MenuItem>
       ));
     } else {
+      // speed
       return settingOptions.map(op => (
         <MenuItem
           key={`op${op}`}
           className="min"
           size="small"
           variant="outlined"
+          onClick={(event) =>{
+            handleSetPlaybackRate(op);
+            handleClose(event)
+        }}
         >
           {op}
         </MenuItem>
@@ -122,7 +133,12 @@ export default function MenuListComposition({
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
-                  {renderContentButton(content, settingOptions, isContent)}
+                  {renderContentButton(
+                    content,
+                    settingOptions,
+                    isContent,
+                    handleSetPlaybackRate
+                  )}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
