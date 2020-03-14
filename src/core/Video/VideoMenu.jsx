@@ -52,7 +52,6 @@ export default function MenuListComposition({
     isContent = false,
     handleSetPlaybackRate
   ) {
-    console.log(content, settingOptions);
     if (isContent) {
       // goto
       return content.map(([title, sec]) => (
@@ -101,8 +100,6 @@ export default function MenuListComposition({
 
   return (
     <React.Fragment>
-      {console.log(content, settingOptions)}
-
       {isContent ? (
         <Button
           ref={anchorRef}

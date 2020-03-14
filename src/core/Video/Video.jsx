@@ -12,10 +12,8 @@ import ProgressBar from "./components/ProgressBar";
 
 class App extends Component {
   state = {
-    goto: [],
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
-    url: null,
     playing: false,
     controls: false,
     light: false,
@@ -29,34 +27,18 @@ class App extends Component {
     isRemaining: false
   };
 
-  load = url => {
-    const goto = this.props.goto;
-
-    this.setState({
-      goto,
-      url,
-      played: 0,
-      loaded: 0
-    });
-  };
-
   handlePlayPause = () => {
     this.setState({ playing: !this.state.playing });
   };
 
   handleToggleControls = () => {
-    const url = this.state.url;
+    const url = this.props.url;
     this.setState(
       {
-        controls: !this.state.controls,
-        url: null
+        controls: !this.state.controls
       },
-      () => this.load(url)
+      () => this.props.loadVideo(url)
     );
-  };
-
-  handleToggleLoop = () => {
-    this.setState({ loop: !this.state.loop });
   };
 
   handleSetPlaybackRate = value => {
@@ -99,9 +81,6 @@ class App extends Component {
     this.setState({ muted: !this.state.muted });
   };
 
-  convertTimeToSec(sec, min = 0, houre = 0) {
-    return sec + min * 60 + houre * 60 * 60;
-  }
   handleGoTo = sec => {
     this.setState({ played: sec / this.state.duration, seeking: true });
     this.player.seekTo(parseFloat(sec));
@@ -114,15 +93,9 @@ class App extends Component {
   vidRef = React.createRef();
   settingsRef = React.createRef();
 
-  componentDidMount() {
-    this.setState({ url: this.props.url, goto: this.props.goto });
-    this.load(this.props.url);
-  }
 
   render() {
     const {
-      goto,
-      url,
       playing,
       controls,
       light,
@@ -137,13 +110,13 @@ class App extends Component {
     } = this.state;
     return (
       <div className="video">
-        <Container variant="fluid">
+        {this.props.url&&<Container variant="fluid">
           <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer
               ref={this.ref}
               width="100%"
               height="100%"
-              url={url}
+              url={this.props.url}
               playing={playing}
               controls={controls}
               light={light}
@@ -194,7 +167,7 @@ class App extends Component {
                     label="speed"
                   />
                   <VideoMenu
-                    content={goto}
+                    content={this.props.goto}
                     isContent={true}
                     label="content"
                     handleGoTo={this.handleGoTo}
@@ -209,7 +182,8 @@ class App extends Component {
             </div>
           </div>
           <br />
-        </Container>
+        </Container>}
+        
       </div>
     );
   }
