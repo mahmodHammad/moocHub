@@ -45,18 +45,55 @@ export default function DisplaySubjects({ folder, mdWidth }) {
       ) : (
         <Card>
           <CardContent>
-            <Button
-              size="medium"
-              component={Link}
-              to={`/subject/${folder.name}/${folder.id}`}
-              fullWidth
-              variant="contained"
+            <Typography
+              variant="h6"
+              align="center"
               color="primary"
+              gutterBottom
             >
-              <Typography color="inherit" variant="inherit">
-                {folder.name}
-              </Typography>
-            </Button>
+              {folder.name}
+            </Typography>
+
+            <Grid item container spacing={4}>
+              <Grid
+                key={folder.id}
+                item
+                xs
+                container
+                justify="center"
+                alignItems="center"
+                spacing={5}
+                className="mt-5"
+              >
+                <Grid item xs={5}>
+                  <Button
+                    size="small"
+                    component={Link}
+                    to={`/subject/${folder.name}/${folder.id}`}
+                    fullWidth
+                    variant="contained"
+                    color="inherit"
+                  >
+                    <Typography color="inherit" variant="inherit">
+                      drive
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid xs={5}>
+                  <Button
+                    size="small"
+                    component={Link}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  >
+                    <Typography color="inherit" variant="inherit">
+                      Videos
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       )}

@@ -5,7 +5,7 @@ export default[
       value: [
         { name: "1st Electrical", id: "1PRU8pyKz4lBlEm1HHkcoHOqnZBnH-6_n" },
         { name: "2nd Electrical", id: "1WOLqo0cqKsXaBOu6NiZ2qOqNHnVgJPpe" },
-        { name: "3rd Computer 1", id: "0B0OtL1j7jam_bWR3THZhd1RnbEE" },
+        { name: "3rd Computer ", id: "0B0OtL1j7jam_bWR3THZhd1RnbEE" },
         { name: "3rd Computer 2", id: "0B0OtL1j7jam_WEl2WEQzWlFRalU" }
       ]
     },

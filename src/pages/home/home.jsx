@@ -13,6 +13,7 @@ export default class home extends Component {
     
     const { content } = this.props;
 
+    console.log(content)
     return (
       <React.Fragment>
         <Particles className="particles" params={particlesParams} />
