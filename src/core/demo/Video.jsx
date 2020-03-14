@@ -4,7 +4,7 @@ import { findDOMNode } from "react-dom";
 import ReactPlayer from "react-player";
 import Duration from "./Duration";
 import screenfull from "screenfull";
-
+import Goto from "./Goto";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Container from "@material-ui/core/Container";
@@ -52,12 +52,11 @@ class App extends Component {
   };
 
   load = (url, order) => {
-
     let goto;
-    if(this.state.content[order]){
-       goto = this.state.content[order].goto;
-    }else{
-      goto=[]
+    if (this.state.content[order]) {
+      goto = this.state.content[order].goto;
+    } else {
+      goto = [];
     }
 
     this.setState({
@@ -136,20 +135,7 @@ class App extends Component {
     );
   };
 
-  renderContentButton = goto => {
-    return goto.map(([title, sec]) => (
-      <Button
-        key={sec}
-        className="min"
-        size="small"
-        onMouseDown={() => this.handleGoTo(sec)}
-        onMouseUp={this.handleSeekMouseUp}
-        variant="outlined"
-      >
-        {title}
-      </Button>
-    ));
-  };
+
 
   handleClickFullscreen = () => {
     console.log(this.vidRef.current);
@@ -231,6 +217,7 @@ class App extends Component {
               onProgress={this.handleProgress}
               onDuration={this.handleDuration}
             />
+
             <div className="options">
               <Slider
                 id="slider"
@@ -273,6 +260,7 @@ class App extends Component {
                 </div>
 
                 <div className="right">
+                  <Goto content={goto} />
                   <Button size="small">
                     <SettingsIcon
                       ref={this.settingsRef}
@@ -298,7 +286,6 @@ class App extends Component {
             </div>
           </div>
           <br />
-          {goto && this.renderContentButton(goto)}
 
           {console.log(this.state.content)}
           {content.map((video, order) => {
