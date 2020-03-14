@@ -8,9 +8,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 
+import SpeedIcon from "@material-ui/icons/Speed";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+
 const useStyles = makeStyles(theme => ({}));
 
-export default function MenuListComposition({content}) {
+export default function MenuListComposition({
+  content,
+  label,
+  settingOptions,
+  isContent,
+  handleSetPlaybackRate,
+  isSpeed
+}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -33,19 +43,28 @@ export default function MenuListComposition({content}) {
       setOpen(false);
     }
   }
-  function renderContentButton(goto) {
-    return goto.map(([title, sec]) => (
-      <MenuItem
-        key={sec}
-        className="min"
-        size="small"
-        variant="outlined"
-      >
-        {title}
-      </MenuItem>
-    ));
-  };
 
+  function renderContentButton(content, settingOptions, isContent = false) {
+    console.log(content, settingOptions);
+    if (isContent) {
+      return content.map(([title, sec]) => (
+        <MenuItem key={sec} className="min" size="small" variant="outlined">
+          {title}
+        </MenuItem>
+      ));
+    } else {
+      return settingOptions.map(op => (
+        <MenuItem
+          key={`op${op}`}
+          className="min"
+          size="small"
+          variant="outlined"
+        >
+          {op}
+        </MenuItem>
+      ));
+    }
+  }
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
@@ -59,14 +78,28 @@ export default function MenuListComposition({content}) {
 
   return (
     <React.Fragment>
-      <Button
-        ref={anchorRef}
-        aria-controls={open ? "menu-list-grow" : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        Toggle Menu Grow
-      </Button>
+      {console.log(content, settingOptions)}
+
+      {isContent ? (
+        <Button
+          ref={anchorRef}
+          aria-controls={open ? "menu-list-grow" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          <MenuOpenIcon />
+        </Button>
+      ) : (
+        <Button
+          ref={anchorRef}
+          aria-controls={open ? "menu-list-grow" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          <SpeedIcon />
+        </Button>
+      )}
+
       <Popper
         open={open}
         anchorEl={anchorRef.current}
@@ -89,8 +122,7 @@ export default function MenuListComposition({content}) {
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
-                    {renderContentButton(content)}
-                    {console.log("content" , content)}
+                  {renderContentButton(content, settingOptions, isContent)}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

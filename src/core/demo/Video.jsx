@@ -260,7 +260,9 @@ class App extends Component {
                 </div>
 
                 <div className="right">
-                  <Goto content={goto} />
+                  {console.log("goto" , goto)}
+                  <Goto settingOptions={settingOptions} handleSetPlaybackRate={this.handleSetPlaybackRate} isSpeed={true} label="speed"/>
+                  <Goto content={goto} isContent={true} label="content" />
                   <Button size="small">
                     <SettingsIcon
                       ref={this.settingsRef}
@@ -296,30 +298,7 @@ class App extends Component {
               video.goto
             );
           })}
-          <div className="speed">
-            <Menu
-              id="long-menu"
-              className="speedMenu"
-              anchorEl={this.settingsRef.current}
-              keepMounted
-              open={openSettings}
-              onClose={() => console.log("closinf")}
-            >
-              {settingOptions.map(op => (
-                <MenuItem
-                  className={op === playbackRate && "Selected"}
-                  key={`op${op}`}
-                  selected={false}
-                  onClick={() => {
-                    this.handleSetPlaybackRate(op);
-                    this.setState({ openSettings: !openSettings });
-                  }}
-                >
-                  {`x ${op}`}
-                </MenuItem>
-              ))}
-            </Menu>
-          </div>
+
         </Container>
       </div>
     );
