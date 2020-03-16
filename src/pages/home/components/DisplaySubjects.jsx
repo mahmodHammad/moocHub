@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 export default function DisplaySubjects({ folder, mdWidth }) {
   return (
-    <Grid item xs={12} md={mdWidth} key={folder.id} className="z-10">
+    <Grid item xs={12} md={mdWidth} key={folder.id} >
       {folder.isDivided ? (
         <Card>
           <CardContent>

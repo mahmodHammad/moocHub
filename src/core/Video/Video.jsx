@@ -109,7 +109,7 @@ class App extends Component {
       settingOptions
     } = this.state;
     return (
-      <div className="video">
+      <div className="video" >
         {this.props.url&&<Container variant="fluid">
           <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer

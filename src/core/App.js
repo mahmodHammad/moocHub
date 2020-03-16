@@ -15,9 +15,12 @@ import Nerds from "./../pages/nerds/Nerds";
 import customTheme from "../config/theme";
 import communities from "../config/communities";
 import videosJson from "./Video/vidData";
-
+import Video from "./Video/Video";
 import { configureAnchors } from "react-scrollable-anchor";
-import VideosDisplayer from './../pages/video/VideosDisplayer';
+import VideosDisplayer from "./../pages/video/VideosDisplayer";
+import Draggable from "react-draggable";
+import {Resizable} from "re-resizable";
+import  Button  from '@material-ui/core/Button';
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -185,7 +188,9 @@ export default class App extends Component {
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
             />
+            
             <div>
+              
               {/* START ROUTING  **********************************************/}
               <Switch>
                 >
@@ -225,11 +230,7 @@ export default class App extends Component {
                     />
                   )}
                 />
-                <Route
-                  exact
-                  path="/videos"
-                  component={VideosDisplayer}
-                />
+                <Route exact path="/videos" component={VideosDisplayer} />
                 <Route
                   exact
                   path="/nerds"
@@ -246,8 +247,28 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
+              <Draggable
+              handle="#draggable-dialog-title"
+              defaultPosition={{ x: 0, y: 0}}
+              // bounds={{left: 0, top: 40, right: 1000, bottom: 100}}
+            >
+              <div id="draggable-dialog-title">
+                <Video
+                  url="https://www.youtube.com/watch?v=3_odWVNb_Qw"
+                  pinned={true}
+                  goto={[
+                    ["Problem1", 880],
+                    ["Problem2", 2440],
+                    ["Problem3", 3257],
+                    ["Problem4", 3530]
+                  ]}
+                />
+              </div>
+            </Draggable>
             </div>
           </BrowserRouter>
+         
+          
         </div>
       </MuiThemeProvider>
     );
