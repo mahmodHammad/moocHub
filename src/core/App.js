@@ -18,9 +18,8 @@ import videosJson from "./Video/vidData";
 import Video from "./Video/Video";
 import { configureAnchors } from "react-scrollable-anchor";
 import VideosDisplayer from "./../pages/video/VideosDisplayer";
-import Draggable from "react-draggable";
-import {Resizable} from "re-resizable";
-import  Button  from '@material-ui/core/Button';
+
+import {Rnd} from "react-rnd";
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -188,9 +187,8 @@ export default class App extends Component {
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
             />
-            
+
             <div>
-              
               {/* START ROUTING  **********************************************/}
               <Switch>
                 >
@@ -247,12 +245,19 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
-              <Draggable
-              handle="#draggable-dialog-title"
-              defaultPosition={{ x: 0, y: 0}}
-              // bounds={{left: 0, top: 40, right: 1000, bottom: 100}}
-            >
-              <div id="draggable-dialog-title">
+              
+              <Rnd
+                default={{
+                  x: window.innerWidth-500,
+                  y: window.innerHeight-310,
+                  width: 444,
+                  height: 250
+                }}
+                minWidth={420}
+                minHeight={110}
+                bounds="window"
+                lockAspectRatio={true}
+              >
                 <Video
                   url="https://www.youtube.com/watch?v=3_odWVNb_Qw"
                   pinned={true}
@@ -263,12 +268,9 @@ export default class App extends Component {
                     ["Problem4", 3530]
                   ]}
                 />
-              </div>
-            </Draggable>
+              </Rnd>
             </div>
           </BrowserRouter>
-         
-          
         </div>
       </MuiThemeProvider>
     );
