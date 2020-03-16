@@ -62,6 +62,7 @@ class Home extends Component {
   render() {
     //////// Destructure from state ////////
     const { content, subject, PrimarySliderSelectedIndex } = this.state;
+    console.log("content----->" , content)
     return (
       <div>
         <Particles className="particles" params={particlesParams} />

@@ -14,8 +14,10 @@ import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 import customTheme from "../config/theme";
 import communities from "../config/communities";
+import videosJson from "./Video/vidData";
 
 import { configureAnchors } from "react-scrollable-anchor";
+import VideosDisplayer from './../pages/video/VideosDisplayer';
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -80,11 +82,25 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
+  getVideos = subjectId => {
+    let value = false;
+    videosJson.forEach(v => {
+      if (v.id === subjectId) {
+        value = v;
+        console.log("video is exists", v);
+      }
+    });
+    return value;
+  };
+
+  // checks for if the subject has devided content
   loadContent = subjects => {
     let dividedSubjects = [];
     let content = [];
     subjects.map((s, index) => {
+      s.video = this.getVideos(s.id);
       if (s.name[0] === "_") {
+        // it's divided subject
         s.name = s.name.substr(1);
         s.isDivided = true;
 
@@ -103,7 +119,7 @@ export default class App extends Component {
   // for Nested content :
   loadDividedSubjects = dividedSubjects => {
     dividedSubjects.map(folder => {
-     return  getFiles(folder.id, "folder").then(subjectContent => {
+      return getFiles(folder.id, "folder").then(subjectContent => {
         let [content] = [this.state.content];
         content[folder.index].divided = subjectContent;
         this.setState({ content });
@@ -157,7 +173,6 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
-    console.log(this.state.content)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -209,6 +224,11 @@ export default class App extends Component {
                       todo={this.state.todo}
                     />
                   )}
+                />
+                <Route
+                  exact
+                  path="/videos"
+                  component={VideosDisplayer}
                 />
                 <Route
                   exact

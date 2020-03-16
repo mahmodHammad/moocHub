@@ -54,7 +54,7 @@ export default function DisplaySubjects({ folder, mdWidth }) {
               {folder.name}
             </Typography>
 
-            <Grid item container spacing={4}>
+            <Grid item container spacing={4} justify="center">
               <Grid
                 key={folder.id}
                 item
@@ -65,7 +65,7 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                 spacing={5}
                 className="mt-5"
               >
-                <Grid item xs={5}>
+                <Grid item xs>
                   <Button
                     size="small"
                     component={Link}
@@ -79,10 +79,11 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                     </Typography>
                   </Button>
                 </Grid>
-                <Grid xs={5}>
+                {folder.video!==false&&<Grid xs>
                   <Button
                     size="small"
                     component={Link}
+                    to={{pathname:`/videos` , state:{videos:folder.video}}}
                     fullWidth
                     variant="contained"
                     color="primary"
@@ -91,7 +92,8 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                       Videos
                     </Typography>
                   </Button>
-                </Grid>
+                </Grid>}
+                
               </Grid>
             </Grid>
           </CardContent>
