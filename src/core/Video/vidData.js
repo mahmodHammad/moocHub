@@ -44,7 +44,7 @@ export default [
         value: [
           {
             name: "sections sys",
-            id: "WfhoJsI07o0",
+            id: "tNs3exn6PKk",
             goto: [
               ["part1", 880],
               ["part2", 2440],
@@ -60,7 +60,7 @@ export default [
         value: [
           {
             name: "sections sys",
-            id: "WfhoJsI07o0",
+            id: "KeEl6ibhm0M",
             goto: [
               ["part1", 880],
               ["part2", 2440],

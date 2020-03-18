@@ -43,46 +43,9 @@ export default class VideosDisplayer extends Component {
         todo={todo}
         addToTodo={addToTodo}
         removeFromTodo={removeFromTodo}
+        isVideo={true}
       />
       </div>
     );
   }
-}
-
-let contet = [
-  {
-    name: "sections",
-    id: "aaa",
-    value: [
-      { name: "section  1", id: "id of sec 1 ", goto: ["ffffff"] },
-      { name: "section  2", id: "id of sec 2 ", goto: ["bbbbbb"] }
-    ]
-  }
-];
-{
-  /* {videos !== false ? (
-            <div>
-              <h3>{videos.title}</h3>
-  
-              {videos.value.map(v => (
-                <div>
-                  <h1>{v.title}</h1>
-                  {v.value.map(vid => (
-                    <Button
-                      variant="outlined"
-                      onClick={() => this.setState({ selectedVideo: vid })}
-                    >
-                      {vid.title}
-                    </Button>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <h2>Loading...</h2>
-          )}
-  
-          {selectedVideo !== false && (
-            <Video url={selectedVideo.id} goto={selectedVideo.goto} />
-          )} */
 }

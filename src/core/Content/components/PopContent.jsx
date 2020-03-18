@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Pdf from '../../../pages/nerds/components/Pdf';
+import Video from "../../Video/Video"
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
@@ -25,9 +26,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({Pop, handleClose ,handleSelect,content ,isAdd}) {
+export default function FullScreenDialog({Pop, handleClose ,handleSelect,content ,isAdd ,isVideo}) {
   const classes = useStyles();
-
 
   return (
     <div>
@@ -44,7 +44,8 @@ export default function FullScreenDialog({Pop, handleClose ,handleSelect,content
           </Toolbar>
         </AppBar>
 
-        <Pdf pdfId = {content.id}/>
+        {isVideo?<Video goto={content.goto} url={content.id}/>: <Pdf pdfId = {content.id}/>}
+        
 
       </Dialog>
 

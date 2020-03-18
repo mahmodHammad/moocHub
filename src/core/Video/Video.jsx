@@ -12,7 +12,7 @@ import ProgressBar from "./components/ProgressBar";
 
 class App extends Component {
   state = {
-    url:'',
+    url: "",
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     playing: false,
@@ -32,13 +32,13 @@ class App extends Component {
     this.setState({ playing: !this.state.playing });
   };
 
-  IdToUrl= id =>{
-    const  url = `https://www.youtube.com/watch?v=${id}`
-    console.log (url)
-    return url
-  }
+  IdToUrl = id => {
+    const url = `https://www.youtube.com/watch?v=${id}`;
+    console.log(url);
+    return url;
+  };
   handleToggleControls = () => {
-    const url = this.state.url
+    const url = this.state.url;
     this.setState(
       {
         controls: !this.state.controls
@@ -93,17 +93,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const url = this.IdToUrl(this.props.url)
-    this.setState({url})
+    const url = this.IdToUrl(this.props.url);
+    this.setState({ url });
   }
-  
+
   ref = player => {
     this.player = player;
   };
 
   vidRef = React.createRef();
   settingsRef = React.createRef();
-
 
   render() {
     const {
@@ -120,82 +119,85 @@ class App extends Component {
       isRemaining,
       settingOptions
     } = this.state;
+    const { goto } = this.props;
+
     return (
       <React.Fragment>
-        {url&&<div>
-          <div className="player-wrapper" ref={this.vidRef}>
-            <ReactPlayer
-              ref={this.ref}
-              width="100%"
-              height="100%"
-              url={url}
-              playing={playing}
-              controls={controls}
-              light={light}
-              loop={loop}
-              playbackRate={playbackRate}
-              volume={volume}
-              muted={muted}
-              onReady={() => console.log("onReady")}
-              onStart={() => console.log("onStart")}
-              onPlay={this.handlePlay}
-              onPause={this.handlePause}
-              onBuffer={() => console.log("onBuffer")}
-              onSeek={e => console.log("onSeek", e)}
-              onEnded={this.handleEnded}
-              onError={e => console.log("onError", e)}
-              onProgress={this.handleProgress}
-              onDuration={this.handleDuration}
-            />
-
-            <div className="options">
-              <ProgressBar
-                handleSeekChange={this.handleSeekChange}
-                handleSeekMouseUp={this.handleSeekMouseUp}
-                played={played}
+        {url && (
+          <div>
+            <div className="player-wrapper" ref={this.vidRef}>
+              <ReactPlayer
+                ref={this.ref}
+                width="100%"
+                height="100%"
+                url={url}
+                playing={playing}
+                controls={controls}
+                light={light}
+                loop={loop}
+                playbackRate={playbackRate}
+                volume={volume}
+                muted={muted}
+                onReady={() => console.log("onReady")}
+                onStart={() => console.log("onStart")}
+                onPlay={this.handlePlay}
+                onPause={this.handlePause}
+                onBuffer={() => console.log("onBuffer")}
+                onSeek={e => console.log("onSeek", e)}
+                onEnded={this.handleEnded}
+                onError={e => console.log("onError", e)}
+                onProgress={this.handleProgress}
+                onDuration={this.handleDuration}
               />
 
-              <div className="options-group">
-                <div className="left">
-                  <Pause
-                    handlePlayPause={this.handlePlayPause}
-                    playing={playing}
-                  />
+              <div className="options">
+                <ProgressBar
+                  handleSeekChange={this.handleSeekChange}
+                  handleSeekMouseUp={this.handleSeekMouseUp}
+                  played={played}
+                />
 
-                  <Audio muted={muted} handleMute={this.handleMute} />
-                  <Time
-                    handleRemaining={this.handleRemaining}
-                    isRemaining={isRemaining}
-                    duration={duration}
-                    played={played}
-                  />
-                </div>
+                <div className="options-group">
+                  <div className="left">
+                    <Pause
+                      handlePlayPause={this.handlePlayPause}
+                      playing={playing}
+                    />
 
-                <div className="right">
-                  <VideoMenu
-                    settingOptions={settingOptions}
-                    handleSetPlaybackRate={this.handleSetPlaybackRate}
-                    isSpeed={true}
-                    label="speed"
-                  />
-                  <VideoMenu
-                    content={this.props.goto}
-                    isContent={true}
-                    label="content"
-                    handleGoTo={this.handleGoTo}
-                    handleSeekMouseUp={this.handleSeekMouseUp}
-                  />
-                  <FullScreen
-                    player={this.player}
-                    vidRef={this.vidRef.current}
-                  />
+                    <Audio muted={muted} handleMute={this.handleMute} />
+                    <Time
+                      handleRemaining={this.handleRemaining}
+                      isRemaining={isRemaining}
+                      duration={duration}
+                      played={played}
+                    />
+                  </div>
+
+                  <div className="right">
+                    <VideoMenu
+                      settingOptions={settingOptions}
+                      handleSetPlaybackRate={this.handleSetPlaybackRate}
+                      isSpeed={true}
+                      label="speed"
+                    />
+                    <VideoMenu
+                      content={goto}
+                      isContent={true}
+                      label="content"
+                      handleGoTo={this.handleGoTo}
+                      handleSeekMouseUp={this.handleSeekMouseUp}
+                    />
+                    <FullScreen
+                      player={this.player}
+                      vidRef={this.vidRef.current}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+            <br />
           </div>
-          <br />
-        </div>}
-        
+        )}
       </React.Fragment>
     );
   }
