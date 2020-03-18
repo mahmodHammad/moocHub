@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenDialog({Pop, handleClose ,handleSelect,content ,isAdd ,isVideo}) {
   const classes = useStyles();
-
+console.log(handleSelect , isAdd)
   return (
     <div>
       <Dialog fullScreen open={Pop} onClose={handleClose} TransitionComponent={Transition}>

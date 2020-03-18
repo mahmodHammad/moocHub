@@ -73,7 +73,7 @@ function ComponentName({
 
   const handleRemove = () => {
     setPop(false);
-    removeFromTodo(content, subject);
+    removeFromTodo(content, subject.id);
   };
 
   return (
