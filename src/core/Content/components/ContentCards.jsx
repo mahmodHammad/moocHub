@@ -53,7 +53,8 @@ function ComponentName({
   addToTodo,
   removeFromTodo,
   todo,
-  subject
+  subject,
+  isVideo
 }) {
   const [addContent, setContent] = useState(true);
   const [Pop, setPop] = React.useState(false);
@@ -94,6 +95,7 @@ function ComponentName({
               content={content}
               subject={subject}
               isAdd={ isExistOnTodo(todo, content, subject) ?false:true}
+              isVideo={isVideo}
             />
 
             {isExistOnTodo(todo, content, subject) ? (

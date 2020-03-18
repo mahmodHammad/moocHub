@@ -61,6 +61,7 @@ class Home extends Component {
         todo={todo}
         addToTodo={addToTodo}
         removeFromTodo={removeFromTodo}
+        isVideo={false}
       />
     );
   }
