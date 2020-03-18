@@ -5,10 +5,7 @@ import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
-import particlesParams from "../../config/particles";
 
-
-import Particles from "react-particles-js";
 import Typography from "@material-ui/core/Typography";
 
 class Home extends Component {
@@ -21,10 +18,10 @@ class Home extends Component {
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    this.state.content[index].actualContent === false &&
+    this.state.content[index].value === false &&
       getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
-        content[index].actualContent = theactualContent.files;
+        content[index].value = theactualContent.files;
         this.setState({ content });
       });
 
@@ -40,8 +37,8 @@ class Home extends Component {
 
   loadContent = subjects => {
     let realcontent = subjects.files.map(({ name, id }) => {
-      const actualContent = false;
-      return { name, id, actualContent };
+      const value = false;
+      return { name, id, value };
     });
     this.setState({ content: realcontent });
   };
@@ -62,10 +59,10 @@ class Home extends Component {
   render() {
     //////// Destructure from state ////////
     const { content, subject, PrimarySliderSelectedIndex } = this.state;
-    console.log("content----->" , content)
+    console.log("content----->", content);
+    console.log("subject----->", subject);
     return (
       <div>
-        <Particles className="particles" params={particlesParams} />
         <Typography variant="h5" align="center" className="subjectLabel">
           {subject.name}
         </Typography>
@@ -88,10 +85,10 @@ class Home extends Component {
 
           <Grid item xs={12}>
             {PrimarySliderSelectedIndex !== false &&
-              content[PrimarySliderSelectedIndex].actualContent !== false && (
+              content[PrimarySliderSelectedIndex].value !== false && (
                 <SecondarySlide
                   subject={subject}
-                  content={content[PrimarySliderSelectedIndex].actualContent}
+                  content={content[PrimarySliderSelectedIndex].value}
                   removeFromTodo={this.props.removeFromTodo}
                   addToTodo={this.props.addToTodo}
                   todo={this.props.todo}

@@ -1,15 +1,15 @@
 export default [
   {
-    title: "signal analysis",
+    name: "Signal analysis",
     id: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
     value: [
       {
-        title: "sections",
-        id: "https://www.youtube.com/watch?v=WfhoJsI07o0",
+        name: "sections",
+        id: "WfhoJsI07o0",
         value: [
           {
-            title: "sections sys",
-            id: "https://www.youtube.com/watch?v=WfhoJsI07o0",
+            name: "sections sys",
+            id: "WfhoJsI07o0",
             goto: [
               ["part1", 880],
               ["part2", 2440],
@@ -18,8 +18,8 @@ export default [
             ]
           },
           {
-            title: "'Dawn' | Beautiful Chill Mix",
-            id: "https://www.youtube.com/watch?v=3_odWVNb_Qw",
+            name: "'Dawn' | Beautiful Chill Mix",
+            id: "3_odWVNb_Qw",
             goto: [
               ["Problem1", 880],
               ["Problem2", 2440],
@@ -28,8 +28,8 @@ export default [
             ]
           },
           {
-            title: "Oblivion | Chillout Mix",
-            id: "https://www.youtube.com/watch?v=suTYbf-FtXg",
+            name: "Oblivion | Chillout Mix",
+            id: "suTYbf-FtXg",
             goto: [
               ["Problem1", 880],
               ["Problem2", 2440],
@@ -42,16 +42,16 @@ export default [
     ]
   },
   {
-    title: "CO",
+    name: "CO",
     id: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
     value: [
       {
-        title: "sections",
-        id: "https://www.youtube.com/watch?v=WfhoJsI07o0",
+        name: "sections",
+        id: "WfhoJsI07o0",
         value: [
           {
-            title: "sections",
-            id: "https://www.youtube.com/watch?v=WfhoJsI07o0",
+            name: "sections",
+            id: "WfhoJsI07o0",
             goto: [
               ["half adder ", 4645],
               ["full adder ", 4960],
@@ -64,3 +64,91 @@ export default [
     ]
   }
 ];
+
+
+let altData = [
+  [
+     "Signal analysis",
+     "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
+     [
+      [
+         "sections",
+         "WfhoJsI07o0",
+         [
+          [
+             "sections sys",
+             "WfhoJsI07o0",
+             [
+              ["part1", 880],
+              ["part2", 2440],
+              ["part3", 3257],
+              ["part4", 2530]
+            ]
+          ],
+          [
+             "'Dawn' | Beautiful Chill Mix",
+             "3_odWVNb_Qw",
+             [
+              ["Problem1", 880],
+              ["Problem2", 2440],
+              ["Problem3", 3257],
+              ["Problem4", 3530]
+            ]
+          ],
+          [
+             "Oblivion | Chillout Mix",
+             "suTYbf-FtXg",
+             [
+              ["Problem1", 880],
+              ["Problem2", 2440],
+              ["Problem3", 3257],
+              ["Problem4", 3530]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ],
+  [
+    "Signal analysis",
+    "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
+    [
+     [
+        "sections",
+        "WfhoJsI07o0",
+        [
+         [
+            "sections sys",
+            "WfhoJsI07o0",
+            [
+             ["part1", 880],
+             ["part2", 2440],
+             ["part3", 3257],
+             ["part4", 2530]
+           ]
+         ],
+         [
+            "'Dawn' | Beautiful Chill Mix",
+            "3_odWVNb_Qw",
+            [
+             ["Problem1", 880],
+             ["Problem2", 2440],
+             ["Problem3", 3257],
+             ["Problem4", 3530]
+           ]
+         ],
+         [
+            "Oblivion | Chillout Mix",
+            "suTYbf-FtXg",
+            [
+             ["Problem1", 880],
+             ["Problem2", 2440],
+             ["Problem3", 3257],
+             ["Problem4", 3530]
+           ]
+         ]
+       ]
+     ]
+   ]
+ ]
+]

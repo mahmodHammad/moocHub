@@ -12,6 +12,7 @@ import ProgressBar from "./components/ProgressBar";
 
 class App extends Component {
   state = {
+    url:'',
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
     playing: false,
@@ -31,8 +32,13 @@ class App extends Component {
     this.setState({ playing: !this.state.playing });
   };
 
+  IdToUrl= id =>{
+    const  url = `https://www.youtube.com/watch?v=${id}`
+    console.log (url)
+    return url
+  }
   handleToggleControls = () => {
-    const url = this.props.url;
+    const url = this.state.url
     this.setState(
       {
         controls: !this.state.controls
@@ -86,6 +92,11 @@ class App extends Component {
     this.player.seekTo(parseFloat(sec));
   };
 
+  componentDidMount() {
+    const url = this.IdToUrl(this.props.url)
+    this.setState({url})
+  }
+  
   ref = player => {
     this.player = player;
   };
@@ -96,6 +107,7 @@ class App extends Component {
 
   render() {
     const {
+      url,
       playing,
       controls,
       light,
@@ -110,13 +122,13 @@ class App extends Component {
     } = this.state;
     return (
       <React.Fragment>
-        {this.props.url&&<div>
+        {url&&<div>
           <div className="player-wrapper" ref={this.vidRef}>
             <ReactPlayer
               ref={this.ref}
               width="100%"
               height="100%"
-              url={this.props.url}
+              url={url}
               playing={playing}
               controls={controls}
               light={light}

@@ -246,7 +246,10 @@ export default class App extends Component {
               </Switch>
               {/* end routing **********************************************/}
               
-              <Rnd
+
+              {/* Will Work When Pin Button Is Pressed  */}
+              
+              {/* <Rnd
                 default={{
                   x: window.innerWidth-500,
                   y: window.innerHeight-310,
@@ -268,7 +271,7 @@ export default class App extends Component {
                     ["Problem4", 3530]
                   ]}
                 />
-              </Rnd>
+              </Rnd> */}
             </div>
           </BrowserRouter>
         </div>
