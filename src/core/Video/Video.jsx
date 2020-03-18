@@ -1,17 +1,17 @@
 import "./App.css";
 import React, { Component } from "react";
 import ReactPlayer from "react-player";
-import Container from "@material-ui/core/Container";
-
 import VideoMenu from "./VideoMenu";
 import FullScreen from "./components/FullScreen";
 import Audio from "./components/Audio";
 import Time from "./components/Time";
 import Pause from "./components/Pause";
 import ProgressBar from "./components/ProgressBar";
+import Pin from "./components/Pin";
 
 class App extends Component {
   state = {
+    isPinned: false,
     url: "",
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
@@ -92,9 +92,14 @@ class App extends Component {
     this.player.seekTo(parseFloat(sec));
   };
 
+  handlePin = value => {
+    this.setState({ isPinned: value });
+  };
+
   componentDidMount() {
     const url = this.IdToUrl(this.props.url);
-    this.setState({ url });
+    const isPinned = this.props.isPinned;
+    this.setState({ url, isPinned });
   }
 
   ref = player => {
@@ -106,6 +111,7 @@ class App extends Component {
 
   render() {
     const {
+      isPinned,
       url,
       playing,
       controls,
@@ -119,7 +125,8 @@ class App extends Component {
       isRemaining,
       settingOptions
     } = this.state;
-    const { goto } = this.props;
+
+    const { goto, handleVideoPin } = this.props;
 
     return (
       <React.Fragment>
@@ -163,8 +170,10 @@ class App extends Component {
                       handlePlayPause={this.handlePlayPause}
                       playing={playing}
                     />
+                    {!isPinned && (
+                      <Audio muted={muted} handleMute={this.handleMute} />
+                    )}
 
-                    <Audio muted={muted} handleMute={this.handleMute} />
                     <Time
                       handleRemaining={this.handleRemaining}
                       isRemaining={isRemaining}
@@ -174,6 +183,13 @@ class App extends Component {
                   </div>
 
                   <div className="right">
+                    <Pin
+                      handleVideoPin={handleVideoPin}
+                      isPinned={isPinned}
+                      handlePin={this.handlePin}
+                      goto={goto}
+                      url={url}
+                    />
                     <VideoMenu
                       settingOptions={settingOptions}
                       handleSetPlaybackRate={this.handleSetPlaybackRate}

@@ -38,7 +38,8 @@ function SecondarySlide({
   todo,
   subject,
   Popcontent,
-  isVideo
+  isVideo,
+  handleVideoPin
 }) {
   return (
     <Grid
@@ -56,6 +57,7 @@ function SecondarySlide({
           subject={subject}
           Popcontent={Popcontent}
           isVideo={isVideo}
+          handleVideoPin={handleVideoPin}
         />
       ))}
     </Grid>

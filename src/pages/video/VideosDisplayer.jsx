@@ -32,7 +32,7 @@ export default class VideosDisplayer extends Component {
   render() {
     console.log("frin state", this.state);
     const {  content ,subject ,PrimarySliderSelectedIndex} = this.state;
-    const {  todo ,addToTodo ,removeFromTodo   } = this.props;
+    const {  todo ,addToTodo ,removeFromTodo ,handleVideoPin   } = this.props;
     return (
       <div>
         <ContentDisplayer
@@ -44,6 +44,7 @@ export default class VideosDisplayer extends Component {
         addToTodo={addToTodo}
         removeFromTodo={removeFromTodo}
         isVideo={true}
+        handleVideoPin={handleVideoPin}
       />
       </div>
     );

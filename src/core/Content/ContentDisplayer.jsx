@@ -12,7 +12,8 @@ export default function ContentDisplayer({
   todo,
   addToTodo,
   removeFromTodo,
-  isVideo
+  isVideo,
+  handleVideoPin
 }) {
   return (
     <div>
@@ -47,6 +48,7 @@ export default function ContentDisplayer({
                 addToTodo={addToTodo}
                 todo={todo}
                 isVideo={isVideo}
+                handleVideoPin={handleVideoPin}
               />
             )}
         </Grid>

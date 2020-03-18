@@ -27,6 +27,7 @@ const theme = createMuiTheme({
 
 export default class App extends Component {
   state = {
+    pinnedVideo:false,
     communities: communities,
     todo: [],
     content: [],
@@ -155,6 +156,16 @@ export default class App extends Component {
     }
   };
 
+  handleVideoPin =(url ,goto)=>{
+    console.log("url********" , url)
+    console.log("goto********" , goto)
+    if(this.state.pinnedVideo!==false){
+      this.setState({pinnedVideo:false })
+    }
+    else{
+      this.setState({pinnedVideo:{url:url , goto:goto}})
+    }
+  }
   // load todo,community  from local storage
 
   clearLocalStorage = () => {
@@ -237,6 +248,7 @@ export default class App extends Component {
                       addToTodo={this.addToTodo}
                       removeFromTodo={this.removeFromTodo}
                       todo={this.state.todo}
+                      handleVideoPin={this.handleVideoPin}
                     />
                   )}
                 />
@@ -258,30 +270,27 @@ export default class App extends Component {
               {/* end routing **********************************************/}
 
               {/* Will Work When Pin Button Is Pressed  */}
-
-              {/* <Rnd
-                default={{
-                  x: window.innerWidth-500,
-                  y: window.innerHeight-310,
-                  width: 444,
-                  height: 250
-                }}
-                minWidth={420}
-                minHeight={110}
-                bounds="window"
-                lockAspectRatio={true}
-              >
-                <Video
-                  url="https://www.youtube.com/watch?v=3_odWVNb_Qw"
-                  pinned={true}
-                  goto={[
-                    ["Problem1", 880],
-                    ["Problem2", 2440],
-                    ["Problem3", 3257],
-                    ["Problem4", 3530]
-                  ]}
-                />
-              </Rnd> */}
+              {this.state.pinnedVideo !== false && (
+                <Rnd
+                  default={{
+                    x: window.innerWidth - 500,
+                    y: window.innerHeight - 310,
+                    width: 444,
+                    height: 250
+                  }}
+                  minWidth={440}
+                  minHeight={110}
+                  bounds="window"
+                  lockAspectRatio={true}
+                >
+                  <Video
+                    url={this.state.pinnedVideo.url}
+                    isPinned={true}
+                    goto={this.state.pinnedVideo.goto}
+                    handleVideoPin={this.handleVideoPin}
+                  />
+                </Rnd>
+              )}
             </div>
           </BrowserRouter>
         </div>
