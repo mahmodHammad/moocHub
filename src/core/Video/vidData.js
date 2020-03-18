@@ -38,7 +38,38 @@ export default [
             ]
           }
         ]
-      }
+      },{
+        name: "Lectures",
+        id: "WfhoJsI07o0FF",
+        value: [
+          {
+            name: "sections sys",
+            id: "WfhoJsI07o0",
+            goto: [
+              ["part1", 880],
+              ["part2", 2440],
+              ["part3", 3257],
+              ["part4", 2530]
+            ]
+          }
+        ]
+      }, 
+      {
+        name: "MIT",
+        id: "WfhoJsI07o0FFFF",
+        value: [
+          {
+            name: "sections sys",
+            id: "WfhoJsI07o0",
+            goto: [
+              ["part1", 880],
+              ["part2", 2440],
+              ["part3", 3257],
+              ["part4", 2530]
+            ]
+          }
+        ]
+      }, 
     ]
   },
   {

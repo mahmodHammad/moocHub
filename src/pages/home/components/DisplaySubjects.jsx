@@ -83,7 +83,7 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                   <Button
                     size="small"
                     component={Link}
-                    to={{pathname:`/videos/${folder.name}/${folder.id}` , state:{videos:folder.video}}}
+                    to={{pathname:`/videos/${folder.name}/${folder.id}` , state:{videos:folder.video.value}}}
                     fullWidth
                     variant="contained"
                     color="primary"

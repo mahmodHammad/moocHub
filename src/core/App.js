@@ -19,7 +19,7 @@ import Video from "./Video/Video";
 import { configureAnchors } from "react-scrollable-anchor";
 import VideosDisplayer from "./../pages/video/VideosDisplayer";
 
-import {Rnd} from "react-rnd";
+import { Rnd } from "react-rnd";
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -228,7 +228,18 @@ export default class App extends Component {
                     />
                   )}
                 />
-                <Route exact path="/videos/:subjectName/:subjectId" component={VideosDisplayer} />
+                <Route
+                  exact
+                  path="/videos/:subjectName/:subjectId"
+                  render={props => (
+                    <VideosDisplayer
+                      {...props}
+                      addToTodo={this.addToTodo}
+                      removeFromTodo={this.removeFromTodo}
+                      todo={this.state.todo}
+                    />
+                  )}
+                />
                 <Route
                   exact
                   path="/nerds"
@@ -245,10 +256,9 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
-              
 
               {/* Will Work When Pin Button Is Pressed  */}
-              
+
               {/* <Rnd
                 default={{
                   x: window.innerWidth-500,
