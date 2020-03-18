@@ -1,17 +1,14 @@
 ////////  ////////
 import React, { Component } from "react";
-import MainSlide from "../../core/Content/components/MainSlide";
-import SecondarySlide from "../../core/Content/components/SecondarySlide";
+
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
-import Typography from "@material-ui/core/Typography";
-import ContentDisplayer from "../../core/Content/ContentDisplayer"
+import ContentDisplayer from "../../core/Content/ContentDisplayer";
 class Home extends Component {
   state = {
     subject: {},
     content: false,
-    PrimarySliderSelectedIndex: false,
-    SecondarySliderSelectedIndex: false
+    PrimarySliderSelectedIndex: false
   };
 
   //////// get files after clicking on prime slide  ////////
@@ -24,13 +21,8 @@ class Home extends Component {
       });
 
     this.setState({
-      PrimarySliderSelectedIndex: index,
-      SecondarySliderSelectedIndex: false
+      PrimarySliderSelectedIndex: index
     });
-  };
-
-  handleSecondaryTabClick = index => {
-    this.setState({ SecondarySliderSelectedIndex: index });
   };
 
   loadContent = subjects => {
@@ -61,11 +53,15 @@ class Home extends Component {
     console.log("content----->", content);
     console.log("subject----->", subject);
     return (
-      <div>
-       
-        <ContentDisplayer subject={subject} content={content}  PrimarySliderSelectedIndex={PrimarySliderSelectedIndex} handlePrimeTabClick={this.handlePrimeTabClick} todo={todo}  addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
-        
-      </div>
+      <ContentDisplayer
+        subject={subject}
+        content={content}
+        PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+        handlePrimeTabClick={this.handlePrimeTabClick}
+        todo={todo}
+        addToTodo={addToTodo}
+        removeFromTodo={removeFromTodo}
+      />
     );
   }
 }

@@ -228,7 +228,7 @@ export default class App extends Component {
                     />
                   )}
                 />
-                <Route exact path="/videos" component={VideosDisplayer} />
+                <Route exact path="/videos/:subjectName/:subjectId" component={VideosDisplayer} />
                 <Route
                   exact
                   path="/nerds"
