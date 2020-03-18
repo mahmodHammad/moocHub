@@ -1,13 +1,11 @@
 ////////  ////////
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
-import MainSlide from "./components/MainSlide";
-import SecondarySlide from "./components/SecondarySlide";
+import MainSlide from "../../core/Content/components/MainSlide";
+import SecondarySlide from "../../core/Content/components/SecondarySlide";
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
-
 import Typography from "@material-ui/core/Typography";
-
+import ContentDisplayer from "../../core/Content/ContentDisplayer"
 class Home extends Component {
   state = {
     subject: {},
@@ -59,43 +57,14 @@ class Home extends Component {
   render() {
     //////// Destructure from state ////////
     const { content, subject, PrimarySliderSelectedIndex } = this.state;
+    const { todo, addToTodo, removeFromTodo } = this.props;
     console.log("content----->", content);
     console.log("subject----->", subject);
     return (
       <div>
-        <Typography variant="h5" align="center" className="subjectLabel">
-          {subject.name}
-        </Typography>
-        <Grid container justify="center">
-          {/******  display subject name  ******/}
-
-          {/******  display MainSlider   ******/}
-
-          {this.state.content !== false && (
-            <Grid item xs={12} md={"auto"}>
-              <MainSlide
-                content={content}
-                selectedIndex={PrimarySliderSelectedIndex}
-                handleClick={this.handlePrimeTabClick}
-              />
-            </Grid>
-          )}
-
-          {/******  display Secondary slider depending on the selected prime  ******/}
-
-          <Grid item xs={12}>
-            {PrimarySliderSelectedIndex !== false &&
-              content[PrimarySliderSelectedIndex].value !== false && (
-                <SecondarySlide
-                  subject={subject}
-                  content={content[PrimarySliderSelectedIndex].value}
-                  removeFromTodo={this.props.removeFromTodo}
-                  addToTodo={this.props.addToTodo}
-                  todo={this.props.todo}
-                />
-              )}
-          </Grid>
-        </Grid>
+       
+        <ContentDisplayer subject={subject} content={content}  PrimarySliderSelectedIndex={PrimarySliderSelectedIndex} handlePrimeTabClick={this.handlePrimeTabClick} todo={todo}  addToTodo={addToTodo} removeFromTodo={removeFromTodo}/>
+        
       </div>
     );
   }
