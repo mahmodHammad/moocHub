@@ -14,8 +14,12 @@ import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 import customTheme from "../config/theme";
 import communities from "../config/communities";
-
+import videosJson from "./Video/vidData";
+import Video from "./Video/Video";
 import { configureAnchors } from "react-scrollable-anchor";
+import VideosDisplayer from "./../pages/video/VideosDisplayer";
+
+import { Rnd } from "react-rnd";
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -23,6 +27,8 @@ const theme = createMuiTheme({
 
 export default class App extends Component {
   state = {
+    pinnedVideo: { isOpenNextTime: false },
+    played: 0,
     communities: communities,
     todo: [],
     content: [],
@@ -80,11 +86,25 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
+  getVideos = subjectId => {
+    let value = false;
+    videosJson.forEach(v => {
+      if (v.id === subjectId) {
+        value = v;
+        console.log("video is exists", v);
+      }
+    });
+    return value;
+  };
+
+  // checks for if the subject has devided content
   loadContent = subjects => {
     let dividedSubjects = [];
     let content = [];
     subjects.map((s, index) => {
+      s.video = this.getVideos(s.id);
       if (s.name[0] === "_") {
+        // it's divided subject
         s.name = s.name.substr(1);
         s.isDivided = true;
 
@@ -103,7 +123,7 @@ export default class App extends Component {
   // for Nested content :
   loadDividedSubjects = dividedSubjects => {
     dividedSubjects.map(folder => {
-     return  getFiles(folder.id, "folder").then(subjectContent => {
+      return getFiles(folder.id, "folder").then(subjectContent => {
         let [content] = [this.state.content];
         content[folder.index].divided = subjectContent;
         this.setState({ content });
@@ -137,6 +157,27 @@ export default class App extends Component {
     }
   };
 
+  handleVideoPin = (url, goto, played) => {
+    if (this.state.pinnedVideo.isOpenNextTime !== false) {
+      this.setState({
+        pinnedVideo: {
+          isOpenNextTime: false,
+          url: url,
+          goto: goto,
+          played: played
+        }
+      });
+    } else {
+      this.setState({
+        pinnedVideo: {
+          isOpenNextTime: true,
+          url: url,
+          goto: goto,
+          played: played
+        }
+      });
+    }
+  };
   // load todo,community  from local storage
 
   clearLocalStorage = () => {
@@ -150,13 +191,14 @@ export default class App extends Component {
       let todo = JSON.parse(gettodo);
       this.setState({ todo });
     }
-
     configureAnchors({ scrollDuration: 0 });
   }
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
+    console.log("renderd");
+    console.log(this.state.played);
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -169,6 +211,7 @@ export default class App extends Component {
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
             />
+
             <div>
               {/* START ROUTING  **********************************************/}
               <Switch>
@@ -211,6 +254,19 @@ export default class App extends Component {
                 />
                 <Route
                   exact
+                  path="/videos/:subjectName/:subjectId"
+                  render={props => (
+                    <VideosDisplayer
+                      {...props}
+                      addToTodo={this.addToTodo}
+                      removeFromTodo={this.removeFromTodo}
+                      todo={this.state.todo}
+                      handleVideoPin={this.handleVideoPin}
+                    />
+                  )}
+                />
+                <Route
+                  exact
                   path="/nerds"
                   render={props => (
                     <Nerds
@@ -225,6 +281,31 @@ export default class App extends Component {
                 />
               </Switch>
               {/* end routing **********************************************/}
+
+              {/* Will Work When Pin Button Is Pressed  */}
+              {this.state.pinnedVideo.isOpenNextTime !== false && (
+                <Rnd
+                  default={{
+                    x: window.innerWidth - 500,
+                    y: window.innerHeight - 310,
+                    width: 444,
+                    height: 250
+                  }}
+                  minWidth={440}
+                  minHeight={110}
+                  bounds="window"
+                  lockAspectRatio={true}
+                >
+                  <Video
+                    url={this.state.pinnedVideo.url}
+                    isPinned={true}
+                    goto={this.state.pinnedVideo.goto}
+                    // this Shitty line fixed Every thing
+                    played={this.state.pinnedVideo.played}
+                    handleVideoPin={this.handleVideoPin}
+                  />
+                </Rnd>
+              )}
             </div>
           </BrowserRouter>
         </div>

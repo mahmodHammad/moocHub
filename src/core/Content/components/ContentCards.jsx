@@ -53,7 +53,9 @@ function ComponentName({
   addToTodo,
   removeFromTodo,
   todo,
-  subject
+  subject,
+  isVideo,
+  handleVideoPin
 }) {
   const [addContent, setContent] = useState(true);
   const [Pop, setPop] = React.useState(false);
@@ -65,14 +67,17 @@ function ComponentName({
   const handleClose = () => {
     setPop(false);
   };
+
   const handleAdd = () => {
     setPop(false);
     addToTodo(content, subject);
   };
+
   const handleRemove = () => {
     setPop(false);
-    removeFromTodo(content, subject);
+    removeFromTodo(content, subject.id);
   };
+
   return (
     <Grid item xs={9} md={5} className={classes.margin}>
       <Card>
@@ -81,36 +86,21 @@ function ComponentName({
             {content.name}
           </Typography>
 
-          {isExistOnTodo(todo, content, subject) === false ? (
-            <React.Fragment>
-              <PopContent
-                handleClose={handleClose}
-                handleSelect={handleAdd}
-                Pop={Pop}
-                content={content}
-                subject={subject}
-                isAdd={true}
-              />
-              <AddCircleIcon
-                className={`${classes.add}`}
-                size="large"
-                color="primary"
-                onClick={() => {
-                  addToTodo(content, subject);
-                  setContent(!addContent);
-                }}
-              />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <PopContent
-                handleClose={handleClose}
-                handleSelect={handleRemove}
-                Pop={Pop}
-                content={content}
-                subject={subject}
-                isAdd={false}
-              />
+          <React.Fragment>
+            <PopContent
+              handleClose={handleClose}
+              handleSelect={
+                isExistOnTodo(todo, content, subject) ? handleRemove : handleAdd
+              }
+              Pop={Pop}
+              content={content}
+              subject={subject}
+              isAdd={ isExistOnTodo(todo, content, subject) ?false:true}
+              isVideo={isVideo}
+              handleVideoPin={handleVideoPin}
+            />
+
+            {isExistOnTodo(todo, content, subject) ? (
               <RemoveCircleIcon
                 className={`${classes.add}`}
                 color="secondary"
@@ -120,12 +110,21 @@ function ComponentName({
                   setContent(!addContent);
                 }}
               />
-            </React.Fragment>
-          )}
+            ) : (
+              <AddCircleIcon
+                className={`${classes.add}`}
+                size="large"
+                color="primary"
+                onClick={() => {
+                  addToTodo(content, subject);
+                  setContent(!addContent);
+                }}
+              />
+            )}
+          </React.Fragment>
         </CardContent>
       </Card>
     </Grid>
   );
 }
-
 export default withStyles(styles)(ComponentName);

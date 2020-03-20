@@ -7,7 +7,7 @@ import ScrollableAnchor from "react-scrollable-anchor";
 const styles = {
   root: {
     width: "100%",
-    height: "99vh",
+    height: "100%",
     zIndex: "3"
   },
   container: {

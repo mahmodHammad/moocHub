@@ -5,8 +5,6 @@ import Grid  from "@material-ui/core/Grid";
 import React from "react";
 import { Redirect } from 'react-router-dom';
 
-import particlesParams from "../../config/particles"
-import Particles from "react-particles-js";
 
 export default function home({communities ,ChooseCommumity }) {
 
@@ -18,10 +16,7 @@ export default function home({communities ,ChooseCommumity }) {
     return (
       <div  className="communityCont">
     <Grid container justify="center">
-       <Particles
-        className="particles"
-          params={particlesParams}
-        />
+    
       <Grid item xs={12}>
         <div className="communityLabel">
         <Typography variant="h4"  align="center" color="primary" >

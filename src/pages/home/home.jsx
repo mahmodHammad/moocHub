@@ -4,18 +4,43 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import React, { Component } from "react";
 
-import particlesParams from "../../config/particles";
-import Particles from "react-particles-js";
+
+import videos from "../../core/Video/vidData"
+
 
 export default class home extends Component {
+  // searching for the videos goes here ! 
+  getVideos =()=>{
+    let content = this.props.content
+    console.log("videos",content)
+    videos.forEach(v=>{
+      this.state.content.forEach(c=>{
+        if(v.id === c.id){
+          console.log("ther's a match ! " , v.title)
+          this.setState()
+        }
+      })
+  })
+  }
+
+  componentDidMount() {
+    // this.getVideos()
+    
+    const { content } = this.props;
+
+    console.log(content)
+  }
+  
+
   render() {
     const communityName = this.props.match.params.subjectName;
     
     const { content } = this.props;
 
+    console.log(content)
     return (
       <React.Fragment>
-        <Particles className="particles" params={particlesParams} />
+
         <div className="communityLabel">
           <Typography variant="h5" color="primary" align="center">
             {communityName}

@@ -16,12 +16,12 @@
   font-size: small !important;
 }
 .gray {
-  color:#aaa !important;
+  color: #aaa !important;
 }
-.thirdcolor{
-  color:#00419C
+.thirdcolor {
+  color: #00419c;
 }
-.nestedItem{
+.nestedItem {
   background-color: #aaa !important;
 }
 body {
@@ -37,12 +37,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.particles {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1 !important;
-}
+
 
 .nav-container {
   margin: auto;
@@ -87,7 +82,7 @@ a:hover {
   opacity: 1;
 }
 .communityLabel {
-  padding: 30px 0 40px  !important;
+  padding: 45px 0 55px !important;
 }
 .subjectLabel {
   padding: 30px 0 10px 0 !important;
@@ -108,8 +103,16 @@ a:hover {
   border-radius: 30px;
 }
 
-.m20{
-  margin:20px !important;
+.m20 {
+  margin: 20px !important;
+}
+
+.mt-5 {
+  margin-top: 20px;
+}
+
+.MuiGrid-spacing-xs-4 > .MuiGrid-item {
+  margin-top: 0px;
 }
 
 /* git add . && git commit -am " " */

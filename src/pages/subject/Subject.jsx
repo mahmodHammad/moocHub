@@ -1,47 +1,34 @@
 ////////  ////////
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
-import MainSlide from "./components/MainSlide";
-import SecondarySlide from "./components/SecondarySlide";
+
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
-import particlesParams from "../../config/particles";
-
-
-import Particles from "react-particles-js";
-import Typography from "@material-ui/core/Typography";
-
+import ContentDisplayer from "../../core/Content/ContentDisplayer";
 class Home extends Component {
   state = {
     subject: {},
     content: false,
-    PrimarySliderSelectedIndex: false,
-    SecondarySliderSelectedIndex: false
+    PrimarySliderSelectedIndex: false
   };
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    this.state.content[index].actualContent === false &&
+    this.state.content[index].value === false &&
       getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
-        content[index].actualContent = theactualContent.files;
+        content[index].value = theactualContent.files;
         this.setState({ content });
       });
 
     this.setState({
-      PrimarySliderSelectedIndex: index,
-      SecondarySliderSelectedIndex: false
+      PrimarySliderSelectedIndex: index
     });
-  };
-
-  handleSecondaryTabClick = index => {
-    this.setState({ SecondarySliderSelectedIndex: index });
   };
 
   loadContent = subjects => {
     let realcontent = subjects.files.map(({ name, id }) => {
-      const actualContent = false;
-      return { name, id, actualContent };
+      const value = false;
+      return { name, id, value };
     });
     this.setState({ content: realcontent });
   };
@@ -62,43 +49,20 @@ class Home extends Component {
   render() {
     //////// Destructure from state ////////
     const { content, subject, PrimarySliderSelectedIndex } = this.state;
+    const { todo, addToTodo, removeFromTodo } = this.props;
+    console.log("content----->", content);
+    console.log("subject----->", subject);
     return (
-      <div>
-        <Particles className="particles" params={particlesParams} />
-        <Typography variant="h5" align="center" className="subjectLabel">
-          {subject.name}
-        </Typography>
-        <Grid container justify="center">
-          {/******  display subject name  ******/}
-
-          {/******  display MainSlider   ******/}
-
-          {this.state.content !== false && (
-            <Grid item xs={12} md={"auto"}>
-              <MainSlide
-                content={content}
-                selectedIndex={PrimarySliderSelectedIndex}
-                handleClick={this.handlePrimeTabClick}
-              />
-            </Grid>
-          )}
-
-          {/******  display Secondary slider depending on the selected prime  ******/}
-
-          <Grid item xs={12}>
-            {PrimarySliderSelectedIndex !== false &&
-              content[PrimarySliderSelectedIndex].actualContent !== false && (
-                <SecondarySlide
-                  subject={subject}
-                  content={content[PrimarySliderSelectedIndex].actualContent}
-                  removeFromTodo={this.props.removeFromTodo}
-                  addToTodo={this.props.addToTodo}
-                  todo={this.props.todo}
-                />
-              )}
-          </Grid>
-        </Grid>
-      </div>
+      <ContentDisplayer
+        subject={subject}
+        content={content}
+        PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+        handlePrimeTabClick={this.handlePrimeTabClick}
+        todo={todo}
+        addToTodo={addToTodo}
+        removeFromTodo={removeFromTodo}
+        isVideo={false}
+      />
     );
   }
 }

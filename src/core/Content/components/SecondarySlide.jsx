@@ -37,7 +37,9 @@ function SecondarySlide({
   addToTodo,
   todo,
   subject,
-  Popcontent
+  Popcontent,
+  isVideo,
+  handleVideoPin
 }) {
   return (
     <Grid
@@ -54,6 +56,8 @@ function SecondarySlide({
           removeFromTodo={removeFromTodo}
           subject={subject}
           Popcontent={Popcontent}
+          isVideo={isVideo}
+          handleVideoPin={handleVideoPin}
         />
       ))}
     </Grid>

@@ -5,8 +5,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Pdf from "./Pdf";
-import { goToAnchor } from 'react-scrollable-anchor'
-
+import { goToAnchor } from "react-scrollable-anchor";
 
 const styles = {
   center: {
@@ -17,6 +16,9 @@ const styles = {
     paddingLeft: 25,
     paddingRight: 44,
     color: "#666"
+  },
+  pdf:{
+    height:"100vh"
   }
 };
 
@@ -37,7 +39,7 @@ function handleToggleContent(
     setdisplay(true);
     setopened([...openedItems, file]);
   }
-  goToAnchor(file.id)
+  goToAnchor(file.id);
 }
 
 function PdfIframe({
@@ -72,7 +74,7 @@ function PdfIframe({
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
-      {display && <Pdf  pdfId={file.id} />}
+      <div className={classes.pdf}>{display && <Pdf pdfId={file.id} />}</div>
     </div>
   );
 }

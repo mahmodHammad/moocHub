@@ -14,7 +14,9 @@ export default function Time({handleRemaining , isRemaining ,duration ,played}) 
             <Duration seconds={duration} />
           </span>
         ) : (
-          <Duration seconds={duration * (1 - played)} />
+          <span>
+            -<Duration seconds={duration * (1 - played)} />
+            </span>
         )}
       </Button>
 
