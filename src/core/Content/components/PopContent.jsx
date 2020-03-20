@@ -77,6 +77,7 @@ export default function FullScreenDialog({
         </AppBar>
 
         <div className="popContent">
+          <div className={classes.pdf}>
           {isVideo ? (
             <Video
               goto={content.goto}
@@ -85,10 +86,9 @@ export default function FullScreenDialog({
               isPinned={false}
             />
           ) : (
-            <div className={classes.pdf}>
               <Pdf pdfId={content.id} />
-            </div>
           )}
+            </div>
         </div>
       </Dialog>
     </div>

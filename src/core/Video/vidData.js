@@ -11,10 +11,10 @@ export default [
             name: "Count",
             id: "EmyArAqDEbs",
             goto: [
-              ["part1", 880],
-              ["part2", 2440],
-              ["part3", 3257],
-              ["part4", 2530]
+              ["part1", 80],
+              ["part2", 240],
+              ["part3", 357],
+              ["part4", 830]
             ]
           },
           {
@@ -22,9 +22,9 @@ export default [
             id: "3_odWVNb_Qw",
             goto: [
               ["Problem1", 880],
-              ["Problem2", 2440],
-              ["Problem3", 3257],
-              ["Problem4", 3530]
+              ["Problem2", 1440],
+              ["Problem3", 1757],
+              ["Problem4", 1930]
             ]
           },
           {
@@ -32,9 +32,9 @@ export default [
             id: "suTYbf-FtXg",
             goto: [
               ["Problem1", 880],
-              ["Problem2", 2440],
-              ["Problem3", 3257],
-              ["Problem4", 3530]
+              ["Problem2", 1440],
+              ["Problem3", 1757],
+              ["Problem4", 1930]
             ]
           }
         ]
@@ -46,10 +46,10 @@ export default [
             name: "sections sys",
             id: "tNs3exn6PKk",
             goto: [
-              ["part1", 880],
-              ["part2", 2440],
-              ["part3", 3257],
-              ["part4", 2530]
+              ["Problem1", 880],
+              ["Problem2", 1440],
+              ["Problem3", 1757],
+              ["Problem4", 1930]
             ]
           }
         ]
@@ -62,10 +62,10 @@ export default [
             name: "sections sys",
             id: "KeEl6ibhm0M",
             goto: [
-              ["part1", 880],
-              ["part2", 2440],
-              ["part3", 3257],
-              ["part4", 2530]
+              ["Problem1", 880],
+              ["Problem2", 1440],
+              ["Problem3", 1757],
+              ["Problem4", 1930]
             ]
           }
         ]
@@ -84,10 +84,10 @@ export default [
             name: "sections",
             id: "WfhoJsI07o0",
             goto: [
-              ["half adder ", 4645],
-              ["full adder ", 4960],
-              ["subtractor", 6360],
-              ["multiplier", 7053]
+              ["half adder ", 645],
+              ["full adder ", 960],
+              ["subtractor", 360],
+              ["multiplier", 1053]
             ]
           }
         ]

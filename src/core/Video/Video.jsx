@@ -53,7 +53,7 @@ class App extends Component {
   };
 
   handlePlay = () => {
-    this.setState({ playing: true , seeking: false});
+    this.setState({ playing: true, seeking: false });
   };
 
   handlePause = () => {
@@ -167,9 +167,8 @@ class App extends Component {
                 onPause={this.handlePause}
                 onBuffer={() => {
                   console.log("onBuffer");
-                  
-                  this.setState({ seeking: false });
 
+                  this.setState({ seeking: false });
                 }}
                 onSeek={e => console.log("onSeek", e)}
                 onEnded={this.handleEnded}
@@ -183,32 +182,24 @@ class App extends Component {
                   handleSeekChange={this.handleSeekChange}
                   handleSeekMouseUp={this.handleSeekMouseUp}
                   played={played}
+                  goto={goto}
+                  duration={duration}
                 />
 
                 <div className="options-group">
                   <div className="left">
-                    {!isPinned && (
+                    {/* {!isPinned && (
                       <Pause
                         handlePlayPause={this.handlePlayPause}
                         playing={playing}
                       />
-                    )}
+                    )} */}
                     {!isPinned ? (
                       <Audio muted={muted} handleMute={this.handleMute} />
                     ) : (
-                      <React.Fragment>
-                        <Button>
-                          <ControlCameraIcon />
-                        </Button>
-                        <Button
-                          onMouseDown={event => {
-                            this.handleGoTo(0.5);
-                          }}
-                          onMouseUp={this.handleSeekMouseUp}
-                        >
-                          SEEKa
-                        </Button>
-                      </React.Fragment>
+                      <Button>
+                        <ControlCameraIcon />
+                      </Button>
                     )}
                     <Time
                       handleRemaining={this.handleRemaining}
