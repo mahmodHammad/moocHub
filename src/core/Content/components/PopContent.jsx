@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1
+  },
+  pdf: {
+    height: "calc(100vh - 49px)"
   }
 }));
 
@@ -38,10 +41,10 @@ export default function FullScreenDialog({
   const classes = useStyles();
   console.log(handleSelect, isAdd);
 
-  const handleVideoPinClick =(url,goto,played)=>{
-    handleClose()
-    handleVideoPin(url,goto,played)
-  }
+  const handleVideoPinClick = (url, goto, played) => {
+    handleClose();
+    handleVideoPin(url, goto, played);
+  };
   return (
     <div>
       <Dialog
@@ -65,7 +68,6 @@ export default function FullScreenDialog({
             >
               {content.name}
             </Typography>
-
             {isAdd ? (
               <AddCircleIcon onClick={handleSelect} />
             ) : (
@@ -74,16 +76,20 @@ export default function FullScreenDialog({
           </Toolbar>
         </AppBar>
 
-        {isVideo ? (
-          <Video
-            goto={content.goto}
-            url={content.id}
-            handleVideoPin={handleVideoPinClick}
-            isPinned={false}
-          />
-        ) : (
-          <Pdf pdfId={content.id} />
-        )}
+        <div className="popContent">
+          {isVideo ? (
+            <Video
+              goto={content.goto}
+              url={content.id}
+              handleVideoPin={handleVideoPinClick}
+              isPinned={false}
+            />
+          ) : (
+            <div className={classes.pdf}>
+              <Pdf pdfId={content.id} />
+            </div>
+          )}
+        </div>
       </Dialog>
     </div>
   );

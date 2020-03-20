@@ -158,8 +158,8 @@ class App extends Component {
                   console.log("onReady");
                   if (isPinned) {
                     console.log("pInnneeeeeeed");
-                    this.setState({ played: 0.5, seeking: true });
-                    this.player.seekTo(parseFloat(0.5));
+                    this.setState({ played: this.props.played, seeking: true });
+                    this.player.seekTo(parseFloat(this.props.played));
                   }
                 }}
                 onStart={() => console.log("onStart")}

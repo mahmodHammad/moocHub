@@ -73,3 +73,7 @@
   padding: 0 !important;
 }
 
+
+.popContent .player-wrapper {
+  margin: 0 -10px -10px 0 ;
+}
