@@ -1,4 +1,4 @@
-.video{
+.video {
   background-color: red;
 }
 .section {
@@ -17,7 +17,6 @@
   position: fixed;
   bottom: 10px;
   right: 10px;
-
 }
 
 .react-player {
@@ -34,18 +33,34 @@
 .content-buttons {
   margin: 10px;
 }
-.options {
-  /* margin-top: -60px; */
-  z-index: 88 !important;
-}
+
 .hideme {
   z-index: 0 !important;
 }
+
+.top-options-left {
+  z-index: 98 !important;
+  position: absolute;
+  top: 13px;
+  left: 0;
+  color: #ffff;
+}
+.top-options-right {
+  z-index: 98 !important;
+  position: absolute;
+  top: 13px;
+  right: 0;
+  color: #ffff;
+}
+
 .options {
+  z-index: 88 !important;
+  color: #fff;
   opacity: 0.6;
   transition: all 0.3s ease;
   margin-top: -55px;
 }
+
 .options:hover {
   opacity: 1;
 }
@@ -73,8 +88,7 @@
   padding: 0 !important;
 }
 
-
 .popContent .player-wrapper {
-  margin: 0 -10px -10px 0 ;
+  margin: 0 -10px -10px 0;
   height: calc(100vh - 48px);
 }

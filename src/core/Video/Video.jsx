@@ -10,6 +10,8 @@ import ProgressBar from "./components/ProgressBar";
 import Pin from "./components/Pin";
 import ControlCameraIcon from "@material-ui/icons/ControlCamera";
 import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
+
 class App extends Component {
   state = {
     isPinned: false,
@@ -142,6 +144,21 @@ class App extends Component {
         {url && (
           <div>
             <div className="player-wrapper" ref={this.vidRef}>
+              <div className="top-options-left">
+                {isPinned && (
+                  <Button color="inherit">
+                    <ControlCameraIcon color="inherit" />
+                  </Button>
+                )}
+              </div>
+              <div className="top-options-right">
+                {isPinned && (
+                  <Button color="inherit" onClick={()=>handleVideoPin(url, goto ,played)}>
+                    <CloseIcon color="inherit" />
+                  </Button>
+                )}
+              </div>
+
               <ReactPlayer
                 ref={this.ref}
                 width="100%"
@@ -187,19 +204,15 @@ class App extends Component {
                 />
 
                 <div className="options-group">
-                  <div className="left">
-                    {/* {!isPinned && (
+                  <div>
+                    {!isPinned && (
                       <Pause
                         handlePlayPause={this.handlePlayPause}
                         playing={playing}
                       />
-                    )} */}
-                    {!isPinned ? (
+                    )}
+                    {!isPinned && (
                       <Audio muted={muted} handleMute={this.handleMute} />
-                    ) : (
-                      <Button>
-                        <ControlCameraIcon />
-                      </Button>
                     )}
                     <Time
                       handleRemaining={this.handleRemaining}
@@ -209,7 +222,7 @@ class App extends Component {
                     />
                   </div>
 
-                  <div className="right">
+                  <div>
                     <Pin
                       handleVideoPin={handleVideoPin}
                       isPinned={isPinned}
@@ -236,12 +249,12 @@ class App extends Component {
                     <FullScreen
                       player={this.player}
                       vidRef={this.vidRef.current}
+                      handlePin={this.handlePin}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <br />
           </div>
         )}
       </React.Fragment>

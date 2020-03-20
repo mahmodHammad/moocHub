@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import CropIcon from "@material-ui/icons/Crop";
-import CloseIcon from "@material-ui/icons/Close";
 
 export default function Pause({
   handleVideoPin,
@@ -17,11 +16,10 @@ export default function Pause({
     onClick={() => {
       handleVideoPin(url, goto ,played);
       handlePin(true);
-      console.log("Played",played)
       }}
       size="small"
     >
-      {isPinned ? <CloseIcon /> : <CropIcon />}
+      {!isPinned && <CropIcon />}
     </Button>
   );
 }
