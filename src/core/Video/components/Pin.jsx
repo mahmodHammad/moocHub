@@ -8,14 +8,16 @@ export default function Pause({
   isPinned,
   goto,
   url,
-  handlePin
+  handlePin,
+  played
 }) {
   return (
     <Button
-      className="cont"
-      onClick={() => {
-        handleVideoPin(url, goto);
-        handlePin(true);
+    className="cont"
+    onClick={() => {
+      handleVideoPin(url, goto ,played);
+      handlePin(true);
+      console.log("Played",played)
       }}
       size="small"
     >

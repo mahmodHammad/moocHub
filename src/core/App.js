@@ -156,14 +156,15 @@ export default class App extends Component {
     }
   };
 
-  handleVideoPin =(url ,goto)=>{
+  handleVideoPin =(url ,goto ,played)=>{
     console.log("url********" , url)
     console.log("goto********" , goto)
+    console.log("played********" , played)
     if(this.state.pinnedVideo!==false){
       this.setState({pinnedVideo:false })
     }
     else{
-      this.setState({pinnedVideo:{url:url , goto:goto}})
+      this.setState({pinnedVideo:{url:url , goto:goto ,played:played}})
     }
   }
   // load todo,community  from local storage
@@ -287,6 +288,7 @@ export default class App extends Component {
                     url={this.state.pinnedVideo.url}
                     isPinned={true}
                     goto={this.state.pinnedVideo.goto}
+                    played={0.5}
                     handleVideoPin={this.handleVideoPin}
                   />
                 </Rnd>

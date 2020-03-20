@@ -8,14 +8,15 @@ import Time from "./components/Time";
 import Pause from "./components/Pause";
 import ProgressBar from "./components/ProgressBar";
 import Pin from "./components/Pin";
-
+import ControlCameraIcon from "@material-ui/icons/ControlCamera";
+import Button from "@material-ui/core/Button";
 class App extends Component {
   state = {
     isPinned: false,
     url: "",
     content: [],
     settingOptions: [1, 1.25, 1.5, 1.75, 2],
-    playing: false,
+    playing: true,
     controls: false,
     light: false,
     volume: 1,
@@ -25,7 +26,8 @@ class App extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: false,
-    isRemaining: false
+    isRemaining: false,
+    isReady: false
   };
 
   handlePlayPause = () => {
@@ -34,7 +36,6 @@ class App extends Component {
 
   IdToUrl = id => {
     const url = `https://www.youtube.com/watch?v=${id}`;
-    console.log(url);
     return url;
   };
   handleToggleControls = () => {
@@ -52,7 +53,8 @@ class App extends Component {
   };
 
   handlePlay = () => {
-    this.setState({ playing: true });
+    this.setState({ playing: true ,seeking: false });
+
   };
 
   handlePause = () => {
@@ -62,10 +64,6 @@ class App extends Component {
   handleSeekChange = (e, value) => {
     this.setState({ played: value / 100, seeking: true });
     this.player.seekTo(parseFloat((value / 100) * this.state.duration));
-  };
-
-  handleSeekMouseUp = e => {
-    this.setState({ seeking: false });
   };
 
   handleProgress = state => {
@@ -88,8 +86,17 @@ class App extends Component {
   };
 
   handleGoTo = sec => {
-    this.setState({ played: sec / this.state.duration, seeking: true });
+    if (this.state.isPinned) {
+      // sec here is a value from 0 to 1 which reprent the progress not actual second
+      this.setState({ played: sec, seeking: true });
+    } else {
+      this.setState({ played: sec / this.state.duration, seeking: true });
+    }
     this.player.seekTo(parseFloat(sec));
+  };
+
+  handleSeekMouseUp = () => {
+    this.setState({ seeking: false });
   };
 
   handlePin = value => {
@@ -99,6 +106,9 @@ class App extends Component {
   componentDidMount() {
     const url = this.IdToUrl(this.props.url);
     const isPinned = this.props.isPinned;
+
+    console.log("PlayedProps", this.props.played);
+
     this.setState({ url, isPinned });
   }
 
@@ -145,11 +155,24 @@ class App extends Component {
                 playbackRate={playbackRate}
                 volume={volume}
                 muted={muted}
-                onReady={() => console.log("onReady")}
+                onReady={() => {
+                  console.log("onReady");
+                  if (isPinned) {
+                    console.log("pInnneeeeeeed");
+                    this.setState({ played: 0.5, seeking: true });
+                  }
+                }}
                 onStart={() => console.log("onStart")}
                 onPlay={this.handlePlay}
                 onPause={this.handlePause}
-                onBuffer={() => console.log("onBuffer")}
+                onBuffer={() => {
+                  console.log("onBuffer");
+                  console.log("BufferPlayerd",this.state.played);
+                  console.log("BufferSeek",this.state.seeking);
+                  
+                  this.setState({ seeking: false });
+
+                }}
                 onSeek={e => console.log("onSeek", e)}
                 onEnded={this.handleEnded}
                 onError={e => console.log("onError", e)}
@@ -166,14 +189,29 @@ class App extends Component {
 
                 <div className="options-group">
                   <div className="left">
-                    <Pause
-                      handlePlayPause={this.handlePlayPause}
-                      playing={playing}
-                    />
                     {!isPinned && (
-                      <Audio muted={muted} handleMute={this.handleMute} />
+                      <Pause
+                        handlePlayPause={this.handlePlayPause}
+                        playing={playing}
+                      />
                     )}
-
+                    {!isPinned ? (
+                      <Audio muted={muted} handleMute={this.handleMute} />
+                    ) : (
+                      <React.Fragment>
+                        <Button>
+                          <ControlCameraIcon />
+                        </Button>
+                        <Button
+                          onMouseDown={event => {
+                            this.handleGoTo(0.5);
+                          }}
+                          onMouseUp={this.handleSeekMouseUp}
+                        >
+                          SEEKa
+                        </Button>
+                      </React.Fragment>
+                    )}
                     <Time
                       handleRemaining={this.handleRemaining}
                       isRemaining={isRemaining}
@@ -189,6 +227,9 @@ class App extends Component {
                       handlePin={this.handlePin}
                       goto={goto}
                       url={url}
+                      played={played}
+                      handleGoTo={this.handleGoTo}
+                      handleSeekMouseUp={this.handleSeekMouseUp}
                     />
                     <VideoMenu
                       settingOptions={settingOptions}

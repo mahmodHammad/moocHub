@@ -4,8 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import React, { Component } from "react";
 
-import particlesParams from "../../config/particles";
-import Particles from "react-particles-js";
+
 import videos from "../../core/Video/vidData"
 
 
@@ -41,7 +40,7 @@ export default class home extends Component {
     console.log(content)
     return (
       <React.Fragment>
-        <Particles className="particles" params={particlesParams} />
+
         <div className="communityLabel">
           <Typography variant="h5" color="primary" align="center">
             {communityName}

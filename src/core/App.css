@@ -37,12 +37,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.particles {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1 !important;
-}
+
 
 .nav-container {
   margin: auto;
