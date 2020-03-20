@@ -53,8 +53,7 @@ class App extends Component {
   };
 
   handlePlay = () => {
-    this.setState({ playing: true ,seeking: false });
-
+    this.setState({ playing: true , seeking: false});
   };
 
   handlePause = () => {
@@ -160,6 +159,7 @@ class App extends Component {
                   if (isPinned) {
                     console.log("pInnneeeeeeed");
                     this.setState({ played: 0.5, seeking: true });
+                    this.player.seekTo(parseFloat(0.5));
                   }
                 }}
                 onStart={() => console.log("onStart")}
@@ -167,8 +167,6 @@ class App extends Component {
                 onPause={this.handlePause}
                 onBuffer={() => {
                   console.log("onBuffer");
-                  console.log("BufferPlayerd",this.state.played);
-                  console.log("BufferSeek",this.state.seeking);
                   
                   this.setState({ seeking: false });
 
