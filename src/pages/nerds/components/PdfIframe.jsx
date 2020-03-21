@@ -74,7 +74,7 @@ function PdfIframe({
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
-      <div className={classes.pdf}>{display && <Pdf pdfId={file.id} />}</div>
+     {display && <div className={classes.pdf}> <Pdf pdfId={file.id} /></div>}
     </div>
   );
 }

@@ -8,11 +8,9 @@ export default function ProgressBar({
   duration,
   goto
 }) {
-  console.log(goto);
   let marks = goto.map(e => {
     return { value: (e[1] / duration) * 100, label: "|" };
   });
-  console.log(marks);
   return (
     <Slider
       id="slider"

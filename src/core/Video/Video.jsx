@@ -107,9 +107,6 @@ class App extends Component {
   componentDidMount() {
     const url = this.IdToUrl(this.props.url);
     const isPinned = this.props.isPinned;
-
-    console.log("PlayedProps", this.props.played);
-
     this.setState({ url, isPinned });
   }
 
@@ -144,16 +141,12 @@ class App extends Component {
         {url && (
           <div>
             <div className="player-wrapper" ref={this.vidRef}>
-              <div className="top-options-left">
-                {isPinned && (
-                  <Button color="inherit">
-                    <ControlCameraIcon color="inherit" />
-                  </Button>
-                )}
-              </div>
               <div className="top-options-right">
                 {isPinned && (
-                  <Button color="inherit" onClick={()=>handleVideoPin(url, goto ,played)}>
+                  <Button
+                    color="inherit"
+                    onClick={() => handleVideoPin(url, goto, played)}
+                  >
                     <CloseIcon color="inherit" />
                   </Button>
                 )}
@@ -172,9 +165,7 @@ class App extends Component {
                 volume={volume}
                 muted={muted}
                 onReady={() => {
-                  console.log("onReady");
                   if (isPinned) {
-                    console.log("pInnneeeeeeed");
                     this.setState({ played: this.props.played, seeking: true });
                     this.player.seekTo(parseFloat(this.props.played));
                   }
@@ -183,8 +174,6 @@ class App extends Component {
                 onPlay={this.handlePlay}
                 onPause={this.handlePause}
                 onBuffer={() => {
-                  console.log("onBuffer");
-
                   this.setState({ seeking: false });
                 }}
                 onSeek={e => console.log("onSeek", e)}
@@ -205,7 +194,11 @@ class App extends Component {
 
                 <div className="options-group">
                   <div>
-                    {!isPinned && (
+                    {isPinned ? (
+                      <Button color="inherit">
+                        <ControlCameraIcon color="inherit" />
+                      </Button>
+                    ) : (
                       <Pause
                         handlePlayPause={this.handlePlayPause}
                         playing={playing}

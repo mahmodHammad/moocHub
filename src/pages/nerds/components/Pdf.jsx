@@ -27,16 +27,15 @@ function PdfIframe({ pdfId, classes }) {
 
   return (
     <ScrollableAnchor id={pdfId}>
-      {/* <div className={`${classes.container}`}> */}
+      <div className={`${classes.container}`}>
         {/* <div className={classes.loading}>Loading... </div> */}
           <iframe
-          
             title="lecture"
             className={`${classes.root}`}
             frameBorder="0"
             src={fileurl.displayPdf}
           ></iframe>
-      {/* </div> */}
+      </div>
     </ScrollableAnchor>
   );
 }
