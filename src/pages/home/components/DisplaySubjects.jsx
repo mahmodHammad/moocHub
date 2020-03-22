@@ -29,13 +29,11 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                         destination={"subject"}
                         label={"drive"}
                       />
-                      {folder.video !== false && (
+                      {
+                      folder.video !== false && (
                         <DisplaySubjectButton
                           folder={folder}
-                          // XXXXXXXXXXXX WILL BE CHANGED TO VIDEOS LATER XXXXXXXXXXXX
-                          destination={"subject"}
-                          // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+                          destination={"videos"}
                           label={"videos"}
                         />
                       )}

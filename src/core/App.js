@@ -1,28 +1,36 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
+
+// installed components ---------------------
+import { configureAnchors } from "react-scrollable-anchor";
+import { Rnd } from "react-rnd";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+// Mui Components -------------------------------
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+// helpers ----------------------------------
 import getFiles from "./../helper/getfiles";
 import loadApi from "./../helper/loadApi";
 
+//Pages ------------------------------------
 import Navbar from "./components/Navbar";
 import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
+import VideosDisplayer from "./../pages/video/VideosDisplayer";
+
+// Config ----------------------------------
 import customTheme from "../config/theme";
 import communities from "../config/communities";
 import videosJson from "./Video/vidData";
-import Video from "./Video/Video";
-import { configureAnchors } from "react-scrollable-anchor";
-import VideosDisplayer from "./../pages/video/VideosDisplayer";
 
-import { Rnd } from "react-rnd";
+// My components ---------------------------
+import Video from "./Video/Video";
 
 // id.lenght ===11 is youtube
-
 
 const theme = createMuiTheme({
   palette: customTheme
@@ -93,13 +101,7 @@ export default class App extends Component {
   getVideos = subjectId => {
     let value = false;
     videosJson.forEach(v => {
-      if (v.id === subjectId) {
-        value = v;
-
-        // XXXXXXXXXXXXXXXXXXX Will be changed after making backend to this XXXXXXXXXXXXXXXXXXX
-        // value = true
-
-      }
+      if (v.id === subjectId) value = v;
     });
     return value;
   };
@@ -132,6 +134,12 @@ export default class App extends Component {
     dividedSubjects.map(folder => {
       return getFiles(folder.id, "folder").then(subjectContent => {
         let [content] = [this.state.content];
+
+        // inject Vides inside each subject Division------------
+        let [files] = [subjectContent];
+        files.files.map(f => (f.video = this.getVideos(f.id)));
+        // ------------------------------------------------------
+
         content[folder.index].divided = subjectContent;
         this.setState({ content });
       });
@@ -192,13 +200,6 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    videosJson.forEach(e => {
-      e.value.forEach(s => {
-        s.value.forEach(d => {
-          console.log(d.id.length);
-        });
-      });
-    });
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -212,9 +213,9 @@ export default class App extends Component {
 
   render() {
     console.log("renderd");
-    this.state.content.map(c=>{
-      console.log(c.id.length)
-    })
+    this.state.content.map(c => {
+      console.log(c.id.length);
+    });
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
