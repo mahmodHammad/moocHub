@@ -21,6 +21,9 @@ import VideosDisplayer from "./../pages/video/VideosDisplayer";
 
 import { Rnd } from "react-rnd";
 
+// id.lenght ===11 is youtube
+
+
 const theme = createMuiTheme({
   palette: customTheme
 });
@@ -86,12 +89,16 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
+  // IF subject has content -> reutrn it's content else return false
   getVideos = subjectId => {
     let value = false;
     videosJson.forEach(v => {
       if (v.id === subjectId) {
         value = v;
-        console.log("video is exists", v);
+
+        // XXXXXXXXXXXXXXXXXXX Will be changed after making backend to this XXXXXXXXXXXXXXXXXXX
+        // value = true
+
       }
     });
     return value;
@@ -185,6 +192,13 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    videosJson.forEach(e => {
+      e.value.forEach(s => {
+        s.value.forEach(d => {
+          console.log(d.id.length);
+        });
+      });
+    });
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -198,7 +212,9 @@ export default class App extends Component {
 
   render() {
     console.log("renderd");
-    console.log(this.state.played);
+    this.state.content.map(c=>{
+      console.log(c.id.length)
+    })
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />

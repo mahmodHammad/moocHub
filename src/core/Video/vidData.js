@@ -1,4 +1,5 @@
-export default [
+
+export default[
   {
     name: "Signal analysis",
     id: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
@@ -96,8 +97,7 @@ export default [
   }
 ];
 
-
-let altData = [
+let x =  [
   [
      "Signal analysis",
      "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
@@ -139,47 +139,7 @@ let altData = [
         ]
       ]
     ]
-  ],
-  [
-    "Signal analysis",
-    "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
-    [
-     [
-        "sections",
-        "WfhoJsI07o0",
-        [
-         [
-            "sections sys",
-            "WfhoJsI07o0",
-            [
-             ["part1", 880],
-             ["part2", 2440],
-             ["part3", 3257],
-             ["part4", 2530]
-           ]
-         ],
-         [
-            "'Dawn' | Beautiful Chill Mix",
-            "3_odWVNb_Qw",
-            [
-             ["Problem1", 880],
-             ["Problem2", 2440],
-             ["Problem3", 3257],
-             ["Problem4", 3530]
-           ]
-         ],
-         [
-            "Oblivion | Chillout Mix",
-            "suTYbf-FtXg",
-            [
-             ["Problem1", 880],
-             ["Problem2", 2440],
-             ["Problem3", 3257],
-             ["Problem4", 3530]
-           ]
-         ]
-       ]
-     ]
-   ]
- ]
+  ]
+
+
 ]
