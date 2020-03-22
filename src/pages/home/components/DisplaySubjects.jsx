@@ -16,49 +16,59 @@ export default function DisplaySubjects({ folder, mdWidth }) {
 
           {/* subject is  DIVIDED */}
           {folder.isDivided ? (
-            <React.Fragment>
-              <Grid item container spacing={4}>
-                {folder.divided.files !== undefined &&
-                  folder.divided.files.map(folder => (
-                    <Grid key={folder.id} item xs container>
+            <Grid item container spacing={4}>
+              {folder.divided.files !== undefined &&
+                folder.divided.files.map(folder => (
+                  <Grid key={folder.id} item xs container>
+                    <Grid item xs={12}>
+                      <Typography align="center" color="primary" gutterBottom>
+                        {folder.name}
+                      </Typography>
                       <DisplaySubjectButton
                         folder={folder}
                         destination={"subject"}
-                        label={folder.name}
+                        label={"drive"}
                       />
+                      {folder.video !== false && (
+                        <DisplaySubjectButton
+                          folder={folder}
+                          // XXXXXXXXXXXX WILL BE CHANGED TO VIDEOS LATER XXXXXXXXXXXX
+                          destination={"subject"}
+                          // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                          label={"videos"}
+                        />
+                      )}
                     </Grid>
-                  ))}
-              </Grid>
-            </React.Fragment>
+                  </Grid>
+                ))}
+            </Grid>
           ) : (
             // subject is NOT divided
+            <Grid
+              key={folder.id}
+              item
+              container
+              alignItems="center"
+              justify="center"
+              spacing={2}
+              className="mt-5"
+            >
+              <DisplaySubjectButton
+                folder={folder}
+                destination={"subject"}
+                label={"drive"}
+              />
 
-            <React.Fragment>
-              <Grid
-                key={folder.id}
-                item
-                container
-                alignItems="center"
-                justify="center"
-                spacing={2}
-                className="mt-5"
-              >
+              {/* XXXXXXXXXXXXXXXXXXXXX if it has video >> create a button for it XXXXXXXXXXXXXXXXXXXXX */}
+              {folder.video !== false && (
                 <DisplaySubjectButton
                   folder={folder}
-                  destination={"subject"}
-                  label={"drive"}
+                  destination={"videos"}
+                  label={"videos"}
                 />
-
-                {/* XXXXXXXXXXXXXXXXXXXXX if it has video >> create a button for it XXXXXXXXXXXXXXXXXXXXX */}
-                {folder.video !== false && (
-                  <DisplaySubjectButton
-                    folder={folder}
-                    destination={"videos"}
-                    label={"videos"}
-                  />
-                )}
-              </Grid>
-            </React.Fragment>
+              )}
+            </Grid>
           )}
         </CardContent>
       </Card>
