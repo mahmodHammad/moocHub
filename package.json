@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "firebase": "^7.12.0",
     "re-resizable": "^6.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -46,7 +47,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://europe-west1-moochub-2020.cloudfunctions.net/api",
+  "proxy": "https://us-central1-electrical2nd-2020.cloudfunctions.net/api",
   "devDependencies": {
     "gh-pages": "^2.2.0"
   }

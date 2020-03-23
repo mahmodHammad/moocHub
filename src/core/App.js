@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-
+import axios from "axios"
 // installed components ---------------------
 import { configureAnchors } from "react-scrollable-anchor";
 import { Rnd } from "react-rnd";
@@ -200,6 +200,10 @@ export default class App extends Component {
   };
 
   componentDidMount() {
+    axios.get("/videos/").then((daat)=>{
+      console.log("WE DID IT !!!",daat)
+    })
+    
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
