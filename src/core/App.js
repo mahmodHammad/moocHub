@@ -203,6 +203,7 @@ export default class App extends Component {
     axios.get("/videos/").then((daat)=>{
       console.log("WE DID IT !!!",daat)
     })
+    axios.post("/videos/",{"title":"test from fronend" ,"value":"HEllo Firebase from react "})
     
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
