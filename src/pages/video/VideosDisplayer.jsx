@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import Video from "../../core/Video/Video";
-import Button from "@material-ui/core/Button";
 import ContentDisplayer from "../../core/Content/ContentDisplayer";
 
 export default class VideosDisplayer extends Component {
   state = {
     subject: {},
-    PrimarySliderSelectedIndex:false,
+    PrimarySliderSelectedIndex: false,
     content: false,
     selectedVideo: false
   };
@@ -17,35 +15,37 @@ export default class VideosDisplayer extends Component {
     });
   };
 
-
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     const id = this.props.match.params.subjectId;
+    // take this id and make an HTTTP request to get data
+
     const subject = { name, id };
     this.setState({ subject });
 
+    // XXXXXXXXXXXXXXXXXX this line will be deleted
     const videos = this.props.location.state.videos;
-    console.log("video ---->",this.props.location.state.videos);
-    this.setState({ content:videos });
+    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    
+    this.setState({ content: videos });
   }
 
   render() {
-    console.log("frin state", this.state);
-    const {  content ,subject ,PrimarySliderSelectedIndex} = this.state;
-    const {  todo ,addToTodo ,removeFromTodo ,handleVideoPin   } = this.props;
+    const { content, subject, PrimarySliderSelectedIndex } = this.state;
+    const { todo, addToTodo, removeFromTodo, handleVideoPin } = this.props;
     return (
       <div>
         <ContentDisplayer
-        subject={subject}
-        content={content}
-        PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
-        handlePrimeTabClick={this.handlePrimeTabClick}
-        todo={todo}
-        addToTodo={addToTodo}
-        removeFromTodo={removeFromTodo}
-        isVideo={true}
-        handleVideoPin={handleVideoPin}
-      />
+          subject={subject}
+          content={content}
+          PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+          handlePrimeTabClick={this.handlePrimeTabClick}
+          todo={todo}
+          addToTodo={addToTodo}
+          removeFromTodo={removeFromTodo}
+          isVideo={true}
+          handleVideoPin={handleVideoPin}
+        />
       </div>
     );
   }
