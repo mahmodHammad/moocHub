@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import axios from "axios"
+import axios from "axios";
 // installed components ---------------------
 import { configureAnchors } from "react-scrollable-anchor";
 import { Rnd } from "react-rnd";
@@ -21,6 +21,7 @@ import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 import VideosDisplayer from "./../pages/video/VideosDisplayer";
+import Fill from "./../pages/Fill/Fill";
 
 // Config ----------------------------------
 import customTheme from "../config/theme";
@@ -200,11 +201,14 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    axios.get("/videos/").then((daat)=>{
-      console.log("WE DID IT !!!",daat)
-    })
-    axios.post("/videos/",{"title":"test from fronend" ,"value":"HEllo Firebase from react "})
-    
+    axios.get("/videos/").then(daat => {
+      console.log("WE DID IT !!!", daat);
+    });
+    axios.post("/videos/", {
+      title: "test from fronend",
+      value: "HEllo Firebase from react "
+    });
+
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -300,6 +304,11 @@ export default class App extends Component {
                       content={this.state.content}
                     />
                   )}
+                />
+                <Route
+                  exact
+                  path="/fill"
+                  component={Fill}
                 />
               </Switch>
               {/* end routing **********************************************/}
