@@ -64,14 +64,6 @@ export default class Fill extends Component {
     this.setState({ displayedPlayList });
   };
 
-  // handleSaveList = () => {
-  //   let updateVideo = { ...this.state.videos };
-  //   const selectedPlayList = this.state.selectedPlayList;
-  //   const displayedPlayList = this.state.displayedPlayList;
-
-  //   updateVideo[selectedPlayList] = displayedPlayList;
-  //   this.setState({ videos: updateVideo });
-  // };
   renderVideoInputs = (
     order,
     defaultTitle = "",
@@ -108,10 +100,10 @@ export default class Fill extends Component {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
-    axios.post("/videos/", {
-      subjectId: "math2020",
-      playlistname,
-      videos
+    axios.post("/videos", {
+      subject: "math2020",
+      playlistname:10,
+      videos:this.state.videos
     });
   };
 
@@ -141,13 +133,6 @@ export default class Fill extends Component {
             {this.state.displayedPlayList.map((pl, index) => (
               <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
             ))}
-            {/* <Button
-              varient="contained"
-              color="secondary"
-              onClick={this.handleSaveList}
-            >
-              Save
-            </Button> */}
           </div>
         ) : (
           <h1>NO videos is available so far...</h1>
@@ -155,21 +140,15 @@ export default class Fill extends Component {
 
         <Grid container>
           <Grid item xs={12}>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={this.createPlayList}
-            >
-              Create a PlayList
-            </Button>
+            
             <Button
               variant="contained"
               color="primary"
               onClick={this.loadVideos}
             >
-              Update
+              GET
             </Button>
-            <Button variant="outlined" color="primary" onClick={this.submit}>
+            <Button variant="outlined" color="secondary" onClick={this.submit}>
               Submit
             </Button>
           </Grid>
@@ -178,12 +157,18 @@ export default class Fill extends Component {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                fullWidth
                 name="newPlayListName"
                 required
                 label="Enter Playlist name"
                 onChange={this.handlePlayListName}
               />
+              <Button
+              variant="outlined"
+              color="primary"
+              onClick={this.createPlayList}
+            >
+              Create a PlayList
+            </Button>
             </Grid>
             {/* {this.renderVideoInputs()} */}
           </div>
