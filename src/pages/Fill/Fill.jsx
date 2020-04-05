@@ -4,6 +4,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+
 import axios from "axios";
 import "./Fill.css";
 
@@ -11,7 +13,8 @@ export default class Fill extends Component {
   state = {
     videos: {},
     selectedPlayList: "",
-    displayedPlayList: []
+    displayedPlayList: [],
+    newPlayListName: ""
   };
 
   handleSelectChange = e => {
@@ -44,10 +47,46 @@ export default class Fill extends Component {
       });
   };
 
-  updateVideos = (subjectId, playlistname, videos) => {
+  createPlayList = () => {};
+
+  handlePlayListName = e => {
+    const newPlayListName = e.currentTarget.value;
+    this.setState({ newPlayListName });
+  };
+
+  renderVideoInputs = () => {
+    return (
+      <div className="addVideo">
+        <Grid item xs={12}>
+          <TextField
+            required
+            label="Video Title"
+            onChange={this.handlePlayListName}
+          />
+          <TextField
+            name
+            required
+            label="Url"
+            onChange={this.handlePlayListName}
+          />
+          <TextField required label="goto" onChange={this.handlePlayListName} />
+        </Grid>
+      </div>
+    );
+  };
+  /**
+   * subject -> id
+   * playListName -> "string"
+   * videos ->[{title , value(id) ,goto{}}]
+   */
+  submit = (subjectId, playlistname, videos) => {
+    // update the database here
+    //  playlistname ===10 ->update the whole playlists
+    // else update only this playlist
     axios.post("/videos/", {
-      title: "test from fronend",
-      value: "HEllo Firebase from react "
+      subjectId: "math2020",
+      playlistname,
+      videos
     });
   };
 
@@ -55,9 +94,6 @@ export default class Fill extends Component {
     let playlists = Object.keys(this.state.videos);
     return (
       <div className="fill">
-        {/* {this.state.videos && this.state.videos
-        {pl.map(video=> <h3>{video.title}</h3>)}
-        </div> )} */}
         {playlists.length ? (
           <div className="form">
             <FormControl>
@@ -75,14 +111,14 @@ export default class Fill extends Component {
                   <option value={pl}>{pl}</option>
                 ))}
               </Select>
-              {/* <TextField label="enter text here" /> */}
             </FormControl>
-            {this.state.displayedPlayList.map((pl,index) => (
+
+            {this.state.displayedPlayList.map(pl => (
               <div>
-                {console.log('pl is ',pl)}
-                <h4>Title: {pl.title} ID:<span>{pl.id}</span></h4>
-                {/* <p>{pl.videos[index].id}</p>
-                <p>{pl.videos[index].id}</p> */}
+                <h4>
+                  Title: {pl.title} ID:<span>{pl.id}</span>
+                </h4>
+
                 {pl.goto.map(g => (
                   <p>
                     <span>{g.label}</span>
@@ -96,9 +132,42 @@ export default class Fill extends Component {
         ) : (
           <h1>NO videos is available so far...</h1>
         )}
-        <Button variant="contained" color="primary" onClick={this.loadVideos}>
-          Update
-        </Button>
+
+        <Grid container>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={this.createPlayList}
+            >
+              Create a PlayList
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.loadVideos}
+            >
+              Update
+            </Button>
+            <Button variant="outlined" color="primary" onClick={this.submit}>
+              Submit
+            </Button>
+          </Grid>
+
+          <div className="addPlayList">
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                name="newPlayListName"
+                required
+                label="Enter Playlist name"
+                onChange={this.handlePlayListName}
+              />
+            </Grid>
+            {this.renderVideoInputs()}
+          </div>
+        </Grid>
       </div>
     );
   }
