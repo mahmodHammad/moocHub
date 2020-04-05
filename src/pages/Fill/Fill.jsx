@@ -55,25 +55,29 @@ export default class Fill extends Component {
   };
 
   handleVideoData = (e, order) => {
-    console.log(order)
+    console.log(order);
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
     let displayedPlayList = [...this.state.displayedPlayList];
-    console.log(displayedPlayList);
-    console.log(displayedPlayList[order])
     displayedPlayList[order][name] = value;
-    console.log(displayedPlayList);
 
     this.setState({ displayedPlayList });
   };
 
+  // handleSaveList = () => {
+  //   let updateVideo = { ...this.state.videos };
+  //   const selectedPlayList = this.state.selectedPlayList;
+  //   const displayedPlayList = this.state.displayedPlayList;
+
+  //   updateVideo[selectedPlayList] = displayedPlayList;
+  //   this.setState({ videos: updateVideo });
+  // };
   renderVideoInputs = (
     order,
     defaultTitle = "",
     defaultId = "",
     defaultGoto = []
   ) => {
-    console.log(order)
     return (
       <div className="addVideo">
         <Grid item xs={12}>
@@ -82,14 +86,14 @@ export default class Fill extends Component {
             name="title"
             label="Video Title"
             onChange={e => this.handleVideoData(e, order)}
-            defaultValue={this.state.displayedPlayList[order].title}
+            value={defaultTitle}
           />
           <TextField
             name="id"
             required
             label="Url"
             onChange={e => this.handleVideoData(e, order)}
-            defaultValue={this.state.displayedPlayList[order].id}
+            value={defaultId}
           />
         </Grid>
       </div>
@@ -112,7 +116,7 @@ export default class Fill extends Component {
   };
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     let playlists = Object.keys(this.state.videos);
     return (
       <div className="fill">
@@ -134,10 +138,16 @@ export default class Fill extends Component {
                 ))}
               </Select>
             </FormControl>
-                    {console.log("XXXXXXXXXX",this.state.displayedPlayList)}
             {this.state.displayedPlayList.map((pl, index) => (
               <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
             ))}
+            {/* <Button
+              varient="contained"
+              color="secondary"
+              onClick={this.handleSaveList}
+            >
+              Save
+            </Button> */}
           </div>
         ) : (
           <h1>NO videos is available so far...</h1>
