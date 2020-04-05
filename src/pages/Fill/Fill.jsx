@@ -14,7 +14,8 @@ export default class Fill extends Component {
     videos: {},
     selectedPlayList: "",
     displayedPlayList: [],
-    newPlayListName: ""
+    newPlayListName: "",
+    subject:""
   };
 
   handleSelectChange = e => {
@@ -47,7 +48,15 @@ export default class Fill extends Component {
       });
   };
 
-  createPlayList = () => {};
+  createPlayList = () => {
+    axios.post("/videos", {
+      subject: "math2020",
+      playListName:this.state.newPlayListName,
+      videos:[]
+    }).then(e=>{
+      console.log(e)
+    })
+  };
 
   handlePlayListName = e => {
     const newPlayListName = e.currentTarget.value;
@@ -156,7 +165,6 @@ export default class Fill extends Component {
           <div className="addPlayList">
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
                 name="newPlayListName"
                 required
                 label="Enter Playlist name"
