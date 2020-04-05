@@ -54,22 +54,43 @@ export default class Fill extends Component {
     this.setState({ newPlayListName });
   };
 
-  renderVideoInputs = () => {
+  handleVideoData = (e, order) => {
+    console.log(order)
+    const value = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    let displayedPlayList = [...this.state.displayedPlayList];
+    console.log(displayedPlayList);
+    console.log(displayedPlayList[order])
+    displayedPlayList[order][name] = value;
+    console.log(displayedPlayList);
+
+    this.setState({ displayedPlayList });
+  };
+
+  renderVideoInputs = (
+    order,
+    defaultTitle = "",
+    defaultId = "",
+    defaultGoto = []
+  ) => {
+    console.log(order)
     return (
       <div className="addVideo">
         <Grid item xs={12}>
           <TextField
             required
+            name="title"
             label="Video Title"
-            onChange={this.handlePlayListName}
+            onChange={e => this.handleVideoData(e, order)}
+            defaultValue={this.state.displayedPlayList[order].title}
           />
           <TextField
-            name
+            name="id"
             required
             label="Url"
-            onChange={this.handlePlayListName}
+            onChange={e => this.handleVideoData(e, order)}
+            defaultValue={this.state.displayedPlayList[order].id}
           />
-          <TextField required label="goto" onChange={this.handlePlayListName} />
         </Grid>
       </div>
     );
@@ -91,6 +112,7 @@ export default class Fill extends Component {
   };
 
   render() {
+    console.log(this.state)
     let playlists = Object.keys(this.state.videos);
     return (
       <div className="fill">
@@ -112,21 +134,9 @@ export default class Fill extends Component {
                 ))}
               </Select>
             </FormControl>
-
-            {this.state.displayedPlayList.map(pl => (
-              <div>
-                <h4>
-                  Title: {pl.title} ID:<span>{pl.id}</span>
-                </h4>
-
-                {pl.goto.map(g => (
-                  <p>
-                    <span>{g.label}</span>
-                    <span> AT </span>
-                    <span>{g.value}</span>
-                  </p>
-                ))}
-              </div>
+                    {console.log("XXXXXXXXXX",this.state.displayedPlayList)}
+            {this.state.displayedPlayList.map((pl, index) => (
+              <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
             ))}
           </div>
         ) : (
@@ -165,7 +175,7 @@ export default class Fill extends Component {
                 onChange={this.handlePlayListName}
               />
             </Grid>
-            {this.renderVideoInputs()}
+            {/* {this.renderVideoInputs()} */}
           </div>
         </Grid>
       </div>
