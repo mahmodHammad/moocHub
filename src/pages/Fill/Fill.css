@@ -1,0 +1,9 @@
+.fill{
+    margin: 20px;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+.fill .form {
+    margin: 20px 0;
+}

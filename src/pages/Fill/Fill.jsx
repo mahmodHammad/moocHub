@@ -5,11 +5,25 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import "./Fill.css";
 
 export default class Fill extends Component {
   state = {
-    videos: {}
+    videos: {},
+    selectedPlayList: "",
+    displayedPlayList: []
   };
+
+  handleSelectChange = e => {
+    const selectedPlayList = e.currentTarget.value;
+    console.log(selectedPlayList);
+    console.log(this.state.videos[selectedPlayList]);
+    this.setState({
+      selectedPlayList,
+      displayedPlayList: this.state.videos[selectedPlayList]
+    });
+  };
+
   loadSubjects = () => {
     axios.get(`/subjects`).then(daat => {
       console.log("WE DID IT !!!", daat);
@@ -22,7 +36,7 @@ export default class Fill extends Component {
       .then(daat => {
         console.log("WE DID IT !!!", daat);
         const videos = daat.data;
-        console.log(videos)
+        console.log(videos);
         this.setState({ videos });
       })
       .catch(err => {
@@ -37,36 +51,54 @@ export default class Fill extends Component {
     });
   };
 
-  render() {   
+  render() {
+    let playlists = Object.keys(this.state.videos);
     return (
-      <div>
+      <div className="fill">
         {/* {this.state.videos && this.state.videos
         {pl.map(video=> <h3>{video.title}</h3>)}
         </div> )} */}
-        {Object.keys(this.state.videos).length && Object.keys(this.state.videos).map(pl=>(<div>
-          <h1>{pl}</h1>
-          {this.state.videos[pl].map(video=><h4>{video.title}</h4>)}
-          
-        </div>)        
-      )}
-        <FormControl>
-          <InputLabel htmlFor="age-native-simple">Age</InputLabel>
-          <Select
-            native
-            onChange={e => console.log("changes=d", e)}
-            inputProps={{
-              name: "age",
-              id: "age-native-simple"
-            }}
-          >
-            <option aria-label="None" value="" />
-            <option value={10}>Ten</option>
-          </Select>
-          <TextField label="enter text here" />
-          <Button variant="contained" color="primary" onClick={this.loadVideos}>
-            Submit
-          </Button>
-        </FormControl>
+        {playlists.length ? (
+          <div className="form">
+            <FormControl>
+              <InputLabel htmlFor="playlist">playlist</InputLabel>
+              <Select
+                native
+                onChange={this.handleSelectChange}
+                inputProps={{
+                  name: "age",
+                  id: "playlist"
+                }}
+              >
+                <option aria-label="None" value="" />
+                {playlists.map(pl => (
+                  <option value={pl}>{pl}</option>
+                ))}
+              </Select>
+              {/* <TextField label="enter text here" /> */}
+            </FormControl>
+            {this.state.displayedPlayList.map((pl,index) => (
+              <div>
+                {console.log('pl is ',pl)}
+                <h4>Title: {pl.title} ID:<span>{pl.id}</span></h4>
+                {/* <p>{pl.videos[index].id}</p>
+                <p>{pl.videos[index].id}</p> */}
+                {pl.goto.map(g => (
+                  <p>
+                    <span>{g.label}</span>
+                    <span> AT </span>
+                    <span>{g.value}</span>
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h1>NO videos is available so far...</h1>
+        )}
+        <Button variant="contained" color="primary" onClick={this.loadVideos}>
+          Update
+        </Button>
       </div>
     );
   }
