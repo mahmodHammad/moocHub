@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import axios from "axios";
 // installed components ---------------------
 import { configureAnchors } from "react-scrollable-anchor";
 import { Rnd } from "react-rnd";
@@ -201,13 +200,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    axios.get("/videos/").then(daat => {
-      console.log("WE DID IT !!!", daat);
-    });
-    axios.post("/videos/", {
-      title: "test from fronend",
-      value: "HEllo Firebase from react "
-    });
+  
 
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
@@ -221,10 +214,6 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
-    console.log("renderd");
-    this.state.content.map(c => {
-      console.log(c.id.length);
-    });
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
