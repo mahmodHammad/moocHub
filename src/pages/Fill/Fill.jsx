@@ -15,7 +15,7 @@ export default class Fill extends Component {
     selectedPlayList: "",
     displayedPlayList: [],
     newPlayListName: "",
-    subject:""
+    subject: ""
   };
 
   handleSelectChange = e => {
@@ -28,6 +28,13 @@ export default class Fill extends Component {
     });
   };
 
+  addVideoFields = () => {
+    let displayedPlayList = [
+      ...this.state.displayedPlayList,
+      { title: "", id: "", goto: [] }
+    ];
+    this.setState({displayedPlayList})
+  };
   loadSubjects = () => {
     axios.get(`/subjects`).then(daat => {
       console.log("WE DID IT !!!", daat);
@@ -49,13 +56,15 @@ export default class Fill extends Component {
   };
 
   createPlayList = () => {
-    axios.post("/videos", {
-      subject: "math2020",
-      playListName:this.state.newPlayListName,
-      videos:[]
-    }).then(e=>{
-      console.log(e)
-    })
+    axios
+      .post("/videos", {
+        subject: "math2020",
+        playListName: this.state.newPlayListName,
+        videos: []
+      })
+      .then(e => {
+        console.log(e);
+      });
   };
 
   handlePlayListName = e => {
@@ -68,9 +77,12 @@ export default class Fill extends Component {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
     let displayedPlayList = [...this.state.displayedPlayList];
-    displayedPlayList[order][name] = value;
+    let videos = {...this.state.videos}
 
-    this.setState({ displayedPlayList });
+    displayedPlayList[order][name] = value;
+    videos[this.state.selectedPlayList]=displayedPlayList
+
+    this.setState({ displayedPlayList , videos});
   };
 
   renderVideoInputs = (
@@ -111,8 +123,8 @@ export default class Fill extends Component {
     // else update only this playlist
     axios.post("/videos", {
       subject: "math2020",
-      playlistname:10,
-      videos:this.state.videos
+      playlistname: 10,
+      videos: this.state.videos
     });
   };
 
@@ -121,35 +133,50 @@ export default class Fill extends Component {
     let playlists = Object.keys(this.state.videos);
     return (
       <div className="fill">
-        {playlists.length ? (
-          <div className="form">
-            <FormControl>
-              <InputLabel htmlFor="playlist">playlist</InputLabel>
-              <Select
-                native
-                onChange={this.handleSelectChange}
-                inputProps={{
-                  name: "age",
-                  id: "playlist"
-                }}
+        <div className="addPlayList">
+          {playlists.length ? (
+            <React.Fragment className="form">
+              <FormControl>
+                <InputLabel htmlFor="playlist">playlist</InputLabel>
+                <Select
+                  native
+                  onChange={this.handleSelectChange}
+                  inputProps={{
+                    name: "age",
+                    id: "playlist"
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  {playlists.map(pl => (
+                    <option value={pl}>{pl}</option>
+                  ))}
+                </Select>
+                <TextField
+                  placeholder="PlayList Name"
+                  name="create a new PlayList"
+                  label="Enter new Playlist's name"
+                  onChange={this.handlePlayListName}
+                />
+              </FormControl>
+              {this.state.displayedPlayList.map((pl, index) => (
+                <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
+              ))}
+              <Button
+                onClick={this.addVideoFields}
+                size="small"
+                variant="contained"
               >
-                <option aria-label="None" value="" />
-                {playlists.map(pl => (
-                  <option value={pl}>{pl}</option>
-                ))}
-              </Select>
-            </FormControl>
-            {this.state.displayedPlayList.map((pl, index) => (
-              <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
-            ))}
-          </div>
-        ) : (
-          <h1>NO videos is available so far...</h1>
-        )}
+                add new video
+              </Button>
+            </React.Fragment>
+          ) : (
+            <span>NO videos is available so far...</span>
+          )}
+        </div>
+        {/* {this.renderVideoInputs()} */}
 
         <Grid container>
           <Grid item xs={12}>
-            
             <Button
               variant="contained"
               color="primary"
@@ -161,25 +188,6 @@ export default class Fill extends Component {
               Submit
             </Button>
           </Grid>
-
-          <div className="addPlayList">
-            <Grid item xs={12}>
-              <TextField
-                name="newPlayListName"
-                required
-                label="Enter Playlist name"
-                onChange={this.handlePlayListName}
-              />
-              <Button
-              variant="outlined"
-              color="primary"
-              onClick={this.createPlayList}
-            >
-              Create a PlayList
-            </Button>
-            </Grid>
-            {/* {this.renderVideoInputs()} */}
-          </div>
         </Grid>
       </div>
     );
