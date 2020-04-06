@@ -33,7 +33,7 @@ export default class Fill extends Component {
       ...this.state.displayedPlayList,
       { title: "", id: "", goto: [] }
     ];
-    this.setState({displayedPlayList})
+    this.setState({ displayedPlayList });
   };
   loadSubjects = () => {
     axios.get(`/subjects`).then(daat => {
@@ -72,17 +72,23 @@ export default class Fill extends Component {
     this.setState({ newPlayListName });
   };
 
+  handleCreatePlayList = () => {
+    let newPlayListName = this.state.newPlayListName;
+    let videos = { ...this.state.videos };
+    videos[newPlayListName] = [];
+    this.setState({ videos });
+  };
+
   handleVideoData = (e, order) => {
-    console.log(order);
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
     let displayedPlayList = [...this.state.displayedPlayList];
-    let videos = {...this.state.videos}
+    let videos = { ...this.state.videos };
 
     displayedPlayList[order][name] = value;
-    videos[this.state.selectedPlayList]=displayedPlayList
+    videos[this.state.selectedPlayList] = displayedPlayList;
 
-    this.setState({ displayedPlayList , videos});
+    this.setState({ displayedPlayList, videos });
   };
 
   renderVideoInputs = (
@@ -136,47 +142,61 @@ export default class Fill extends Component {
         <div className="addPlayList">
           {playlists.length ? (
             <React.Fragment className="form">
-              <FormControl>
-                <InputLabel htmlFor="playlist">playlist</InputLabel>
-                <Select
-                  native
-                  onChange={this.handleSelectChange}
-                  inputProps={{
-                    name: "age",
-                    id: "playlist"
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  {playlists.map(pl => (
-                    <option value={pl}>{pl}</option>
+              <Grid container>
+                <Grid item xs={12}>
+                  <FormControl>
+                    <InputLabel htmlFor="playlist">playlist</InputLabel>
+                    <Select
+                      fullWidth
+                      native
+                      onChange={this.handleSelectChange}
+                      inputProps={{
+                        name: "age",
+                        id: "playlist"
+                      }}
+                    >
+                      <option aria-label="None" value="" />
+                      {playlists.map(pl => (
+                        <option value={pl}>{pl}</option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  {this.state.displayedPlayList.map((pl, index) => (
+                    <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
                   ))}
-                </Select>
-                <TextField
-                  placeholder="PlayList Name"
-                  name="create a new PlayList"
-                  label="Enter new Playlist's name"
-                  onChange={this.handlePlayListName}
-                />
-              </FormControl>
-              {this.state.displayedPlayList.map((pl, index) => (
-                <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
-              ))}
-              <Button
-                onClick={this.addVideoFields}
-                size="small"
-                variant="contained"
-              >
-                add new video
-              </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    onClick={this.addVideoFields}
+                    size="small"
+                    variant="contained"
+                  >
+                    add new video
+                  </Button>
+                </Grid>
+              </Grid>
             </React.Fragment>
           ) : (
-            <span>NO videos is available so far...</span>
+            <span>NO videos is available so far... click get</span>
           )}
         </div>
         {/* {this.renderVideoInputs()} */}
 
         <Grid container>
           <Grid item xs={12}>
+            <TextField
+            variant="outlined"
+              placeholder="PlayList Name"
+              name="create a new PlayList"
+              label="Enter new Playlist's name"
+              onChange={this.handlePlayListName}
+            />
+            <Button onClick={this.handleCreatePlayList} variant="outlined" size="large">
+              Create a PlayList
+            </Button>
+            </Grid>
+          <Grid item xs={12}>
+            
             <Button
               variant="contained"
               color="primary"
