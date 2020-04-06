@@ -20,8 +20,6 @@ export default class Fill extends Component {
 
   handleSelectChange = e => {
     const selectedPlayList = e.currentTarget.value;
-    console.log(selectedPlayList);
-    console.log(this.state.videos[selectedPlayList]);
     this.setState({
       selectedPlayList,
       displayedPlayList: this.state.videos[selectedPlayList]
@@ -91,6 +89,49 @@ export default class Fill extends Component {
     this.setState({ displayedPlayList, videos });
   };
 
+  addGoto = order => {
+    let videos = { ...this.state.videos };
+    videos[this.state.selectedPlayList][order].goto = [
+      ...videos[this.state.selectedPlayList][order].goto,
+      { label: "", value: "" }
+    ];
+    this.setState({ videos });
+  };
+
+  handleGoto = (e, order, inputOrder) => {
+    const value = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    let videos = { ...this.state.videos };
+    videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
+    this.setState({ videos });
+  };
+
+  renderGoToInputs = (order, defaultGoto = []) => {
+    return (
+      <div className="addVideo">
+        {defaultGoto.map((g, inputOrder) => (
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="label"
+              label="Title"
+              onChange={e => this.handleGoto(e, order, inputOrder)}
+              value={g.label}
+            />
+            <TextField
+              name="value"
+              required
+              label="time"
+              onChange={e => this.handleGoto(e, order, inputOrder)}
+              value={g.value}
+            />
+          </Grid>
+        ))}
+        <Button onClick={() => this.addGoto(order)}>add goto</Button>
+      </div>
+    );
+  };
+
   renderVideoInputs = (
     order,
     defaultTitle = "",
@@ -115,6 +156,7 @@ export default class Fill extends Component {
             value={defaultId}
           />
         </Grid>
+        {this.renderGoToInputs(order, defaultGoto)}
       </div>
     );
   };
@@ -162,7 +204,9 @@ export default class Fill extends Component {
                     </Select>
                   </FormControl>
                   {this.state.displayedPlayList.map((pl, index) => (
-                    <div>{this.renderVideoInputs(index, pl.title, pl.id)}</div>
+                    <div>
+                      {this.renderVideoInputs(index, pl.title, pl.id, pl.goto)}
+                    </div>
                   ))}
                 </Grid>
                 <Grid item xs={12}>
@@ -180,23 +224,25 @@ export default class Fill extends Component {
             <span>NO videos is available so far... click get</span>
           )}
         </div>
-        {/* {this.renderVideoInputs()} */}
 
         <Grid container>
           <Grid item xs={12}>
             <TextField
-            variant="outlined"
+              variant="outlined"
               placeholder="PlayList Name"
               name="create a new PlayList"
               label="Enter new Playlist's name"
               onChange={this.handlePlayListName}
             />
-            <Button onClick={this.handleCreatePlayList} variant="outlined" size="large">
+            <Button
+              onClick={this.handleCreatePlayList}
+              variant="outlined"
+              size="large"
+            >
               Create a PlayList
             </Button>
-            </Grid>
+          </Grid>
           <Grid item xs={12}>
-            
             <Button
               variant="contained"
               color="primary"
