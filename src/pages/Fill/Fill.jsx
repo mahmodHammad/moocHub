@@ -11,6 +11,13 @@ import "./Fill.css";
 
 export default class Fill extends Component {
   state = {
+    subjects: {
+      math: "1iAj9UccTpK5S_ogtwdVZGwFFiyr1lyKk",
+      signals: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
+      co: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
+      control: "1ifZ2VNqC6YAuy2IoLfEQu31hjNdoebbm",
+      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm"
+    },
     videos: {},
     selectedPlayList: "",
     displayedPlayList: [],
@@ -26,6 +33,18 @@ export default class Fill extends Component {
     });
   };
 
+  handleSubjectSelect = e => {
+    const subject = e.currentTarget.value;
+    // reset
+    this.setState({
+      subject,
+      videos: {},
+      displayedPlayList: [],
+      newPlayListName: ""
+    });
+    this.loadVideos(subject);
+  };
+
   addVideoFields = () => {
     let displayedPlayList = [
       ...this.state.displayedPlayList,
@@ -33,19 +52,12 @@ export default class Fill extends Component {
     ];
     this.setState({ displayedPlayList });
   };
-  loadSubjects = () => {
-    axios.get(`/subjects`).then(daat => {
-      console.log("WE DID IT !!!", daat);
-    });
-  };
 
   loadVideos = subjectId => {
     axios
-      .get(`/videos/math2020`)
+      .get(`/videos/${subjectId}`)
       .then(daat => {
-        console.log("WE DID IT !!!", daat);
         const videos = daat.data;
-        console.log(videos);
         this.setState({ videos });
       })
       .catch(err => {
@@ -56,7 +68,7 @@ export default class Fill extends Component {
   createPlayList = () => {
     axios
       .post("/videos", {
-        subject: "math2020",
+        subject: this.state.subject,
         playListName: this.state.newPlayListName,
         videos: []
       })
@@ -169,92 +181,123 @@ export default class Fill extends Component {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
-    axios.post("/videos", {
-      subject: "math2020",
-      playlistname: 10,
-      videos: this.state.videos
-    });
+    axios
+      .post("/videos", {
+        subject: this.state.subject,
+        playlistname: 10,
+        videos: this.state.videos
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
     console.log(this.state);
     let playlists = Object.keys(this.state.videos);
+    let subjects = Object.keys(this.state.subjects);
     return (
       <div className="fill">
-        <div className="addPlayList">
-          {playlists.length ? (
-            <React.Fragment className="form">
-              <Grid container>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <InputLabel htmlFor="playlist">playlist</InputLabel>
-                    <Select
-                      fullWidth
-                      native
-                      onChange={this.handleSelectChange}
-                      inputProps={{
-                        name: "age",
-                        id: "playlist"
-                      }}
-                    >
-                      <option aria-label="None" value="" />
-                      {playlists.map(pl => (
-                        <option value={pl}>{pl}</option>
+        <InputLabel htmlFor="playlist">Select a subject</InputLabel>
+        <Select
+          fullWidth
+          native
+          onChange={this.handleSubjectSelect}
+          inputProps={{
+            name: "subject",
+            id: "lol"
+          }}
+        >
+          <option aria-label="None" value="" />
+          {subjects.map(pl => (
+            <option value={this.state.subjects[pl]}>{pl}</option>
+          ))}
+        </Select>
+        {this.state.subject === "" ? (
+          <div></div>
+        ) : (
+          <div>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                placeholder="PlayList Name"
+                name="create a new PlayList"
+                label="Enter new Playlist's name"
+                onChange={this.handlePlayListName}
+              />
+              <Button
+                onClick={this.handleCreatePlayList}
+                variant="outlined"
+                size="large"
+              >
+                Create a PlayList
+              </Button>
+            </Grid>
+            <div className="addPlayList">
+              {playlists.length ? (
+                <React.Fragment className="form">
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <FormControl>
+                        <InputLabel htmlFor="playlist">playlist</InputLabel>
+                        <Select
+                          fullWidth
+                          native
+                          onChange={this.handleSelectChange}
+                          inputProps={{
+                            name: "age",
+                            id: "playlist"
+                          }}
+                        >
+                          <option aria-label="None" value="" />
+                          {playlists.map(pl => (
+                            <option value={pl}>{pl}</option>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {this.state.displayedPlayList.map((pl, index) => (
+                        <div>
+                          {this.renderVideoInputs(
+                            index,
+                            pl.title,
+                            pl.id,
+                            pl.goto
+                          )}
+                        </div>
                       ))}
-                    </Select>
-                  </FormControl>
-                  {this.state.displayedPlayList.map((pl, index) => (
-                    <div>
-                      {this.renderVideoInputs(index, pl.title, pl.id, pl.goto)}
-                    </div>
-                  ))}
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    onClick={this.addVideoFields}
-                    size="small"
-                    variant="contained"
-                  >
-                    add new video
-                  </Button>
-                </Grid>
-              </Grid>
-            </React.Fragment>
-          ) : (
-            <span>NO videos is available so far... click get</span>
-          )}
-        </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        onClick={this.addVideoFields}
+                        size="small"
+                        variant="contained"
+                      >
+                        add new video
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </React.Fragment>
+              ) : (
+                <span>loading...</span>
+              )}
+            </div>
 
-        <Grid container>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              placeholder="PlayList Name"
-              name="create a new PlayList"
-              label="Enter new Playlist's name"
-              onChange={this.handlePlayListName}
-            />
-            <Button
-              onClick={this.handleCreatePlayList}
-              variant="outlined"
-              size="large"
-            >
-              Create a PlayList
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.loadVideos}
-            >
-              GET
-            </Button>
-            <Button variant="outlined" color="secondary" onClick={this.submit}>
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
+            <Grid container>
+              <Grid item xs={12}>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={this.submit}
+                >
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        )}
       </div>
     );
   }
