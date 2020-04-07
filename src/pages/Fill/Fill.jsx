@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
 import "./Fill.css";
-import Typography from '@material-ui/core/Typography';
+import Submit from "./components/Submit";
+import Selecter from "./components/Selecter";
+import CreatePL from "./components/CreatePL";
+import PlFields from "./components/PlFields";
 
 export default class Fill extends Component {
   state = {
@@ -27,7 +27,7 @@ export default class Fill extends Component {
     loading: true
   };
 
-  handleSelectChange = e => {
+  handlePlayListChange = e => {
     const selectedPlayList = e.currentTarget.value;
     this.setState({
       selectedPlayList,
@@ -36,7 +36,9 @@ export default class Fill extends Component {
   };
 
   handleSubjectSelect = e => {
-    const subject = e.currentTarget.value;
+    const selected = e.currentTarget.value;
+    const subject = this.state.subjects[selected];
+
     // reset
     this.setState({
       subject,
@@ -125,22 +127,15 @@ export default class Fill extends Component {
     return (
       <div className="addVideo">
         {defaultGoto.map((g, inputOrder) => (
-          <Grid item xs={12}>
-            <TextField
-              required
-              name="label"
-              label="Title"
-              onChange={e => this.handleGoto(e, order, inputOrder)}
-              value={g.label}
-            />
-            <TextField
-              name="value"
-              required
-              label="time"
-              onChange={e => this.handleGoto(e, order, inputOrder)}
-              value={g.value}
-            />
-          </Grid>
+          <PlFields
+            order={order}
+            inputOrder={inputOrder}
+            handleChange={this.handleGoto}
+            fields={[
+              ["label", g.value],
+              ["value", g.value]
+            ]}
+          />
         ))}
         <Button onClick={() => this.addGoto(order)}>add goto</Button>
       </div>
@@ -156,19 +151,13 @@ export default class Fill extends Component {
     return (
       <div className="addVideo">
         <Grid item xs={12}>
-          <TextField
-            required
-            name="title"
-            label="Video Title"
-            onChange={e => this.handleVideoData(e, order)}
-            value={defaultTitle}
-          />
-          <TextField
-            name="id"
-            required
-            label="Url"
-            onChange={e => this.handleVideoData(e, order)}
-            value={defaultId}
+          <PlFields
+            order={order}
+            handleChange={this.handleVideoData}
+            fields={[
+              ["title", defaultTitle],
+              ["id", defaultId]
+            ]}
           />
         </Grid>
         {this.renderGoToInputs(order, defaultGoto)}
@@ -204,47 +193,31 @@ export default class Fill extends Component {
     let subjects = Object.keys(this.state.subjects);
     return (
       <div className="fill">
-        <InputLabel htmlFor="playlist">Select a subject</InputLabel>
-        <Select
-          fullWidth
-          native
-          onChange={this.handleSubjectSelect}
-          inputProps={{
-            name: "subject",
-            id: "lol"
-          }}
-        >
-          <option aria-label="None" value="" />
-          {subjects.map(pl => (
-            <option value={this.state.subjects[pl]}>{pl}</option>
-          ))}
-        </Select>
-        {this.state.loading ? (
-          this.state.subject===""?<div></div>:<div>LOADING...</div>
-        ) : (
-          <div>
-            <div className="addPlayList">
-              {playlists.length ? (
-                <React.Fragment className="form">
-                  <Grid container>
+        <Grid container>
+          <Grid item xs={12}>
+            <Selecter
+              options={subjects}
+              handleSelectChange={this.handleSubjectSelect}
+              label="Select a subject"
+            />
+          </Grid>
+          {this.state.loading ? (
+            this.state.subject === "" ? (
+              <div></div>
+            ) : (
+              <div>LOADING...</div>
+            )
+          ) : (
+            <div>
+              <div className="addPlayList">
+                {playlists.length ? (
+                  <React.Fragment className="form">
                     <Grid item xs={12}>
-                      <FormControl>
-                        <InputLabel htmlFor="playlist">playlist</InputLabel>
-                        <Select
-                          fullWidth
-                          native
-                          onChange={this.handleSelectChange}
-                          inputProps={{
-                            name: "age",
-                            id: "playlist"
-                          }}
-                        >
-                          <option aria-label="None" value="" />
-                          {playlists.map(pl => (
-                            <option value={pl}>{pl}</option>
-                          ))}
-                        </Select>
-                      </FormControl>
+                      <Selecter
+                        options={playlists}
+                        handleSelectChange={this.handlePlayListChange}
+                        label="Playlist"
+                      />
                       {this.state.displayedPlayList.map((pl, index) => (
                         <div>
                           {this.renderVideoInputs(
@@ -265,46 +238,22 @@ export default class Fill extends Component {
                         add new video
                       </Button>
                     </Grid>
-                  </Grid>
-                </React.Fragment>
-              ) : (
-                <span>Subject is Empty,Create a new playlist</span>
-              )}
-            </div>
-            <Grid item xs={12}>
-              <TextField
-                size="small"
-                placeholder="PlayList Name"
-                name="create a new PlayList"
-                label="Enter new Playlist's name"
-                onChange={this.handlePlayListName}
+                  </React.Fragment>
+                ) : (
+                  <span>Subject is Empty,Create a new playlist</span>
+                )}
+              </div>
+              <CreatePL
+                handlePlayListName={this.handlePlayListName}
+                handleCreatePlayList={this.handleCreatePlayList}
               />
-            </Grid>
-            <Button variant="outlined" onClick={this.handleCreatePlayList}>
-              Create a PlayList
-            </Button>
 
-            <Grid container>
               <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.submit}
-                >
-                  Submit
-                </Button>
-                <Typography color="secondary" variant="h5" component="span">Do not Forget to submit before selecting an other subject</Typography>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.submit}
-                >
-                  Submit
-                </Button>
+                <Submit submit={this.submit} />
               </Grid>
-            </Grid>
-          </div>
-        )}
+            </div>
+          )}
+        </Grid>
       </div>
     );
   }
