@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
 import "./Fill.css";
+import Typography from '@material-ui/core/Typography';
 
 export default class Fill extends Component {
   state = {
@@ -22,7 +23,8 @@ export default class Fill extends Component {
     selectedPlayList: "",
     displayedPlayList: [],
     newPlayListName: "",
-    subject: ""
+    subject: "",
+    loading: true
   };
 
   handleSelectChange = e => {
@@ -39,6 +41,7 @@ export default class Fill extends Component {
     this.setState({
       subject,
       videos: {},
+      loading: true,
       displayedPlayList: [],
       newPlayListName: ""
     });
@@ -58,7 +61,7 @@ export default class Fill extends Component {
       .get(`/videos/${subjectId}`)
       .then(daat => {
         const videos = daat.data;
-        this.setState({ videos });
+        this.setState({ videos, loading: false });
       })
       .catch(err => {
         console.log(err);
@@ -216,26 +219,10 @@ export default class Fill extends Component {
             <option value={this.state.subjects[pl]}>{pl}</option>
           ))}
         </Select>
-        {this.state.subject === "" ? (
-          <div></div>
+        {this.state.loading ? (
+          this.state.subject===""?<div></div>:<div>LOADING...</div>
         ) : (
           <div>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                placeholder="PlayList Name"
-                name="create a new PlayList"
-                label="Enter new Playlist's name"
-                onChange={this.handlePlayListName}
-              />
-              <Button
-                onClick={this.handleCreatePlayList}
-                variant="outlined"
-                size="large"
-              >
-                Create a PlayList
-              </Button>
-            </Grid>
             <div className="addPlayList">
               {playlists.length ? (
                 <React.Fragment className="form">
@@ -281,14 +268,34 @@ export default class Fill extends Component {
                   </Grid>
                 </React.Fragment>
               ) : (
-                <span>loading...</span>
+                <span>Subject is Empty,Create a new playlist</span>
               )}
             </div>
+            <Grid item xs={12}>
+              <TextField
+                size="small"
+                placeholder="PlayList Name"
+                name="create a new PlayList"
+                label="Enter new Playlist's name"
+                onChange={this.handlePlayListName}
+              />
+            </Grid>
+            <Button variant="outlined" onClick={this.handleCreatePlayList}>
+              Create a PlayList
+            </Button>
 
             <Grid container>
               <Grid item xs={12}>
                 <Button
-                  variant="outlined"
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.submit}
+                >
+                  Submit
+                </Button>
+                <Typography color="secondary" variant="h5" component="span">Do not Forget to submit before selecting an other subject</Typography>
+                <Button
+                  variant="contained"
                   color="secondary"
                   onClick={this.submit}
                 >
