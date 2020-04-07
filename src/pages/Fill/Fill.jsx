@@ -5,13 +5,14 @@ import "./Fill.css";
 // MUI Components------------------------------
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 // MY Components------------------------------
 import Submit from "./components/Submit";
 import Selecter from "./components/Selecter";
 import CreatePL from "./components/CreatePL";
 import PlFields from "./components/PlFields";
-
 export default class Fill extends Component {
   state = {
     subjects: {
@@ -81,7 +82,10 @@ export default class Fill extends Component {
       })
       .then(e => {
         console.log(e);
-      });
+      }).catch(err=>{
+        console.log(err)
+        alert("failed to submit>>try again ")
+      })
   };
 
   handlePlayListName = e => {
@@ -120,24 +124,29 @@ export default class Fill extends Component {
   handleGoto = (e, order, inputOrder) => {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
+
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
     this.setState({ videos });
   };
 
   renderGoToInputs = (order, defaultGoto = []) => {
+    
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
+          <div> 
           <PlFields
-            order={order}
-            inputOrder={inputOrder}
-            handleChange={this.handleGoto}
-            fields={[
-              ["label", g.value],
-              ["value", g.value]
-            ]}
+          order={order}
+          inputOrder={inputOrder}
+          handleChange={this.handleGoto}
+          fields={[
+            ["label", g.label],
+            ["value", g.value]
+          ]}
           />
+          {console.log(g)}
+          </div>
         ))}
         <Button fullWidth variant="contained" color="primary"onClick={() => this.addGoto(order) }>add goto</Button>
       </div>
@@ -175,16 +184,21 @@ export default class Fill extends Component {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
+    this.setState({loading:true})
+
     axios
-      .post("/videos", {
+      .post("https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos", {
         subject: this.state.subject,
         playlistname: 10,
         videos: this.state.videos
       })
       .then(data => {
+        this.setState({loading:false})
+
         console.log(data);
       })
       .catch(err => {
+        alert("Falied to submit >>>try again")
         console.log(err);
       });
   };
@@ -207,7 +221,7 @@ export default class Fill extends Component {
             this.state.subject === "" ? (
               <div></div>
             ) : (
-              <div>LOADING...</div>
+              <div><span>..</span><CircularProgress color="secondary" /></div>
             )
           ) : (
             <div>

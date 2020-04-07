@@ -9,7 +9,7 @@ export default function Submit({submit}) {
         Submit
       </Button>
       <br/>
-      <Typography color="secondary" variant="span" component="span">
+      <Typography color="secondary" variant="body1" component="span">
         Do not Forget to submit before selecting an other subject
       </Typography>
 
