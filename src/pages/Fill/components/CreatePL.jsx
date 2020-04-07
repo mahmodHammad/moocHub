@@ -4,8 +4,9 @@ import Button from "@material-ui/core/Button";
 
 export default function CreatePL({ handlePlayListName, handleCreatePlayList }) {
   return (
-    <div className="createPlayList">
+    <div className="fieldGroupCard">
       <TextField
+        variant="outlined"
         fullWidth
         size="small"
         placeholder="PlayList Name"
@@ -13,7 +14,7 @@ export default function CreatePL({ handlePlayListName, handleCreatePlayList }) {
         label="Enter new Playlist's name"
         onChange={handlePlayListName}
       />
-      <Button variant="contained" onClick={handleCreatePlayList}>
+      <Button fullWidth variant="contained" onClick={handleCreatePlayList}>
         Create a PlayList
       </Button>
     </div>

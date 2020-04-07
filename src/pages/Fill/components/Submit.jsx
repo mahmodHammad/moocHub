@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 export default function Submit({submit}) {
   return (
     <div className="submit">
-      <Button variant="contained" color="secondary" onClick={submit}>
+      <Button fullWidth variant="contained" color="secondary" onClick={submit}>
         Submit
       </Button>
       <br/>

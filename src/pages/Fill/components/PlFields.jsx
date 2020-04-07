@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 export default function PlFields({ order, inputOrder, handleChange, fields }) {
   return (
-    <div>
+    <div className="playlistFields">
       {fields.map(f => (
         <TextField
           required

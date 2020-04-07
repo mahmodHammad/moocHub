@@ -127,7 +127,7 @@ export default class Fill extends Component {
 
   renderGoToInputs = (order, defaultGoto = []) => {
     return (
-      <div className="addVideo">
+      <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
           <PlFields
             order={order}
@@ -139,7 +139,7 @@ export default class Fill extends Component {
             ]}
           />
         ))}
-        <Button onClick={() => this.addGoto(order)}>add goto</Button>
+        <Button fullWidth variant="contained" color="primary"onClick={() => this.addGoto(order) }>add goto</Button>
       </div>
     );
   };
@@ -195,8 +195,8 @@ export default class Fill extends Component {
     let subjects = Object.keys(this.state.subjects);
     return (
       <div className="fill">
-        <Grid container>
-          <Grid item xs={12}>
+        <Grid container justify="center">
+          <Grid item xs={10}>
             <Selecter
               options={subjects}
               handleSelectChange={this.handleSubjectSelect}
@@ -213,8 +213,8 @@ export default class Fill extends Component {
             <div>
               <div className="addPlayList">
                 {playlists.length ? (
-                  <React.Fragment className="form">
-                    <Grid item xs={12}>
+                    <div className="playlist fieldGroupCard">
+
                       <Selecter
                         options={playlists}
                         handleSelectChange={this.handlePlayListChange}
@@ -230,9 +230,11 @@ export default class Fill extends Component {
                           )}
                         </div>
                       ))}
-                    </Grid>
+
+
                     <Grid item xs={12}>
                       <Button
+                        fullWidth
                         onClick={this.addVideoFields}
                         size="small"
                         variant="contained"
@@ -240,7 +242,8 @@ export default class Fill extends Component {
                         add new video
                       </Button>
                     </Grid>
-                  </React.Fragment>
+                    </div>
+
                 ) : (
                   <span>Subject is Empty,Create a new playlist</span>
                 )}
