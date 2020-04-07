@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-
 import axios from "axios";
 import "./Fill.css";
+
+// MUI Components------------------------------
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+
+// MY Components------------------------------
 import Submit from "./components/Submit";
 import Selecter from "./components/Selecter";
 import CreatePL from "./components/CreatePL";
@@ -60,7 +62,7 @@ export default class Fill extends Component {
 
   loadVideos = subjectId => {
     axios
-      .get(`/videos/${subjectId}`)
+      .get(`https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`)
       .then(daat => {
         const videos = daat.data;
         this.setState({ videos, loading: false });
@@ -72,7 +74,7 @@ export default class Fill extends Component {
 
   createPlayList = () => {
     axios
-      .post("/videos", {
+      .post("https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos", {
         subject: this.state.subject,
         playListName: this.state.newPlayListName,
         videos: []
