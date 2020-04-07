@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-
 // MY Components------------------------------
 import Submit from "./components/Submit";
 import Selecter from "./components/Selecter";
@@ -27,14 +26,16 @@ export default class Fill extends Component {
     displayedPlayList: [],
     newPlayListName: "",
     subject: "",
-    loading: true
+    loading: true,
+    addNewVideo:true
   };
 
   handlePlayListChange = e => {
     const selectedPlayList = e.currentTarget.value;
     this.setState({
       selectedPlayList,
-      displayedPlayList: this.state.videos[selectedPlayList]
+      displayedPlayList: this.state.videos[selectedPlayList],
+      addNewVideo: true
     });
   };
 
@@ -58,12 +59,14 @@ export default class Fill extends Component {
       ...this.state.displayedPlayList,
       { title: "", id: "", goto: [] }
     ];
-    this.setState({ displayedPlayList });
+    this.setState({ displayedPlayList,addNewVideo:false });
   };
 
   loadVideos = subjectId => {
     axios
-      .get(`https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`)
+      .get(
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
+      )
       .then(daat => {
         const videos = daat.data;
         this.setState({ videos, loading: false });
@@ -75,17 +78,21 @@ export default class Fill extends Component {
 
   createPlayList = () => {
     axios
-      .post("https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos", {
-        subject: this.state.subject,
-        playListName: this.state.newPlayListName,
-        videos: []
-      })
+      .post(
+        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+        {
+          subject: this.state.subject,
+          playListName: this.state.newPlayListName,
+          videos: []
+        }
+      )
       .then(e => {
         console.log(e);
-      }).catch(err=>{
-        console.log(err)
-        alert("failed to submit>>try again ")
       })
+      .catch(err => {
+        console.log(err);
+        alert("failed to submit>>try again ");
+      });
   };
 
   handlePlayListName = e => {
@@ -95,9 +102,11 @@ export default class Fill extends Component {
 
   handleCreatePlayList = () => {
     let newPlayListName = this.state.newPlayListName;
-    let videos = { ...this.state.videos };
-    videos[newPlayListName] = [];
-    this.setState({ videos });
+    if (newPlayListName.length > 1) {
+      let videos = { ...this.state.videos };
+      videos[newPlayListName] = [];
+      this.setState({ videos });
+    } else alert("enter valid name");
   };
 
   handleVideoData = (e, order) => {
@@ -110,6 +119,15 @@ export default class Fill extends Component {
     videos[this.state.selectedPlayList] = displayedPlayList;
 
     this.setState({ displayedPlayList, videos });
+
+    if (
+      displayedPlayList[order].id === "" ||
+      displayedPlayList[order].title === ""
+    ) {
+      this.setState({ addNewVideo: false });
+    } else {
+      this.setState({ addNewVideo: true });
+    }
   };
 
   addGoto = order => {
@@ -131,24 +149,53 @@ export default class Fill extends Component {
   };
 
   renderGoToInputs = (order, defaultGoto = []) => {
-    
+    let videos = { ...this.state.videos };
+    const length = defaultGoto.length;
+    let lastGoto;
+    let lastLabel;
+    let lastvalue;
+    if (length > 0) {
+      lastGoto = videos[this.state.selectedPlayList][order].goto[length - 1];
+      lastLabel = lastGoto.label;
+      lastvalue = lastGoto.value;
+    }
+
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <div> 
-          <PlFields
-          order={order}
-          inputOrder={inputOrder}
-          handleChange={this.handleGoto}
-          fields={[
-            ["label", g.label],
-            ["value", g.value]
-          ]}
-          />
-          {console.log(g)}
+          <div>
+            <PlFields
+              order={order}
+              inputOrder={inputOrder}
+              handleChange={this.handleGoto}
+              fields={[
+                ["label", g.label],
+                ["value", g.value]
+              ]}
+            />
+            {console.log(g)}
           </div>
         ))}
-        <Button fullWidth variant="contained" color="primary"onClick={() => this.addGoto(order) }>add goto</Button>
+        {length ? (
+          lastLabel && lastvalue ? (
+            this.addGoto(order)
+          ) : (
+            console.log("no")
+          )
+        ) : (
+          <Button
+            fullWidth
+            disabled={
+              this.state.displayedPlayList[order].id === "" ||
+              this.state.displayedPlayList[order].title === ""
+            }
+            variant="contained"
+            color="primary"
+            onClick={() => this.addGoto(order)}
+          >
+            add goto
+          </Button>
+        )}
       </div>
     );
   };
@@ -184,21 +231,24 @@ export default class Fill extends Component {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
-    this.setState({loading:true})
+    this.setState({ loading: true });
 
     axios
-      .post("https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos", {
-        subject: this.state.subject,
-        playlistname: 10,
-        videos: this.state.videos
-      })
+      .post(
+        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+        {
+          subject: this.state.subject,
+          playlistname: 10,
+          videos: this.state.videos
+        }
+      )
       .then(data => {
-        this.setState({loading:false})
+        this.setState({ loading: false });
 
         console.log(data);
       })
       .catch(err => {
-        alert("Falied to submit >>>try again")
+        alert("Falied to submit >>>try again");
         console.log(err);
       });
   };
@@ -221,30 +271,31 @@ export default class Fill extends Component {
             this.state.subject === "" ? (
               <div></div>
             ) : (
-              <div><span>..</span><CircularProgress color="secondary" /></div>
+              <div>
+                <span>..</span>
+                <CircularProgress color="secondary" />
+              </div>
             )
           ) : (
             <div>
               <div className="addPlayList">
                 {playlists.length ? (
-                    <div className="playlist fieldGroupCard">
-
-                      <Selecter
-                        options={playlists}
-                        handleSelectChange={this.handlePlayListChange}
-                        label="Playlist"
-                      />
-                      {this.state.displayedPlayList.map((pl, index) => (
-                        <div>
-                          {this.renderVideoInputs(
-                            index,
-                            pl.title,
-                            pl.id,
-                            pl.goto
-                          )}
-                        </div>
-                      ))}
-
+                  <div className="playlist fieldGroupCard">
+                    <Selecter
+                      options={playlists}
+                      handleSelectChange={this.handlePlayListChange}
+                      label="Playlist"
+                    />
+                    {this.state.displayedPlayList.map((pl, index) => (
+                      <div>
+                        {this.renderVideoInputs(
+                          index,
+                          pl.title,
+                          pl.id,
+                          pl.goto
+                        )}
+                      </div>
+                    ))}
 
                     <Grid item xs={12}>
                       <Button
@@ -252,12 +303,12 @@ export default class Fill extends Component {
                         onClick={this.addVideoFields}
                         size="small"
                         variant="contained"
+                        disabled={!this.state.addNewVideo}
                       >
                         add new video
                       </Button>
                     </Grid>
-                    </div>
-
+                  </div>
                 ) : (
                   <span>Subject is Empty,Create a new playlist</span>
                 )}
