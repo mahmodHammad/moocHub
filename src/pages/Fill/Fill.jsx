@@ -121,24 +121,25 @@ export default class Fill extends Component {
   };
 
   handleGoto = (e, order, inputOrder) => {
-    let  value = e.currentTarget.value;
+    let value = e.currentTarget.value;
     const name = e.currentTarget.name;
 
-    if(name==="time"){
-      console.log(value.length)
-      if(value.length<8){
-        if(value[value.length-2]===":"||value.length<2){
-            console.log("double",value)
-        }else{
-          value+=":"
+    if (name === "time") {
+      if (value.length < 8) {
+        if (value[value.length - 2] === ":" || value.length < 2) {
+        } else if (value[value.length - 1] === ":") {
+          value = value.substr(0, [value.length - 1]);
+        } else {
+          value += ":";
         }
-       }else{
-         value=value.substr(0,7)
-       }
+      } else {
+        value = value.substr(0, 7);
       }
-      let videos = { ...this.state.videos };
-      videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
-      this.setState({ videos });
+    }
+
+    let videos = { ...this.state.videos };
+    videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
+    this.setState({ videos });
   };
 
   renderGoToInputs = (order, defaultGoto = []) => {
@@ -166,14 +167,13 @@ export default class Fill extends Component {
                 ["time", g.time]
               ]}
             />
-            {console.log(g)}
           </div>
         ))}
         {length ? (
           lastLabel && lastvalue ? (
             this.addGoto(order)
           ) : (
-            console.log("no")
+            <div></div>
           )
         ) : (
           <Button
@@ -201,14 +201,14 @@ export default class Fill extends Component {
   ) => {
     return (
       <div className="addVideo">
-          <PlFields
-            order={order}
-            handleChange={this.handleVideoData}
-            fields={[
-              ["name", defaultTitle],
-              ["url", defaultId]
-            ]}
-          />
+        <PlFields
+          order={order}
+          handleChange={this.handleVideoData}
+          fields={[
+            ["name", defaultTitle],
+            ["url", defaultId]
+          ]}
+        />
         {this.renderGoToInputs(order, defaultGoto)}
       </div>
     );
@@ -234,11 +234,13 @@ export default class Fill extends Component {
       return;
     } else {
       videosarr.forEach(pl => {
-        let filtered = v[pl].filter(vid => vid.url && vid.name).map(f => {
-          let ngoto = f.goto.filter(g => g.title && g.time);
-          f.goto = ngoto;
-          return f;
-        });
+        let filtered = v[pl]
+          .filter(vid => vid.url && vid.name)
+          .map(f => {
+            let ngoto = f.goto.filter(g => g.title && g.time);
+            f.goto = ngoto;
+            return f;
+          });
         newvid[pl] = filtered;
       });
     }
