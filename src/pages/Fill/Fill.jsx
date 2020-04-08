@@ -121,12 +121,24 @@ export default class Fill extends Component {
   };
 
   handleGoto = (e, order, inputOrder) => {
-    const value = e.currentTarget.value;
+    let  value = e.currentTarget.value;
     const name = e.currentTarget.name;
 
-    let videos = { ...this.state.videos };
-    videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
-    this.setState({ videos });
+    if(name==="time"){
+      console.log(value.length)
+      if(value.length<8){
+        if(value[value.length-2]===":"||value.length<2){
+            console.log("double",value)
+        }else{
+          value+=":"
+        }
+       }else{
+         value=value.substr(0,7)
+       }
+      }
+      let videos = { ...this.state.videos };
+      videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
+      this.setState({ videos });
   };
 
   renderGoToInputs = (order, defaultGoto = []) => {
@@ -189,7 +201,6 @@ export default class Fill extends Component {
   ) => {
     return (
       <div className="addVideo">
-        <Grid item xs={12}>
           <PlFields
             order={order}
             handleChange={this.handleVideoData}
@@ -198,7 +209,6 @@ export default class Fill extends Component {
               ["url", defaultId]
             ]}
           />
-        </Grid>
         {this.renderGoToInputs(order, defaultGoto)}
       </div>
     );
@@ -216,7 +226,6 @@ export default class Fill extends Component {
 
     let v = this.state.videos;
     let videosarr = Object.keys(v);
-    console.log(videosarr);
     let newvid = {};
 
     // some boring validation to filter plylists form any empty fields
