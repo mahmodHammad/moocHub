@@ -120,14 +120,49 @@ export default class Fill extends Component {
     this.setState({ videos });
   };
 
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
   handleGoto = (e, order, inputOrder) => {
-    const value = e.currentTarget.value;
+    // get input value & input name
+    // name == time or title 
+    
+    let value = e.currentTarget.value;
     const name = e.currentTarget.name;
+    
+    // validate only time filed 
+    // validation start ****************>>>>>>>>>>>>>>>>>>>>--.
 
+    if (name === "time") {
+      // not longer than 7 ---> 1:45:44
+      if (value.length < 8) {
+        // Only Numbers
+        if (!isNaN(parseInt(value[value.length - 1]))) {
+          if (value[value.length - 2] !== ":" && value.length > 1) {
+            value += ":";
+          }
+        } else {
+          value = value.substr(0, value.length - 2);
+        }
+      } else {
+        value = value.substr(0, 8);
+      }
+    }
+    
+    // validation end ****************>>>>>>>>>>>>>>>>>>>>--.
+    
+    // update (ignore this)
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
     this.setState({ videos });
   };
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
 
   renderGoToInputs = (order, defaultGoto = []) => {
     let videos = { ...this.state.videos };
@@ -154,14 +189,13 @@ export default class Fill extends Component {
                 ["time", g.time]
               ]}
             />
-            {console.log(g)}
           </div>
         ))}
         {length ? (
           lastLabel && lastvalue ? (
             this.addGoto(order)
           ) : (
-            console.log("no")
+            <div></div>
           )
         ) : (
           <Button
@@ -189,16 +223,14 @@ export default class Fill extends Component {
   ) => {
     return (
       <div className="addVideo">
-        <Grid item xs={12}>
-          <PlFields
-            order={order}
-            handleChange={this.handleVideoData}
-            fields={[
-              ["name", defaultTitle],
-              ["url", defaultId]
-            ]}
-          />
-        </Grid>
+        <PlFields
+          order={order}
+          handleChange={this.handleVideoData}
+          fields={[
+            ["name", defaultTitle],
+            ["url", defaultId]
+          ]}
+        />
         {this.renderGoToInputs(order, defaultGoto)}
       </div>
     );
@@ -216,7 +248,6 @@ export default class Fill extends Component {
 
     let v = this.state.videos;
     let videosarr = Object.keys(v);
-    console.log(videosarr);
     let newvid = {};
 
     // some boring validation to filter plylists form any empty fields
@@ -225,11 +256,13 @@ export default class Fill extends Component {
       return;
     } else {
       videosarr.forEach(pl => {
-        let filtered = v[pl].filter(vid => vid.url && vid.name).map(f => {
-          let ngoto = f.goto.filter(g => g.title && g.time);
-          f.goto = ngoto;
-          return f;
-        });
+        let filtered = v[pl]
+          .filter(vid => vid.url && vid.name)
+          .map(f => {
+            let ngoto = f.goto.filter(g => g.title && g.time);
+            f.goto = ngoto;
+            return f;
+          });
         newvid[pl] = filtered;
       });
     }
