@@ -120,27 +120,49 @@ export default class Fill extends Component {
     this.setState({ videos });
   };
 
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
+  // start here -------------------------------------------
   handleGoto = (e, order, inputOrder) => {
+    // get input value & input name
+    // name == time or title 
+    
     let value = e.currentTarget.value;
     const name = e.currentTarget.name;
+    
+    // validate only time filed 
+    // validation start ****************>>>>>>>>>>>>>>>>>>>>--.
 
     if (name === "time") {
+      // not longer than 7 ---> 1:45:44
       if (value.length < 8) {
-        if (value[value.length - 2] === ":" || value.length < 2) {
-        } else if (value[value.length - 1] === ":") {
-          value = value.substr(0, [value.length - 1]);
+        // Only Numbers
+        if (!isNaN(parseInt(value[value.length - 1]))) {
+          if (value[value.length - 2] !== ":" && value.length > 1) {
+            value += ":";
+          }
         } else {
-          value += ":";
+          value = value.substr(0, value.length - 2);
         }
       } else {
-        value = value.substr(0, 7);
+        value = value.substr(0, 8);
       }
     }
-
+    
+    // validation end ****************>>>>>>>>>>>>>>>>>>>>--.
+    
+    // update (ignore this)
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
     this.setState({ videos });
   };
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
+  //  -------------------------------------------
 
   renderGoToInputs = (order, defaultGoto = []) => {
     let videos = { ...this.state.videos };
