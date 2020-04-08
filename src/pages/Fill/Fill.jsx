@@ -27,7 +27,7 @@ export default class Fill extends Component {
     newPlayListName: "",
     subject: "",
     loading: true,
-    addNewVideo:true
+    addNewVideo: true
   };
 
   handlePlayListChange = e => {
@@ -57,9 +57,9 @@ export default class Fill extends Component {
   addVideoFields = () => {
     let displayedPlayList = [
       ...this.state.displayedPlayList,
-      { title: "", id: "", goto: [] }
+      { name: "", url: "", goto: [] }
     ];
-    this.setState({ displayedPlayList,addNewVideo:false });
+    this.setState({ displayedPlayList, addNewVideo: false });
   };
 
   loadVideos = subjectId => {
@@ -73,25 +73,6 @@ export default class Fill extends Component {
       })
       .catch(err => {
         console.log(err);
-      });
-  };
-
-  createPlayList = () => {
-    axios
-      .post(
-        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
-        {
-          subject: this.state.subject,
-          playListName: this.state.newPlayListName,
-          videos: []
-        }
-      )
-      .then(e => {
-        console.log(e);
-      })
-      .catch(err => {
-        console.log(err);
-        alert("failed to submit>>try again ");
       });
   };
 
@@ -121,8 +102,8 @@ export default class Fill extends Component {
     this.setState({ displayedPlayList, videos });
 
     if (
-      displayedPlayList[order].id === "" ||
-      displayedPlayList[order].title === ""
+      displayedPlayList[order].url === "" ||
+      displayedPlayList[order].name === ""
     ) {
       this.setState({ addNewVideo: false });
     } else {
@@ -134,7 +115,7 @@ export default class Fill extends Component {
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto = [
       ...videos[this.state.selectedPlayList][order].goto,
-      { label: "", value: "" }
+      { title: "", time: "" }
     ];
     this.setState({ videos });
   };
@@ -156,8 +137,8 @@ export default class Fill extends Component {
     let lastvalue;
     if (length > 0) {
       lastGoto = videos[this.state.selectedPlayList][order].goto[length - 1];
-      lastLabel = lastGoto.label;
-      lastvalue = lastGoto.value;
+      lastLabel = lastGoto.title;
+      lastvalue = lastGoto.time;
     }
 
     return (
@@ -169,8 +150,8 @@ export default class Fill extends Component {
               inputOrder={inputOrder}
               handleChange={this.handleGoto}
               fields={[
-                ["label", g.label],
-                ["value", g.value]
+                ["title", g.title],
+                ["time", g.time]
               ]}
             />
             {console.log(g)}
@@ -186,8 +167,8 @@ export default class Fill extends Component {
           <Button
             fullWidth
             disabled={
-              this.state.displayedPlayList[order].id === "" ||
-              this.state.displayedPlayList[order].title === ""
+              this.state.displayedPlayList[order].url === "" ||
+              this.state.displayedPlayList[order].name === ""
             }
             variant="contained"
             color="primary"
@@ -213,8 +194,8 @@ export default class Fill extends Component {
             order={order}
             handleChange={this.handleVideoData}
             fields={[
-              ["title", defaultTitle],
-              ["id", defaultId]
+              ["name", defaultTitle],
+              ["url", defaultId]
             ]}
           />
         </Grid>
@@ -227,11 +208,33 @@ export default class Fill extends Component {
    * playListName -> "string"
    * videos ->[{title , value(id) ,goto{}}]
    */
-  submit = (subjectId, playlistname, videos) => {
+  submit = () => {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
     this.setState({ loading: true });
+
+    let v = this.state.videos;
+    let videosarr = Object.keys(v);
+    console.log(videosarr);
+    let newvid = {};
+
+    // some boring validation to filter plylists form any empty fields
+    if (videosarr.length === 0) {
+      alert("no thing here to submit !!!");
+      return;
+    } else {
+      videosarr.forEach(pl => {
+        let filtered = v[pl].filter(vid => vid.url && vid.name).map(f => {
+          let ngoto = f.goto.filter(g => g.title && g.time);
+          f.goto = ngoto;
+          return f;
+        });
+        newvid[pl] = filtered;
+      });
+    }
+
+    // validate name ,and url
 
     axios
       .post(
@@ -239,12 +242,12 @@ export default class Fill extends Component {
         {
           subject: this.state.subject,
           playlistname: 10,
-          videos: this.state.videos
+          videos: newvid
         }
       )
       .then(data => {
         this.setState({ loading: false });
-
+        alert("Submitted !!!");
         console.log(data);
       })
       .catch(err => {
@@ -284,14 +287,14 @@ export default class Fill extends Component {
                     <Selecter
                       options={playlists}
                       handleSelectChange={this.handlePlayListChange}
-                      label="Playlist"
+                      label="Playlists"
                     />
                     {this.state.displayedPlayList.map((pl, index) => (
                       <div>
                         {this.renderVideoInputs(
                           index,
-                          pl.title,
-                          pl.id,
+                          pl.name,
+                          pl.url,
                           pl.goto
                         )}
                       </div>
