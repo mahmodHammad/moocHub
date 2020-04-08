@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-
 import axios from "axios";
 import "./Fill.css";
 
+// MUI Components------------------------------
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+// MY Components------------------------------
+import Submit from "./components/Submit";
+import Selecter from "./components/Selecter";
+import CreatePL from "./components/CreatePL";
+import PlFields from "./components/PlFields";
 export default class Fill extends Component {
   state = {
     subjects: {
@@ -22,23 +25,29 @@ export default class Fill extends Component {
     selectedPlayList: "",
     displayedPlayList: [],
     newPlayListName: "",
-    subject: ""
+    subject: "",
+    loading: true,
+    addNewVideo: true
   };
 
-  handleSelectChange = e => {
+  handlePlayListChange = e => {
     const selectedPlayList = e.currentTarget.value;
     this.setState({
       selectedPlayList,
-      displayedPlayList: this.state.videos[selectedPlayList]
+      displayedPlayList: this.state.videos[selectedPlayList],
+      addNewVideo: true
     });
   };
 
   handleSubjectSelect = e => {
-    const subject = e.currentTarget.value;
+    const selected = e.currentTarget.value;
+    const subject = this.state.subjects[selected];
+
     // reset
     this.setState({
       subject,
       videos: {},
+      loading: true,
       displayedPlayList: [],
       newPlayListName: ""
     });
@@ -48,32 +57,22 @@ export default class Fill extends Component {
   addVideoFields = () => {
     let displayedPlayList = [
       ...this.state.displayedPlayList,
-      { title: "", id: "", goto: [] }
+      { name: "", url: "", goto: [] }
     ];
-    this.setState({ displayedPlayList });
+    this.setState({ displayedPlayList, addNewVideo: false });
   };
 
   loadVideos = subjectId => {
     axios
-      .get(`/videos/${subjectId}`)
+      .get(
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
+      )
       .then(daat => {
         const videos = daat.data;
-        this.setState({ videos });
+        this.setState({ videos, loading: false });
       })
       .catch(err => {
         console.log(err);
-      });
-  };
-
-  createPlayList = () => {
-    axios
-      .post("/videos", {
-        subject: this.state.subject,
-        playListName: this.state.newPlayListName,
-        videos: []
-      })
-      .then(e => {
-        console.log(e);
       });
   };
 
@@ -84,9 +83,11 @@ export default class Fill extends Component {
 
   handleCreatePlayList = () => {
     let newPlayListName = this.state.newPlayListName;
-    let videos = { ...this.state.videos };
-    videos[newPlayListName] = [];
-    this.setState({ videos });
+    if (newPlayListName.length > 1) {
+      let videos = { ...this.state.videos };
+      videos[newPlayListName] = [];
+      this.setState({ videos });
+    } else alert("enter valid name");
   };
 
   handleVideoData = (e, order) => {
@@ -99,13 +100,22 @@ export default class Fill extends Component {
     videos[this.state.selectedPlayList] = displayedPlayList;
 
     this.setState({ displayedPlayList, videos });
+
+    if (
+      displayedPlayList[order].url === "" ||
+      displayedPlayList[order].name === ""
+    ) {
+      this.setState({ addNewVideo: false });
+    } else {
+      this.setState({ addNewVideo: true });
+    }
   };
 
   addGoto = order => {
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto = [
       ...videos[this.state.selectedPlayList][order].goto,
-      { label: "", value: "" }
+      { title: "", time: "" }
     ];
     this.setState({ videos });
   };
@@ -113,33 +123,60 @@ export default class Fill extends Component {
   handleGoto = (e, order, inputOrder) => {
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
+
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
     this.setState({ videos });
   };
 
   renderGoToInputs = (order, defaultGoto = []) => {
+    let videos = { ...this.state.videos };
+    const length = defaultGoto.length;
+    let lastGoto;
+    let lastLabel;
+    let lastvalue;
+    if (length > 0) {
+      lastGoto = videos[this.state.selectedPlayList][order].goto[length - 1];
+      lastLabel = lastGoto.title;
+      lastvalue = lastGoto.time;
+    }
+
     return (
-      <div className="addVideo">
+      <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <Grid item xs={12}>
-            <TextField
-              required
-              name="label"
-              label="Title"
-              onChange={e => this.handleGoto(e, order, inputOrder)}
-              value={g.label}
+          <div>
+            <PlFields
+              order={order}
+              inputOrder={inputOrder}
+              handleChange={this.handleGoto}
+              fields={[
+                ["title", g.title],
+                ["time", g.time]
+              ]}
             />
-            <TextField
-              name="value"
-              required
-              label="time"
-              onChange={e => this.handleGoto(e, order, inputOrder)}
-              value={g.value}
-            />
-          </Grid>
+            {console.log(g)}
+          </div>
         ))}
-        <Button onClick={() => this.addGoto(order)}>add goto</Button>
+        {length ? (
+          lastLabel && lastvalue ? (
+            this.addGoto(order)
+          ) : (
+            console.log("no")
+          )
+        ) : (
+          <Button
+            fullWidth
+            disabled={
+              this.state.displayedPlayList[order].url === "" ||
+              this.state.displayedPlayList[order].name === ""
+            }
+            variant="contained"
+            color="primary"
+            onClick={() => this.addGoto(order)}
+          >
+            add goto
+          </Button>
+        )}
       </div>
     );
   };
@@ -153,19 +190,13 @@ export default class Fill extends Component {
     return (
       <div className="addVideo">
         <Grid item xs={12}>
-          <TextField
-            required
-            name="title"
-            label="Video Title"
-            onChange={e => this.handleVideoData(e, order)}
-            value={defaultTitle}
-          />
-          <TextField
-            name="id"
-            required
-            label="Url"
-            onChange={e => this.handleVideoData(e, order)}
-            value={defaultId}
+          <PlFields
+            order={order}
+            handleChange={this.handleVideoData}
+            fields={[
+              ["name", defaultTitle],
+              ["url", defaultId]
+            ]}
           />
         </Grid>
         {this.renderGoToInputs(order, defaultGoto)}
@@ -177,20 +208,50 @@ export default class Fill extends Component {
    * playListName -> "string"
    * videos ->[{title , value(id) ,goto{}}]
    */
-  submit = (subjectId, playlistname, videos) => {
+  submit = () => {
     // update the database here
     //  playlistname ===10 ->update the whole playlists
     // else update only this playlist
+    this.setState({ loading: true });
+
+    let v = this.state.videos;
+    let videosarr = Object.keys(v);
+    console.log(videosarr);
+    let newvid = {};
+
+    // some boring validation to filter plylists form any empty fields
+    if (videosarr.length === 0) {
+      alert("no thing here to submit !!!");
+      return;
+    } else {
+      videosarr.forEach(pl => {
+        let filtered = v[pl].filter(vid => vid.url && vid.name).map(f => {
+          let ngoto = f.goto.filter(g => g.title && g.time);
+          f.goto = ngoto;
+          return f;
+        });
+        newvid[pl] = filtered;
+      });
+    }
+
+    // validate name ,and url
+
     axios
-      .post("/videos", {
-        subject: this.state.subject,
-        playlistname: 10,
-        videos: this.state.videos
-      })
+      .post(
+        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+        {
+          subject: this.state.subject,
+          playlistname: 10,
+          videos: newvid
+        }
+      )
       .then(data => {
+        this.setState({ loading: false });
+        alert("Submitted !!!");
         console.log(data);
       })
       .catch(err => {
+        alert("Falied to submit >>>try again");
         console.log(err);
       });
   };
@@ -201,103 +262,71 @@ export default class Fill extends Component {
     let subjects = Object.keys(this.state.subjects);
     return (
       <div className="fill">
-        <InputLabel htmlFor="playlist">Select a subject</InputLabel>
-        <Select
-          fullWidth
-          native
-          onChange={this.handleSubjectSelect}
-          inputProps={{
-            name: "subject",
-            id: "lol"
-          }}
-        >
-          <option aria-label="None" value="" />
-          {subjects.map(pl => (
-            <option value={this.state.subjects[pl]}>{pl}</option>
-          ))}
-        </Select>
-        {this.state.subject === "" ? (
-          <div></div>
-        ) : (
-          <div>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                placeholder="PlayList Name"
-                name="create a new PlayList"
-                label="Enter new Playlist's name"
-                onChange={this.handlePlayListName}
-              />
-              <Button
-                onClick={this.handleCreatePlayList}
-                variant="outlined"
-                size="large"
-              >
-                Create a PlayList
-              </Button>
-            </Grid>
-            <div className="addPlayList">
-              {playlists.length ? (
-                <React.Fragment className="form">
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <FormControl>
-                        <InputLabel htmlFor="playlist">playlist</InputLabel>
-                        <Select
-                          fullWidth
-                          native
-                          onChange={this.handleSelectChange}
-                          inputProps={{
-                            name: "age",
-                            id: "playlist"
-                          }}
-                        >
-                          <option aria-label="None" value="" />
-                          {playlists.map(pl => (
-                            <option value={pl}>{pl}</option>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      {this.state.displayedPlayList.map((pl, index) => (
-                        <div>
-                          {this.renderVideoInputs(
-                            index,
-                            pl.title,
-                            pl.id,
-                            pl.goto
-                          )}
-                        </div>
-                      ))}
-                    </Grid>
+        <Grid container justify="center">
+          <Grid item xs={10}>
+            <Selecter
+              options={subjects}
+              handleSelectChange={this.handleSubjectSelect}
+              label="Select a subject"
+            />
+          </Grid>
+          {this.state.loading ? (
+            this.state.subject === "" ? (
+              <div></div>
+            ) : (
+              <div>
+                <span>..</span>
+                <CircularProgress color="secondary" />
+              </div>
+            )
+          ) : (
+            <div>
+              <div className="addPlayList">
+                {playlists.length ? (
+                  <div className="playlist fieldGroupCard">
+                    <Selecter
+                      options={playlists}
+                      handleSelectChange={this.handlePlayListChange}
+                      label="Playlists"
+                    />
+                    {this.state.displayedPlayList.map((pl, index) => (
+                      <div>
+                        {this.renderVideoInputs(
+                          index,
+                          pl.name,
+                          pl.url,
+                          pl.goto
+                        )}
+                      </div>
+                    ))}
+
                     <Grid item xs={12}>
                       <Button
+                        fullWidth
                         onClick={this.addVideoFields}
                         size="small"
                         variant="contained"
+                        disabled={!this.state.addNewVideo}
                       >
                         add new video
                       </Button>
                     </Grid>
-                  </Grid>
-                </React.Fragment>
-              ) : (
-                <span>loading...</span>
-              )}
-            </div>
+                  </div>
+                ) : (
+                  <span>Subject is Empty,Create a new playlist</span>
+                )}
+              </div>
+              <CreatePL
+                handlePlayListName={this.handlePlayListName}
+                handleCreatePlayList={this.handleCreatePlayList}
+              />
 
-            <Grid container>
               <Grid item xs={12}>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={this.submit}
-                >
-                  Submit
-                </Button>
+                <Submit submit={this.submit} />
               </Grid>
-            </Grid>
-          </div>
-        )}
+            </div>
+          )}
+        </Grid>
       </div>
     );
   }
