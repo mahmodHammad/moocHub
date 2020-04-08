@@ -19,7 +19,7 @@ export default class Fill extends Component {
       signals: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
       co: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
       control: "1ifZ2VNqC6YAuy2IoLfEQu31hjNdoebbm",
-      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm"
+      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm",
     },
     videos: {},
     selectedPlayList: "",
@@ -27,19 +27,19 @@ export default class Fill extends Component {
     newPlayListName: "",
     subject: "",
     loading: true,
-    addNewVideo: true
+    addNewVideo: true,
   };
 
-  handlePlayListChange = e => {
+  handlePlayListChange = (e) => {
     const selectedPlayList = e.currentTarget.value;
     this.setState({
       selectedPlayList,
       displayedPlayList: this.state.videos[selectedPlayList],
-      addNewVideo: true
+      addNewVideo: true,
     });
   };
 
-  handleSubjectSelect = e => {
+  handleSubjectSelect = (e) => {
     const selected = e.currentTarget.value;
     const subject = this.state.subjects[selected];
 
@@ -49,7 +49,7 @@ export default class Fill extends Component {
       videos: {},
       loading: true,
       displayedPlayList: [],
-      newPlayListName: ""
+      newPlayListName: "",
     });
     this.loadVideos(subject);
   };
@@ -57,26 +57,26 @@ export default class Fill extends Component {
   addVideoFields = () => {
     let displayedPlayList = [
       ...this.state.displayedPlayList,
-      { name: "", url: "", goto: [] }
+      { name: "", url: "", goto: [] },
     ];
     this.setState({ displayedPlayList, addNewVideo: false });
   };
 
-  loadVideos = subjectId => {
+  loadVideos = (subjectId) => {
     axios
       .get(
         `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
-      .then(daat => {
+      .then((daat) => {
         const videos = daat.data;
         this.setState({ videos, loading: false });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  handlePlayListName = e => {
+  handlePlayListName = (e) => {
     const newPlayListName = e.currentTarget.value;
     this.setState({ newPlayListName });
   };
@@ -111,11 +111,11 @@ export default class Fill extends Component {
     }
   };
 
-  addGoto = order => {
+  addGoto = (order) => {
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto = [
       ...videos[this.state.selectedPlayList][order].goto,
-      { title: "", time: "" }
+      { title: "", time: "" },
     ];
     this.setState({ videos });
   };
@@ -127,22 +127,21 @@ export default class Fill extends Component {
   // start here -------------------------------------------
   handleGoto = (e, order, inputOrder) => {
     // get input value & input name
-    // name == time or title 
-    
-    let value = e.currentTarget.value;
+    // name == time or title
+
+    let value = String(e.currentTarget.value);
     const name = e.currentTarget.name;
-    
-    // validate only time filed 
+
+    // validate only time filed
     // validation start ****************>>>>>>>>>>>>>>>>>>>>--.
 
     if (name === "time") {
-      // not longer than 7 ---> 1:45:44
-      if (value.length < 8) {
+      // not longer than 8 ---> 12:59:59
+      if (value.length <= 8) {
         // Only Numbers
         if (!isNaN(parseInt(value[value.length - 1]))) {
-          if (value[value.length - 2] !== ":" && value.length > 1) {
-            value += ":";
-          }
+          // remove colons from string and set the result as time formatted
+          value = this.setAsTime(value.replace(/:/g, ""));
         } else {
           value = value.substr(0, value.length - 2);
         }
@@ -150,14 +149,40 @@ export default class Fill extends Component {
         value = value.substr(0, 8);
       }
     }
-    
+
     // validation end ****************>>>>>>>>>>>>>>>>>>>>--.
-    
+
     // update (ignore this)
     let videos = { ...this.state.videos };
     videos[this.state.selectedPlayList][order].goto[inputOrder][name] = value;
     this.setState({ videos });
   };
+
+  setAsTime(inputString) {
+    // only seconds
+    if (inputString.length <= 2) {
+      return inputString;
+    }
+    // seconds and minutes
+    if (inputString.length > 2 && inputString.length < 5) {
+      return (
+        inputString.slice(0, inputString.length - 2) +
+        ":" +
+        inputString.slice(inputString.length - 2)
+      );
+    }
+
+    // seconds, minutes and hours
+    if (inputString.length >= 5) {
+      return (
+        inputString.slice(0, inputString.length - 4) +
+        ":" +
+        inputString.slice(inputString.length - 4, inputString.length - 2) +
+        ":" +
+        inputString.slice(inputString.length - 2)
+      );
+    }
+  }
   //  -------------------------------------------
   //  -------------------------------------------
   //  -------------------------------------------
@@ -186,7 +211,7 @@ export default class Fill extends Component {
               handleChange={this.handleGoto}
               fields={[
                 ["title", g.title],
-                ["time", g.time]
+                ["time", g.time],
               ]}
             />
           </div>
@@ -228,7 +253,7 @@ export default class Fill extends Component {
           handleChange={this.handleVideoData}
           fields={[
             ["name", defaultTitle],
-            ["url", defaultId]
+            ["url", defaultId],
           ]}
         />
         {this.renderGoToInputs(order, defaultGoto)}
@@ -255,11 +280,11 @@ export default class Fill extends Component {
       alert("no thing here to submit !!!");
       return;
     } else {
-      videosarr.forEach(pl => {
+      videosarr.forEach((pl) => {
         let filtered = v[pl]
-          .filter(vid => vid.url && vid.name)
-          .map(f => {
-            let ngoto = f.goto.filter(g => g.title && g.time);
+          .filter((vid) => vid.url && vid.name)
+          .map((f) => {
+            let ngoto = f.goto.filter((g) => g.title && g.time);
             f.goto = ngoto;
             return f;
           });
@@ -275,15 +300,15 @@ export default class Fill extends Component {
         {
           subject: this.state.subject,
           playlistname: 10,
-          videos: newvid
+          videos: newvid,
         }
       )
-      .then(data => {
+      .then((data) => {
         this.setState({ loading: false });
         alert("Submitted !!!");
         console.log(data);
       })
-      .catch(err => {
+      .catch((err) => {
         alert("Falied to submit >>>try again");
         console.log(err);
       });

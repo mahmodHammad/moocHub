@@ -4,7 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 
-import DisplaySubjectButton from "./DisplaySubjectButton";
+import DisplaySubjectButton from "./DIsplaySubjectButton";
 export default function DisplaySubjects({ folder, mdWidth }) {
   return (
     <Grid item xs={12} md={mdWidth} key={folder.id}>
@@ -18,7 +18,7 @@ export default function DisplaySubjects({ folder, mdWidth }) {
           {folder.isDivided ? (
             <Grid item container spacing={4}>
               {folder.divided.files !== undefined &&
-                folder.divided.files.map(folder => (
+                folder.divided.files.map((folder) => (
                   <Grid key={folder.id} item xs container>
                     <Grid item xs={12}>
                       <Typography align="center" color="primary" gutterBottom>
