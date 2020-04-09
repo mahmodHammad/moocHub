@@ -120,11 +120,6 @@ export default class Fill extends Component {
     this.setState({ videos });
   };
 
-  // start here -------------------------------------------
-  // start here -------------------------------------------
-  // start here -------------------------------------------
-  // start here -------------------------------------------
-  // start here -------------------------------------------
   handleGoto = (e, order, inputOrder) => {
     // get input value & input name
     // name == time or title
@@ -136,8 +131,8 @@ export default class Fill extends Component {
     // validation start ****************>>>>>>>>>>>>>>>>>>>>--.
 
     if (name === "time") {
-      // not longer than 8 ---> 12:59:59
-      if (value.length <= 8) {
+      // not longer than 7 ---> 1:59:59
+      if (value.length <= 7) {
         // Only Numbers
         if (!isNaN(parseInt(value[value.length - 1]))) {
           // remove colons from string and set the result as time formatted
@@ -146,11 +141,10 @@ export default class Fill extends Component {
           value = value.substr(0, value.length - 2);
         }
       } else {
-        value = value.substr(0, 8);
+        value = value.substr(0, 7);
       }
     }
 
-    // validation end ****************>>>>>>>>>>>>>>>>>>>>--.
 
     // update (ignore this)
     let videos = { ...this.state.videos };
@@ -183,11 +177,7 @@ export default class Fill extends Component {
       );
     }
   }
-  //  -------------------------------------------
-  //  -------------------------------------------
-  //  -------------------------------------------
-  //  -------------------------------------------
-  //  -------------------------------------------
+
 
   renderGoToInputs = (order, defaultGoto = []) => {
     let videos = { ...this.state.videos };

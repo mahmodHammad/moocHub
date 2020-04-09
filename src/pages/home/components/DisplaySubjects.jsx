@@ -4,7 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 
-import DisplaySubjectButton from "./DIsplaySubjectButton";
+import DisplaySubjectButton from "./DisplaySubjectButton";
 export default function DisplaySubjects({ folder, mdWidth }) {
   return (
     <Grid item xs={12} md={mdWidth} key={folder.id}>
