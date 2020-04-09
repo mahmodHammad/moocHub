@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/moocHub/static/css/main.596d17d1.chunk.css",
-    "main.js": "/moocHub/static/js/main.a72807b1.chunk.js",
-    "main.js.map": "/moocHub/static/js/main.a72807b1.chunk.js.map",
-    "runtime-main.js": "/moocHub/static/js/runtime-main.c39fb28a.js",
-    "runtime-main.js.map": "/moocHub/static/js/runtime-main.c39fb28a.js.map",
-    "static/js/2.fece9599.chunk.js": "/moocHub/static/js/2.fece9599.chunk.js",
-    "static/js/2.fece9599.chunk.js.map": "/moocHub/static/js/2.fece9599.chunk.js.map",
+    "main.css": "/moocHub/static/css/main.67b86c88.chunk.css",
+    "main.js": "/moocHub/static/js/main.af8aef90.chunk.js",
+    "main.js.map": "/moocHub/static/js/main.af8aef90.chunk.js.map",
+    "runtime-main.js": "/moocHub/static/js/runtime-main.4aaef747.js",
+    "runtime-main.js.map": "/moocHub/static/js/runtime-main.4aaef747.js.map",
+    "static/js/2.32d5b036.chunk.js": "/moocHub/static/js/2.32d5b036.chunk.js",
+    "static/js/2.32d5b036.chunk.js.map": "/moocHub/static/js/2.32d5b036.chunk.js.map",
     "index.html": "/moocHub/index.html",
-    "precache-manifest.a9b4a4ebb0b88f5ba7b70140db2c3371.js": "/moocHub/precache-manifest.a9b4a4ebb0b88f5ba7b70140db2c3371.js",
+    "precache-manifest.4b09746245a1142ac62f0d53a5f7c8ef.js": "/moocHub/precache-manifest.4b09746245a1142ac62f0d53a5f7c8ef.js",
     "service-worker.js": "/moocHub/service-worker.js",
-    "static/css/main.596d17d1.chunk.css.map": "/moocHub/static/css/main.596d17d1.chunk.css.map",
-    "static/js/2.fece9599.chunk.js.LICENSE.txt": "/moocHub/static/js/2.fece9599.chunk.js.LICENSE.txt"
+    "static/css/main.67b86c88.chunk.css.map": "/moocHub/static/css/main.67b86c88.chunk.css.map",
+    "static/js/2.32d5b036.chunk.js.LICENSE.txt": "/moocHub/static/js/2.32d5b036.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c39fb28a.js",
-    "static/js/2.fece9599.chunk.js",
-    "static/css/main.596d17d1.chunk.css",
-    "static/js/main.a72807b1.chunk.js"
+    "static/js/runtime-main.4aaef747.js",
+    "static/js/2.32d5b036.chunk.js",
+    "static/css/main.67b86c88.chunk.css",
+    "static/js/main.af8aef90.chunk.js"
   ]
 }
