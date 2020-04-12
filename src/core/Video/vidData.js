@@ -1,76 +1,49 @@
-
-export default[
+export default [
   {
-    name: "Signal analysis",
-    id: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
+    name: "Systems",
+    id: "180BdfoSKvuGsK4qWan32lwFM5h-opLCR",
     value: [
       {
         name: "sections",
-        id: "WfhoJsI07o0",
+        id: "WfhoJsI07o0A",
         value: [
           {
-            name: "Count",
-            id: "EmyArAqDEbs",
+            name: "sheet 1 mech system",
+            id: "WfhoJsI07o0",
             goto: [
-              ["part1", 80],
-              ["part2", 240],
-              ["part3", 357],
-              ["part4", 830]
+              ["Problem 1 ", 881],
+              ["Problem 2 ", 2442],
+              ["Problem 3 ", 3256],
+              ["Problem 4 ", 3530]
             ]
           },
           {
-            name: "'Dawn' | Beautiful Chill Mix",
-            id: "3_odWVNb_Qw",
+            name: "State variables Equations",
+            id: "90A4wIPHrMI",
             goto: [
-              ["Problem1", 880],
-              ["Problem2", 1440],
-              ["Problem3", 1757],
-              ["Problem4", 1930]
+             
             ]
           },
           {
-            name: "Oblivion | Chillout Mix",
-            id: "suTYbf-FtXg",
-            goto: [
-              ["Problem1", 880],
-              ["Problem2", 1440],
-              ["Problem3", 1757],
-              ["Problem4", 1930]
-            ]
-          }
-        ]
-      },{
-        name: "Lectures",
-        id: "WfhoJsI07o0FF",
-        value: [
+            name: "Rotational system &converting btn diff represntations",
+            id: "WYh0W08lRJ4",
+            goto: []
+          },
           {
-            name: "sections sys",
-            id: "tNs3exn6PKk",
+            name: "electrical system",
+            id: "_NjHi_Xa8hw",
             goto: [
-              ["Problem1", 880],
-              ["Problem2", 1440],
-              ["Problem3", 1757],
-              ["Problem4", 1930]
+              ["sheet 2 Mod Q8  ", 79],
+              ["sheet 2 Mod Q7 ", 959],
+              ["Electrical systems ", 2167],
+              ["sheet 4 Q1 ", 2300],
+              ["sheet 4 Q4 ", 2747],
+              ["sheet 4 Q7 ", 3412],
+              ["sheet 4 Q9 ", 4220]
             ]
           }
         ]
-      }, 
-      {
-        name: "MIT",
-        id: "WfhoJsI07o0FFFF",
-        value: [
-          {
-            name: "sections sys",
-            id: "KeEl6ibhm0M",
-            goto: [
-              ["Problem1", 880],
-              ["Problem2", 1440],
-              ["Problem3", 1757],
-              ["Problem4", 1930]
-            ]
-          }
-        ]
-      }, 
+      }
     ]
   },
   {
@@ -97,50 +70,17 @@ export default[
   }
 ];
 
-
-let x =  [
-  [
-     "Signal analysis",
-     "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
-     [
-      [
-         "sections",
-         "WfhoJsI07o0",
-         [
-          [
-             "sections sys",
-             "WfhoJsI07o0",
-             [
-              ["part1", 880],
-              ["part2", 2440],
-              ["part3", 3257],
-              ["part4", 2530]
-            ]
-          ],
-          [
-             "'Dawn' | Beautiful Chill Mix",
-             "3_odWVNb_Qw",
-             [
-              ["Problem1", 880],
-              ["Problem2", 2440],
-              ["Problem3", 3257],
-              ["Problem4", 3530]
-            ]
-          ],
-          [
-             "Oblivion | Chillout Mix",
-             "suTYbf-FtXg",
-             [
-              ["Problem1", 880],
-              ["Problem2", 2440],
-              ["Problem3", 3257],
-              ["Problem4", 3530]
-            ]
-          ]
-        ]
-      ]
-    ]
-  ]
+// convert "45:20" into seconds
+// parseInt(s.split(":")[0])*60 + parseInt(s.split(":")[1])
 
 
-]
+//  ["1:19",
+// "15:59",
+// "36:07",
+// "38:20", 
+// "45:47",
+// "56:52"].forEach(v=>{
+//  console.log(parseInt(v.split(":")[0])*60 + parseInt(v.split(":")[1]))
+// })
+
+// relative displacement 0
