@@ -24,18 +24,18 @@ export default function DisplaySubjects({ folder, mdWidth }) {
                       <Typography align="center" color="primary" gutterBottom>
                         {folder.name}
                       </Typography>
-                      <DisplaySubjectButton
+                      {/* <DisplaySubjectButton
                         folder={folder}
                         destination={"subject"}
                         label={"drive"}
-                      />
-                      {folder.video !== false && (
+                      /> */}
+                      {/* {folder.video !== false && (
                         <DisplaySubjectButton
                           folder={folder}
                           destination={"videos"}
                           label={"videos"}
                         />
-                      )}
+                      )} */}
                     </Grid>
                   </Grid>
                 ))}
@@ -58,13 +58,13 @@ export default function DisplaySubjects({ folder, mdWidth }) {
               />
 
               {/* XXXXXXXXXXXXXXXXXXXXX if it has video >> create a button for it XXXXXXXXXXXXXXXXXXXXX */}
-              {folder.video !== false && (
+              {/* {folder.video !== false && (
                 <DisplaySubjectButton
                   folder={folder}
                   destination={"videos"}
                   label={"videos"}
                 />
-              )}
+              )} */}
             </Grid>
           )}
         </CardContent>

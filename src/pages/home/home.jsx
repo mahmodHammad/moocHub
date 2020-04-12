@@ -6,41 +6,16 @@ import React, { Component } from "react";
 
 
 import videos from "../../core/Video/vidData"
+import content from "../../config/subjects"
 
 
 export default class home extends Component {
-  // searching for the videos goes here ! 
-  getVideos =()=>{
-    let content = this.props.content
-    console.log("videos",content)
-    videos.forEach(v=>{
-      this.state.content.forEach(c=>{
-        if(v.id === c.id){
-          console.log("ther's a match ! " , v.title)
-          this.setState()
-        }
-      })
-  })
-  }
-
-  componentDidMount() {
-    // this.getVideos()
-    
-    const { content } = this.props;
-
-    console.log(content)
-  }
-  
-
   render() {
     const communityName = this.props.match.params.subjectName;
-    
-    const { content } = this.props;
-
     console.log(content)
+
     return (
       <React.Fragment>
-
         <div className="communityLabel">
           <Typography variant="h5" color="primary" align="center">
             {communityName}
