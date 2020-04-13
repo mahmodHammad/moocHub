@@ -41,15 +41,8 @@ class Home extends Component {
     this.setState({ content: realcontent, loading: false });
   };
 
-  componentDidMount() {
-    const name = this.props.match.params.subjectName;
-    let id = this.props.match.params.subjectId;
-    let divided = this.props.location.state.divided;
-    if (divided === undefined) divided = [];
-
-    const subject = { name, id };
-    this.setState({ subject, loading: true, divided });
-
+  loadSubject = id => {
+    this.setState({ loading: true });
     loadApi().then(() =>
       getFiles(id, "folder")
         .then(subjectContent => {
@@ -57,6 +50,18 @@ class Home extends Component {
         })
         .catch(() => alert("Can not load content , try againg later"))
     );
+  };
+  
+  componentDidMount() {
+    const name = this.props.match.params.subjectName;
+    let id = this.props.match.params.subjectId;
+    let divided = this.props.location.state.divided;
+    if (divided === undefined) divided = [];
+    else id = divided[0].id;
+
+    const subject = { name, id };
+    this.setState({ subject, loading: true, divided });
+    this.loadSubject(id);
   }
 
   render() {
@@ -85,6 +90,7 @@ class Home extends Component {
         loading={loading}
         setLoading={this.setLoading}
         divided={divided}
+        loadSubject={this.loadSubject}
       />
     );
   }

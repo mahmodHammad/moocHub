@@ -5,7 +5,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background: radial-gradient(ellipse at top, #fff, #fff, #bfeefa);
+  background: radial-gradient(ellipse at top, #fff, rgb(250, 250, 255), #bfeefa);
   min-height: 100vh;
   margin: 0;
   padding: 0;

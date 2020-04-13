@@ -17,7 +17,8 @@ export default function ContentDisplayer({
   isVideo,
   handleVideoPin,
   loading,
-  divided
+  divided,
+  loadSubject
 }) {
   return (
     <div>
@@ -62,7 +63,7 @@ export default function ContentDisplayer({
               />
             )}
         </Grid>
-        <BottomBar divided={divided}/>
+        <BottomBar divided={divided} loadSubject={loadSubject}/>
       </Grid>
     </div>
   );

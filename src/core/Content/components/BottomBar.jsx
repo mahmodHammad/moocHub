@@ -3,18 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import YouTubeIcon from "@material-ui/icons/YouTube";
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 const useStyles = makeStyles({
   root: {
     width: "100%",
     position: "fixed",
     bottom: 0,
-    background: "#fff3",
+    background: "#ffffff33",
     border: "1px solid #eee",
-    borderRadius: "5px"
   }
 });
 
-export default function SimpleBottomNavigation({ divided }) {
+export default function SimpleBottomNavigation({ divided,loadSubject }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -22,8 +22,14 @@ export default function SimpleBottomNavigation({ divided }) {
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
+        //   youtube value ==10
+        //   googleDrive value ==100
           console.log("event",event)
           console.log("newValue",divided[newValue])
+          console.log("newValue",newValue)
+          if(divided[newValue]!==undefined){
+              loadSubject(divided[newValue].id)
+          }
         setValue(newValue);
       }}
       showLabels
@@ -32,7 +38,8 @@ export default function SimpleBottomNavigation({ divided }) {
       {divided.map(d => (
         <BottomNavigationAction label={d.name} key={d.id} />
       ))}
-      <BottomNavigationAction icon={<YouTubeIcon color="secondary" />} />
+      <BottomNavigationAction value="10" icon={<YouTubeIcon color="secondary" />} />
+      {/* <BottomNavigationAction value="100" icon={<DriveEtaIcon color="secondary" />} /> */}
     </BottomNavigation>
   );
 }
