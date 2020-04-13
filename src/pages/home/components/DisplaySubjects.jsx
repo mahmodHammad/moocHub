@@ -1,11 +1,16 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
-import DisplaySubjectButton from "./DisplaySubjectButton";
-export default function DisplaySubjects({ folder, mdWidth,index}) {
+export default function DisplaySubjects({ folder, mdWidth, index }) {
   return (
-      <div className={`subjectCard subject${index}`}>
-            {folder.name}
-      </div>
+    // What the hell is this
+    <div className="subBtn">
+      <Button disableTouchRipple>
+        <div className={`subjectCard subject${index}`} component="button">
+          {folder.name}
+        </div>
+      </Button>
+    </div>
   );
 }

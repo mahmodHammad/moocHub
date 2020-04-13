@@ -91,6 +91,8 @@ a:hover {
 }
 
 .subjectCard {
+  display: block !important;
+  width: 100%;
   border: solid 0.7px rgba(175, 175, 175, 0.301);
   border-top: none;
   border-radius: 7px;
@@ -98,7 +100,6 @@ a:hover {
   padding: 23px;
   margin: 30px;
 
-  color: #555;
   font-size: 1.25rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
@@ -106,17 +107,26 @@ a:hover {
   letter-spacing: 0.0075em;
   transition: all 0.3s ease;
 }
+
+.subBtn .MuiButton-root {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+}
+.subBtn .MuiButton-root:hover {
+  background-color: transparent;
+}
+
 .subjectCard:hover {
   box-shadow: 0px 4px 8px 0px rgba(71, 71, 71, 0.2) !important;
   cursor: pointer;
-  color: #000;
 }
 .subject0 {
   color: darkred;
   background: radial-gradient(ellipse at top, #fff, rgb(253, 196, 196));
 }
 .subject1 {
- color:darkgoldenrod;
+  color: darkgoldenrod;
   background: radial-gradient(ellipse at top, #fff, rgb(255, 251, 194));
 }
 .subject2 {
