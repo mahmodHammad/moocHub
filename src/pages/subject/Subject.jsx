@@ -1,4 +1,3 @@
-////////  ////////
 import React, { Component } from "react";
 
 import getFiles from "../../helper/getfiles";
@@ -15,22 +14,23 @@ class Home extends Component {
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    this.setState({loading:true});
-    this.state.content[index].value === false ?
-      getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
-        let [content] = [this.state.content];
-        content[index].value = theactualContent.files;
-        this.setState({ content ,loading:false});
-      }): this.setState({loading:false});;
+    this.setState({ loading: true });
+    this.state.content[index].value === false
+      ? getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
+          let [content] = [this.state.content];
+          content[index].value = theactualContent.files;
+          this.setState({ content, loading: false });
+        })
+      : this.setState({ loading: false });
 
     this.setState({
       PrimarySliderSelectedIndex: index
     });
   };
 
-  setLoading=(loading)=>{
-    this.setState({loading});
-  }
+  setLoading = loading => {
+    this.setState({ loading });
+  };
 
   loadContent = subjects => {
     let realcontent = subjects.files.map(({ name, id }) => {
