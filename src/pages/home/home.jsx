@@ -13,7 +13,8 @@ export default class home extends Component {
     console.log(content);
 
     return (
-      <div className="homePage">
+
+      <div className="App">
         {/* <div className="communityLabel">
           <Typography variant="h5" color="primary" align="center">
             {communityName}

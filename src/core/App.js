@@ -227,10 +227,8 @@ export default class App extends Component {
               clearLocalStorage={this.clearLocalStorage}
             />
 
-            <div className="App">
               {/* START ROUTING  **********************************************/}
               <Switch>
-                >
                 <Route
                   exact
                   path="/"
@@ -255,6 +253,7 @@ export default class App extends Component {
                     />
                   )}
                 />
+
                 <Route
                   exact
                   path="/subject/:subjectName/:subjectId"
@@ -326,7 +325,6 @@ export default class App extends Component {
                   />
                 </Rnd>
               )}
-            </div>
           </BrowserRouter>
         </div>
       </MuiThemeProvider>
