@@ -63,7 +63,7 @@ export default function ContentDisplayer({
               />
             )}
         </Grid>
-        <BottomBar divided={divided} loadSubject={loadSubject}/>
+        <BottomBar divided={divided} loadSubject={loadSubject} isVideo={isVideo} subject={subject}/>
       </Grid>
     </div>
   );

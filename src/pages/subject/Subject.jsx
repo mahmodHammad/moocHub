@@ -55,12 +55,14 @@ class Home extends Component {
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     let id = this.props.match.params.subjectId;
-    let divided = this.props.location.state.divided;
-    if (divided === undefined) divided = [];
-    else id = divided[0].id;
-
     const subject = { name, id };
-    this.setState({ subject, loading: true, divided });
+    this.setState({ subject });
+    
+    let divided = this.props.location.state.divided;
+    console.log(divided)
+    if (divided === undefined) divided = [];
+    else if (divided[0]!==undefined)id = divided[0].id;
+    this.setState({ divided });
     this.loadSubject(id);
   }
 
