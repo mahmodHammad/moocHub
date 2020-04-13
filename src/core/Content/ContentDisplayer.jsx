@@ -15,18 +15,18 @@ export default function ContentDisplayer({
   removeFromTodo,
   isVideo,
   handleVideoPin,
-  loading,
+  loading
 }) {
   return (
     <div>
-      <Typography variant="h6" align="center" className="subjectLabel">
+      {/******  display subject name  ******/}
+
+      <Typography variant="h6" align="center" color="primary" className="subjectLabel">
         {subject.name}
       </Typography>
       {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container justify="center">
-        {/******  display subject name  ******/}
-
         {/******  display MainSlider   ******/}
 
         {content !== false && (

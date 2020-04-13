@@ -1,10 +1,11 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import Content from "./ContentCards";
 import { withStyles } from "@material-ui/core/styles";
 const styles = {
   topmargin: {
-    margin: "20px 0 0 0"
+    margin: "50px 0 0 0"
   },
   center: {
     margin: "auto"
@@ -44,10 +45,11 @@ function SecondarySlide({
   return (
     <Grid
       container
-      className={`cardContent ${classes.topmargin}`}
+      className={`cardContent`}
       justify="center"
     >
-      {content.map(cont => (
+      
+      {content.length?content.map(cont => (
         <Content
           key={cont.id}
           content={cont}
@@ -59,7 +61,11 @@ function SecondarySlide({
           isVideo={isVideo}
           handleVideoPin={handleVideoPin}
         />
-      ))}
+      )):<div className="Empty">
+        <Typography color="secondary" variant="h6" component="div">
+          This folder doesn't have any pdf files so far
+        </Typography>
+        </div>}
     </Grid>
   );
 }

@@ -86,6 +86,15 @@ a:hover {
   margin-top: 20px;
 }
 
+.Empty{
+  margin-top: 120px;
+  text-align: center;
+}
+
+.cardContent{
+  margin-top: 50px;
+}
+
 .MuiGrid-spacing-xs-4 > .MuiGrid-item {
   margin-top: 0px;
 }
@@ -152,6 +161,9 @@ a:hover {
   body {
     margin: 900px;
   }
+  .cardContent{
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -166,6 +178,7 @@ a:hover {
   .subjectLabel {
     padding: 30px 0 10px 0 !important;
   }
+
 }
 /* git add . && git commit -am " " */
 /* 00419C */
@@ -193,3 +206,7 @@ a:hover {
 .thirdcolor {
   color: #00419c;
 }
+
+/* .MuiTabs-flexContainer {
+  justify-content: center;
+} */
