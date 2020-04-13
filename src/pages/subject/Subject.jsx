@@ -15,12 +15,13 @@ class Home extends Component {
 
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
-    this.state.content[index].value === false &&
+    this.setState({loading:true});
+    this.state.content[index].value === false ?
       getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
         let [content] = [this.state.content];
         content[index].value = theactualContent.files;
-        this.setState({ content });
-      });
+        this.setState({ content ,loading:false});
+      }): this.setState({loading:false});;
 
     this.setState({
       PrimarySliderSelectedIndex: index

@@ -16,16 +16,14 @@ export default function ContentDisplayer({
   isVideo,
   handleVideoPin,
   loading,
-  setLoading
 }) {
   return (
     <div>
       <Typography variant="h6" align="center" className="subjectLabel">
         {subject.name}
       </Typography>
-      {loading ? (
-          <LinearProgress color="secondary" />
-        ) : (
+      {loading ? <LinearProgress color="secondary" /> : <span></span>}
+
       <Grid container justify="center">
         {/******  display subject name  ******/}
 
@@ -58,7 +56,6 @@ export default function ContentDisplayer({
             )}
         </Grid>
       </Grid>
-        )}
     </div>
   );
 }
