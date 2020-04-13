@@ -108,7 +108,7 @@ a:hover {
   box-shadow: 0px 10px 20px 0px rgba(75, 75, 75, 0.15) !important;
   padding: 23px;
   margin: 30px;
-color: #555;
+
   font-size: 1.25rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
@@ -131,29 +131,32 @@ color: #555;
   cursor: pointer;
 }
 .subject0 {
-  background: radial-gradient(ellipse, rgb(255, 223, 223), rgb(255, 215, 215));
+  color: darkred;
+  background: radial-gradient(ellipse at top, #fff, rgb(253, 196, 196));
 }
 .subject1 {
-  background: radial-gradient(ellipse,  rgb(255, 253, 232), rgb(255, 252, 206));
+  color: darkgoldenrod;
+  background: radial-gradient(ellipse at top, #fff, rgb(255, 251, 194));
 }
 .subject2 {
-  background: radial-gradient(ellipse,  rgb(233, 255, 233), rgb(211, 252, 213));
+  color: darkgreen;
+  background: radial-gradient(ellipse at top, #fff, rgb(191, 250, 194));
 }
 .subject3 {
-  background: radial-gradient(ellipse,  rgb(236, 253, 255), rgb(216, 249, 253));
+  color: darkcyan;
+  background: radial-gradient(ellipse at top, #fff, rgb(202, 250, 255));
 }
 .subject4 {
-  background: radial-gradient(ellipse,  rgb(249, 231, 253), rgb(247, 215, 255));
+  color: darkmagenta;
+  background: radial-gradient(ellipse at top, #fff, rgb(243, 202, 253));
 }
 .subject5 {
-  background: radial-gradient(ellipse,  rgb(252, 228, 239), rgb(253, 202, 226));
+  background: radial-gradient(ellipse at top, #fff, rgb(253, 202, 226));
 }
 
 @media (max-width: 960px) {
   .subjectCard {
     margin: 24px;
-  font-size: 1.1rem;
-
   }
   body {
     margin: 900px;

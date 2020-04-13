@@ -57,6 +57,7 @@ class Home extends Component {
 
   render() {
     //////// Destructure from state ////////
+    // console.log("__CCCCCCCCCC____",this.props.location.state.divided)
     const {
       content,
       subject,
@@ -64,8 +65,8 @@ class Home extends Component {
       loading
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
-    console.log("content----->", content);
-    console.log("subject----->", subject);
+    // console.log("content----->", content);
+    // console.log("subject----->", subject);
     return (
       <ContentDisplayer
         subject={subject}
