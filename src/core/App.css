@@ -66,7 +66,7 @@ a:hover {
   padding: 55px 0 30px !important;
 }
 .subjectLabel {
-  padding: 30px 0 10px 0 !important;
+  padding: 40px 0 20px 0 !important;
 }
 
 .todoRemove {
@@ -162,6 +162,9 @@ a:hover {
   }
   .App {
     min-height: 90vh;
+  }
+  .subjectLabel {
+    padding: 30px 0 10px 0 !important;
   }
 }
 /* git add . && git commit -am " " */

@@ -4,11 +4,13 @@ import React, { Component } from "react";
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
 import ContentDisplayer from "../../core/Content/ContentDisplayer";
+
 class Home extends Component {
   state = {
     subject: {},
     content: false,
-    PrimarySliderSelectedIndex: false
+    PrimarySliderSelectedIndex: false,
+    loading: false
   };
 
   //////// get files after clicking on prime slide  ////////
@@ -25,30 +27,41 @@ class Home extends Component {
     });
   };
 
+  setLoading=(loading)=>{
+    this.setState({loading});
+  }
+
   loadContent = subjects => {
     let realcontent = subjects.files.map(({ name, id }) => {
       const value = false;
       return { name, id, value };
     });
-    this.setState({ content: realcontent });
+    this.setState({ content: realcontent, loading: false });
   };
 
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     const id = this.props.match.params.subjectId;
     const subject = { name, id };
-    this.setState({ subject });
+    this.setState({ subject, loading: true });
 
     loadApi().then(() =>
-      getFiles(id, "folder").then(subjectContent => {
-        this.loadContent(subjectContent);
-      })
+      getFiles(id, "folder")
+        .then(subjectContent => {
+          this.loadContent(subjectContent);
+        })
+        .catch(() => alert("Can not load content , try againg later"))
     );
   }
 
   render() {
     //////// Destructure from state ////////
-    const { content, subject, PrimarySliderSelectedIndex } = this.state;
+    const {
+      content,
+      subject,
+      PrimarySliderSelectedIndex,
+      loading
+    } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
     console.log("content----->", content);
     console.log("subject----->", subject);
@@ -62,6 +75,8 @@ class Home extends Component {
         addToTodo={addToTodo}
         removeFromTodo={removeFromTodo}
         isVideo={false}
+        loading={loading}
+        setLoading={this.setLoading}
       />
     );
   }
