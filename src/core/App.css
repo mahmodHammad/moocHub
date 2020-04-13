@@ -30,7 +30,7 @@ body {
     sans-serif;
   /* background-color: #e6f4fb; */
   /* background: linear-gradient(90deg, #ebfffb 0%, #fff, #fff, #ebfffb 100%); */
-  background: radial-gradient(ellipse at top, #fff, #fff, rgb(180, 231, 254));
+  background: radial-gradient(ellipse at top, #fff, #fff, #bfeefa);
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -111,29 +111,21 @@ a:hover {
 }
 
 .subjectCard {
-  /* border: #e7e7e7 solid 1px; */
   border-radius: 12px;
-  /* background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%); */
-  /* background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%); */
-  /* background: linear-gradient(90deg, #f8ff00 0%, #3ad59f 100%); */
-  /* background: linear-gradient(90deg, #d53369 0%, #daae51 100%); */
-  /* background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%); */
-  /* background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%); */
-  box-shadow: 8px 10px 20px 0px rgba(46, 61, 73, 0.15) !important;
-  padding: 28px;
+  box-shadow: 0px 10px 20px 0px rgba(75, 75, 75, 0.15) !important;
+  padding: 25px;
   margin: 30px;
-  color: #555;
-  transition: all 0.3s ease;
 
+  color: #555;
   font-size: 1.25rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   line-height: 1.6;
   letter-spacing: 0.0075em;
-  /* color: #fff; */
+  transition: all 0.3s ease;
 }
 .subjectCard:hover {
-  box-shadow: 2px 4px 8px 0px rgba(46, 61, 73, 0.2) !important;
+  box-shadow: 0px 4px 8px 0px rgba(71, 71, 71, 0.2) !important;
   cursor: pointer;
   color: #000;
 }
@@ -160,15 +152,28 @@ a:hover {
   justify-content: center;
   text-align: center;
   margin: auto;
-  min-height: 93vh;
+  min-height: 91vh;
 }
 
 /* git add . && git commit -am " " */
 /* 00419C */
+
+@media (max-width: 960px) {
+  .subjectCard {
+    margin: 24px;
+  }
+  body {
+    margin: 900px;
+  } 
+}
+
 @media (max-width: 360px) {
   .subjectCard {
     font-size: 0.95rem;
-    margin: 10px;
+    margin: 15px;
     padding: 20px;
+  }
+  .App {
+    min-height: 90vh;
   }
 }

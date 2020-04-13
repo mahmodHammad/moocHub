@@ -65,9 +65,9 @@ export default function Navbar({ todo, removeFromTodo, communities ,getCommunity
           <div className={classes.logo}>
             <Button color="inherit" component={Link} to="/" size="large"  className={classes.logo1}>
               <Typography align="left" color="inherit">
-                Asu
+                2nd 
               </Typography>
-              <Typography color="secondary">Engineer </Typography>
+              <Typography color="secondary"> Electrical </Typography>
             </Button>
           </div>
           <div>
@@ -81,7 +81,7 @@ export default function Navbar({ todo, removeFromTodo, communities ,getCommunity
             >
               Study Room
             </Button>
-            <BugReportIcon className={classes.bug} onClick={clearLocalStorage}/>
+            {/* <BugReportIcon className={classes.bug} onClick={clearLocalStorage}/> */}
           </div>
         </Toolbar>
       </AppBar>
