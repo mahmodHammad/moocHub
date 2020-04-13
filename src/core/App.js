@@ -217,7 +217,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="App">
+        <div >
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={this.state.communities}
@@ -227,7 +227,7 @@ export default class App extends Component {
               clearLocalStorage={this.clearLocalStorage}
             />
 
-            <div>
+            <div className="App">
               {/* START ROUTING  **********************************************/}
               <Switch>
                 >
