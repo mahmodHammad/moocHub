@@ -25,7 +25,7 @@ export default class home extends Component {
             justify="center"
             direction="column"
           >
-            <Grid container item xs={11} md={9} justify="center">
+            <Grid container item xs={11} md={10} justify="center">
               {content.map((folder, N) => {
                 return (
                   <Grid

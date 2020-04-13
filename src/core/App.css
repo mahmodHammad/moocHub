@@ -1,43 +1,23 @@
-.col1 {
-  color: #fff !important;
-}
-
-.bcol1 {
-  background-color: #fff !important;
-}
-.col2 {
-  color: #d72323 !important;
-}
-.col3 {
-  color: #db4747;
-}
-.col4 {
-  color: #801336 !important;
-  font-size: small !important;
-}
-.gray {
-  color: #aaa !important;
-}
-.thirdcolor {
-  color: #00419c;
-}
-.nestedItem {
-  background-color: #aaa !important;
+html {
+  scroll-behavior: smooth;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  /* background-color: #e6f4fb; */
-  /* background: linear-gradient(90deg, #ebfffb 0%, #fff, #fff, #ebfffb 100%); */
   background: radial-gradient(ellipse at top, #fff, #fff, #bfeefa);
   min-height: 100vh;
   margin: 0;
   padding: 0;
   max-width: 100%;
 }
-html {
-  scroll-behavior: smooth;
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  min-height: 91vh;
 }
 
 .nav-container {
@@ -132,33 +112,28 @@ a:hover {
   color: #000;
 }
 .subject0 {
+  color: darkred;
   background: radial-gradient(ellipse at top, #fff, rgb(253, 196, 196));
 }
-
 .subject1 {
+ color:darkgoldenrod;
   background: radial-gradient(ellipse at top, #fff, rgb(255, 251, 194));
 }
 .subject2 {
+  color: darkgreen;
   background: radial-gradient(ellipse at top, #fff, rgb(191, 250, 194));
 }
 .subject3 {
+  color: darkcyan;
   background: radial-gradient(ellipse at top, #fff, rgb(202, 250, 255));
 }
 .subject4 {
-  background: radial-gradient(ellipse at top, #fff, rgb(241, 202, 253));
+  color: darkmagenta;
+  background: radial-gradient(ellipse at top, #fff, rgb(243, 202, 253));
 }
-
-.App {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: auto;
-  min-height: 91vh;
+.subject5 {
+  background: radial-gradient(ellipse at top, #fff, rgb(253, 202, 226));
 }
-
-/* git add . && git commit -am " " */
-/* 00419C */
 
 @media (max-width: 960px) {
   .subjectCard {
@@ -178,4 +153,30 @@ a:hover {
   .App {
     min-height: 90vh;
   }
+}
+/* git add . && git commit -am " " */
+/* 00419C */
+
+/* colors - XXX will be deprecated XXX */
+.col1 {
+  color: #fff !important;
+}
+.bcol1 {
+  background-color: #fff !important;
+}
+.col2 {
+  color: #d72323 !important;
+}
+.col3 {
+  color: #db4747;
+}
+.col4 {
+  color: #801336 !important;
+  font-size: small !important;
+}
+.gray {
+  color: #aaa !important;
+}
+.thirdcolor {
+  color: #00419c;
 }
