@@ -154,6 +154,11 @@ a:hover {
   background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
 }
 
+.bottomNav{
+  position: fixed;
+  bottom: 0;
+}
+
 @media (max-width: 960px) {
   .subjectCard {
     margin: 24px;
