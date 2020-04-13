@@ -132,26 +132,26 @@ a:hover {
 }
 .subject0 {
   color: darkred;
-  background: radial-gradient(ellipse at top, #fff, rgb(253, 196, 196));
+  background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
 }
 .subject1 {
   color: darkgoldenrod;
-  background: radial-gradient(ellipse at top, #fff, rgb(255, 251, 194));
+  background: radial-gradient(ellipse, rgb(255, 252, 241),rgb(255, 254, 210));
 }
 .subject2 {
   color: darkgreen;
-  background: radial-gradient(ellipse at top, #fff, rgb(191, 250, 194));
+  background: radial-gradient(ellipse, rgb(244, 255, 241),rgb(221, 255, 210));
 }
 .subject3 {
   color: darkcyan;
-  background: radial-gradient(ellipse at top, #fff, rgb(202, 250, 255));
+  background: radial-gradient(ellipse, rgb(241, 255, 252),rgb(210, 250, 255));
 }
 .subject4 {
   color: darkmagenta;
-  background: radial-gradient(ellipse at top, #fff, rgb(243, 202, 253));
+  background: radial-gradient(ellipse, rgb(255, 241, 254),rgb(255, 214, 252));
 }
 .subject5 {
-  background: radial-gradient(ellipse at top, #fff, rgb(253, 202, 226));
+  background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
 }
 
 @media (max-width: 960px) {
