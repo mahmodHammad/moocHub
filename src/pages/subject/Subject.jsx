@@ -42,7 +42,7 @@ class Home extends Component {
   };
 
   loadSubject = id => {
-    this.setState({ loading: true });
+    this.setState({ loading: true ,PrimarySliderSelectedIndex:false });
     loadApi().then(() =>
       getFiles(id, "folder")
         .then(subjectContent => {
@@ -59,7 +59,6 @@ class Home extends Component {
     this.setState({ subject });
     
     let divided = this.props.location.state.divided;
-    console.log(divided)
     if (divided === undefined) divided = [];
     else if (divided[0]!==undefined)id = divided[0].id;
     this.setState({ divided });

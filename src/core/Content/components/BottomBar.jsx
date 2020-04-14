@@ -46,7 +46,7 @@ export default function SimpleBottomNavigation({
       showLabels
       className={classes.root}
     >
-      {divided.map(d => (
+      {!isVideo&&divided.map(d => (
         <BottomNavigationAction label={d.name} key={d.id} />
       ))}
 
