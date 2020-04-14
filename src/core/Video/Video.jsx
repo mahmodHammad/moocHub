@@ -29,7 +29,8 @@ class App extends Component {
     playbackRate: 1.0,
     loop: false,
     isRemaining: false,
-    isReady: false
+    isReady: false,
+    goto: []
   };
 
   handlePlayPause = () => {
@@ -104,10 +105,39 @@ class App extends Component {
     this.setState({ isPinned: value });
   };
 
+  // This implementation will be optimized laterXXXXX
+  timeToSeconds = time => {
+    let times = time.split(":");
+    let seconds = 0;
+    if (times.length === 2) {
+      let min = parseInt(times[0]);
+      let sec = parseInt(times[1]);
+      seconds = min * 60 + sec;
+    } else if (times.length === 3) {
+      let h = parseInt(times[0]);
+      let min = parseInt(times[1]);
+      let sec = parseInt(times[2]);
+      seconds = h * 60 * 60 + min * 60 + sec;
+    }
+    return seconds;
+  };
+
   componentDidMount() {
     const url = this.IdToUrl(this.props.url);
     const isPinned = this.props.isPinned;
-    this.setState({ url, isPinned });
+    let oldgoto = this.props.goto;
+    console.log(oldgoto);
+    let goto = oldgoto.map(e => {
+      let title = e.title;
+      let time = this.timeToSeconds(e.time);
+
+      return [title, time];
+    });
+    // lazy solution for the goto
+    // title: "zayton";
+    // time: "7:05";
+
+    this.setState({ url, isPinned, goto });
   }
 
   ref = player => {
@@ -131,10 +161,11 @@ class App extends Component {
       duration,
       playbackRate,
       isRemaining,
-      settingOptions
+      settingOptions,
+      goto
     } = this.state;
 
-    const { goto, handleVideoPin } = this.props;
+    const { handleVideoPin } = this.props;
 
     return (
       <React.Fragment>
