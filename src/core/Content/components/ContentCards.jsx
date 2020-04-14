@@ -95,7 +95,7 @@ function ComponentName({
               Pop={Pop}
               content={content}
               subject={subject}
-              isAdd={ isExistOnTodo(todo, content, subject) ?false:true}
+              isAdd={isExistOnTodo(todo, content, subject) ? false : true}
               isVideo={isVideo}
               handleVideoPin={handleVideoPin}
             />

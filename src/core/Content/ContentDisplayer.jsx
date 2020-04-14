@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import BottomBar from "./components/BottomBar";
 
 export default function ContentDisplayer({
   subject,
@@ -13,17 +15,26 @@ export default function ContentDisplayer({
   addToTodo,
   removeFromTodo,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  loading,
+  divided,
+  loadSubject
 }) {
   return (
     <div>
-      <Typography variant="h5" align="center" className="subjectLabel">
+      {/******  display subject name  ******/}
+
+      <Typography
+        variant="h6"
+        align="center"
+        color="primary"
+        className="subjectLabel"
+      >
         {subject.name}
       </Typography>
+      {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container justify="center">
-        {/******  display subject name  ******/}
-
         {/******  display MainSlider   ******/}
 
         {content !== false && (
@@ -52,6 +63,7 @@ export default function ContentDisplayer({
               />
             )}
         </Grid>
+        <BottomBar divided={divided} loadSubject={loadSubject} isVideo={isVideo} subject={subject}/>
       </Grid>
     </div>
   );

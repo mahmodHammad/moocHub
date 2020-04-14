@@ -81,7 +81,7 @@ export default function FullScreenDialog({
           {isVideo ? (
             <Video
               goto={content.goto}
-              url={content.id}
+              url={content.url}
               handleVideoPin={handleVideoPinClick}
               isPinned={false}
             />
