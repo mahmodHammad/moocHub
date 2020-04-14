@@ -55,7 +55,8 @@ function ComponentName({
   todo,
   subject,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  key
 }) {
   const [addContent, setContent] = useState(true);
   const [Pop, setPop] = React.useState(false);
@@ -79,7 +80,7 @@ function ComponentName({
   };
 
   return (
-    <Grid item xs={9} md={5} className={classes.margin}>
+    <Grid item xs={9} md={5} className={classes.margin} key={key}>
       <Card>
         <CardContent className={classes.container}>
           <Typography className={classes.cardText} onClick={handleClickOpen}>

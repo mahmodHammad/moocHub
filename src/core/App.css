@@ -49,11 +49,7 @@ a:hover {
 
 .warning {
   text-align: center;
-  font-size: 1.4 em;
-  color: rgb(170, 0, 0);
-  font-weight: bold;
-  text-transform: capitalize;
-  padding: 60px;
+  padding: 100px 20px;
 }
 .Zindex {
   z-index: 0 !important;
@@ -88,7 +84,6 @@ a:hover {
 
 .Empty{
   margin-top: 120px;
-  text-align: center;
 }
 
 .cardContent{
@@ -148,10 +143,10 @@ a:hover {
 }
 .subject4 {
   color: darkmagenta;
-  background: radial-gradient(ellipse, rgb(255, 241, 254),rgb(255, 214, 252));
+  background: radial-gradient(ellipse, rgb(252, 241, 255),rgb(252, 214, 255));
 }
 .subject5 {
-  background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
+  background: radial-gradient(ellipse, rgb(255, 241, 243),rgb(255, 210, 210));
 }
 
 .bottomNav{
