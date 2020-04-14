@@ -105,11 +105,11 @@ a:hover {
   border: solid 0.7px rgba(175, 175, 175, 0.301);
   border-top: none;
   border-radius: 7px;
-  box-shadow: 0px 10px 20px 0px rgba(75, 75, 75, 0.15) !important;
+  box-shadow: 0px 8px 15px 0px rgba(75, 75, 75, 0.08) !important;
   padding: 23px;
   margin: 30px;
 
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   line-height: 1.6;
@@ -127,7 +127,7 @@ a:hover {
 }
 
 .subjectCard:hover {
-  box-shadow: 0px 4px 8px 0px rgba(71, 71, 71, 0.2) !important;
+  box-shadow: 0px 3px 7px 0px rgba(71, 71, 71, 0.164) !important;
   cursor: pointer;
 }
 .subject0 {
