@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Content from "./ContentCards";
+import Empty from "./Empty";
 
 function SecondarySlide({
   content,
@@ -11,10 +11,11 @@ function SecondarySlide({
   subject,
   Popcontent,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  className
 }) {
   return (
-    <Grid container className="cardContent" justify="center">
+    <Grid container className="cardContent" justify="center" className={className}>
       {content.length ? (
         content.map((cont, index) => (
           <React.Fragment key={index}>
@@ -32,12 +33,7 @@ function SecondarySlide({
           </React.Fragment>
         ))
       ) : (
-        <div className="Empty">
-          {/* will be extracted to a reusable component */}
-          <Typography color="secondary" variant="h5" component="div">
-            Empty
-          </Typography>
-        </div>
+        <Empty />
       )}
     </Grid>
   );

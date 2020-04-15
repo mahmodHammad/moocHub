@@ -8,13 +8,11 @@ import SidebarList from "./components/SidebarList";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   list: {
-    width: 280
+    width: 285,
+    overflowX:"hidden"
   },
   fullList: {
     width: "auto"
-  },
-  op: {
-    opacity: 0.98
   }
 });
 
@@ -33,7 +31,7 @@ export default function PersistentDrawerLeft({
     <div>
       <SwipeableDrawer
         className={classes.op}
-        disableBackdropTransition={!iOS}
+        disableBackdropTransition={true}
         disableDiscovery={iOS}
         anchor="left"
         onOpen={() => setopen(true)}

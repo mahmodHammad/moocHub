@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   listItem: {
-    // backgroundColor:"#aaa"
     borderLeft: "2px #ccc solid",
     paddingLeft: 10,
     marginLeft: 28,

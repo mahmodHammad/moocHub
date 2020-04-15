@@ -5,6 +5,14 @@ import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import BottomBar from "./components/BottomBar";
+import Empty from "./components/Empty";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  secondary:{
+    marginBottom:"40px"
+  }
+});
 
 export default function ContentDisplayer({
   subject,
@@ -20,6 +28,8 @@ export default function ContentDisplayer({
   divided,
   loadSubject
 }) {
+  const classes = useStyles();
+
   return (
     <div>
       {/******  display subject name  ******/}
@@ -46,12 +56,7 @@ export default function ContentDisplayer({
             />
           </Grid>
         ) : !loading ? (
-          <div className="Empty">
-            {/* will be extracted to a reusable component */}
-            <Typography color="secondary" variant="h5" component="div">
-              Empty
-            </Typography>
-          </div>
+          <Empty />
         ) : (
           <span></span>
         )}
@@ -69,6 +74,7 @@ export default function ContentDisplayer({
                 todo={todo}
                 isVideo={isVideo}
                 handleVideoPin={handleVideoPin}
+                className={classes.secondary}
               />
             )}
         </Grid>

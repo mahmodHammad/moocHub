@@ -20,6 +20,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// will be deprecated XXX
+let year = "2nd";
+let department = "Electrical";
+// XXXXXXXXXXXXXXXXXXXXXX
+
 export default function Navbar({
   todo,
   removeFromTodo,
@@ -41,17 +46,11 @@ export default function Navbar({
             <MenuIcon />
           </IconButton>
           <div className={classes.logo}>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/"
-              size="large"
-              className={classes.logo1}
-            >
+            <Button color="inherit" component={Link} to="/" size="large">
               <Typography align="left" color="inherit">
-                2nd
+                {year}
               </Typography>
-              <Typography color="secondary"> Electrical </Typography>
+              <Typography color="secondary"> {department} </Typography>
             </Button>
           </div>
           <Button
