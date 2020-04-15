@@ -15,13 +15,7 @@ import CreatePL from "./components/CreatePL";
 import PlFields from "./components/PlFields";
 export default class Fill extends Component {
   state = {
-    subjects: {
-      math: "1iAj9UccTpK5S_ogtwdVZGwFFiyr1lyKk",
-      signals: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
-      co: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
-      control: "1ifZ2VNqC6YAuy2IoLfEQu31hjNdoebbm",
-      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm"
-    },
+    subjects: {},
     videos: {},
     selectedPlayList: "",
     displayedPlayList: [],

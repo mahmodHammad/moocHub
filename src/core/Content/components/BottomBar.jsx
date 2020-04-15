@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     width: "100%",
     position: "fixed",
     bottom: 0,
-    background: "#ffffff55",
+    background: "#ffffff77",
     borderTop: "1px solid #eee"
   }
 });
@@ -33,8 +33,6 @@ export default function SimpleBottomNavigation({
         } else if (value === 100) {
           //   move to drive (if divided display divided[0] & divided list)
         }
-        console.log("newValue", divided[newValue]);
-        console.log("newValue", newValue);
         if (divided[newValue] !== undefined) {
           loadSubject(divided[newValue].id);
         }

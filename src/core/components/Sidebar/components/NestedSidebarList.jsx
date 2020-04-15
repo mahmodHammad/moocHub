@@ -38,7 +38,7 @@ export default function NestedSidebarList({
               className={classes.listItem}
               button
               component={Link}
-              to={`${process.env.PUBLIC_URL}/nerds`}
+              to={`/nerds`}
               onClick={handleSelect}
             >
               <ListItemText primary={item.name}  primaryTypographyProps={{variant:"subtitle2"}}/>
