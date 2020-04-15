@@ -37,7 +37,7 @@ export default function ContentDisplayer({
       <Grid container justify="center">
         {/******  display MainSlider   ******/}
 
-        {content !== false && (
+        {content.length ? (
           <Grid item xs={12} md={"auto"}>
             <MainSlide
               content={content}
@@ -45,6 +45,15 @@ export default function ContentDisplayer({
               handleClick={handlePrimeTabClick}
             />
           </Grid>
+        ) : !loading ? (
+          <div className="Empty">
+            {/* will be extracted to a reusable component */}
+            <Typography color="secondary" variant="h5" component="div">
+              Empty
+            </Typography>
+          </div>
+        ) : (
+          <span></span>
         )}
 
         {/******  display Secondary slider depending on the selected prime  ******/}
@@ -63,7 +72,12 @@ export default function ContentDisplayer({
               />
             )}
         </Grid>
-        <BottomBar divided={divided} loadSubject={loadSubject} isVideo={isVideo} subject={subject}/>
+        <BottomBar
+          divided={divided}
+          loadSubject={loadSubject}
+          isVideo={isVideo}
+          subject={subject}
+        />
       </Grid>
     </div>
   );

@@ -60,6 +60,7 @@ class Home extends Component {
     
     let divided = this.props.location.state.divided;
     if (divided === undefined) divided = [];
+    // wil be the last selected instead of the first index
     else if (divided[0]!==undefined)id = divided[0].id;
     this.setState({ divided });
     this.loadSubject(id);

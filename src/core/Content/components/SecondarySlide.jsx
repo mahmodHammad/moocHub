@@ -14,9 +14,9 @@ function SecondarySlide({
   handleVideoPin
 }) {
   return (
-    <Grid container className={`cardContent`} justify="center">
+    <Grid container className="cardContent" justify="center">
       {content.length ? (
-        content.map((cont,index) => (
+        content.map((cont, index) => (
           <React.Fragment key={index}>
             <Content
               key={cont.id}
@@ -33,8 +33,9 @@ function SecondarySlide({
         ))
       ) : (
         <div className="Empty">
-          <Typography color="secondary" variant="h6" component="div">
-            This folder doesn't have any pdf files so far
+          {/* will be extracted to a reusable component */}
+          <Typography color="secondary" variant="h5" component="div">
+            Empty
           </Typography>
         </div>
       )}

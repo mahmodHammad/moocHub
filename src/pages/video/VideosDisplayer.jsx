@@ -7,8 +7,8 @@ export default class VideosDisplayer extends Component {
     PrimarySliderSelectedIndex: false,
     content: false,
     selectedVideo: false,
-    loading:false,
-    divided:[]
+    loading: false,
+    divided: []
   };
 
   handlePrimeTabClick = index => {
@@ -18,13 +18,13 @@ export default class VideosDisplayer extends Component {
   };
 
   loadVideos = subjectId => {
-    this.setLoading(true)
+    this.setLoading(true);
     axios
       .get(
         `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
       )
       .then(daat => {
-    this.setLoading(false)
+        this.setLoading(false);
 
         const videos = daat.data;
         let playlists = Object.keys(videos);
@@ -33,8 +33,7 @@ export default class VideosDisplayer extends Component {
           let value = videos[pl];
           return { name, value };
         });
-        console.log("content", content);
-        console.log(daat.data);
+
         this.setState({ content, loading: false });
       })
       .catch(err => {
@@ -42,9 +41,9 @@ export default class VideosDisplayer extends Component {
       });
   };
 
-  // هابقي اقسم فديوهات المواد بعدين
-  loadSubject = () => {
-    console.log("loadSubject's Videos");
+  loadSubject = id => {
+    this.setState({ loading: true, PrimarySliderSelectedIndex: false });
+    this.loadVideos(id);
   };
 
   setLoading = loading => {
@@ -53,17 +52,27 @@ export default class VideosDisplayer extends Component {
 
   componentDidMount() {
     const name = this.props.match.params.subjectName;
-    const id = this.props.match.params.subjectId;
+    let id = this.props.match.params.subjectId;
     // take this id and make an HTTTP request to get data
     const subject = { name, id };
     let divided = this.props.location.state.divided;
-    this.setState({ subject,divided });
+    this.setState({ subject, divided });
+
+    if (divided === undefined) divided = [];
+    // wil be the last selected instead of the first index
+    else if (divided[0] !== undefined) id = divided[0].id;
 
     this.loadVideos(id);
   }
 
   render() {
-    const { content, subject, PrimarySliderSelectedIndex,loading,divided } = this.state;
+    const {
+      content,
+      subject,
+      PrimarySliderSelectedIndex,
+      loading,
+      divided
+    } = this.state;
     const { todo, addToTodo, removeFromTodo, handleVideoPin } = this.props;
     return (
       <div>
@@ -76,7 +85,6 @@ export default class VideosDisplayer extends Component {
           addToTodo={addToTodo}
           removeFromTodo={removeFromTodo}
           isVideo={true}
-
           loading={loading}
           handleVideoPin={handleVideoPin}
           loadSubject={this.loadSubject}
