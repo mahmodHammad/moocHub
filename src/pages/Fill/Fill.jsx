@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Fill.css";
+import subjects from "../../config/subjects"
 
 // MUI Components------------------------------
 import Button from "@material-ui/core/Button";
@@ -298,6 +299,21 @@ export default class Fill extends Component {
       });
   };
 
+  componentDidMount() {
+    let alldivisions ={}
+    subjects.forEach(s=>{
+
+      if(s.divided===undefined){
+        alldivisions[s.name]=s.id
+      }else{
+        s.divided.forEach(d=>{
+          alldivisions[d.name]=d.id
+        })
+      }
+    }) 
+    this.setState({subjects:alldivisions})
+  }
+  
   render() {
     console.log(this.state);
     let playlists = Object.keys(this.state.videos);
