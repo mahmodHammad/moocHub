@@ -8,19 +8,15 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import NestedSidebarList from "./NestedSidebarList";
 
-
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
-  MainList:{
-    fontWeight:"bolderd",
-    color:"#000"
+  MainList: {
+    fontWeight: "bolderd",
+    color: "#000"
   },
   listItem: {
-    // backgroundColor:"#aaa"
-    marginLeft:12,
+    marginLeft: 12,
     paddingRight: 27,
-    color:"#333"
-
   }
 });
 
@@ -57,41 +53,38 @@ export default function SidebarList({
             {title}
           </Typography>
         </ListItemText>
-            {visible ? <ExpandLess /> : <ExpandMore />}
+        {visible ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={visible} timeout="auto">
         {data.map((item, N) => (
           <div key={item.id}>
-            {/* {N > 0 && <Divider variant="middle" light={true} />} */}
             <ListItem
-        className={classes.listItem}
+              className={classes.listItem}
               button
               onClick={() =>
                 NestedOpen === N ? setNestedOpen(false) : setNestedOpen(N)
               }
             >
-              <ListItemText >
+              <ListItemText>
                 <Typography color="primary" variant="body2">
                   {item.name}
                 </Typography>
-
-                </ListItemText>
-                        {NestedOpen === N ? (
-                          <ExpandLess fontSize="small" color="primary" />
-                        ) : (
-                          <ExpandMore fontSize="small" />
-                        )}
-
+              </ListItemText>
+              {NestedOpen === N ? (
+                <ExpandLess fontSize="small" color="primary" />
+              ) : (
+                <ExpandMore fontSize="small" color="primary" />
+              )}
             </ListItem>
             <NestedSidebarList
-                  data={item.value}
-                  parentId={item.id}
-                  open={NestedOpen === N}
-                  isTodo={isTodo}
-                  removeFromTodo={removeFromTodo}
-                  handleClose={handleClose}
-                  handleSelect={handleSelect}
-                />
+              data={item.value}
+              parentId={item.id}
+              open={NestedOpen === N}
+              isTodo={isTodo}
+              removeFromTodo={removeFromTodo}
+              handleClose={handleClose}
+              handleSelect={handleSelect}
+            />
           </div>
         ))}
       </Collapse>

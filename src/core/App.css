@@ -63,7 +63,7 @@ a:hover {
 
 .todoRemove {
   border: #ccc solid 0.7px;
-  background-color: rgb(250, 250, 250);
+  background-color: #fff8;
   border-radius: 50%;
   padding: 1px;
   margin-left: 10px;
@@ -189,32 +189,9 @@ a:hover {
 /* 00419C */
 
 /* colors - XXX will be deprecated XXX */
-.col1 {
-  color: #fff !important;
-}
-
 .bcol1 {
   background-color: #fff !important;
-}
-
-.col2 {
-  color: #d72323 !important;
-}
-
-.col3 {
-  color: #db4747;
-}
-
-.col4 {
-  color: #801336 !important;
-  font-size: small !important;
-}
-
-.gray {
-  color: #aaa !important;
-}
-.thirdcolor {
-  color: #00419c;
+  margin-top: 15px !important;
 }
 
 /* .MuiTabs-flexContainer {
