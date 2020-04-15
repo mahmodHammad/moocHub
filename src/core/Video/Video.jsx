@@ -17,7 +17,7 @@ class App extends Component {
     isPinned: false,
     url: "",
     content: [],
-    settingOptions: [1, 1.25, 1.5, 1.75, 2],
+    settingOptions: [1, 1.2, 1.4, 1.6, 1.8 ,2],
     playing: true,
     controls: false,
     light: false,
@@ -29,8 +29,7 @@ class App extends Component {
     playbackRate: 1.0,
     loop: false,
     isRemaining: false,
-    isReady: false,
-    goto: []
+    isReady: false
   };
 
   handlePlayPause = () => {
@@ -105,39 +104,10 @@ class App extends Component {
     this.setState({ isPinned: value });
   };
 
-  // This implementation will be optimized laterXXXXX
-  timeToSeconds = time => {
-    let times = time.split(":");
-    let seconds = 0;
-    if (times.length === 2) {
-      let min = parseInt(times[0]);
-      let sec = parseInt(times[1]);
-      seconds = min * 60 + sec;
-    } else if (times.length === 3) {
-      let h = parseInt(times[0]);
-      let min = parseInt(times[1]);
-      let sec = parseInt(times[2]);
-      seconds = h * 60 * 60 + min * 60 + sec;
-    }
-    return seconds;
-  };
-
   componentDidMount() {
     const url = this.IdToUrl(this.props.url);
     const isPinned = this.props.isPinned;
-    let oldgoto = this.props.goto;
-    console.log(oldgoto);
-    let goto = oldgoto.map(e => {
-      let title = e.title;
-      let time = this.timeToSeconds(e.time);
-
-      return [title, time];
-    });
-    // lazy solution for the goto
-    // title: "zayton";
-    // time: "7:05";
-
-    this.setState({ url, isPinned, goto });
+    this.setState({ url, isPinned });
   }
 
   ref = player => {
@@ -162,10 +132,9 @@ class App extends Component {
       playbackRate,
       isRemaining,
       settingOptions,
-      goto
     } = this.state;
 
-    const { handleVideoPin } = this.props;
+    const { handleVideoPin ,goto } = this.props;
 
     return (
       <React.Fragment>
@@ -201,15 +170,12 @@ class App extends Component {
                     this.player.seekTo(parseFloat(this.props.played));
                   }
                 }}
-                onStart={() => console.log("onStart")}
                 onPlay={this.handlePlay}
                 onPause={this.handlePause}
                 onBuffer={() => {
                   this.setState({ seeking: false });
                 }}
-                onSeek={e => console.log("onSeek", e)}
                 onEnded={this.handleEnded}
-                onError={e => console.log("onError", e)}
                 onProgress={this.handleProgress}
                 onDuration={this.handleDuration}
               />

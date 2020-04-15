@@ -29,7 +29,6 @@ function handleToggleContent(
   setdisplay,
   file
 ) {
-  console.log(openedItems, oldDisplay);
 
   if (oldDisplay) {
     setdisplay(false);
@@ -70,7 +69,8 @@ function PdfIframe({
         />
         <CloseIcon
           fontSize="small"
-          className="col3 todoRemove"
+          className="todoRemove"
+          color="secondary"
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>

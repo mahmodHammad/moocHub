@@ -5,6 +5,14 @@ import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import BottomBar from "./components/BottomBar";
+import Empty from "./components/Empty";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  secondary:{
+    marginBottom:"40px"
+  }
+});
 
 export default function ContentDisplayer({
   subject,
@@ -20,6 +28,8 @@ export default function ContentDisplayer({
   divided,
   loadSubject
 }) {
+  const classes = useStyles();
+
   return (
     <div>
       {/******  display subject name  ******/}
@@ -37,7 +47,7 @@ export default function ContentDisplayer({
       <Grid container justify="center">
         {/******  display MainSlider   ******/}
 
-        {content !== false && (
+        {content.length ? (
           <Grid item xs={12} md={"auto"}>
             <MainSlide
               content={content}
@@ -45,6 +55,10 @@ export default function ContentDisplayer({
               handleClick={handlePrimeTabClick}
             />
           </Grid>
+        ) : !loading ? (
+          <Empty />
+        ) : (
+          <span></span>
         )}
 
         {/******  display Secondary slider depending on the selected prime  ******/}
@@ -60,10 +74,16 @@ export default function ContentDisplayer({
                 todo={todo}
                 isVideo={isVideo}
                 handleVideoPin={handleVideoPin}
+                className={classes.secondary}
               />
             )}
         </Grid>
-        <BottomBar divided={divided} loadSubject={loadSubject} isVideo={isVideo} subject={subject}/>
+        <BottomBar
+          divided={divided}
+          loadSubject={loadSubject}
+          isVideo={isVideo}
+          subject={subject}
+        />
       </Grid>
     </div>
   );

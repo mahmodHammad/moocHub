@@ -25,7 +25,6 @@ import Fill from "./../pages/Fill/Fill";
 // Config ----------------------------------
 import customTheme from "../config/theme";
 import communities from "../config/communities";
-import videosJson from "./Video/vidData";
 
 // My components ---------------------------
 import Video from "./Video/Video";
@@ -97,61 +96,10 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
-  // IF subject has content -> reutrn it's content else return false
-  getVideos = subjectId => {
-    let value = false;
-    videosJson.forEach(v => {
-      if (v.id === subjectId) value = v;
-    });
-    return value;
-  };
-
-  // checks for if the subject has devided content
-  loadContent = subjects => {
-    let dividedSubjects = [];
-    let content = [];
-    subjects.map((s, index) => {
-      s.video = this.getVideos(s.id);
-      if (s.name[0] === "_") {
-        // it's divided subject
-        s.name = s.name.substr(1);
-        s.isDivided = true;
-
-        //this line costed me 4 hourses :(
-        s.divided = [];
-        content.push(s);
-        return dividedSubjects.push({ ...s, index });
-      } else {
-        return content.push(s);
-      }
-    });
-    this.setState({ content });
-    this.loadDividedSubjects(dividedSubjects);
-  };
-
-  // for Nested content :
-  loadDividedSubjects = dividedSubjects => {
-    dividedSubjects.map(folder => {
-      return getFiles(folder.id, "folder").then(subjectContent => {
-        let [content] = [this.state.content];
-
-        // inject Vides inside each subject Division------------
-        let [files] = [subjectContent];
-        files.files.map(f => (f.video = this.getVideos(f.id)));
-        // ------------------------------------------------------
-
-        content[folder.index].divided = subjectContent;
-        this.setState({ content });
-      });
-    });
-  };
-
-  ////////////////////////////////////////// End Handling Nesting  }>-
-
   loadSubject = id => {
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
-        this.loadContent(folders.files);
+        this.setState({ content: folders.files });
       })
     );
   };
@@ -200,8 +148,6 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-  
-
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -217,7 +163,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <div >
+        <div>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={this.state.communities}
@@ -227,104 +173,100 @@ export default class App extends Component {
               clearLocalStorage={this.clearLocalStorage}
             />
 
-              {/* START ROUTING  **********************************************/}
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={props => (
-                    <Communities
-                      {...props}
-                      communities={this.state.communities}
-                      ChooseCommumity={this.ChooseCommumity}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/:subjectName/:subjectId"
-                  render={props => (
-                    <Home
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      communities={this.state.communities}
-                      content={this.state.content}
-                    />
-                  )}
-                />
+            {/* START ROUTING  **********************************************/}
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <Communities
+                    {...props}
+                    communities={this.state.communities}
+                    ChooseCommumity={this.ChooseCommumity}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/:subjectName/:subjectId"
+                render={props => (
+                  <Home
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    communities={this.state.communities}
+                    content={this.state.content}
+                  />
+                )}
+              />
 
-                <Route
-                  exact
-                  path="/subject/:subjectName/:subjectId"
-                  render={props => (
-                    <Subject
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/videos/:subjectName/:subjectId"
-                  render={props => (
-                    <VideosDisplayer
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
-                      handleVideoPin={this.handleVideoPin}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/nerds"
-                  render={props => (
-                    <Nerds
-                      {...props}
-                      todo={this.state.todo}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      communities={this.state.communities}
-                      content={this.state.content}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/fill"
-                  component={Fill}
-                />
-              </Switch>
-              {/* end routing **********************************************/}
-
-              {/* Will Work When Pin Button Is Pressed  */}
-              {this.state.pinnedVideo.isOpenNextTime !== false && (
-                <Rnd
-                  default={{
-                    x: window.innerWidth - 500,
-                    y: window.innerHeight - 310,
-                    width: 444,
-                    height: 250
-                  }}
-                  minWidth={440}
-                  minHeight={110}
-                  bounds="window"
-                  lockAspectRatio={true}
-                >
-                  <Video
-                    url={this.state.pinnedVideo.url}
-                    isPinned={true}
-                    goto={this.state.pinnedVideo.goto}
-                    // this Shitty line fixed Every thing
-                    played={this.state.pinnedVideo.played}
+              <Route
+                exact
+                path="/subject/:subjectName/:subjectId"
+                render={props => (
+                  <Subject
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    todo={this.state.todo}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/videos/:subjectName/:subjectId"
+                render={props => (
+                  <VideosDisplayer
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    todo={this.state.todo}
                     handleVideoPin={this.handleVideoPin}
                   />
-                </Rnd>
-              )}
+                )}
+              />
+              <Route
+                exact
+                path="/nerds"
+                render={props => (
+                  <Nerds
+                    {...props}
+                    todo={this.state.todo}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    communities={this.state.communities}
+                    content={this.state.content}
+                  />
+                )}
+              />
+              <Route exact path="/fill" component={Fill} />
+            </Switch>
+            {/* end routing **********************************************/}
+
+            {/* Will Work When Pin Button Is Pressed  */}
+            {this.state.pinnedVideo.isOpenNextTime !== false && (
+              <Rnd
+                default={{
+                  x: window.innerWidth - 500,
+                  y: window.innerHeight - 310,
+                  width: 444,
+                  height: 250
+                }}
+                minWidth={440}
+                minHeight={110}
+                bounds="window"
+                lockAspectRatio={true}
+              >
+                <Video
+                  url={this.state.pinnedVideo.url}
+                  isPinned={true}
+                  goto={this.state.pinnedVideo.goto}
+                  // this Shitty line fixed Every thing
+                  played={this.state.pinnedVideo.played}
+                  handleVideoPin={this.handleVideoPin}
+                />
+              </Rnd>
+            )}
           </BrowserRouter>
         </div>
       </MuiThemeProvider>

@@ -2,14 +2,12 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   background: radial-gradient(ellipse at top, #fff, rgb(250, 250, 255), #bfeefa);
   min-height: 100vh;
   margin: 0;
   padding: 0;
   max-width: 100%;
+  overflow-x: hidden;
 }
 .App {
   display: flex;
@@ -39,21 +37,13 @@ a:hover {
   justify-content: center;
 }
 
-.updowm:hover {
-  background-color: #f07b3f;
-  color: #fff;
-}
 .margin {
   padding: 0 !important;
 }
 
 .warning {
   text-align: center;
-  font-size: 1.4 em;
-  color: rgb(170, 0, 0);
-  font-weight: bold;
-  text-transform: capitalize;
-  padding: 60px;
+  padding: 100px 20px;
 }
 .Zindex {
   z-index: 0 !important;
@@ -70,8 +60,8 @@ a:hover {
 }
 
 .todoRemove {
-  border: #ea545479 solid 0.7px;
-  background-color: #ff00000a;
+  border: #ccc solid 0.7px;
+  background-color: #fff8;
   border-radius: 50%;
   padding: 1px;
   margin-left: 10px;
@@ -88,7 +78,6 @@ a:hover {
 
 .Empty{
   margin-top: 120px;
-  text-align: center;
 }
 
 .cardContent{
@@ -102,8 +91,9 @@ a:hover {
 .subjectCard {
   display: block !important;
   width: 100%;
-  border: solid 0.7px rgba(175, 175, 175, 0.301);
+  border: solid 0.7px rgba(59, 59, 59, 0.055);
   border-top: none;
+  border-bottom: none;
   border-radius: 7px;
   box-shadow: 0px 8px 15px 0px rgba(75, 75, 75, 0.08) !important;
   padding: 23px;
@@ -114,7 +104,7 @@ a:hover {
   font-weight: 500;
   line-height: 1.6;
   letter-spacing: 0.0075em;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .subBtn .MuiButton-root {
@@ -127,13 +117,14 @@ a:hover {
 }
 
 .subjectCard:hover {
-  box-shadow: 0px 3px 7px 0px rgba(71, 71, 71, 0.164) !important;
+  box-shadow: 0px 3px 7px 0px rgba(71, 71, 71, 0.144) !important;
   cursor: pointer;
 }
 .subject0 {
   color: darkred;
   background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
 }
+
 .subject1 {
   color: darkgoldenrod;
   background: radial-gradient(ellipse, rgb(255, 252, 241),rgb(255, 254, 210));
@@ -142,16 +133,19 @@ a:hover {
   color: darkgreen;
   background: radial-gradient(ellipse, rgb(244, 255, 241),rgb(221, 255, 210));
 }
+
 .subject3 {
   color: darkcyan;
   background: radial-gradient(ellipse, rgb(241, 255, 252),rgb(210, 250, 255));
 }
+
 .subject4 {
   color: darkmagenta;
-  background: radial-gradient(ellipse, rgb(255, 241, 254),rgb(255, 214, 252));
+  background: radial-gradient(ellipse, rgb(252, 241, 255),rgb(252, 214, 255));
 }
+
 .subject5 {
-  background: radial-gradient(ellipse, rgb(255, 241, 241),rgb(255, 210, 210));
+  background: radial-gradient(ellipse, rgb(255, 241, 243),rgb(255, 210, 210));
 }
 
 .bottomNav{
@@ -163,9 +157,11 @@ a:hover {
   .subjectCard {
     margin: 24px;
   }
+
   body {
     margin: 900px;
   }
+
   .cardContent{
     margin-top: 20px;
   }
@@ -177,9 +173,11 @@ a:hover {
     margin: 15px;
     padding: 20px;
   }
+
   .App {
     min-height: 90vh;
   }
+
   .subjectLabel {
     padding: 30px 0 10px 0 !important;
   }
@@ -189,29 +187,12 @@ a:hover {
 /* 00419C */
 
 /* colors - XXX will be deprecated XXX */
-.col1 {
-  color: #fff !important;
-}
 .bcol1 {
   background-color: #fff !important;
-}
-.col2 {
-  color: #d72323 !important;
-}
-.col3 {
-  color: #db4747;
-}
-.col4 {
-  color: #801336 !important;
-  font-size: small !important;
-}
-.gray {
-  color: #aaa !important;
-}
-.thirdcolor {
-  color: #00419c;
+  margin-top: 15px !important;
 }
 
-/* .MuiTabs-flexContainer {
-  justify-content: center;
-} */
+/* to center Grid on firefox */
+.MuiGrid-justify-xs-center {
+  margin: auto !important;
+}

@@ -11,8 +11,8 @@ const useStyles = makeStyles({
     width: "100%",
     position: "fixed",
     bottom: 0,
-    background: "#ffffff33",
-    border: "1px solid #eee"
+    background: "#ffffff77",
+    borderTop: "1px solid #eee"
   }
 });
 
@@ -33,11 +33,6 @@ export default function SimpleBottomNavigation({
         } else if (value === 100) {
           //   move to drive (if divided display divided[0] & divided list)
         }
-        //   youtube value ==10
-        //   googleDrive value ==100
-        console.log("event", event);
-        console.log("newValue", divided[newValue]);
-        console.log("newValue", newValue);
         if (divided[newValue] !== undefined) {
           loadSubject(divided[newValue].id);
         }
@@ -46,7 +41,7 @@ export default function SimpleBottomNavigation({
       showLabels
       className={classes.root}
     >
-      {!isVideo&&divided.map(d => (
+      {divided.map(d => (
         <BottomNavigationAction label={d.name} key={d.id} />
       ))}
 

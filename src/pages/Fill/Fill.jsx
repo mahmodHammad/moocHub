@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Fill.css";
+import subjects from "../../config/subjects";
 
 // MUI Components------------------------------
 import Button from "@material-ui/core/Button";
@@ -14,13 +15,7 @@ import CreatePL from "./components/CreatePL";
 import PlFields from "./components/PlFields";
 export default class Fill extends Component {
   state = {
-    subjects: {
-      math: "1iAj9UccTpK5S_ogtwdVZGwFFiyr1lyKk",
-      signals: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
-      co: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
-      control: "1ifZ2VNqC6YAuy2IoLfEQu31hjNdoebbm",
-      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm"
-    },
+    subjects: {},
     videos: {},
     selectedPlayList: "",
     displayedPlayList: [],
@@ -298,8 +293,21 @@ export default class Fill extends Component {
       });
   };
 
+  componentDidMount() {
+    let alldivisions = {};
+    subjects.forEach(s => {
+      if (s.divided === undefined) {
+        alldivisions[s.name] = s.id;
+      } else {
+        s.divided.forEach(d => {
+          alldivisions[d.name] = d.id;
+        });
+      }
+    });
+    this.setState({ subjects: alldivisions });
+  }
+
   render() {
-    console.log(this.state);
     let playlists = Object.keys(this.state.videos);
     let subjects = Object.keys(this.state.subjects);
     return (
@@ -349,7 +357,7 @@ export default class Fill extends Component {
                         variant="contained"
                         disabled={!this.state.addNewVideo}
                       >
-                        add new video
+                        add a new video
                       </Button>
                     </Grid>
                   </div>
