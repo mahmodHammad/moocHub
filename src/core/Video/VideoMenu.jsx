@@ -1,13 +1,13 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
 import SpeedIcon from "@material-ui/icons/Speed";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 export default function MenuListComposition({
   content,

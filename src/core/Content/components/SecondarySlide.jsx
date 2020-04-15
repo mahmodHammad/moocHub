@@ -15,7 +15,7 @@ function SecondarySlide({
   className
 }) {
   return (
-    <Grid container className="cardContent" justify="center" className={className}>
+    <Grid container className={`${className} cardContent`} justify="center">
       {content.length ? (
         content.map((cont, index) => (
           <React.Fragment key={index}>
