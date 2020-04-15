@@ -192,6 +192,7 @@ a:hover {
   margin-top: 15px !important;
 }
 
-/* .MuiTabs-flexContainer {
-  justify-content: center;
-} */
+/* to center Grid on firefox */
+.MuiGrid-justify-xs-center {
+  margin: auto !important;
+}
