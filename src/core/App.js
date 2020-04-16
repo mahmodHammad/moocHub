@@ -26,7 +26,6 @@ import Fill from "./../pages/Fill/Fill";
 // Config ----------------------------------
 import customTheme from "../config/theme";
 import communities from "../config/communities";
-import videosJson from "./Video/vidData";
 
 // My components ---------------------------
 import Video from "./Video/Video";
@@ -216,7 +215,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="App">
+        <div>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={this.state.communities}
@@ -225,103 +224,101 @@ export default class App extends Component {
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
             />
-            <Pomodora />
-            <div>
-              {/* START ROUTING  **********************************************/}
-              <Switch>
-                >
-                <Route
-                  exact
-                  path="/"
-                  render={(props) => (
-                    <Communities
-                      {...props}
-                      communities={this.state.communities}
-                      ChooseCommumity={this.ChooseCommumity}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/:subjectName/:subjectId"
-                  render={(props) => (
-                    <Home
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      communities={this.state.communities}
-                      content={this.state.content}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/subject/:subjectName/:subjectId"
-                  render={(props) => (
-                    <Subject
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/videos/:subjectName/:subjectId"
-                  render={(props) => (
-                    <VideosDisplayer
-                      {...props}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      todo={this.state.todo}
-                      handleVideoPin={this.handleVideoPin}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/nerds"
-                  render={(props) => (
-                    <Nerds
-                      {...props}
-                      todo={this.state.todo}
-                      addToTodo={this.addToTodo}
-                      removeFromTodo={this.removeFromTodo}
-                      communities={this.state.communities}
-                      content={this.state.content}
-                    />
-                  )}
-                />
-                <Route exact path="/fill" component={Fill} />
-              </Switch>
-              {/* end routing **********************************************/}
 
-              {/* Will Work When Pin Button Is Pressed  */}
-              {this.state.pinnedVideo.isOpenNextTime !== false && (
-                <Rnd
-                  default={{
-                    x: window.innerWidth - 500,
-                    y: window.innerHeight - 310,
-                    width: 444,
-                    height: 250,
-                  }}
-                  minWidth={440}
-                  minHeight={110}
-                  bounds="window"
-                  lockAspectRatio={true}
-                >
-                  <Video
-                    url={this.state.pinnedVideo.url}
-                    isPinned={true}
-                    goto={this.state.pinnedVideo.goto}
-                    // this Shitty line fixed Every thing
-                    played={this.state.pinnedVideo.played}
+            {/* START ROUTING  **********************************************/}
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Communities
+                    {...props}
+                    communities={this.state.communities}
+                    ChooseCommumity={this.ChooseCommumity}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/:subjectName/:subjectId"
+                render={(props) => (
+                  <Home
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    communities={this.state.communities}
+                    content={this.state.content}
+                  />
+                )}
+              />
+
+              <Route
+                exact
+                path="/subject/:subjectName/:subjectId"
+                render={(props) => (
+                  <Subject
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    todo={this.state.todo}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/videos/:subjectName/:subjectId"
+                render={(props) => (
+                  <VideosDisplayer
+                    {...props}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    todo={this.state.todo}
                     handleVideoPin={this.handleVideoPin}
                   />
-                </Rnd>
-              )}
-            </div>
+                )}
+              />
+              <Route
+                exact
+                path="/nerds"
+                render={(props) => (
+                  <Nerds
+                    {...props}
+                    todo={this.state.todo}
+                    addToTodo={this.addToTodo}
+                    removeFromTodo={this.removeFromTodo}
+                    communities={this.state.communities}
+                    content={this.state.content}
+                  />
+                )}
+              />
+              <Route exact path="/fill" component={Fill} />
+            </Switch>
+            {/* end routing **********************************************/}
+
+            {/* Will Work When Pin Button Is Pressed  */}
+            {this.state.pinnedVideo.isOpenNextTime !== false && (
+              <Rnd
+                default={{
+                  x: window.innerWidth - 500,
+                  y: window.innerHeight - 310,
+                  width: 444,
+                  height: 250,
+                }}
+                minWidth={440}
+                minHeight={110}
+                bounds="window"
+                lockAspectRatio={true}
+              >
+                <Video
+                  url={this.state.pinnedVideo.url}
+                  isPinned={true}
+                  goto={this.state.pinnedVideo.goto}
+                  // this Shitty line fixed Every thing
+                  played={this.state.pinnedVideo.played}
+                  handleVideoPin={this.handleVideoPin}
+                />
+              </Rnd>
+            )}
           </BrowserRouter>
         </div>
       </MuiThemeProvider>

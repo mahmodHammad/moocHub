@@ -9,7 +9,7 @@ const styles = {
     margin: "20px 0 0 0"
   }
 };
-function MainSlide({ content, classes, handleClick, selectedIndex }) {
+function MainSlide({ content, classes, handleClick, selectedIndex}) {
   return (
     <div  className="z-10">
     <Paper elevation={2} >

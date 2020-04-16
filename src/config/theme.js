@@ -4,7 +4,7 @@ export default {
     },
     secondary: {
       light: "#fff",
-      main: "#d72323",
+      main: "#1e88e5",
       contrastText: "#000"
     },
     error: {

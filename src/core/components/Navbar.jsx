@@ -8,46 +8,29 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
-import BugReportIcon from '@material-ui/icons/BugReport';
 const useStyles = makeStyles(theme => ({
-  bug:{
-    opacity:"0.5",
-    fontSize:"15px",
-    color:"aaa"
-  },
   logo: {
     flexGrow: 1,
     justifyContent: "left",
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
-  study:{
-    padding:" 2px 9px",
-    fontSize:"0.7125rem"
-  },
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  contact: {
-    position: "relative",
-    "&:hover": {
-      color: "green"
-    },
-    marginLeft: 10,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto"
-    }
-  },
-  contactbtn: {
-    fontSize: "0.7rem"
+  study: {
+    padding: " 2px 9px",
+    fontSize: "0.7125rem"
   }
 }));
 
-export default function Navbar({ todo, removeFromTodo, communities ,getCommunity,clearLocalStorage }) {
+// will be deprecated XXX
+let year = "2nd";
+let department = "Electrical";
+// XXXXXXXXXXXXXXXXXXXXXX
+
+export default function Navbar({
+  todo,
+  removeFromTodo,
+  communities,
+  getCommunity
+}) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
   return (
@@ -63,26 +46,23 @@ export default function Navbar({ todo, removeFromTodo, communities ,getCommunity
             <MenuIcon />
           </IconButton>
           <div className={classes.logo}>
-            <Button color="inherit" component={Link} to="/" size="large"  className={classes.logo1}>
+            <Button color="inherit" component={Link} to="/" size="large">
               <Typography align="left" color="inherit">
-                Asu
+                {year}
               </Typography>
-              <Typography color="secondary">Engineer </Typography>
+              <Typography color="secondary"> {department} </Typography>
             </Button>
           </div>
-          <div>
-            <Button
-              size="small"
-              className={classes.study}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/nerds"
-            >
-              Study Room
-            </Button>
-            <BugReportIcon className={classes.bug} onClick={clearLocalStorage}/>
-          </div>
+          <Button
+            size="small"
+            className={classes.study}
+            variant="outlined"
+            color="secondary"
+            component={Link}
+            to="/nerds"
+          >
+            Study Room
+          </Button>
         </Toolbar>
       </AppBar>
 

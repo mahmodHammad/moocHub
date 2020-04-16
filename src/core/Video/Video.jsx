@@ -17,7 +17,7 @@ class App extends Component {
     isPinned: false,
     url: "",
     content: [],
-    settingOptions: [1, 1.25, 1.5, 1.75, 2],
+    settingOptions: [1, 1.2, 1.4, 1.6, 1.8 ,2],
     playing: true,
     controls: false,
     light: false,
@@ -131,10 +131,10 @@ class App extends Component {
       duration,
       playbackRate,
       isRemaining,
-      settingOptions
+      settingOptions,
     } = this.state;
 
-    const { goto, handleVideoPin } = this.props;
+    const { handleVideoPin ,goto } = this.props;
 
     return (
       <React.Fragment>
@@ -170,15 +170,12 @@ class App extends Component {
                     this.player.seekTo(parseFloat(this.props.played));
                   }
                 }}
-                onStart={() => console.log("onStart")}
                 onPlay={this.handlePlay}
                 onPause={this.handlePause}
                 onBuffer={() => {
                   this.setState({ seeking: false });
                 }}
-                onSeek={e => console.log("onSeek", e)}
                 onEnded={this.handleEnded}
-                onError={e => console.log("onError", e)}
                 onProgress={this.handleProgress}
                 onDuration={this.handleDuration}
               />

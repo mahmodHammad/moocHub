@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Fill.css";
+import subjects from "../../config/subjects";
 
 // MUI Components------------------------------
 import Button from "@material-ui/core/Button";
@@ -14,13 +15,7 @@ import CreatePL from "./components/CreatePL";
 import PlFields from "./components/PlFields";
 export default class Fill extends Component {
   state = {
-    subjects: {
-      math: "1iAj9UccTpK5S_ogtwdVZGwFFiyr1lyKk",
-      signals: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
-      co: "1thBkhoZ5lQ_6DQOHTOFkw-O4Nslf-cP8",
-      control: "1ifZ2VNqC6YAuy2IoLfEQu31hjNdoebbm",
-      conversion: "1a0nyHuVsCwWMVifikEPlHPYYcbXlmxGm"
-    },
+    subjects: {},
     videos: {},
     selectedPlayList: "",
     displayedPlayList: [],
@@ -29,6 +24,99 @@ export default class Fill extends Component {
     loading: true,
     addNewVideo: true
   };
+
+  // helpers
+  idToUrl = id => {
+    return `https://www.youtube.com/watch?v=${id}`;
+  };
+
+  exrtactID = url => {
+    return url.split("=")[1].split("&")[0];
+  };
+
+  timeToSeconds = time => {
+    let times = time.split(":");
+    let seconds = 0;
+    if (times.length === 2) {
+      let min = parseInt(times[0]);
+      let sec = parseInt(times[1]);
+      seconds = min * 60 + sec;
+    } else if (times.length === 3) {
+      let h = parseInt(times[0]);
+      let min = parseInt(times[1]);
+      let sec = parseInt(times[2]);
+      seconds = h * 60 * 60 + min * 60 + sec;
+    }
+    return seconds;
+  };
+
+  // take seconds(number) ->130
+  // return time(string)  ->2:10
+  SecondsToTime=seconds=>{
+
+    console.log("seconds",seconds)
+    
+    return seconds
+  }
+
+  // take user inputs ->extract id from the url , covert time into seconds
+  // only work on submit
+  BeforeSubmit = playlists => {
+    let allpls = Object.keys(playlists);
+    let result = {};
+    allpls.forEach(plName => {
+      // loop over each playlist
+      let modifiedPL = playlists[plName].map(video => {
+        // loop over each video
+
+        let oldgoto = video.goto;
+        let name = video.name;
+        let url = this.exrtactID(video.url);
+
+        let goto = oldgoto.map(e => {
+          //   loop over goto
+          let title = e.title;
+          let time = this.timeToSeconds(e.time);
+
+          return [title, time];
+        });
+        return { name, url, goto };
+      });
+
+      result[plName] = modifiedPL;
+    });
+    return result;
+  };
+
+  AfterGet = playlists => {
+    let allpls = Object.keys(playlists);
+    let result = {};
+    allpls.forEach(plName => {
+      // loop over each playlist
+      let modifiedPL = playlists[plName].map(video => {
+        // loop over each video
+
+        let name = video.name;
+        let url = this.idToUrl(video.url);
+        let oldgoto = video.goto;
+
+        let goto = oldgoto.map(e => {
+          //   loop over goto
+          let title = e[0];
+          let time = this.SecondsToTime(e[1]);
+
+          return [title, time];
+        });
+        return { name, url, goto };
+      });
+
+      result[plName] = modifiedPL;
+    });
+    return result;
+  };
+
+  // take the data from db ->covert the id into a url , covert time(second) into "1:53:19"
+  // only work on loadVideos
 
   handlePlayListChange = e => {
     const selectedPlayList = e.currentTarget.value;
@@ -65,11 +153,17 @@ export default class Fill extends Component {
   loadVideos = subjectId => {
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
       )
       .then(daat => {
-        const videos = daat.data;
-        this.setState({ videos, loading: false });
+        const data = daat.data;
+        console.log("Before",data);
+
+        let videos = this.AfterGet(data);
+
+        console.log("AFter",videos);
+
+        this.setState({ videos: data, loading: false });
       })
       .catch(err => {
         console.log(err);
@@ -277,29 +371,44 @@ export default class Fill extends Component {
     }
 
     // validate name ,and url
-
-    axios
-      .post(
-        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
-        {
-          subject: this.state.subject,
-          playlistname: 10,
-          videos: newvid
-        }
-      )
-      .then(data => {
-        this.setState({ loading: false });
-        alert("Submitted !!!");
-        console.log(data);
-      })
-      .catch(err => {
-        alert("Falied to submit >>>try again");
-        console.log(err);
-      });
+    let converted = this.BeforeSubmit(newvid);
+    console.log("coverted before submit", converted);
+    // axios
+    //   .post(
+    //     "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+    //     {
+    //       subject: this.state.subject,
+    //       playlistname: 10,
+    //       videos: converted
+    //     }
+    //   )
+    //   .then(data => {
+    //     this.setState({ loading: false });
+    //     alert("Submitted !!!");
+    //     console.log(data);
+    //   })
+    //   .catch(err => {
+    //     alert("Falied to submit >>>try again");
+    //     console.log(err);
+    //   });
   };
 
+  componentDidMount() {
+    let alldivisions = {};
+    subjects.forEach(s => {
+      if (s.divided === undefined) {
+        alldivisions[s.name] = s.id;
+      } else {
+        s.divided.forEach(d => {
+          alldivisions[d.name] = d.id;
+        });
+      }
+    });
+    this.setState({ subjects: alldivisions });
+  }
+
   render() {
-    console.log(this.state);
+    console.log(this.state.videos);
     let playlists = Object.keys(this.state.videos);
     let subjects = Object.keys(this.state.subjects);
     return (
@@ -349,7 +458,7 @@ export default class Fill extends Component {
                         variant="contained"
                         disabled={!this.state.addNewVideo}
                       >
-                        add new video
+                        add a new video
                       </Button>
                     </Grid>
                   </div>

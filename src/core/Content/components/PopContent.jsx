@@ -39,8 +39,6 @@ export default function FullScreenDialog({
   handleVideoPin
 }) {
   const classes = useStyles();
-  console.log(handleSelect, isAdd);
-
   const handleVideoPinClick = (url, goto, played) => {
     handleClose();
     handleVideoPin(url, goto, played);
@@ -81,7 +79,7 @@ export default function FullScreenDialog({
           {isVideo ? (
             <Video
               goto={content.goto}
-              url={content.id}
+              url={content.url}
               handleVideoPin={handleVideoPinClick}
               isPinned={false}
             />

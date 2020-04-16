@@ -3,6 +3,16 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import MainSlide from "./components/MainSlide";
 import SecondarySlide from "./components/SecondarySlide";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import BottomBar from "./components/BottomBar";
+import Empty from "./components/Empty";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  secondary:{
+    marginBottom:"40px"
+  }
+});
 
 export default function ContentDisplayer({
   subject,
@@ -13,20 +23,31 @@ export default function ContentDisplayer({
   addToTodo,
   removeFromTodo,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  loading,
+  divided,
+  loadSubject
 }) {
+  const classes = useStyles();
+
   return (
     <div>
-      <Typography variant="h5" align="center" className="subjectLabel">
+      {/******  display subject name  ******/}
+
+      <Typography
+        variant="h6"
+        align="center"
+        color="primary"
+        className="subjectLabel"
+      >
         {subject.name}
       </Typography>
+      {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container justify="center">
-        {/******  display subject name  ******/}
-
         {/******  display MainSlider   ******/}
 
-        {content !== false && (
+        {content.length ? (
           <Grid item xs={12} md={"auto"}>
             <MainSlide
               content={content}
@@ -34,6 +55,10 @@ export default function ContentDisplayer({
               handleClick={handlePrimeTabClick}
             />
           </Grid>
+        ) : !loading ? (
+          <Empty />
+        ) : (
+          <span></span>
         )}
 
         {/******  display Secondary slider depending on the selected prime  ******/}
@@ -49,9 +74,16 @@ export default function ContentDisplayer({
                 todo={todo}
                 isVideo={isVideo}
                 handleVideoPin={handleVideoPin}
+                className={classes.secondary}
               />
             )}
         </Grid>
+        <BottomBar
+          divided={divided}
+          loadSubject={loadSubject}
+          isVideo={isVideo}
+          subject={subject}
+        />
       </Grid>
     </div>
   );

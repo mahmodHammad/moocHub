@@ -10,8 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   listItem: {
-    // backgroundColor:"#aaa"
-    borderLeft: "2px #bbb solid",
+    borderLeft: "2px #ccc solid",
     paddingLeft: 10,
     marginLeft: 28,
     paddingRight: 44,
@@ -34,20 +33,19 @@ export default function NestedSidebarList({
         {data.map(item => (
           <React.Fragment key={item.id}>
             {isTodo === true ? (
-              <ListItem
-              className={classes.listItem}
-              button
-              component={Link}
-              to={`${process.env.PUBLIC_URL}/nerds`}
-              onClick={handleSelect}
-            >
-              <ListItemText primary={item.name}  primaryTypographyProps={{variant:"subtitle2"}}/>
-              <CloseIcon
-                fontSize="small"
-                className="col3 todoRemove"
-                onClick={() => removeFromTodo(item, parentId)}
-              />
-            </ListItem>
+              <ListItem className={classes.listItem} button>
+                <ListItemText primaryTypographyProps={{ variant: "subtitle2" }}>
+                  <Link onClick={handleSelect} to={`/nerds`}>
+                    {item.name}
+                  </Link>
+                </ListItemText>
+                <CloseIcon
+                  fontSize="small"
+                  color="secondary"
+                  className="todoRemove"
+                  onClick={() => removeFromTodo(item, parentId)}
+                />
+              </ListItem>
             ) : (
               <ListItem
                 className={classes.listItem}
