@@ -15,7 +15,6 @@ import loadApi from "./../helper/loadApi";
 
 //Pages ------------------------------------
 import Navbar from "./components/Navbar";
-import Pomodora from "./components/Pomodora";
 import Home from "../pages/home/home";
 import Communities from "../pages/Communities/Communities";
 import Subject from "../pages/subject/Subject";
@@ -33,7 +32,7 @@ import Video from "./Video/Video";
 // id.lenght ===11 is youtube
 
 const theme = createMuiTheme({
-  palette: customTheme,
+  palette: customTheme
 });
 
 export default class App extends Component {
@@ -43,7 +42,7 @@ export default class App extends Component {
     communities: communities,
     todo: [],
     content: [],
-    collapse: true,
+    collapse: true
   };
 
   addToTodo = (item, parent) => {
@@ -79,10 +78,10 @@ export default class App extends Component {
   removeFromTodo = (item, parentId) => {
     let [todo] = [this.state.todo];
 
-    let filteredTodo = todo.map((subject) => {
+    let filteredTodo = todo.map(subject => {
       if (subject.id === parentId) {
         let filteredSubject = subject.value.filter(
-          (content) => content.id !== item.id
+          content => content.id !== item.id
         );
         subject.value = filteredSubject;
         return subject;
@@ -90,73 +89,22 @@ export default class App extends Component {
     });
 
     let notEmptyTodo = filteredTodo.filter(
-      (subject) => subject.value.length !== 0
+      subject => subject.value.length !== 0
     );
 
     this.setState({ todo: notEmptyTodo });
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
-  // IF subject has content -> reutrn it's content else return false
-  getVideos = (subjectId) => {
-    let value = false;
-    videosJson.forEach((v) => {
-      if (v.id === subjectId) value = v;
-    });
-    return value;
-  };
-
-  // checks for if the subject has devided content
-  loadContent = (subjects) => {
-    let dividedSubjects = [];
-    let content = [];
-    subjects.map((s, index) => {
-      s.video = this.getVideos(s.id);
-      if (s.name[0] === "_") {
-        // it's divided subject
-        s.name = s.name.substr(1);
-        s.isDivided = true;
-
-        //this line costed me 4 hourses :(
-        s.divided = [];
-        content.push(s);
-        return dividedSubjects.push({ ...s, index });
-      } else {
-        return content.push(s);
-      }
-    });
-    this.setState({ content });
-    this.loadDividedSubjects(dividedSubjects);
-  };
-
-  // for Nested content :
-  loadDividedSubjects = (dividedSubjects) => {
-    dividedSubjects.map((folder) => {
-      return getFiles(folder.id, "folder").then((subjectContent) => {
-        let [content] = [this.state.content];
-
-        // inject Vides inside each subject Division------------
-        let [files] = [subjectContent];
-        files.files.map((f) => (f.video = this.getVideos(f.id)));
-        // ------------------------------------------------------
-
-        content[folder.index].divided = subjectContent;
-        this.setState({ content });
-      });
-    });
-  };
-
-  ////////////////////////////////////////// End Handling Nesting  }>-
-
-  loadSubject = (id) => {
+  loadSubject = id => {
     loadApi().then(() =>
-      getFiles(id, "folder").then((folders) => {
-        this.loadContent(folders.files);
+      getFiles(id, "folder").then(folders => {
+        this.setState({ content: folders.files });
       })
     );
   };
 
-  ChooseCommumity = (community) => {
+  ChooseCommumity = community => {
     const id = community.id;
     const name = community.name;
     this.loadSubject(id);
@@ -179,8 +127,8 @@ export default class App extends Component {
           isOpenNextTime: false,
           url: url,
           goto: goto,
-          played: played,
-        },
+          played: played
+        }
       });
     } else {
       this.setState({
@@ -188,8 +136,8 @@ export default class App extends Component {
           isOpenNextTime: true,
           url: url,
           goto: goto,
-          played: played,
-        },
+          played: played
+        }
       });
     }
   };
@@ -230,7 +178,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/"
-                render={(props) => (
+                render={props => (
                   <Communities
                     {...props}
                     communities={this.state.communities}
@@ -241,7 +189,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/:subjectName/:subjectId"
-                render={(props) => (
+                render={props => (
                   <Home
                     {...props}
                     addToTodo={this.addToTodo}
@@ -255,7 +203,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/subject/:subjectName/:subjectId"
-                render={(props) => (
+                render={props => (
                   <Subject
                     {...props}
                     addToTodo={this.addToTodo}
@@ -267,7 +215,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/videos/:subjectName/:subjectId"
-                render={(props) => (
+                render={props => (
                   <VideosDisplayer
                     {...props}
                     addToTodo={this.addToTodo}
@@ -280,7 +228,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/nerds"
-                render={(props) => (
+                render={props => (
                   <Nerds
                     {...props}
                     todo={this.state.todo}
@@ -302,7 +250,7 @@ export default class App extends Component {
                   x: window.innerWidth - 500,
                   y: window.innerHeight - 310,
                   width: 444,
-                  height: 250,
+                  height: 250
                 }}
                 minWidth={440}
                 minHeight={110}
