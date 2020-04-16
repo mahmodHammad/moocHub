@@ -26,7 +26,7 @@ export default class Fill extends Component {
   };
 
   // helpers
-  revertExtraction = id => {
+  idToUrl = id => {
     return `https://www.youtube.com/watch?v=${id}`;
   };
 
@@ -50,6 +50,15 @@ export default class Fill extends Component {
     return seconds;
   };
 
+  // take seconds(number) ->130
+  // return time(string)  ->2:10
+  SecondsToTime=seconds=>{
+
+    console.log("seconds",seconds)
+    
+    return seconds
+  }
+
   // take user inputs ->extract id from the url , covert time into seconds
   // only work on submit
   BeforeSubmit = playlists => {
@@ -68,6 +77,33 @@ export default class Fill extends Component {
           //   loop over goto
           let title = e.title;
           let time = this.timeToSeconds(e.time);
+
+          return [title, time];
+        });
+        return { name, url, goto };
+      });
+
+      result[plName] = modifiedPL;
+    });
+    return result;
+  };
+
+  AfterGet = playlists => {
+    let allpls = Object.keys(playlists);
+    let result = {};
+    allpls.forEach(plName => {
+      // loop over each playlist
+      let modifiedPL = playlists[plName].map(video => {
+        // loop over each video
+
+        let name = video.name;
+        let url = this.idToUrl(video.url);
+        let oldgoto = video.goto;
+
+        let goto = oldgoto.map(e => {
+          //   loop over goto
+          let title = e[0];
+          let time = this.SecondsToTime(e[1]);
 
           return [title, time];
         });
@@ -117,12 +153,17 @@ export default class Fill extends Component {
   loadVideos = subjectId => {
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
       )
       .then(daat => {
         const data = daat.data;
-        // let videos = this.handleConvert(data)
-        this.setState({ videos:data, loading: false });
+        console.log("Before",data);
+
+        let videos = this.AfterGet(data);
+
+        console.log("AFter",videos);
+
+        this.setState({ videos: data, loading: false });
       })
       .catch(err => {
         console.log(err);
@@ -330,8 +371,8 @@ export default class Fill extends Component {
     }
 
     // validate name ,and url
-    let converted = this.BeforeSubmit(newvid)
-    console.log("coverted before submit" , converted)
+    let converted = this.BeforeSubmit(newvid);
+    console.log("coverted before submit", converted);
     // axios
     //   .post(
     //     "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
