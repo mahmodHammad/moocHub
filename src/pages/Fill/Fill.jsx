@@ -35,6 +35,7 @@ export default class Fill extends Component {
   };
 
   timeToSeconds = time => {
+    console.log("time",time)
     let times = time.split(":");
     let seconds = 0;
     if (times.length === 2) {
@@ -98,10 +99,10 @@ export default class Fill extends Component {
           //   loop over goto
           let title = e.title;
           console.log(e)
-          let time = this.timeToSeconds(e[1]);
+          let time = this.timeToSeconds(e.time);
           console.log("time",time)
 
-          return [title, time];
+          return {title, time};
         });
         return { name, url, goto };
       });
@@ -118,18 +119,23 @@ export default class Fill extends Component {
       // loop over each playlist
       let modifiedPL = playlists[plName].map(video => {
         // loop over each video
+        console.log("video",video)
 
         let name = video.name;
         let url = this.idToUrl(video.url);
         let oldgoto = video.goto;
+        
+        console.log("oldgoto",oldgoto)
 
         let goto = oldgoto.map(e => {
           //   loop over goto
+          console.log("eeeeeeeeeeeeee",e)
           let title = e[0];
           let time = this.SecondsToTime(e[1]);
 
-          return [title, time];
+          return {title, time};
         });
+        console.log("goto",goto)
         return { name, url, goto };
       });
 
@@ -176,7 +182,7 @@ export default class Fill extends Component {
   loadVideos = subjectId => {
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
       .then(daat => {
         const data = daat.data;
@@ -186,7 +192,7 @@ export default class Fill extends Component {
 
         console.log("AFter", videos);
 
-        this.setState({ videos, loading: false });
+        this.setState({ videos:data, loading: false });
         console.log("AFter state",this.state.videos);
         
       })
@@ -315,8 +321,8 @@ export default class Fill extends Component {
               inputOrder={inputOrder}
               handleChange={this.handleGoto}
               fields={[
-                ["title", g[0]],
-                ["time", g[1]]
+                ["title", g.title],
+                ["time", g.time]
               ]}
             />
           </div>
@@ -400,24 +406,24 @@ export default class Fill extends Component {
     // validate name ,and url
     let converted = this.BeforeSubmit(newvid);
     console.log("coverted before submit", converted);
-    // axios
-    //   .post(
-    //     "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
-    //     {
-    //       subject: this.state.subject,
-    //       playlistname: 10,
-    //       videos: converted
-    //     }
-    //   )
-    //   .then(data => {
-    //     this.setState({ loading: false });
-    //     alert("Submitted !!!");
-    //     console.log(data);
-    //   })
-    //   .catch(err => {
-    //     alert("Falied to submit >>>try again");
-    //     console.log(err);
-    //   });
+    axios
+      .post(
+        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+        {
+          subject: this.state.subject,
+          playlistname: 10,
+          videos: converted
+        }
+      )
+      .then(data => {
+        this.setState({ loading: false });
+        alert("Submitted !!!");
+        console.log(data);
+      })
+      .catch(err => {
+        alert("Falied to submit >>>try again");
+        console.log(err);
+      });
   };
 
   componentDidMount() {

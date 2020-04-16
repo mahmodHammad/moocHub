@@ -4,7 +4,6 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
 export default function Selecter({ options, handleSelectChange, label }) {
-  console.log("label",label)
   return (
     <div className="Selector">
       <FormControl fullWidth>
