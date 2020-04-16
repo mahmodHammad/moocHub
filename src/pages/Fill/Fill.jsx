@@ -25,6 +25,116 @@ export default class Fill extends Component {
     addNewVideo: true
   };
 
+  // helpers
+  idToUrl = id => {
+    return `https://www.youtube.com/watch?v=${id}`;
+  };
+
+  exrtactID = url => {
+    return url.split("=")[1].split("&")[0];
+  };
+
+  timeToSeconds = time => {
+    let times = time.split(":");
+    let seconds = 0;
+    if (times.length === 2) {
+      let min = parseInt(times[0]);
+      let sec = parseInt(times[1]);
+      seconds = min * 60 + sec;
+    } else if (times.length === 3) {
+      let h = parseInt(times[0]);
+      let min = parseInt(times[1]);
+      let sec = parseInt(times[2]);
+      seconds = h * 60 * 60 + min * 60 + sec;
+    }
+    return seconds;
+  };
+
+  // take seconds(number) ->130
+  // return time(string)  ->2:10
+  SecondsToTime = seconds => {
+    let time = "";
+    if (seconds >= 3600) {
+      let h = Math.floor(seconds / (60 * 60));
+      time += `${h}:`;
+      seconds -= h * 60 * 60;
+    }
+    if (seconds < 3600) {
+      let m = Math.floor(seconds / 60);
+      seconds -= m * 60;
+      if (m < 10) {
+        // 06:45 instead of 6:45
+        time += `0${m}:`;
+      } else {
+        time += `${m}:`;
+      }
+      if (seconds < 10) {
+        time += `0${seconds}`;
+      } else {
+        time += `${seconds}`;
+      }
+    }
+    return time;
+  };
+
+  // take user inputs ->extract id from the url , covert time into seconds
+  // only work on submit
+  BeforeSubmit = playlists => {
+    let allpls = Object.keys(playlists);
+    let result = {};
+    allpls.forEach(plName => {
+      // loop over each playlist
+      let modifiedPL = playlists[plName].map(video => {
+        // loop over each video
+        let oldgoto = video.goto;
+        let name = video.name;
+        let url = this.exrtactID(video.url);
+        let goto = oldgoto.map(e => {
+          //   loop over goto
+          let title = e.title;
+          let time = this.timeToSeconds(e.time);
+
+          return {title, time};
+        });
+        return { name, url, goto };
+      });
+
+      result[plName] = modifiedPL;
+    });
+    return result;
+  };
+
+  AfterGet = playlists => {
+    let allpls = Object.keys(playlists);
+    let result = {};
+    allpls.forEach(plName => {
+      // loop over each playlist
+      let modifiedPL = playlists[plName].map(video => {
+        // loop over each video
+
+        let name = video.name;
+        let url = this.idToUrl(video.url);
+        let oldgoto = video.goto;
+        
+
+        let goto = oldgoto.map(e => {
+          //   loop over goto
+          let title = e.title;
+          let time = this.SecondsToTime(e.time);
+
+          return {title, time};
+        });
+        return { name, url, goto };
+      });
+
+      result[plName] = modifiedPL;
+    });
+    return result;
+  };
+
+  // take the data from db ->covert the id into a url , covert time(second) into "1:53:19"
+  // only work on loadVideos
+
   handlePlayListChange = e => {
     const selectedPlayList = e.currentTarget.value;
     this.setState({
@@ -63,8 +173,10 @@ export default class Fill extends Component {
         `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
       .then(daat => {
-        const videos = daat.data;
+        const data = daat.data;
+        let videos = this.AfterGet(data);
         this.setState({ videos, loading: false });
+        
       })
       .catch(err => {
         console.log(err);
@@ -183,7 +295,7 @@ export default class Fill extends Component {
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <div>
+          <div key={g[0]} >
             <PlFields
               order={order}
               inputOrder={inputOrder}
@@ -272,14 +384,14 @@ export default class Fill extends Component {
     }
 
     // validate name ,and url
-
+    let converted = this.BeforeSubmit(newvid);
     axios
       .post(
         "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
         {
           subject: this.state.subject,
           playlistname: 10,
-          videos: newvid
+          videos: converted
         }
       )
       .then(data => {
@@ -339,7 +451,7 @@ export default class Fill extends Component {
                       label="Playlists"
                     />
                     {this.state.displayedPlayList.map((pl, index) => (
-                      <div>
+                      <div key={pl.url}>
                         {this.renderVideoInputs(
                           index,
                           pl.name,

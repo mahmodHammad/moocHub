@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
 export default function DisplaySubjectButton({ folder, destination, label }) {
-  
   function getVideoValue() {
     if (destination === "videos") return folder.video.value;
     else return null;
@@ -18,7 +17,7 @@ export default function DisplaySubjectButton({ folder, destination, label }) {
         component={Link}
         to={{
           pathname: `/${destination}/${folder.name}/${folder.id}`,
-          state: { videos: getVideoValue() }
+          state: { videos: getVideoValue() },
         }}
         fullWidth
         variant="contained"

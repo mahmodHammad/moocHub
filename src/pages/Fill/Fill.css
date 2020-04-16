@@ -22,13 +22,13 @@
 }
 
 .addVideo input[name="name"] {
-  color: rgb(105, 0, 0) !important;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: rgb(21, 139, 0) !important;
+  font-family: sans-serif;
   font-weight: bold !important;
 }
 
 .addVideo input[name="url"] {
-  color: rgb(18, 0, 121) !important;
+  color: rgb(0, 97, 121) !important;
   font-style: italic;
 }
 

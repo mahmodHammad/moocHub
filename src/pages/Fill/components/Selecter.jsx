@@ -19,7 +19,7 @@ export default function Selecter({ options, handleSelectChange, label }) {
         >
           <option aria-label="None" value="" />
           {options.map(pl => (
-            <option value={pl}>{pl}</option>
+            <option key={pl} value={pl}>{pl}</option>
           ))}
         </Select>
       </FormControl>
