@@ -130,8 +130,8 @@ export default class Fill extends Component {
         let goto = oldgoto.map(e => {
           //   loop over goto
           console.log("eeeeeeeeeeeeee",e)
-          let title = e[0];
-          let time = this.SecondsToTime(e[1]);
+          let title = e.title;
+          let time = this.SecondsToTime(e.time);
 
           return {title, time};
         });
@@ -186,14 +186,8 @@ export default class Fill extends Component {
       )
       .then(daat => {
         const data = daat.data;
-        console.log("Before", data);
-
         let videos = this.AfterGet(data);
-
-        console.log("AFter", videos);
-
-        this.setState({ videos:data, loading: false });
-        console.log("AFter state",this.state.videos);
+        this.setState({ videos, loading: false });
         
       })
       .catch(err => {
