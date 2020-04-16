@@ -52,11 +52,14 @@ export default class Fill extends Component {
 
   // take seconds(number) ->130
   // return time(string)  ->2:10
-  SecondsToTime=seconds=>{
+  SecondsToTime = seconds => {
 
-    console.log("seconds",seconds)
-    
-    return seconds
+    let h = Math.floor(seconds / (60 * 60));
+    seconds -= h*60*60;
+    let m = Math.floor(seconds / 60);
+    seconds -= m * 60;
+
+    return `${h}:${m}:${seconds}`;
   }
 
   // take user inputs ->extract id from the url , covert time into seconds
