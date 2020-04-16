@@ -35,7 +35,6 @@ export default class Fill extends Component {
   };
 
   timeToSeconds = time => {
-    console.log("time",time)
     let times = time.split(":");
     let seconds = 0;
     if (times.length === 2) {
@@ -75,9 +74,6 @@ export default class Fill extends Component {
         time += `${seconds}`;
       }
     }
-
-    console.log(time);
-
     return time;
   };
 
@@ -90,17 +86,13 @@ export default class Fill extends Component {
       // loop over each playlist
       let modifiedPL = playlists[plName].map(video => {
         // loop over each video
-        console.log("video",video)
         let oldgoto = video.goto;
         let name = video.name;
         let url = this.exrtactID(video.url);
-        console.log(oldgoto,"oldgoto")
         let goto = oldgoto.map(e => {
           //   loop over goto
           let title = e.title;
-          console.log(e)
           let time = this.timeToSeconds(e.time);
-          console.log("time",time)
 
           return {title, time};
         });
@@ -119,23 +111,19 @@ export default class Fill extends Component {
       // loop over each playlist
       let modifiedPL = playlists[plName].map(video => {
         // loop over each video
-        console.log("video",video)
 
         let name = video.name;
         let url = this.idToUrl(video.url);
         let oldgoto = video.goto;
         
-        console.log("oldgoto",oldgoto)
 
         let goto = oldgoto.map(e => {
           //   loop over goto
-          console.log("eeeeeeeeeeeeee",e)
           let title = e.title;
           let time = this.SecondsToTime(e.time);
 
           return {title, time};
         });
-        console.log("goto",goto)
         return { name, url, goto };
       });
 
@@ -293,8 +281,6 @@ export default class Fill extends Component {
   }
 
   renderGoToInputs = (order, defaultGoto = []) => {
-    console.log("order", order);
-    console.log("defaultGoto", defaultGoto);
     let videos = { ...this.state.videos };
     const length = defaultGoto.length;
     let lastGoto;
@@ -399,7 +385,6 @@ export default class Fill extends Component {
 
     // validate name ,and url
     let converted = this.BeforeSubmit(newvid);
-    console.log("coverted before submit", converted);
     axios
       .post(
         "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
@@ -435,7 +420,6 @@ export default class Fill extends Component {
   }
 
   render() {
-    console.log(this.state.videos);
     let playlists = Object.keys(this.state.videos);
     let subjects = Object.keys(this.state.subjects);
     return (
