@@ -4,6 +4,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
 export default function Selecter({ options, handleSelectChange, label }) {
+  console.log("label",label)
   return (
     <div className="Selector">
       <FormControl fullWidth>
@@ -19,7 +20,7 @@ export default function Selecter({ options, handleSelectChange, label }) {
         >
           <option aria-label="None" value="" />
           {options.map(pl => (
-            <option value={pl}>{pl}</option>
+            <option key={pl} value={pl}>{pl}</option>
           ))}
         </Select>
       </FormControl>

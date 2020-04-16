@@ -53,14 +53,32 @@ export default class Fill extends Component {
   // take seconds(number) ->130
   // return time(string)  ->2:10
   SecondsToTime = seconds => {
+    let time = "";
+    if (seconds >= 3600) {
+      let h = Math.floor(seconds / (60 * 60));
+      time += `${h}:`;
+      seconds -= h * 60 * 60;
+    }
+    if (seconds < 3600) {
+      let m = Math.floor(seconds / 60);
+      seconds -= m * 60;
+      if (m < 10) {
+        // 06:45 instead of 6:45
+        time += `0${m}:`;
+      } else {
+        time += `${m}:`;
+      }
+      if (seconds < 10) {
+        time += `0${seconds}`;
+      } else {
+        time += `${seconds}`;
+      }
+    }
 
-    let h = Math.floor(seconds / (60 * 60));
-    seconds -= h*60*60;
-    let m = Math.floor(seconds / 60);
-    seconds -= m * 60;
+    console.log(time);
 
-    return `${h}:${m}:${seconds}`;
-  }
+    return time;
+  };
 
   // take user inputs ->extract id from the url , covert time into seconds
   // only work on submit
@@ -71,15 +89,17 @@ export default class Fill extends Component {
       // loop over each playlist
       let modifiedPL = playlists[plName].map(video => {
         // loop over each video
-
+        console.log("video",video)
         let oldgoto = video.goto;
         let name = video.name;
         let url = this.exrtactID(video.url);
-
+        console.log(oldgoto,"oldgoto")
         let goto = oldgoto.map(e => {
           //   loop over goto
           let title = e.title;
-          let time = this.timeToSeconds(e.time);
+          console.log(e)
+          let time = this.timeToSeconds(e[1]);
+          console.log("time",time)
 
           return [title, time];
         });
@@ -160,13 +180,15 @@ export default class Fill extends Component {
       )
       .then(daat => {
         const data = daat.data;
-        console.log("Before",data);
+        console.log("Before", data);
 
         let videos = this.AfterGet(data);
 
-        console.log("AFter",videos);
+        console.log("AFter", videos);
 
-        this.setState({ videos: data, loading: false });
+        this.setState({ videos, loading: false });
+        console.log("AFter state",this.state.videos);
+        
       })
       .catch(err => {
         console.log(err);
@@ -271,6 +293,8 @@ export default class Fill extends Component {
   }
 
   renderGoToInputs = (order, defaultGoto = []) => {
+    console.log("order", order);
+    console.log("defaultGoto", defaultGoto);
     let videos = { ...this.state.videos };
     const length = defaultGoto.length;
     let lastGoto;
@@ -285,14 +309,14 @@ export default class Fill extends Component {
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <div>
+          <div key={g[0]} >
             <PlFields
               order={order}
               inputOrder={inputOrder}
               handleChange={this.handleGoto}
               fields={[
-                ["title", g.title],
-                ["time", g.time]
+                ["title", g[0]],
+                ["time", g[1]]
               ]}
             />
           </div>
@@ -443,7 +467,7 @@ export default class Fill extends Component {
                       label="Playlists"
                     />
                     {this.state.displayedPlayList.map((pl, index) => (
-                      <div>
+                      <div key={pl.url}>
                         {this.renderVideoInputs(
                           index,
                           pl.name,
