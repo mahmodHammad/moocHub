@@ -11,8 +11,8 @@ import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles({
   root: {
-    minHeight: "73vh",
-    background: "#ffffff22",
+    minHeight: "67vh",
+    background: "#fff2",
     marginBottom: "50px"
   }
 });

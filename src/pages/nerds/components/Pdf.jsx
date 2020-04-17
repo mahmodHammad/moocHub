@@ -12,7 +12,7 @@ const styles = {
   },
   container: {
     width: "100%",
-    height: "98vh",
+    height: "100%",
     background: "rgba(105, 104, 104, 0.25)"
   },
   loading: {

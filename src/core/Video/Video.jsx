@@ -1,4 +1,4 @@
-import "./App.css";
+import "./video.css";
 import React, { Component } from "react";
 import ReactPlayer from "react-player";
 import VideoMenu from "./VideoMenu";
