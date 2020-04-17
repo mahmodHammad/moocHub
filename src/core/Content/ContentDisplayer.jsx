@@ -75,6 +75,8 @@ export default function ContentDisplayer({
                 isVideo={isVideo}
                 handleVideoPin={handleVideoPin}
                 className={classes.secondary}
+                handlePrimeTabClick={handlePrimeTabClick}
+                PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
               />
             )}
         </Grid>

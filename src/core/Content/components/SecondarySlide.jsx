@@ -13,12 +13,14 @@ function SecondarySlide({
   Popcontent,
   isVideo,
   handleVideoPin,
+  handlePrimeTabClick,
+  PrimarySliderSelectedIndex,
   className
 }) {
   return (
     <Swipeable
-      onSwipedRight={eventData => console.log("swipe right", eventData)}
-      onSwipedLeft={eventData => console.log("swipeleft", eventData)}
+      onSwipedRight={eventData =>handlePrimeTabClick(PrimarySliderSelectedIndex-1)}
+      onSwipedLeft={eventData => handlePrimeTabClick(PrimarySliderSelectedIndex+1)}
     >
       <Grid container className={`${className} cardContent`} justify="center">
         {content.length ? (
