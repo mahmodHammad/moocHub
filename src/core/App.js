@@ -21,6 +21,7 @@ import Subject from "../pages/subject/Subject";
 import Nerds from "./../pages/nerds/Nerds";
 import VideosDisplayer from "./../pages/video/VideosDisplayer";
 import Fill from "./../pages/Fill/Fill";
+import Pomodora from './components/Pomodora'
 
 // Config ----------------------------------
 import customTheme from "../config/theme";
@@ -172,7 +173,7 @@ export default class App extends Component {
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
             />
-
+            <Pomodora />
             {/* START ROUTING  **********************************************/}
             <Switch>
               <Route

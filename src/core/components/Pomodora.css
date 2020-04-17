@@ -7,26 +7,67 @@
   color: white;
   top: 70px;
   right: 20px;
-  width: 100px;
+  width: 120px;
   height: 100px;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 0%, #a2faa1 1%, red 99%);
+  /* background: radial-gradient(circle at 50% 0%, #2fbf71 0, #e4434e 30%); */
+  background-color: #e4434e;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 #pomodora::before {
   content: "";
-  border-right: 10px solid #a2faa1;
-  border-left: 10px solid #a2faa1;
+  border-right: 10px solid #2fbf71; /* #2fbf71  is also good */
+  border-left: 10px solid #2fbf71;
   border-top: 5px solid transparent;
-  border-bottom: 5px solid #a2faa1;
+  border-bottom: 5px solid #2fbf71;
   position: absolute;
   top: -10px;
+  border-radius: 10px;
 }
 #pomodora::after {
   content: "";
-  border-right: 5px solid #a2faa1;
-  border-left: 5px solid #a2faa1;
+  border-right: 5px solid #2fbf71;
+  border-left: 5px solid #2fbf71;
   border-top: 5px solid transparent;
-  border-bottom: 10px solid #a2faa1;
+  border-bottom: 10px solid #2fbf71;
   position: absolute;
   top: -15px;
+  border-radius: 10px;
+}
+#pomodora.expanded{
+  width: 400px;
+  height: 200px;
+  border-radius: 10px;
+  top: calc(50% - 100px);
+  right: calc(50% - 200px);
+}
+.exit{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #ddd;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.exit:hover{
+  color: white;
+  transform: scale(1.3);
+}
+.pom-form{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.time-segment{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5px 10px;
+}
+.time-segment>input{
+  width: 100px;
 }
