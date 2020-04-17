@@ -7,10 +7,13 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import BottomBar from "./components/BottomBar";
 import Empty from "./components/Empty";
 import { makeStyles } from "@material-ui/core/styles";
+import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles({
-  secondary:{
-    marginBottom:"40px"
+  root: {
+    minHeight: "73vh",
+    background: "#ffffff22",
+    marginBottom: "50px"
   }
 });
 
@@ -29,6 +32,18 @@ export default function ContentDisplayer({
   loadSubject
 }) {
   const classes = useStyles();
+
+  function swipe(isLeft) {
+    if (isLeft) {
+      if (PrimarySliderSelectedIndex + 1 < content.length) {
+        handlePrimeTabClick(PrimarySliderSelectedIndex + 1);
+      }
+    } else {
+      if (PrimarySliderSelectedIndex > 0) {
+        handlePrimeTabClick(PrimarySliderSelectedIndex - 1);
+      }
+    }
+  }
 
   return (
     <div>
@@ -64,20 +79,30 @@ export default function ContentDisplayer({
         {/******  display Secondary slider depending on the selected prime  ******/}
 
         <Grid item xs={12}>
-          {PrimarySliderSelectedIndex !== false &&
-            content[PrimarySliderSelectedIndex].value !== false && (
-              <SecondarySlide
-                subject={subject}
-                content={content[PrimarySliderSelectedIndex].value}
-                removeFromTodo={removeFromTodo}
-                addToTodo={addToTodo}
-                todo={todo}
-                isVideo={isVideo}
-                handleVideoPin={handleVideoPin}
-                className={classes.secondary}
-              />
-            )}
+          <Swipeable
+            onSwipedRight={() => swipe(0)}
+            onSwipedLeft={() => swipe(1)}
+          >
+            <div className={classes.root}>
+              {PrimarySliderSelectedIndex !== false &&
+                content[PrimarySliderSelectedIndex].value !== false && (
+                  <SecondarySlide
+                    subject={subject}
+                    content={content[PrimarySliderSelectedIndex].value}
+                    removeFromTodo={removeFromTodo}
+                    addToTodo={addToTodo}
+                    todo={todo}
+                    isVideo={isVideo}
+                    handleVideoPin={handleVideoPin}
+                    handlePrimeTabClick={handlePrimeTabClick}
+                    PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+                    primeSliderLength={content.length}
+                  />
+                )}
+            </div>
+          </Swipeable>
         </Grid>
+
         <BottomBar
           divided={divided}
           loadSubject={loadSubject}

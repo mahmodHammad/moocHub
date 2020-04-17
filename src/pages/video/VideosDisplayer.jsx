@@ -21,7 +21,7 @@ export default class VideosDisplayer extends Component {
     this.setLoading(true);
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
       .then(daat => {
         this.setLoading(false);
@@ -34,7 +34,7 @@ export default class VideosDisplayer extends Component {
           return { name, value };
         });
 
-        this.setState({ content, loading: false });
+        this.setState({ content, loading: false,PrimarySliderSelectedIndex: 0 });
       })
       .catch(err => {
         alert("WE can not load this video right now!")
@@ -43,7 +43,7 @@ export default class VideosDisplayer extends Component {
   };
 
   loadSubject = id => {
-    this.setState({ loading: true, PrimarySliderSelectedIndex: false });
+    this.setState({ loading: true, PrimarySliderSelectedIndex: 0 });
     this.loadVideos(id);
   };
 

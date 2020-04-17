@@ -11,11 +11,10 @@ function SecondarySlide({
   subject,
   Popcontent,
   isVideo,
-  handleVideoPin,
-  className
+  handleVideoPin
 }) {
   return (
-    <Grid container className={`${className} cardContent`} justify="center">
+    <Grid container className="cardContent" justify="center">
       {content.length ? (
         content.map((cont, index) => (
           <React.Fragment key={index}>
