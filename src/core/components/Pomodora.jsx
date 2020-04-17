@@ -50,8 +50,10 @@ export default class Pomodora extends React.Component {
     if (this.state.expanded) {
      this.setState({expanded: ""})
      let interval = setInterval(() => {
-       this.setState({time: this.state.time - 1})
-     }, 1000)
+      if (this.state.time > 0) {
+        this.setState({ time: this.state.time - 1 });
+      }
+    }, 1000);
 
      this.setState({interval})
      let time;
