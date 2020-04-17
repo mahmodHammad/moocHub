@@ -53,14 +53,29 @@ export default class Fill extends Component {
   // take seconds(number) ->130
   // return time(string)  ->2:10
   SecondsToTime = seconds => {
-
-    let h = Math.floor(seconds / (60 * 60));
-    seconds -= h*60*60;
-    let m = Math.floor(seconds / 60);
-    seconds -= m * 60;
-
-    return `${h}:${m}:${seconds}`;
-  }
+    let time = "";
+    if (seconds >= 3600) {
+      let h = Math.floor(seconds / (60 * 60));
+      time += `${h}:`;
+      seconds -= h * 60 * 60;
+    }
+    if (seconds < 3600) {
+      let m = Math.floor(seconds / 60);
+      seconds -= m * 60;
+      if (m < 10) {
+        // 06:45 instead of 6:45
+        time += `0${m}:`;
+      } else {
+        time += `${m}:`;
+      }
+      if (seconds < 10) {
+        time += `0${seconds}`;
+      } else {
+        time += `${seconds}`;
+      }
+    }
+    return time;
+  };
 
   // take user inputs ->extract id from the url , covert time into seconds
   // only work on submit
@@ -71,17 +86,15 @@ export default class Fill extends Component {
       // loop over each playlist
       let modifiedPL = playlists[plName].map(video => {
         // loop over each video
-
         let oldgoto = video.goto;
         let name = video.name;
         let url = this.exrtactID(video.url);
-
         let goto = oldgoto.map(e => {
           //   loop over goto
           let title = e.title;
           let time = this.timeToSeconds(e.time);
 
-          return [title, time];
+          return {title, time};
         });
         return { name, url, goto };
       });
@@ -102,13 +115,14 @@ export default class Fill extends Component {
         let name = video.name;
         let url = this.idToUrl(video.url);
         let oldgoto = video.goto;
+        
 
         let goto = oldgoto.map(e => {
           //   loop over goto
-          let title = e[0];
-          let time = this.SecondsToTime(e[1]);
+          let title = e.title;
+          let time = this.SecondsToTime(e.time);
 
-          return [title, time];
+          return {title, time};
         });
         return { name, url, goto };
       });
@@ -156,17 +170,13 @@ export default class Fill extends Component {
   loadVideos = subjectId => {
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
       .then(daat => {
         const data = daat.data;
-        console.log("Before",data);
-
         let videos = this.AfterGet(data);
-
-        console.log("AFter",videos);
-
-        this.setState({ videos: data, loading: false });
+        this.setState({ videos, loading: false });
+        
       })
       .catch(err => {
         console.log(err);
@@ -285,7 +295,7 @@ export default class Fill extends Component {
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <div>
+          <div key={g[0]} >
             <PlFields
               order={order}
               inputOrder={inputOrder}
@@ -375,25 +385,24 @@ export default class Fill extends Component {
 
     // validate name ,and url
     let converted = this.BeforeSubmit(newvid);
-    console.log("coverted before submit", converted);
-    // axios
-    //   .post(
-    //     "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
-    //     {
-    //       subject: this.state.subject,
-    //       playlistname: 10,
-    //       videos: converted
-    //     }
-    //   )
-    //   .then(data => {
-    //     this.setState({ loading: false });
-    //     alert("Submitted !!!");
-    //     console.log(data);
-    //   })
-    //   .catch(err => {
-    //     alert("Falied to submit >>>try again");
-    //     console.log(err);
-    //   });
+    axios
+      .post(
+        "https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos",
+        {
+          subject: this.state.subject,
+          playlistname: 10,
+          videos: converted
+        }
+      )
+      .then(data => {
+        this.setState({ loading: false });
+        alert("Submitted !!!");
+        console.log(data);
+      })
+      .catch(err => {
+        alert("Falied to submit >>>try again");
+        console.log(err);
+      });
   };
 
   componentDidMount() {
@@ -411,7 +420,6 @@ export default class Fill extends Component {
   }
 
   render() {
-    console.log(this.state.videos);
     let playlists = Object.keys(this.state.videos);
     let subjects = Object.keys(this.state.subjects);
     return (
@@ -443,7 +451,7 @@ export default class Fill extends Component {
                       label="Playlists"
                     />
                     {this.state.displayedPlayList.map((pl, index) => (
-                      <div>
+                      <div key={pl.url}>
                         {this.renderVideoInputs(
                           index,
                           pl.name,

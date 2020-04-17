@@ -5,6 +5,7 @@ export default function PlFields({ order, inputOrder, handleChange, fields }) {
     <div className="playlistFields">
       {fields.map(f => (
         <TextField
+          key={f[0]}
           required
           name={f[0]}
           label={f[0]}
