@@ -11,22 +11,27 @@ import Video from "../../Video/Video";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    position: "relative"
+    top: "auto",
+    bottom: 0,
+    opacity: 0.4,
+    transition: "all 0.2s ease",
+    "&:hover": {
+      opacity: 1
+    }
   },
   title: {
     marginLeft: theme.spacing(2),
     flex: 1
   },
-  pdf: {
-    height: "calc(100vh - 49px)"
-  }
+  pdf: {}
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="dowm" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog({
@@ -51,31 +56,7 @@ export default function FullScreenDialog({
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar variant="dense">
-            <CloseIcon
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            />
-            <Typography
-              variant="inherit"
-              noWrap={true}
-              className={classes.title}
-            >
-              {content.name}
-            </Typography>
-            {isAdd ? (
-              <AddCircleIcon onClick={handleSelect} />
-            ) : (
-              <RemoveCircleIcon color="secondary" onClick={handleSelect} />
-            )}
-          </Toolbar>
-        </AppBar>
-
-        <div className="popContent">
-          <div className={classes.pdf}>
+        <div className={`${classes.pdf} popContent`}>
           {isVideo ? (
             <Video
               goto={content.goto}
@@ -84,10 +65,33 @@ export default function FullScreenDialog({
               isPinned={false}
             />
           ) : (
-              <Pdf pdfId={content.id} />
+            <Pdf pdfId={content.id} />
           )}
-            </div>
         </div>
+        <Swipeable onSwipedUp={() => handleClose()}>
+          <AppBar className={classes.appBar}>
+            <Toolbar variant="dense">
+              <CloseIcon
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              />
+              <Typography
+                variant="inherit"
+                noWrap={true}
+                className={classes.title}
+              >
+                {content.name}
+              </Typography>
+              {isAdd ? (
+                <AddCircleIcon onClick={handleSelect} />
+              ) : (
+                <RemoveCircleIcon color="secondary" onClick={handleSelect} />
+              )}
+            </Toolbar>
+          </AppBar>
+        </Swipeable>
       </Dialog>
     </div>
   );
