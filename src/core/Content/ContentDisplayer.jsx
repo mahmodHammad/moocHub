@@ -10,13 +10,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles({
-  secondary: {
-    marginBottom: "40px"
-  },
   root: {
-    height: "100vh",
+    minHeight: "73vh",
     background: "#ffffff22",
-    borderTop: "1px solid #fff"
+    marginBottom: "50px"
   }
 });
 
@@ -97,7 +94,6 @@ export default function ContentDisplayer({
                     todo={todo}
                     isVideo={isVideo}
                     handleVideoPin={handleVideoPin}
-                    className={classes.secondary}
                     handlePrimeTabClick={handlePrimeTabClick}
                     PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
                     primeSliderLength={content.length}
