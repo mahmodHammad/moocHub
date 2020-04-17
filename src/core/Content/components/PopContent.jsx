@@ -29,7 +29,10 @@ const useStyles = makeStyles(theme => ({
   op:{
     opacity: 0.4,
   },
-  pdf: {}
+  root: {
+    background:"#000"
+
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -51,12 +54,13 @@ export default function FullScreenDialog({
     handleVideoPin(url, goto, played);
   };
   return (
-    <div>
+    <div className="pop">
       <Dialog
         fullScreen
         open={Pop}
         onClose={handleClose}
         TransitionComponent={Transition}
+        
       >
         {/* Content----------------------------------> */}
         <div className={`popContent`}>
