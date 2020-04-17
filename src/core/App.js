@@ -164,7 +164,7 @@ export default class App extends Component {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <div>
-          <BrowserRouter>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={this.state.communities}
               todo={this.state.todo}

@@ -1,3 +1,4 @@
+//  this page needs some styling 
 //////// take array of subjects -> displaythem throgh DisplayObject Component  ////////
 import DisplayCommunity from "./components/DisplayCommunity";
 import Typography from "@material-ui/core/Typography";
@@ -27,7 +28,7 @@ export default function home({ communities, ChooseCommumity }) {
             This page will appear only for the first time
           </Typography>
           <Typography variant="body2" align="center" color="primary">
-            Your Home page will be the department that you will select ,you can
+            Your Home page will be the department that you will <b> select</b> ,you can
             change the default department later from the sidebar
           </Typography>
         </Grid>
