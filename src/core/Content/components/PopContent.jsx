@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     top: "auto",
     bottom: 0,
-    opacity: 0.4,
     transition: "all 0.2s ease",
     "&:hover": {
       opacity: 1
@@ -26,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1
+  },
+  op:{
+    opacity: 0.4,
   },
   pdf: {}
 }));
@@ -56,7 +58,8 @@ export default function FullScreenDialog({
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <div className={`${classes.pdf} popContent`}>
+        {/* Content----------------------------------> */}
+        <div className={`popContent`}>
           {isVideo ? (
             <Video
               goto={content.goto}
@@ -68,8 +71,10 @@ export default function FullScreenDialog({
             <Pdf pdfId={content.id} />
           )}
         </div>
+
+        {/* Bottom BAR--------------------------------> */}
         <Swipeable onSwipedUp={() => handleClose()}>
-          <AppBar className={classes.appBar}>
+          <AppBar className={`${classes.appBar} ${!isVideo&&classes.op}`}>
             <Toolbar variant="dense">
               <CloseIcon
                 edge="start"

@@ -39,11 +39,11 @@ class Home extends Component {
       return { name, id, value };
     });
     this.setState({ content: realcontent, loading: false });
-    this.handlePrimeTabClick(0)
+    this.handlePrimeTabClick(0);
   };
 
   loadSubject = id => {
-    this.setState({ loading: true ,PrimarySliderSelectedIndex:false });
+    this.setState({ loading: true, PrimarySliderSelectedIndex: false });
     loadApi().then(() =>
       getFiles(id, "folder")
         .then(subjectContent => {
@@ -52,17 +52,17 @@ class Home extends Component {
         .catch(() => alert("Can not load content , try againg later"))
     );
   };
-  
+
   componentDidMount() {
     const name = this.props.match.params.subjectName;
     let id = this.props.match.params.subjectId;
     const subject = { name, id };
     this.setState({ subject });
-    
+
     let divided = this.props.location.state.divided;
     if (divided === undefined) divided = [];
     // wil be the last selected instead of the first index
-    else if (divided[0]!==undefined)id = divided[0].id;
+    else if (divided[0] !== undefined) id = divided[0].id;
     this.setState({ divided });
     this.loadSubject(id);
   }
@@ -77,7 +77,6 @@ class Home extends Component {
       divided
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
-    console.log("Subject",this.state)
     return (
       <ContentDisplayer
         subject={subject}
