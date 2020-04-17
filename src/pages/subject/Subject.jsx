@@ -39,6 +39,7 @@ class Home extends Component {
       return { name, id, value };
     });
     this.setState({ content: realcontent, loading: false });
+    this.handlePrimeTabClick(0)
   };
 
   loadSubject = id => {
@@ -76,6 +77,7 @@ class Home extends Component {
       divided
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
+    console.log("Subject",this.state)
     return (
       <ContentDisplayer
         subject={subject}

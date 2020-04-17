@@ -23,6 +23,13 @@ export default function home({ communities, ChooseCommumity }) {
               Ain Shams University
             </Typography>
           </div>
+          <Typography variant="body1" align="center" color="inherit">
+            This page will appear only for the first time
+          </Typography>
+          <Typography variant="body2" align="center" color="primary">
+            Your Home page will be the department that you will select ,you can
+            change the default department later from the sidebar
+          </Typography>
         </Grid>
         <Grid container item xs={8} md={6} spacing={4} className="communiities">
           {communities.map((community, N) => {

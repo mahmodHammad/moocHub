@@ -7,8 +7,8 @@ export default [
     id: "1iAj9UccTpK5S_ogtwdVZGwFFiyr1lyKk",
     name: " Mathematics 3",
     divided: [
-      { id: "1Ra9c7G5tt7d46K9b08Mx9EpUPRIeobyp", name: "Dr Makram" },
-      { id: "1-0eph-MckLAAu1NZjP_swKNnI1iH7ji3", name: "Dr Mahmoud" }
+      { id: "1-0eph-MckLAAu1NZjP_swKNnI1iH7ji3", name: "Dr Makram" },
+      { id: "1Ra9c7G5tt7d46K9b08Mx9EpUPRIeobyp", name: "Dr Mahmoud" }
     ]
   },
   {

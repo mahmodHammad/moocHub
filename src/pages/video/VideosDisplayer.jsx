@@ -34,7 +34,7 @@ export default class VideosDisplayer extends Component {
           return { name, value };
         });
 
-        this.setState({ content, loading: false });
+        this.setState({ content, loading: false,PrimarySliderSelectedIndex: 0 });
       })
       .catch(err => {
         alert("WE can not load this video right now!")
@@ -43,7 +43,7 @@ export default class VideosDisplayer extends Component {
   };
 
   loadSubject = id => {
-    this.setState({ loading: true, PrimarySliderSelectedIndex: false });
+    this.setState({ loading: true, PrimarySliderSelectedIndex: 0 });
     this.loadVideos(id);
   };
 
