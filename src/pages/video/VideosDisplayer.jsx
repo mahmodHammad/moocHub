@@ -21,7 +21,7 @@ export default class VideosDisplayer extends Component {
     this.setLoading(true);
     axios
       .get(
-        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/subject/${subjectId}`
+        `https://us-central1-electrical2nd-2020.cloudfunctions.net/api/videos/${subjectId}`
       )
       .then(daat => {
         this.setLoading(false);

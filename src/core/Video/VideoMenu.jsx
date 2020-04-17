@@ -47,14 +47,14 @@ export default function MenuListComposition({
   ) {
     if (isContent) {
       // goto
-      return content.map(([title, sec]) => (
+      return content.map(({ title, time }, index) => (
         <MenuItem
-          key={sec}
+          key={time + index}
           className="min"
           size="small"
           variant="outlined"
           onMouseDown={event => {
-            handleGoTo(sec);
+            handleGoTo(time);
             handleClose(event);
           }}
           onMouseUp={handleSeekMouseUp}
