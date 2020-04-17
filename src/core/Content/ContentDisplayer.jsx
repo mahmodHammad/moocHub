@@ -77,6 +77,7 @@ export default function ContentDisplayer({
                 className={classes.secondary}
                 handlePrimeTabClick={handlePrimeTabClick}
                 PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+                primeSliderLength={content.length}
               />
             )}
         </Grid>

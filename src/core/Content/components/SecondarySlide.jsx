@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Content from "./ContentCards";
 import Empty from "./Empty";
-import { useSwipeable, Swipeable } from "react-swipeable";
+import { Swipeable } from "react-swipeable";
 
 function SecondarySlide({
   content,
@@ -15,12 +15,24 @@ function SecondarySlide({
   handleVideoPin,
   handlePrimeTabClick,
   PrimarySliderSelectedIndex,
+  primeSliderLength,
   className
 }) {
+  function swipe(isLeft) {
+    if (isLeft) {
+      if (PrimarySliderSelectedIndex + 1 < primeSliderLength) {
+        handlePrimeTabClick(PrimarySliderSelectedIndex + 1);
+      }
+    } else {
+      if (PrimarySliderSelectedIndex > 1) {
+        handlePrimeTabClick(PrimarySliderSelectedIndex - 1);
+      }
+    }
+  }
   return (
     <Swipeable
-      onSwipedRight={eventData =>handlePrimeTabClick(PrimarySliderSelectedIndex-1)}
-      onSwipedLeft={eventData => handlePrimeTabClick(PrimarySliderSelectedIndex+1)}
+      onSwipedRight={eventData => swipe(0)}
+      onSwipedLeft={eventData => swipe(1)}
     >
       <Grid container className={`${className} cardContent`} justify="center">
         {content.length ? (
