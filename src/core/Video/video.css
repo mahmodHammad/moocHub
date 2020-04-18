@@ -1,6 +1,3 @@
-.video {
-  background-color: red;
-}
 .section {
   display: inline-block;
   text-align: left;
@@ -26,9 +23,7 @@
 .min {
   font-size: 10px;
 }
-.content-buttons .MuiButton-label {
-  font-size: 10px;
-}
+
 .content-buttons {
   margin: 10px;
 }
@@ -65,7 +60,7 @@
 }
 
 .options .MuiSlider-root {
-  margin-bottom: -20px;
+  margin-bottom: -18px;
 }
 
 .options-group {
@@ -89,4 +84,13 @@
 
 .popContent .player-wrapper {
   height: calc(100vh - 45px);
+}
+
+@media (max-width: 960px) {
+  .options {
+    margin-top: -58px;
+  }
+  .options .MuiSlider-root {
+    margin-bottom: -25px;
+  }
 }
