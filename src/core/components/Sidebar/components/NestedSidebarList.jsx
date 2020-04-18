@@ -84,7 +84,7 @@ export default function NestedSidebarList({
               </div>
             ) : (
               <ListItem
-                className={classes.listItem}
+                className={`${classes.listItem} ${classes.linker}`}
                 button
                 component={Link}
                 to={`/${item.name}/${item.id}`}
