@@ -11,10 +11,15 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   listItem: {
     borderLeft: "2px #ccc solid",
-    paddingLeft: 10,
+    paddingLeft: 0,
     marginLeft: 28,
-    paddingRight: 44,
+    paddingRight: 34,
     color: "#666"
+  },
+  linker: {
+    width: "100%",
+    display: "inline-block",
+    padding: "2px 5px 2px 10px"
   }
 });
 
@@ -36,6 +41,7 @@ export default function NestedSidebarList({
               <ListItem className={classes.listItem} button>
                 <ListItemText primaryTypographyProps={{ variant: "subtitle2" }}>
                   <Link
+                    className={classes.linker}
                     onClick={handleSelect}
                     to={{
                       pathname: `/nerds/`,
