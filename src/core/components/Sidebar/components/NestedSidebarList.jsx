@@ -51,7 +51,7 @@ export default function NestedSidebarList({
     }
   }
   // -------------------------------------------------
-  
+
   return (
     <List>
       <Collapse in={open} timeout="auto">
@@ -84,7 +84,7 @@ export default function NestedSidebarList({
               </div>
             ) : (
               <ListItem
-                className={classes.listItem}
+                className={`${putclass(index, arr)} ${classes.linker}`}
                 button
                 component={Link}
                 to={`/${item.name}/${item.id}`}
