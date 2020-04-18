@@ -50,9 +50,9 @@
 .options {
   z-index: 88 !important;
   color: #fff;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: all 0.3s ease;
-  margin-top: -55px;
+  margin-top: -60px;
 }
 
 .options:hover {
@@ -60,7 +60,7 @@
 }
 
 .options .MuiSlider-root {
-  margin-bottom: -18px;
+  margin-bottom: -16px;
 }
 
 .options-group {
@@ -72,6 +72,7 @@
   background-color: #0001 !important;
   color: #fff;
   margin: 0 -1px;
+  height: 35px;
 }
 .Selected {
   background-color: #3333 !important;
@@ -89,8 +90,13 @@
 @media (max-width: 960px) {
   .options {
     margin-top: -58px;
+    font-size: 1.3em;
   }
   .options .MuiSlider-root {
     margin-bottom: -25px;
+  }
+  .options .MuiButton-root .MuiSvgIcon-root {
+    /* padding: 0px !important; */
+    font-size: 1.3em;
   }
 }
