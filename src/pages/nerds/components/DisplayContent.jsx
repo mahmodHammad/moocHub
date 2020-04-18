@@ -5,11 +5,23 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 
+function checkSelected(selected,item){
+  if(selected===undefined){
+    return false
+  }else{
+    if(selected.selected.id===item.id){
+      return true
+    }else{
+      return false
+    }
+  }
+}
 export default function DisplayContent({
   todo,
   removeFromTodo,
   opened,
-  setopened
+  setopened,
+  selected
 }) {
   return (
     <div>
@@ -28,6 +40,7 @@ export default function DisplayContent({
                     parentId={e.id}
                     opened={opened}
                     setopened={setopened}
+                    selected={checkSelected(selected,item)}
                   />
                 </React.Fragment>
               ))}

@@ -1,5 +1,5 @@
 // works form window routing not hash routing
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,29 +17,10 @@ const styles = {
     paddingRight: 44,
     color: "#666"
   },
-  pdf:{
-    height:"100vh"
+  pdf: {
+    height: "100vh"
   }
 };
-
-function handleToggleContent(
-  openedItems,
-  setopened,
-  oldDisplay,
-  setdisplay,
-  file
-) {
-
-  if (oldDisplay) {
-    setdisplay(false);
-    const withoutReduncancy = openedItems.filter(e => e.id !== file.id);
-    setopened(withoutReduncancy);
-  } else {
-    setdisplay(true);
-    setopened([...openedItems, file]);
-  }
-  goToAnchor(file.id);
-}
 
 function PdfIframe({
   file,
@@ -47,16 +28,37 @@ function PdfIframe({
   removeFromTodo,
   parentId,
   opened,
-  setopened
+  setopened,
+  selected
 }) {
   const [display, setdisplay] = useState(false);
+
+  function handleToggleContent(file) {
+    if (display) {
+      setdisplay(false);
+      const withoutReduncancy = opened.filter(e => e.id !== file.id);
+      setopened(withoutReduncancy);
+    } else {
+      setdisplay(true);
+      setopened([...opened, file]);
+    }
+    goToAnchor(file.id);
+  }
+  useEffect(() => {
+    if (!display) {
+      if (selected) {
+        handleToggleContent(file);
+      }
+    }
+  });
+
   return (
     <div key={file.id} className={classes.center}>
       <ListItem
         button
         className={classes.listItem}
         onClick={() => {
-          handleToggleContent(opened, setopened, display, setdisplay, file);
+          handleToggleContent(file);
         }}
       >
         <ListItemText
@@ -74,7 +76,11 @@ function PdfIframe({
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
-     {display && <div className={classes.pdf}> <Pdf pdfId={file.id} /></div>}
+      {display && (
+        <div className={classes.pdf}>
+          <Pdf pdfId={file.id} />
+        </div>
+      )}
     </div>
   );
 }

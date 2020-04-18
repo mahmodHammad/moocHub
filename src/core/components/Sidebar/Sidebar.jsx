@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   list: {
     width: 285,
-    overflowX:"hidden"
+    overflowX: "hidden"
   },
   fullList: {
     width: "auto"
@@ -44,6 +44,7 @@ export default function PersistentDrawerLeft({
           </IconButton>
           <Divider />
 
+          {/* TODO */}
           <SidebarList
             data={todo}
             title="Study List"
@@ -51,10 +52,13 @@ export default function PersistentDrawerLeft({
             open={true}
             removeFromTodo={removeFromTodo}
             isTodo={true}
-            handleSelect={(f)=>setopen(false)}
+            handleSelect={f =>{
+              console.log("selected")
+              setopen(false)}}
           />
-            <Divider/>
+          <Divider />
 
+          {/* Departments */}
           <SidebarList
             data={communities}
             title="Departments"
