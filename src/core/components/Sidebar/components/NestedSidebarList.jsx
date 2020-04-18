@@ -35,7 +35,13 @@ export default function NestedSidebarList({
             {isTodo === true ? (
               <ListItem className={classes.listItem} button>
                 <ListItemText primaryTypographyProps={{ variant: "subtitle2" }}>
-                  <Link onClick={handleSelect} to={`/nerds`}>
+                  <Link
+                    onClick={handleSelect}
+                    to={{
+                      pathname: `/nerds/`,
+                      state: { selected: item }
+                    }}
+                  >
                     {item.name}
                   </Link>
                 </ListItemText>

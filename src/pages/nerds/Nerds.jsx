@@ -26,7 +26,8 @@ export default class Nerds extends Component {
   render() {
     const { todo, removeFromTodo } = this.props;
     const { opened, At } = this.state;
-
+    let StateFromLink = this.props.location.state
+    console.log(StateFromLink)
     return (
       <div>
         <Scroll opened={opened} At={At} setAt={this.handleAt} />
@@ -36,6 +37,7 @@ export default class Nerds extends Component {
             removeFromTodo={removeFromTodo}
             setopened={this.handleOpendContent}
             opened={opened}
+            selected={StateFromLink}
           />
         ) : (
           <div className="warning">
