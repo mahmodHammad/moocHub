@@ -39,6 +39,7 @@
   left: 0;
   color: #ffff;
 }
+
 .top-options-right {
   z-index: 98 !important;
   position: absolute;
@@ -69,11 +70,12 @@
 }
 
 .options .MuiButton-root {
-  background-color: #0001 !important;
+  background-color: #9991 !important;
   color: #fff;
   margin: 0 -1px;
   height: 35px;
 }
+
 .Selected {
   background-color: #3333 !important;
 }
@@ -92,9 +94,11 @@
     margin-top: -58px;
     font-size: 1.3em;
   }
+
   .options .MuiSlider-root {
     margin-bottom: -25px;
-  }
+  }ّ
+
   .options .MuiButton-root .MuiSvgIcon-root {
     /* padding: 0px !important; */
     font-size: 1.3em;
