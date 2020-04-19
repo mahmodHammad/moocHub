@@ -1,6 +1,8 @@
 .wiki {
-  border: 1px solid green;
-  margin: 20px;
+  background-color: #222;
+  color: #eee;
+  padding: 20px;
+  min-height: 92.5vh;
 }
 
 .wikisearch {
@@ -11,8 +13,13 @@
 .wikisearch .MuiInputBase-root {
   padding: 0 !important;
   margin: 10px;
+  color: #eee !important;
 }
 
 .wikisearch .MuiOutlinedInput-input {
   padding: 8px !important;
+  color: #eee !important;
+}
+.wikisearch .MuiFormLabel-root {
+  color: #ddd !important;
 }
