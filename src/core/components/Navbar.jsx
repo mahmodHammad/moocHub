@@ -63,6 +63,16 @@ export default function Navbar({
           >
             Study Room
           </Button>
+          <Button
+            size="small"
+            className={classes.study}
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to="/wiki"
+          >
+            wiki
+          </Button>
         </Toolbar>
       </AppBar>
 

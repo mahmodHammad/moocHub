@@ -1,0 +1,18 @@
+.wiki {
+  border: 1px solid green;
+  margin: 20px;
+}
+
+.wikisearch {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.wikisearch .MuiInputBase-root {
+  padding: 0 !important;
+  margin: 10px;
+}
+
+.wikisearch .MuiOutlinedInput-input {
+  padding: 8px !important;
+}

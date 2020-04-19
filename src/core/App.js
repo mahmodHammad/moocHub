@@ -28,6 +28,7 @@ import communities from "../config/communities";
 
 // My components ---------------------------
 import Video from "./Video/Video";
+import Wiki from './../pages/Wiki/Wiki';
 
 // id.lenght ===11 is youtube
 
@@ -240,6 +241,8 @@ export default class App extends Component {
                 )}
               />
               <Route exact path="/fill" component={Fill} />
+              <Route exact path="/wiki" component={Wiki} />
+              
             </Switch>
             {/* end routing **********************************************/}
 
