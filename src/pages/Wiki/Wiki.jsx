@@ -24,29 +24,57 @@ export default class Wiki extends Component {
   getTextStart = text => {
     let StartIndex = text.indexOf("{{Infobox");
     let lastIndex = text.indexOf("}}", StartIndex);
-    let newstr = text.substring(StartIndex, lastIndex);
+    let ss = text.substring(StartIndex, lastIndex);
+    let notclose = ss.includes("{{");
     let counter = 0;
+
+    console.log("StartIndex",StartIndex)
+    console.log("lastIndex",lastIndex)
+    console.log("text",text)
     while (true) {
       counter++;
+      console.log("ss",ss)
+      console.log("time",counter)
       // may be the closing tage of the infobox
       // create a string tha may be the full infobox
       // check if that string is not the full infobox (ther's an other {{ inside the {{  so it's the closing of the first {{ )
-      let notclose = newstr.includes("{{");
-      newstr.indexOf("{{");
       // get a new lastIndex
       if (!notclose) {
         console.log("found at ",lastIndex)
         break;
+      }else{
+        StartIndex = text.indexOf("{{",StartIndex+2);
+        lastIndex = text.indexOf("}}", lastIndex + 2);
+        ss = text.substring(StartIndex, lastIndex);
+        notclose = ss.includes("{{");
       }
 
       if (counter > 100) {
+        console.log(counter)
         break;
       }
-      StartIndex = text.indexOf("{{",StartIndex+2);
-      lastIndex = text.indexOf("}}", lastIndex + 2);
-      newstr = text.substring(StartIndex, lastIndex);
+      
     }
   };
+
+  getSplit=text=>{
+let ss = text.split("{{")
+ss.forEach(s=>{
+  let first=s.indexOf("}}")
+  if(first!==-1){
+    let second=s.indexOf("}}",first+2)
+    if(second!==-1){
+      console.log("second",second)
+      if(s.includes("}}"))
+  if(s.includes("}}"))
+  console.log("found",text[second])
+  console.log("foundAt-->",s)
+
+    }
+  }
+})
+console.log(ss)  
+}
 
   handleChange = e => {
     const value = e.currentTarget.value;
@@ -67,8 +95,9 @@ export default class Wiki extends Component {
   };
 
   componentDidMount() {
-    const p = this.state.Amper;
-    this.getTextStart(p);
+    const p = this.state.tesla;
+    // this.getTextStart(p);
+    this.getSplit(p)
   }
 
   render() {
@@ -85,7 +114,7 @@ export default class Wiki extends Component {
             onChange={e => this.handleChange(e)}
           />
         </div>
-        <Typography>{this.state.Amper}</Typography>
+        <Typography>{this.state.tesla}</Typography>
       </div>
     );
   }
