@@ -37,7 +37,12 @@ export default class Wiki extends Component {
     let lists = wtf(doc).lists();
     let url = wtf(doc).url();
 
-    this.setState({ text, title });
+    wtf.fetch("salah").then(data=>{
+      console.log("ddddd",data)
+      this.setState({ text:data.text() ,title:data.title()});
+
+    }).catch(err=>console.log("errrrrrrrrrrrrrrror"))
+
 
     console.log("json", jso);
     console.log("geo", geo);
