@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import wtf from "wtf_wikipedia";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import "./wiki.css";
-import axios from "axios";
 
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=";
-let contentUrl =
-  "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=";
 
 //   After the closing of {{Infobox i think i get the content
 // [[search| label]]
@@ -81,41 +79,22 @@ export default class Wiki extends Component {
 
       i = pl.index + pl.word.length;
     });
-
-    console.log("paragraph", paragraph);
-    console.log("pageFormatting", pageFormatting);
-    console.log("----------");
-
+    paragraph.push(<span>{text.substring(i)}</span>);
     return <div className="modiPh"> {[...paragraph]} </div>;
   }
 
   componentDidMount() {
-    let doc = this.state.Amper;
-    let data = wtf(doc).json();
-    // let geo = wtf(doc).coordinates();
-    // let info = wtf(doc).infobox();
-    // let text = wtf(doc).text();
-    // let title = wtf(doc).title();
-    // let citations = wtf(doc).citations();
-    // let data = wtf(doc).data;
-    // let debug = wtf(doc).debug();
-    // let images = wtf(doc).images();
-    // let link = wtf(doc).link();
-    // let lists = wtf(doc).lists();
-    let url = wtf(doc).url();
+    wtf
+      .fetch("salah")
+      .then(data => {
+        console.log("ddddd", data);
 
-    // wtf.fetch("salah").then(data=>{
-    //   console.log("ddddd",data)
-
-    // }).catch(err=>console.log("errrrrrrrrrrrrrrror"))
-
-    this.setState({ data, url });
-
-    console.log("json", data);
+        this.setState({ data: data.json(), url: data.url() });
+      })
+      .catch(err => alert("can not retrieve data!!!"));
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="wiki">
         <div className="wikisearch">
@@ -133,20 +112,26 @@ export default class Wiki extends Component {
             </Typography>
             {this.state.data.sections.map(s => (
               <div className="datasection">
-                {s.paragraphs.map(p => (
-                  <div className="sentence">
-                    {p.sentences.map(s => (
-                      <div className="text">
-                        {this.renderWithStyles(s.text, s.links, s.formatting)}
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                {s.paragraphs !== undefined &&
+                  s.paragraphs.map(p => (
+                    <div className="sentence">
+                      {p.sentences !== undefined &&
+                        p.sentences.map(s => (
+                          <div className="text">
+                            {this.renderWithStyles(
+                              s.text,
+                              s.links,
+                              s.formatting
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  ))}
               </div>
             ))}
           </div>
-        ) : (
-          <div>loading...</div>
+        ) : (<LinearProgress color="secondary" />
+
         )}
 
         {/* <Typography variant="body" align="center">
