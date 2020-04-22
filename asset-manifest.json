@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/moocHub/static/css/main.2165c782.chunk.css",
-    "main.js": "/moocHub/static/js/main.3112f4c8.chunk.js",
-    "main.js.map": "/moocHub/static/js/main.3112f4c8.chunk.js.map",
+    "main.css": "/moocHub/static/css/main.38d374c2.chunk.css",
+    "main.js": "/moocHub/static/js/main.f68f2f9a.chunk.js",
+    "main.js.map": "/moocHub/static/js/main.f68f2f9a.chunk.js.map",
     "runtime-main.js": "/moocHub/static/js/runtime-main.4aaef747.js",
     "runtime-main.js.map": "/moocHub/static/js/runtime-main.4aaef747.js.map",
-    "static/js/2.f2956d89.chunk.js": "/moocHub/static/js/2.f2956d89.chunk.js",
-    "static/js/2.f2956d89.chunk.js.map": "/moocHub/static/js/2.f2956d89.chunk.js.map",
+    "static/js/2.a889c6d1.chunk.js": "/moocHub/static/js/2.a889c6d1.chunk.js",
+    "static/js/2.a889c6d1.chunk.js.map": "/moocHub/static/js/2.a889c6d1.chunk.js.map",
     "index.html": "/moocHub/index.html",
-    "precache-manifest.3c2193165fc39d6b3817596809b29c7d.js": "/moocHub/precache-manifest.3c2193165fc39d6b3817596809b29c7d.js",
+    "precache-manifest.a7e029f21d24c719555f1a3a40090d45.js": "/moocHub/precache-manifest.a7e029f21d24c719555f1a3a40090d45.js",
     "service-worker.js": "/moocHub/service-worker.js",
-    "static/css/main.2165c782.chunk.css.map": "/moocHub/static/css/main.2165c782.chunk.css.map",
-    "static/js/2.f2956d89.chunk.js.LICENSE.txt": "/moocHub/static/js/2.f2956d89.chunk.js.LICENSE.txt"
+    "static/css/main.38d374c2.chunk.css.map": "/moocHub/static/css/main.38d374c2.chunk.css.map",
+    "static/js/2.a889c6d1.chunk.js.LICENSE.txt": "/moocHub/static/js/2.a889c6d1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4aaef747.js",
-    "static/js/2.f2956d89.chunk.js",
-    "static/css/main.2165c782.chunk.css",
-    "static/js/main.3112f4c8.chunk.js"
+    "static/js/2.a889c6d1.chunk.js",
+    "static/css/main.38d374c2.chunk.css",
+    "static/js/main.f68f2f9a.chunk.js"
   ]
 }
