@@ -1,10 +1,24 @@
 .wiki {
   background-color: #222;
   color: #eee;
-  padding: 20px;
+  padding: 1px;
   min-height: 92.5vh;
 }
 
+.wiki .data{
+  padding: 20px;
+
+}
+
+.datasection{
+  margin: 40px 0px;
+}
+.sentence{
+  margin: 25px 0;
+}
+.text{
+  margin: 7px 0;
+}
 .wikisearch {
   text-align: center;
   margin: 20px 0;
@@ -23,3 +37,4 @@
 .wikisearch .MuiFormLabel-root {
   color: #ddd !important;
 }
+
