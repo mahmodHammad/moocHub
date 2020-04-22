@@ -9,7 +9,9 @@
   padding: 20px;
 
 }
-
+.wiki .link{
+  font-weight: 900;
+}
 .datasection{
   margin: 40px 0px;
 }
@@ -37,4 +39,3 @@
 .wikisearch .MuiFormLabel-root {
   color: #ddd !important;
 }
-

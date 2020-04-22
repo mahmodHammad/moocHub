@@ -30,11 +30,23 @@ export default class Wiki extends Component {
           return { link: l.page, index };
         })
         .filter(pl => pl.index !== -1);
-      let paragraph = "";
+      let paragraph = [];
+      let i = 0;
       pageLinks.forEach(pl => {
-        console.log(pl);
+        paragraph.push(<span>{text.substring(i, pl.index)}</span>);
+
+        paragraph.push(
+          <Typography variant="span" color="secondary" onClick={()=>console.log("hello world",pl)}>
+            {pl.link}
+          </Typography>
+        );
+
+        i = pl.index + pl.link.length;
       });
+      console.log("paragraph", paragraph);
       console.log("----------");
+
+      return <div className="modiPh"> {[...paragraph]} </div>;
     }
   }
 
@@ -87,7 +99,6 @@ export default class Wiki extends Component {
                     {p.sentences.map(s => (
                       <div className="text">
                         {this.renderWithStyles(s.text, s.links, s.formatting)}
-                        {s.text}
                       </div>
                     ))}
                   </div>
