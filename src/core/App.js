@@ -89,22 +89,37 @@ export default class App extends Component {
       }
     }
   };
-  
+
   theme = createMuiTheme({
     palette: this.state.cutumeTheme
   });
 
-  changeTheme=(main,sec,value)=>{
-    let oldTheme= {...this.state.cutumeTheme}
-    console.log(oldTheme)
-    oldTheme[main][sec]=value
-    console.log(oldTheme)
-    this.setState({cutumeTheme:oldTheme})
+  changeThemeOnce = (main, sec, value) => {
+    let oldTheme = { ...this.state.cutumeTheme };
+    oldTheme[main][sec] = value;
+    this.setState({ cutumeTheme: oldTheme });
 
-    this.theme=createMuiTheme({
+    this.theme = createMuiTheme({
       palette: this.state.cutumeTheme
     });
-  }
+  };
+
+  changeTheme = (
+    main = this.state.cutumeTheme.primary.main,
+    sec = this.state.cutumeTheme.secondary.main,
+    bg = this.state.cutumeTheme.background.default
+  ) => {
+    let oldTheme = { ...this.state.cutumeTheme };
+    oldTheme.primary.main = main;
+    oldTheme.secondary.main = sec;
+    oldTheme.background.default = bg;
+    this.setState({ cutumeTheme: oldTheme });
+
+    this.theme = createMuiTheme({
+      palette: this.state.cutumeTheme
+    });
+  };
+  
   addToTodo = (item, parent) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
@@ -208,7 +223,8 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.changeTheme("primary","main","#f00")
+    this.changeTheme("#4fe", "#131", "#123");
+
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
