@@ -223,8 +223,6 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.changeTheme("#4fe", "#f3f", "radial-gradient(ellipse at top,#fff,rgb(250, 230, 255),#ffff00)");
-
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");
     if (gettodo) {
@@ -273,6 +271,7 @@ export default class App extends Component {
                     removeFromTodo={this.removeFromTodo}
                     communities={this.state.communities}
                     content={this.state.content}
+                    changeTheme={this.changeTheme}
                   />
                 )}
               />
