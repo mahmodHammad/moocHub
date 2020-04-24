@@ -98,9 +98,9 @@ a:hover {
 .subjectCard {
   display: block !important;
   width: 100%;
-  border: solid 0.7px rgba(59, 59, 59, 0.055);
-  border-top: none;
-  border-bottom: none;
+  border: solid 0.7px rgba(255, 255, 255, 0.055);
+  border-top: solid 2px rgba(255, 255, 255,0.4);;
+  border-bottom: solid 0.7px rgba(224, 224, 224, 0.5);
   border-radius: 7px;
   box-shadow: 0px 8px 15px 0px rgba(75, 75, 75, 0.08) !important;
   padding: 23px;
@@ -126,6 +126,11 @@ a:hover {
 
 .subjectCard:hover {
   box-shadow: 0px 3px 7px 0px rgba(71, 71, 71, 0.144) !important;
+  border: solid 0.7px rgba(255, 255, 255, 0.055);
+  border-top: solid 2px rgba(255, 255, 255,0.2);
+  border-bottom: solid 0.7px rgba(214, 214, 214, 0.5);
+
+
   cursor: pointer;
 }
 

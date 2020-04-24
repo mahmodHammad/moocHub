@@ -5,7 +5,16 @@ import React, { Component } from "react";
 
 import content from "../../config/subjects";
 
+// XXX refactor it to a function component XXX
 export default class home extends Component {
+  componentDidMount() {
+    this.props.changeTheme(
+      "#333",
+      "#1e88e5",
+      "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#ddd)"
+    );
+  }
+
   render() {
     return (
       <div className="App">

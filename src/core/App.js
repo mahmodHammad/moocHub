@@ -60,7 +60,7 @@ export default class App extends Component {
       },
       background: {
         default:
-          "radial-gradient(ellipse at top,#fff,rgb(250, 250, 255),#bfeefa)"
+          "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#ddd)"
       }
     }
   };
