@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme, props) => ({
 
 export default function DisplaySubjects({ folder, index }) {
   const classes = useStyles({index:`s${index}`});
-  console.log(classes);
   return (
     // What the hell is this
     <div className="subBtn">
