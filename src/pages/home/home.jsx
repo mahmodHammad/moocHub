@@ -29,6 +29,7 @@ export default class home extends Component {
                     folder={folder}
                     key={folder.id || N}
                     index={N}
+                    changeTheme={this.props.changeTheme}
                   />
                 </Grid>
               );

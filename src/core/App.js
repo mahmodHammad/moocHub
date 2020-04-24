@@ -31,10 +31,6 @@ import Video from "./Video/Video";
 
 // id.lenght ===11 is youtube
 
-const theme = createMuiTheme({
-  palette: customTheme
-});
-
 export default class App extends Component {
   state = {
     pinnedVideo: { isOpenNextTime: false },
@@ -42,7 +38,61 @@ export default class App extends Component {
     communities: communities,
     todo: [],
     content: [],
-    collapse: true
+    collapse: true,
+    cutumeTheme: {
+      primary: {
+        main: "#333"
+      },
+      secondary: {
+        light: "#fff",
+        main: "#1e88e5",
+        contrastText: "#000"
+      },
+      error: {
+        light: "#fff",
+        main: "#ff0400",
+        contrastText: "#000"
+      },
+      success: {
+        light: "#4ff",
+        main: "#00ff60",
+        contrastText: "#000"
+      },
+      background: {
+        default:
+          "radial-gradient(ellipse at top,#fff,rgb(250, 250, 255),#bfeefa)"
+      }
+    }
+  };
+
+  theme = createMuiTheme({
+    palette: this.state.cutumeTheme
+  });
+
+  changeThemeOnce = (main, sec, value) => {
+    let oldTheme = { ...this.state.cutumeTheme };
+    oldTheme[main][sec] = value;
+    this.setState({ cutumeTheme: oldTheme });
+
+    this.theme = createMuiTheme({
+      palette: this.state.cutumeTheme
+    });
+  };
+
+  changeTheme = (
+    main = this.state.cutumeTheme.primary.main,
+    sec = this.state.cutumeTheme.secondary.main,
+    bg = this.state.cutumeTheme.background.default
+  ) => {
+    let oldTheme = { ...this.state.cutumeTheme };
+    oldTheme.primary.main = main;
+    oldTheme.secondary.main = sec;
+    oldTheme.background.default = bg;
+    this.setState({ cutumeTheme: oldTheme });
+
+    this.theme = createMuiTheme({
+      palette: this.state.cutumeTheme
+    });
   };
 
   addToTodo = (item, parent) => {
@@ -161,9 +211,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={this.theme}>
         <CssBaseline />
-        <div>
+        <div style={{ background: this.theme.palette.background.default }}>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={this.state.communities}
@@ -171,6 +221,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
+              changeTheme={this.changeTheme}
             />
 
             {/* START ROUTING  **********************************************/}
@@ -196,6 +247,7 @@ export default class App extends Component {
                     removeFromTodo={this.removeFromTodo}
                     communities={this.state.communities}
                     content={this.state.content}
+                    changeTheme={this.changeTheme}
                   />
                 )}
               />
