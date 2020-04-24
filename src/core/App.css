@@ -32,32 +32,6 @@ a:hover {
   text-decoration: none !important;
 }
 
-.addmargin {
-  margin: 2px auto;
-}
-
-.center {
-  justify-content: center;
-}
-
-.margin {
-  padding: 0 !important;
-}
-
-.warning {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.Zindex {
-  z-index: 0 !important;
-}
-
-.z-10 {
-  z-index: 100 !important;
-  opacity: 1;
-}
-
 .communityLabel {
   padding: 55px 0 30px !important;
 }
@@ -75,16 +49,8 @@ a:hover {
   font-size: 17px !important;
 }
 
-.m20 {
-  margin: 20px !important;
-}
-
-.mt-5 {
-  margin-top: 20px;
-}
-
 .Empty {
-  margin-top: 120px;
+  padding: 100px 20px;
 }
 
 .cardContent {
@@ -99,13 +65,14 @@ a:hover {
   display: block !important;
   width: 100%;
   border: solid 0.7px rgba(255, 255, 255, 0.055);
-  border-top: solid 2px rgba(255, 255, 255,0.4);;
+  border-top: solid 2px rgba(255, 255, 255, 0.4);
   border-bottom: solid 0.7px rgba(224, 224, 224, 0.5);
   border-radius: 7px;
   box-shadow: 0px 8px 15px 0px rgba(75, 75, 75, 0.08) !important;
   padding: 23px;
   margin: 30px;
-
+  
+/* override *********************/
   font-size: 1.15rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
@@ -127,10 +94,8 @@ a:hover {
 .subjectCard:hover {
   box-shadow: 0px 3px 7px 0px rgba(71, 71, 71, 0.144) !important;
   border: solid 0.7px rgba(255, 255, 255, 0.055);
-  border-top: solid 2px rgba(255, 255, 255,0.2);
+  border-top: solid 2px rgba(255, 255, 255, 0.2);
   border-bottom: solid 0.7px rgba(214, 214, 214, 0.5);
-
-
   cursor: pointer;
 }
 
@@ -172,7 +137,6 @@ a:hover {
   }
 }
 /* git add . && git commit -am " " */
-/* 00419C */
 
 /* colors - XXX will be deprecated XXX */
 .bcol1 {
