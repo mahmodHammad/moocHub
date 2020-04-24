@@ -11,9 +11,12 @@ import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles({
   root: {
-    minHeight: "67vh",
+    minHeight: "calc(100vh - 48px)"
+  },
+  content: {
+    minHeight: "calc(100vh - 212px)",
     background: "#fff2",
-    marginBottom: "50px"
+    paddingBottom: "50px"
   }
 });
 
@@ -46,7 +49,7 @@ export default function ContentDisplayer({
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       {/******  display subject name  ******/}
 
       <Typography
@@ -83,7 +86,7 @@ export default function ContentDisplayer({
             onSwipedRight={() => swipe(0)}
             onSwipedLeft={() => swipe(1)}
           >
-            <div className={classes.root}>
+            <div className={classes.content}>
               {PrimarySliderSelectedIndex !== false &&
                 content[PrimarySliderSelectedIndex].value !== false && (
                   <SecondarySlide
