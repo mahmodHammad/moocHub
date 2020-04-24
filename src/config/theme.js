@@ -17,9 +17,6 @@ export default {
       main: "#00ff60",
       contrastText: "#000"
     },
-    background: {
-      default: "#f0f0f0"
-    },
     s0: {
       color: "darkred",
       bg1:" rgb(255, 241, 241)",

@@ -10,17 +10,17 @@ const useStyles = makeStyles((theme, props) => ({
     fontWeight: "bold"
   },
   study: {
-    padding: " 2px 9px", 
+    padding: " 2px 9px",
     fontSize: "0.7125rem"
   },
-  subjectButton: {
-    background: `radial-gradient(ellipse,${theme.palette.s2.bg1}, ${theme.palette.s2.bg2})`,
-    color: theme.palette.s2.color
-  }
+  subjectButton: props=>({
+    background: `radial-gradient(ellipse,${theme.palette[props.index].bg1}, ${theme.palette[props.index].bg2})`,
+    color: theme.palette[props.index].color
+  })
 }));
 
 export default function DisplaySubjects({ folder, index }) {
-  const classes = useStyles(`s${index}`);
+  const classes = useStyles({index:`s${index}`});
   console.log(classes);
   return (
     // What the hell is this
