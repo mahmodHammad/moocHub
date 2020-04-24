@@ -119,7 +119,7 @@ export default class App extends Component {
       palette: this.state.cutumeTheme
     });
   };
-  
+
   addToTodo = (item, parent) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
@@ -223,7 +223,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.changeTheme("#4fe", "#131", "#123");
+    this.changeTheme("#4fe", "#f3f", "radial-gradient(ellipse at top,#fff,rgb(250, 230, 255),#ffff00)");
 
     this.getCommunity();
     let gettodo = window.localStorage.getItem("todo");

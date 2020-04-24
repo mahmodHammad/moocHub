@@ -3,25 +3,7 @@ import React, { Component } from "react";
 import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
 import ContentDisplayer from "../../core/Content/ContentDisplayer";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-const customTheme = {
-  primary: {
-    main: "#c3a"
-  },
-  secondary: {
-    light: "#fff",
-    main: "#1ff",
-    contrastText: "#000"
-  },
-  background: {
-    default:"red"
-  },
-};
 
-const theme = createMuiTheme({
-  palette: customTheme
-});
 class Home extends Component {
   state = {
     subject: {},
@@ -96,23 +78,20 @@ class Home extends Component {
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
     return (
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <ContentDisplayer
-          subject={subject}
-          content={content}
-          PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
-          handlePrimeTabClick={this.handlePrimeTabClick}
-          todo={todo}
-          addToTodo={addToTodo}
-          removeFromTodo={removeFromTodo}
-          isVideo={false}
-          loading={loading}
-          setLoading={this.setLoading}
-          divided={divided}
-          loadSubject={this.loadSubject}
-        />
-      </MuiThemeProvider>
+      <ContentDisplayer
+        subject={subject}
+        content={content}
+        PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
+        handlePrimeTabClick={this.handlePrimeTabClick}
+        todo={todo}
+        addToTodo={addToTodo}
+        removeFromTodo={removeFromTodo}
+        isVideo={false}
+        loading={loading}
+        setLoading={this.setLoading}
+        divided={divided}
+        loadSubject={this.loadSubject}
+      />
     );
   }
 }
