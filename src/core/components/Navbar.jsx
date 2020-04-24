@@ -68,7 +68,7 @@ export default function Navbar({
             </Button>
           </div>
           <Button
-            onClick={() => defaultTheme(changeTheme)}
+            // onClick={() => defaultTheme(changeTheme)}
             size="small"
             className={classes.study}
             variant="outlined"
