@@ -246,6 +246,7 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
+              changeTheme={this.changeTheme}
             />
 
             {/* START ROUTING  **********************************************/}
