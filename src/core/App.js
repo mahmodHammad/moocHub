@@ -23,7 +23,6 @@ import VideosDisplayer from "./../pages/video/VideosDisplayer";
 import Fill from "./../pages/Fill/Fill";
 
 // Config ----------------------------------
-import customTheme from "../config/theme";
 import communities from "../config/communities";
 
 // My components ---------------------------
@@ -60,7 +59,7 @@ export default class App extends Component {
       },
       background: {
         default:
-          "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#ddd)"
+          "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
       }
     }
   };

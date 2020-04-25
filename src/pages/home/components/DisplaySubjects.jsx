@@ -28,7 +28,6 @@ export default function DisplaySubjects({ folder, index, changeTheme }) {
   return (
     // What the hell is this
     <div className="subBtn">
-      {/* {console.log("FFFF",folder)} */}
       <Button
         disableTouchRipple
         onClick={() =>
