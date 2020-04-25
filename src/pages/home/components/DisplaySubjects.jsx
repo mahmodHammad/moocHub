@@ -41,7 +41,7 @@ export default function DisplaySubjects({ folder, index, changeTheme }) {
         component={Link}
         to={{
           pathname: `/subject/${folder.name}/${folder.id}`,
-          state: { divided: folder.divided }
+          state: { divided: folder.divided ,index }
         }}
       >
         <div

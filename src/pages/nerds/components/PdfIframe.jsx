@@ -1,39 +1,47 @@
 // works form window routing not hash routing
 import React, { useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+
 import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Pdf from "./Pdf";
 import { goToAnchor } from "react-scrollable-anchor";
 
-const styles = {
+const useStyles = makeStyles({
+  close: props => ({
+    color: props.closeIconCol,
+    border: ` #ccc solid 0.7px`,
+    background: `#fff`,
+    borderRadius: "50%",
+    padding: 1
+  }),
   center: {
     margin: "auto",
     textAlign: "center"
   },
   listItem: {
-    paddingLeft: 25,
-    paddingRight: 44,
+    paddingLeft: 26,
+    paddingRight: 26,
     color: "#666"
   },
   pdf: {
     height: "100vh"
   }
-};
+});
 
-function PdfIframe({
+export default function PdfIframe({
   file,
-  classes,
   removeFromTodo,
   parentId,
   opened,
   setopened,
-  selected
+  selected,
+  closeIconCol
 }) {
   const [display, setdisplay] = useState(false);
 
-  function handleToggleContent(file) {
+ function handleToggleContent(file) {
     if (display) {
       setdisplay(false);
       const withoutReduncancy = opened.filter(e => e.id !== file.id);
@@ -51,6 +59,8 @@ function PdfIframe({
       }
     }
   });
+
+  const classes = useStyles({ closeIconCol });
 
   return (
     <div key={file.id} className={classes.center}>
@@ -71,8 +81,7 @@ function PdfIframe({
         />
         <CloseIcon
           fontSize="small"
-          className="todoRemove"
-          color="secondary"
+          className={classes.close}
           onClick={() => removeFromTodo(file, parentId)}
         />
       </ListItem>
@@ -84,5 +93,3 @@ function PdfIframe({
     </div>
   );
 }
-
-export default withStyles(styles)(PdfIframe);

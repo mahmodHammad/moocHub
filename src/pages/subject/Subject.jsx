@@ -10,7 +10,8 @@ class Home extends Component {
     content: false,
     PrimarySliderSelectedIndex: false,
     loading: false,
-    divided: []
+    divided: [],
+    index:0
   };
 
   //////// get files after clicking on prime slide  ////////
@@ -59,11 +60,11 @@ class Home extends Component {
     const subject = { name, id };
     this.setState({ subject });
 
-    let divided = this.props.location.state.divided;
+    let { divided, index } = this.props.location.state;
     if (divided === undefined) divided = [];
     // wil be the last selected instead of the first index
     else if (divided[0] !== undefined) id = divided[0].id;
-    this.setState({ divided });
+    this.setState({ divided, index });
     this.loadSubject(id);
   }
 
@@ -74,7 +75,8 @@ class Home extends Component {
       subject,
       PrimarySliderSelectedIndex,
       loading,
-      divided
+      divided,
+      index
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
     return (
@@ -91,6 +93,7 @@ class Home extends Component {
         setLoading={this.setLoading}
         divided={divided}
         loadSubject={this.loadSubject}
+        subjectIndex={index}
       />
     );
   }

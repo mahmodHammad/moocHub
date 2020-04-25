@@ -11,7 +11,8 @@ function SecondarySlide({
   subject,
   Popcontent,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  subjectIndex
 }) {
   return (
     <Grid container className="cardContent" justify="center">
@@ -19,7 +20,6 @@ function SecondarySlide({
         content.map((cont, index) => (
           <React.Fragment key={index}>
             <Content
-              key={cont.id}
               content={cont}
               todo={todo}
               addToTodo={addToTodo}
@@ -28,6 +28,8 @@ function SecondarySlide({
               Popcontent={Popcontent}
               isVideo={isVideo}
               handleVideoPin={handleVideoPin}
+              index={subjectIndex}
+              
             />
           </React.Fragment>
         ))

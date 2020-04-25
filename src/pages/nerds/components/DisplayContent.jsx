@@ -1,18 +1,14 @@
 import React from "react";
-import PdfIframe from "./PdfIframe";
-import List from "@material-ui/core/List";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import StudySubject from "./StudySubject";
 
 const useStyles = makeStyles({
   root: {
-    minHeight: "calc(100vh - 48px)",
+    minHeight: "calc(100vh - 48px)"
   }
 });
 
@@ -32,7 +28,8 @@ export default function DisplayContent({
   removeFromTodo,
   opened,
   setopened,
-  selected
+  selected,
+  
 }) {
   const classes = useStyles();
 
@@ -40,26 +37,15 @@ export default function DisplayContent({
     <div className={classes.root}>
       {todo.length ? (
         todo.map(e => (
-          <div key={e.id}>
-            <List>
-              <Typography gutterBottom align="center">
-                {e.name}
-              </Typography>
-              {e.value.map(item => (
-                <React.Fragment key={item.id}>
-                  <PdfIframe
-                    file={item}
-                    removeFromTodo={removeFromTodo}
-                    parentId={e.id}
-                    opened={opened}
-                    setopened={setopened}
-                    selected={checkSelected(selected, item)}
-                  />
-                </React.Fragment>
-              ))}
-            </List>
-            <Divider />
-          </div>
+          <StudySubject
+            e={e}
+            opened={opened}
+            removeFromTodo={removeFromTodo}
+            setopened={setopened}
+            checkSelected={checkSelected}
+            selected={selected}
+            index={e.index}
+          />
         ))
       ) : (
         <div className="Empty">

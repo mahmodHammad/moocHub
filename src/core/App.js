@@ -95,7 +95,7 @@ export default class App extends Component {
     });
   };
 
-  addToTodo = (item, parent) => {
+  addToTodo = (item, parent,index) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
 
@@ -105,6 +105,7 @@ export default class App extends Component {
 
     // if not exist {create one}
     if (indexOfSubject === false) {
+      parent.index=index
       todo.push({ ...parent, value: [{ ...item }] });
     }
     // else {get index then push item to it's value property}
