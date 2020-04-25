@@ -28,8 +28,6 @@ import communities from "../config/communities";
 // My components ---------------------------
 import Video from "./Video/Video";
 
-// id.lenght ===11 is youtube
-
 export default class App extends Component {
   state = {
     pinnedVideo: { isOpenNextTime: false },
@@ -94,7 +92,7 @@ export default class App extends Component {
     });
   };
 
-  addToTodo = (item, parent,index) => {
+  addToTodo = (item, parent, index) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
 
@@ -104,7 +102,7 @@ export default class App extends Component {
 
     // if not exist {create one}
     if (indexOfSubject === false) {
-      parent.index=index
+      parent.index = index;
       todo.push({ ...parent, value: [{ ...item }] });
     }
     // else {get index then push item to it's value property}
@@ -221,7 +219,6 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
-              changeTheme={this.changeTheme}
             />
 
             {/* START ROUTING  **********************************************/}
@@ -288,6 +285,8 @@ export default class App extends Component {
                     removeFromTodo={this.removeFromTodo}
                     communities={this.state.communities}
                     content={this.state.content}
+                    changeTheme={this.changeTheme}
+
                   />
                 )}
               />

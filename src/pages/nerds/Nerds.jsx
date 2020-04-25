@@ -21,6 +21,11 @@ export default class Nerds extends Component {
     this.setState({ url });
   };
 
+  componentDidMount() {    
+  //XXX works but with lagging XXX 
+    this.props.changeTheme("#333","#1e88e5","radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)")
+  }
+  
   render() {
     const { todo, removeFromTodo } = this.props;
     const { opened, At } = this.state;

@@ -31,7 +31,6 @@ export default function Navbar({
   removeFromTodo,
   communities,
   getCommunity,
-  changeTheme
 }) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
@@ -63,7 +62,7 @@ export default function Navbar({
           <Button
             size="small"
             className={classes.study}
-            variant="outlined"
+                variant="outlined"
             color="secondary"
             component={Link}
             to="/nerds"
