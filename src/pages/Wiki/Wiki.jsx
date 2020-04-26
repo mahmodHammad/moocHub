@@ -39,11 +39,10 @@ export default class Wiki extends Component {
 
   handleChange = e => {
     const value = e.currentTarget.value;
-    console.log("hello world");
-    console.log();
-    let searchQuery = searchUrl + value;
-    this.search(searchQuery);
-    console.log(searchQuery);
+    if (value.trim() .length> 1) {
+      let searchQuery = searchUrl + value;
+      this.search(searchQuery);
+    }
   };
 
   search = url => {
@@ -67,7 +66,7 @@ export default class Wiki extends Component {
 
   loadContent = title => {
     console.log("getting data form ");
-    this.setState({ data: false, loading: true, url: "" });
+    this.setState({ data: false, loading: true, url: "", searchResults: [] });
     wtf
       .fetch(title)
       .then(data => {
@@ -126,15 +125,13 @@ export default class Wiki extends Component {
     return <div className="modiPh"> {[...paragraph]} </div>;
   }
 
-  componentDidMount() {}
-
   render() {
     const { searchResults, loading } = this.state;
     return (
-      <div>
+      <div  className="wiki">
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
-        <div className="wiki">
+        <div >
           <div className="wikisearch">
             <TextField
               name="wiki"

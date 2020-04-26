@@ -2,7 +2,7 @@
   background-color: #222;
   color: #eee;
   padding: 1px;
-  min-height: 92.5vh;
+  min-height: calc(100vh - 48px);
 }
 
 .wiki .data{

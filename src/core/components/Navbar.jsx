@@ -21,8 +21,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: "0.7rem"
   },
   wiki: {
-    marginLeft:"5px",
-    color:"#fff"
+    marginLeft:5,
+    marginBottom:4,
+    color:"#eee",
+    fontSize:15,
+    fontWeight:"bold"
   }
 }));
 
@@ -69,13 +72,14 @@ export default function Navbar({
           >
             Study Room
           </Button>
+
           <Icon
             size="small"
             className={classes.wiki}
             component={Link}
             to="/wiki"
           >
-            <Sports  />
+            W
           </Icon>
         </Toolbar>
       </AppBar>
