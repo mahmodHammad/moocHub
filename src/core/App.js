@@ -45,16 +45,6 @@ export default class App extends Component {
         main: "#1e88e5",
         contrastText: "#000"
       },
-      error: {
-        light: "#fff",
-        main: "#ff0400",
-        contrastText: "#000"
-      },
-      success: {
-        light: "#4ff",
-        main: "#00ff60",
-        contrastText: "#000"
-      },
       background: {
         default:
           "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
@@ -153,8 +143,7 @@ export default class App extends Component {
   };
 
   ChooseCommumity = community => {
-    const id = community.id;
-    const name = community.name;
+    const {name,id} = community;
     this.loadSubject(id);
     window.localStorage.setItem("community", `/${name}/${id}`);
   };

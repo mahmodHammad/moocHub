@@ -52,9 +52,9 @@ export default function DisplayContent({
           <Typography align="center" variant="h5" color="primary" gutterBottom>
             Study List Is Empty !
           </Typography>
-          <Typography align="center" variant="h6" color="secondary">
+          <Typography align="center" variant="body1" color="secondary">
             you should add content first using the
-            <AddCircleIcon size="large" color="primary" /> icon ,then come again
+            <AddCircleIcon size="small" color="primary" /> icon ,then come again
             to see it here
           </Typography>
         </div>

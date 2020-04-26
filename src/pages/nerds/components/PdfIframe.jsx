@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
+import PdfIcon from "@material-ui/icons/Book";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Pdf from "./Pdf";
@@ -15,6 +16,12 @@ const useStyles = makeStyles({
     background: `#fff`,
     borderRadius: "50%",
     padding: 1
+  }),
+  pdfIcon: props => ({
+    color: props.closeIconCol,
+    marginRight:7,
+    padding: 1.5
+
   }),
   center: {
     margin: "auto",
@@ -79,6 +86,7 @@ export default function PdfIframe({
             color: "primary"
           }}
         />
+        <PdfIcon  className={classes.pdfIcon}/>
         <CloseIcon
           fontSize="small"
           className={classes.close}
