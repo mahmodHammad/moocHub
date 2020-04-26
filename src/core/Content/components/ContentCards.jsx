@@ -56,7 +56,7 @@ function ComponentName({
   subject,
   isVideo,
   handleVideoPin,
-  key
+  index
 }) {
   const [addContent, setContent] = useState(true);
   const [Pop, setPop] = React.useState(false);
@@ -69,9 +69,9 @@ function ComponentName({
     setPop(false);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (index) => {
     setPop(false);
-    addToTodo(content, subject);
+    addToTodo(content, subject,index);
   };
 
   const handleRemove = () => {
@@ -80,7 +80,7 @@ function ComponentName({
   };
 
   return (
-    <Grid item xs={9} md={5} className={classes.margin} key={key}>
+    <Grid item xs={9} md={5} className={classes.margin} key={content.id}>
       <Card>
         <CardContent className={classes.container}>
           <Typography className={classes.cardText} onClick={handleClickOpen}>
@@ -91,7 +91,7 @@ function ComponentName({
             <PopContent
               handleClose={handleClose}
               handleSelect={
-                isExistOnTodo(todo, content, subject) ? handleRemove : handleAdd
+                isExistOnTodo(todo, content, subject) ? handleRemove : ()=>handleAdd(index)
               }
               Pop={Pop}
               content={content}
@@ -117,7 +117,7 @@ function ComponentName({
                 size="large"
                 color="primary"
                 onClick={() => {
-                  addToTodo(content, subject);
+                  addToTodo(content, subject,index);
                   setContent(!addContent);
                 }}
               />

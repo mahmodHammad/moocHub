@@ -25,19 +25,12 @@ let year = "2nd";
 let department = "Electrical";
 // XXXXXXXXXXXXXXXXXXXXXX
 
-let defaultTheme = changeTheme => {
-  changeTheme(
-    "#333",
-    "#1e88e5",
-    "radial-gradient(ellipse at top,#fff,rgb(250, 250, 255),#bfeefa)"
-  );
-};
+
 export default function Navbar({
   todo,
   removeFromTodo,
   communities,
   getCommunity,
-  changeTheme
 }) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
@@ -59,7 +52,6 @@ export default function Navbar({
               component={Link}
               to="/"
               size="large"
-              onClick={() => defaultTheme(changeTheme)}
             >
               <Typography align="left" color="inherit">
                 {year}
@@ -68,10 +60,9 @@ export default function Navbar({
             </Button>
           </div>
           <Button
-            // onClick={() => defaultTheme(changeTheme)}
             size="small"
             className={classes.study}
-            variant="outlined"
+                variant="outlined"
             color="secondary"
             component={Link}
             to="/nerds"

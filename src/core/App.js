@@ -23,13 +23,10 @@ import VideosDisplayer from "./../pages/video/VideosDisplayer";
 import Fill from "./../pages/Fill/Fill";
 
 // Config ----------------------------------
-import customTheme from "../config/theme";
 import communities from "../config/communities";
 
 // My components ---------------------------
 import Video from "./Video/Video";
-
-// id.lenght ===11 is youtube
 
 export default class App extends Component {
   state = {
@@ -48,19 +45,9 @@ export default class App extends Component {
         main: "#1e88e5",
         contrastText: "#000"
       },
-      error: {
-        light: "#fff",
-        main: "#ff0400",
-        contrastText: "#000"
-      },
-      success: {
-        light: "#4ff",
-        main: "#00ff60",
-        contrastText: "#000"
-      },
       background: {
         default:
-          "radial-gradient(ellipse at top,#fff,rgb(250, 250, 255),#bfeefa)"
+          "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
       }
     }
   };
@@ -95,7 +82,7 @@ export default class App extends Component {
     });
   };
 
-  addToTodo = (item, parent) => {
+  addToTodo = (item, parent, index) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
 
@@ -105,6 +92,7 @@ export default class App extends Component {
 
     // if not exist {create one}
     if (indexOfSubject === false) {
+      parent.index = index;
       todo.push({ ...parent, value: [{ ...item }] });
     }
     // else {get index then push item to it's value property}
@@ -155,8 +143,7 @@ export default class App extends Component {
   };
 
   ChooseCommumity = community => {
-    const id = community.id;
-    const name = community.name;
+    const {name,id} = community;
     this.loadSubject(id);
     window.localStorage.setItem("community", `/${name}/${id}`);
   };
@@ -221,7 +208,6 @@ export default class App extends Component {
               removeFromTodo={this.removeFromTodo}
               getCommunity={this.getCommunity}
               clearLocalStorage={this.clearLocalStorage}
-              changeTheme={this.changeTheme}
             />
 
             {/* START ROUTING  **********************************************/}
@@ -288,6 +274,8 @@ export default class App extends Component {
                     removeFromTodo={this.removeFromTodo}
                     communities={this.state.communities}
                     content={this.state.content}
+                    changeTheme={this.changeTheme}
+
                   />
                 )}
               />

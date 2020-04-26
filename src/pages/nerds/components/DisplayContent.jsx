@@ -1,18 +1,25 @@
 import React from "react";
-import PdfIframe from "./PdfIframe";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 
-function checkSelected(selected,item){
-  if(selected===undefined){
-    return false
-  }else{
-    if(selected.selected.id===item.id){
-      return true
-    }else{
-      return false
+import { makeStyles } from "@material-ui/core/styles";
+
+import Typography from "@material-ui/core/Typography";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import StudySubject from "./StudySubject";
+
+const useStyles = makeStyles({
+  root: {
+    minHeight: "calc(100vh - 48px)"
+  }
+});
+
+function checkSelected(selected, item) {
+  if (selected === undefined) {
+    return false;
+  } else {
+    if (selected.selected.id === item.id) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
@@ -21,33 +28,37 @@ export default function DisplayContent({
   removeFromTodo,
   opened,
   setopened,
-  selected
+  selected,
+  
 }) {
+  const classes = useStyles();
+
   return (
-    <div>
-      {todo.length !== 0 &&
+    <div className={classes.root}>
+      {todo.length ? (
         todo.map(e => (
-          <div key={e.id}>
-            <List className="Zindex">
-              <ListItem>
-                <ListItemText>{e.name}</ListItemText>
-              </ListItem>
-              {e.value.map(item => (
-                <React.Fragment key={item.id}>
-                  <PdfIframe
-                    file={item}
-                    removeFromTodo={removeFromTodo}
-                    parentId={e.id}
-                    opened={opened}
-                    setopened={setopened}
-                    selected={checkSelected(selected,item)}
-                  />
-                </React.Fragment>
-              ))}
-            </List>
-            <Divider />
-          </div>
-        ))}
+          <StudySubject
+            e={e}
+            opened={opened}
+            removeFromTodo={removeFromTodo}
+            setopened={setopened}
+            checkSelected={checkSelected}
+            selected={selected}
+            index={e.index}
+          />
+        ))
+      ) : (
+        <div className="Empty">
+          <Typography align="center" variant="h5" color="primary" gutterBottom>
+            Study List Is Empty !
+          </Typography>
+          <Typography align="center" variant="body1" color="secondary">
+            you should add content first using the
+            <AddCircleIcon size="small" color="primary" /> icon ,then come again
+            to see it here
+          </Typography>
+        </div>
+      )}
     </div>
   );
 }

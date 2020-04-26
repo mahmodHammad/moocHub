@@ -28,7 +28,6 @@ export default function DisplaySubjects({ folder, index, changeTheme }) {
   return (
     // What the hell is this
     <div className="subBtn">
-      {/* {console.log("FFFF",folder)} */}
       <Button
         disableTouchRipple
         onClick={() =>
@@ -41,7 +40,7 @@ export default function DisplaySubjects({ folder, index, changeTheme }) {
         component={Link}
         to={{
           pathname: `/subject/${folder.name}/${folder.id}`,
-          state: { divided: folder.divided }
+          state: { divided: folder.divided ,index }
         }}
       >
         <div

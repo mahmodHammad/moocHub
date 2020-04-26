@@ -32,7 +32,8 @@ export default function ContentDisplayer({
   handleVideoPin,
   loading,
   divided,
-  loadSubject
+  loadSubject,
+  subjectIndex
 }) {
   const classes = useStyles();
 
@@ -100,6 +101,7 @@ export default function ContentDisplayer({
                     handlePrimeTabClick={handlePrimeTabClick}
                     PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}
                     primeSliderLength={content.length}
+                    subjectIndex={subjectIndex}
                   />
                 )}
             </div>
