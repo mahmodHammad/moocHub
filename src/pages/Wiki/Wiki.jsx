@@ -4,9 +4,10 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import "./wiki.css";
+import axios from "axios"
 
 let searchUrl =
-  "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=";
+  "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
 
 //   After the closing of {{Infobox i think i get the content
 // [[search| label]]
@@ -34,6 +35,13 @@ export default class Wiki extends Component {
     }
   };
 
+  handleChange=(e)=>{
+    const value = e.currentTarget.value
+    console.log("hello world")
+    console.log()
+    let searchQuery = searchUrl+value
+    console.log(searchQuery)
+  }
   // XXX Needs Refactoring XXX
   renderWithStyles(text, links, formatting) {
     let pageLinks = [];
@@ -84,28 +92,34 @@ export default class Wiki extends Component {
   }
 
   componentDidMount() {
-    wtf
-      .fetch("salah")
-      .then(data => {
-        console.log("ddddd", data);
+    axios.get(searchUrl).then((res)=>{
+      console.log("getting data ...")
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
+    // wtf
+    //   .fetch("salah")
+    //   .then(data => {
+    //     console.log("ddddd", data);
 
-        this.setState({ data: data.json(), url: data.url() });
-      })
-      .catch(err => alert("can not retrieve data!!!"));
+    //     this.setState({ data: data.json(), url: data.url() });
+    //   })
+    //   .catch(err => alert("can not retrieve data!!!"));
   }
 
   render() {
     return (
       <div className="wiki">
         <div className="wikisearch">
-          {/* <TextField
+          <TextField
             name="wiki"
             label="Search on WikiPedia"
             variant="outlined"
             onChange={e => this.handleChange(e)}
-          /> */}
+          />
         </div>
-        {this.state.data !== false ? (
+        {/* {this.state.data !== false ? (
           <div className="data">
             <Typography variant="h6" align="center">
               {this.state.data.title}
@@ -130,13 +144,9 @@ export default class Wiki extends Component {
               </div>
             ))}
           </div>
-        ) : (<LinearProgress color="secondary" />
-
-        )}
-
-        {/* <Typography variant="body" align="center">
-          {this.state.text}
-        </Typography> */}
+        ) : (
+          <LinearProgress color="secondary" />
+        )} */}
       </div>
     );
   }
