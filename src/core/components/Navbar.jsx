@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "0.7rem"
   },
   wiki: {
-    marginLeft:5,
+    marginLeft:7,
     marginBottom:4,
     color:"#eee",
     fontSize:15,

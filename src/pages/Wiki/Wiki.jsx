@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import wtf from "wtf_wikipedia";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Divider from "@material-ui/core/Divider";
 import "./wiki.css";
 import axios from "axios";
-import { Link } from "@material-ui/core";
+import Search from "./components/Search";
 
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
 
-//   After the closing of {{Infobox i think i get the content
-// [[search| label]]
 export default class Wiki extends Component {
   state = {
     search: "",
@@ -39,7 +37,7 @@ export default class Wiki extends Component {
 
   handleChange = e => {
     const value = e.currentTarget.value;
-    if (value.trim() .length> 1) {
+    if (value.trim().length > 1) {
       let searchQuery = searchUrl + value;
       this.search(searchQuery);
     }
@@ -128,56 +126,44 @@ export default class Wiki extends Component {
   render() {
     const { searchResults, loading } = this.state;
     return (
-      <div  className="wiki">
+      <div className="wiki">
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
-        <div >
-          <div className="wikisearch">
-            <TextField
-              name="wiki"
-              label="Search on WikiPedia"
-              variant="outlined"
-              onChange={e => this.handleChange(e)}
-            />
-          </div>
-          <div className="resluts">
-            {searchResults.length ? (
-              searchResults.map(e => (
-                <div>
-                  <Typography onClick={() => this.loadContent(e.name)}>
-                    {e.name}
-                  </Typography>
-                  <Link href={e.url}>{e.url}</Link>
-                </div>
-              ))
-            ) : (
-              <span></span>
-            )}
-          </div>
-
+        <div>
+          <Search
+            searchResults={searchResults}
+            handleChange={this.handleChange}
+            loadContent={this.loadContent}
+          />
           {this.state.data !== false ? (
             <div className="data">
-              <Typography variant="h6" align="center">
+              <Typography variant="h5" align="center">
                 {this.state.data.title}
               </Typography>
               {this.state.data.sections.map(s => (
                 <div className="datasection">
-                  {/* <h5>{s._title}</h5> */}
-                  {s.paragraphs !== undefined &&
-                    s.paragraphs.map(p => (
-                      <div className="sentence">
-                        {p.sentences !== undefined &&
-                          p.sentences.map(s => (
-                            <div className="text">
-                              {this.renderWithStyles(
-                                s.text,
-                                s.links,
-                                s.formatting
-                              )}
-                            </div>
-                          ))}
-                      </div>
-                    ))}
+                  {s.paragraphs !== undefined && (
+                    <div>
+                      <Typography variant="h6" align="center">
+                        {s.title}
+                      </Typography>
+                      {s.paragraphs.map(p => (
+                        <div className="sentence">
+                          {p.sentences !== undefined &&
+                            p.sentences.map(s => (
+                              <div className="text">
+                                {this.renderWithStyles(
+                                  s.text,
+                                  s.links,
+                                  s.formatting
+                                )}
+                              </div>
+                            ))}
+                        </div>
+                      ))}
+                      <Divider />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
