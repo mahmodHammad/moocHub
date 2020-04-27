@@ -12,7 +12,7 @@ const styles = makeStyles(theme => ({
     right: "0.5vw",
     zIndex: "100",
     "&:hover": {
-      opacity: "0.8",
+      opacity: "0.8"
     }
   },
   border: {
