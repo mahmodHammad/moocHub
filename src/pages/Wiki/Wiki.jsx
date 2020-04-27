@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import wtf from "wtf_wikipedia";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Divider from "@material-ui/core/Divider";
 import "./wiki.css";
 import axios from "axios";
 import Search from "./components/Search";
-
+import WikiContent from "./components/WikiContent";
+import getIndex from "./helper/getIndex";
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
 
@@ -19,20 +19,6 @@ export default class Wiki extends Component {
     data: false,
     loading: false,
     url: ""
-  };
-
-  getIndex = (text, word, isLink) => {
-    if (word !== undefined) {
-      return word
-        .map(l => {
-          let word = isLink ? l.page : l;
-          let index = text.indexOf(word);
-          return { word, index };
-        })
-        .filter(pl => pl.index !== -1);
-    } else {
-      return [];
-    }
   };
 
   handleChange = e => {
@@ -82,10 +68,11 @@ export default class Wiki extends Component {
     let i = 0;
 
     if (links !== undefined) {
-      pageLinks = this.getIndex(text, links, true);
+      pageLinks = getIndex(text, links, true);
     }
     if (formatting !== undefined) {
-      pageFormatting = this.getIndex(text, formatting.bold, false);
+      console.log("this", this);
+      pageFormatting = getIndex(text, formatting.bold, false);
     }
 
     //XXX will be deprecated => find better algorithm than this XXX
@@ -124,7 +111,7 @@ export default class Wiki extends Component {
   }
 
   render() {
-    const { searchResults, loading } = this.state;
+    const { searchResults, loading, data } = this.state;
     return (
       <div className="wiki">
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
@@ -135,41 +122,7 @@ export default class Wiki extends Component {
             handleChange={this.handleChange}
             loadContent={this.loadContent}
           />
-          {this.state.data !== false ? (
-            <div className="data">
-              <Typography variant="h5" align="center">
-                {this.state.data.title}
-              </Typography>
-              {this.state.data.sections.map(s => (
-                <div className="datasection">
-                  {s.paragraphs !== undefined && (
-                    <div>
-                      <Typography variant="h6" align="center">
-                        {s.title}
-                      </Typography>
-                      {s.paragraphs.map(p => (
-                        <div className="sentence">
-                          {p.sentences !== undefined &&
-                            p.sentences.map(s => (
-                              <div className="text">
-                                {this.renderWithStyles(
-                                  s.text,
-                                  s.links,
-                                  s.formatting
-                                )}
-                              </div>
-                            ))}
-                        </div>
-                      ))}
-                      <Divider />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <span></span>
-          )}
+          <WikiContent data={data} renderWithStyles={this.renderWithStyles} />
         </div>
       </div>
     );
