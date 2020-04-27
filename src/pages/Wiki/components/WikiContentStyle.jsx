@@ -1,7 +1,7 @@
+// DONT TOUCH IT XXX
 import React from "react";
 
 import getIndex from "../helper/getIndex";
-import Link from "@material-ui/core/Link";
 
 const renderWithStyles = (text, links, formatting, loadContent) => {
   let pageLinks = [];

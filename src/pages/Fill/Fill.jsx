@@ -6,7 +6,7 @@ import subjects from "../../config/subjects";
 // MUI Components------------------------------
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 // MY Components------------------------------
 import Submit from "./components/Submit";
@@ -94,7 +94,7 @@ export default class Fill extends Component {
           let title = e.title;
           let time = this.timeToSeconds(e.time);
 
-          return {title, time};
+          return { title, time };
         });
         return { name, url, goto };
       });
@@ -115,14 +115,13 @@ export default class Fill extends Component {
         let name = video.name;
         let url = this.idToUrl(video.url);
         let oldgoto = video.goto;
-        
 
         let goto = oldgoto.map(e => {
           //   loop over goto
           let title = e.title;
           let time = this.SecondsToTime(e.time);
 
-          return {title, time};
+          return { title, time };
         });
         return { name, url, goto };
       });
@@ -176,7 +175,6 @@ export default class Fill extends Component {
         const data = daat.data;
         let videos = this.AfterGet(data);
         this.setState({ videos, loading: false });
-        
       })
       .catch(err => {
         console.log(err);
@@ -295,7 +293,7 @@ export default class Fill extends Component {
     return (
       <div className="addGoto">
         {defaultGoto.map((g, inputOrder) => (
-          <div key={g[0]} >
+          <div key={g[0]}>
             <PlFields
               order={order}
               inputOrder={inputOrder}
@@ -424,6 +422,9 @@ export default class Fill extends Component {
     let subjects = Object.keys(this.state.subjects);
     return (
       <div className="fill">
+        {this.state.loading && this.state.subject !== "" && (
+          <LinearProgress color="secondary" />
+        )}
         <Grid container justify="center">
           <Grid item xs={10}>
             <Selecter
@@ -433,13 +434,7 @@ export default class Fill extends Component {
             />
           </Grid>
           {this.state.loading ? (
-            this.state.subject === "" ? (
-              <div></div>
-            ) : (
-              <div className="formLoading">
-                <CircularProgress color="secondary" />
-              </div>
-            )
+            <span></span>
           ) : (
             <div>
               <div className="addPlayList">

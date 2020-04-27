@@ -11,7 +11,8 @@ import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles({
   root: {
-    minHeight: "calc(100vh - 48px)"
+    minHeight: "calc(100vh - 50px)",
+    padding: 0.2
   },
   content: {
     minHeight: "calc(100vh - 212px)",
@@ -53,6 +54,7 @@ export default function ContentDisplayer({
     <div className={classes.root}>
       {/******  display subject name  ******/}
 
+      {loading ? <LinearProgress color="secondary" /> : <span></span>}
       <Typography
         variant="h6"
         align="center"
@@ -61,7 +63,6 @@ export default function ContentDisplayer({
       >
         {subject.name}
       </Typography>
-      {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container justify="center">
         {/******  display MainSlider   ******/}
