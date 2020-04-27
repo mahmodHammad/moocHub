@@ -8,14 +8,16 @@
 .wiki .link {
   font-weight: 900;
 }
+.linkx{
+  color:#48f;
+}
+.linkx:hover {
+  cursor: pointer ;
+}
 
 .wbold {
   font-weight: 900;
   color: #fff;
-}
-
-.text {
-  margin: 7px 0;
 }
 
 .wikisearch {
@@ -25,7 +27,7 @@
 
 .wikisearch .MuiInputBase-root {
   padding: 0 !important;
-  margin: 10px;
+  margin: 8px auto;
   color: #eee !important;
 }
 
@@ -36,10 +38,4 @@
 
 .wikisearch .MuiFormLabel-root {
   color: #ddd !important;
-}
-
-.results {
-  text-align: center;
-  margin: auto;
-  border: solid red;
 }

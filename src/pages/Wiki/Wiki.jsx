@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import wtf from "wtf_wikipedia";
-import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import "./wiki.css";
 import axios from "axios";
 import Search from "./components/Search";
 import WikiContent from "./components/WikiContent";
-import getIndex from "./helper/getIndex";
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
 
@@ -39,9 +37,6 @@ export default class Wiki extends Component {
         });
 
         this.setState({ searchResults, loading: false });
-        console.log("getting data ...");
-        console.log(searchResults);
-        console.log(res);
       })
       .catch(err => {
         console.log(err);
@@ -61,57 +56,9 @@ export default class Wiki extends Component {
   };
 
   // XXX Needs Refactoring XXX
-  renderWithStyles(text, links, formatting) {
-    let pageLinks = [];
-    let pageFormatting = [];
-    let paragraph = [];
-    let i = 0;
-
-    if (links !== undefined) {
-      pageLinks = getIndex(text, links, true);
-    }
-    if (formatting !== undefined) {
-      console.log("this", this);
-      pageFormatting = getIndex(text, formatting.bold, false);
-    }
-
-    //XXX will be deprecated => find better algorithm than this XXX
-    let done = false;
-    pageLinks.forEach(pl => {
-      let notLink = text.substring(i, pl.index);
-      let j = 0;
-      if (pageFormatting.length) {
-        if (!done) {
-          pageFormatting.forEach(pf => {
-            let notBold = notLink.substring(j, pf.index);
-            paragraph.push(<span>{notBold}</span>);
-            paragraph.push(<span className="wbold">{pf.word}</span>);
-            j = pf.index + pf.word.length;
-          });
-          done = true;
-        }
-        paragraph.push(<span>{notLink.substring(j, pl.index)}</span>);
-      } else {
-        paragraph.push(<span>{notLink}</span>);
-      }
-      paragraph.push(
-        <Typography
-          variant="span"
-          color="secondary"
-          onClick={() => this.loadContent(pl.word)}
-        >
-          {pl.word}
-        </Typography>
-      );
-
-      i = pl.index + pl.word.length;
-    });
-    paragraph.push(<span>{text.substring(i)}</span>);
-    return <div className="modiPh"> {[...paragraph]} </div>;
-  }
 
   render() {
-    const { searchResults, loading, data } = this.state;
+    const { searchResults, loading, data, url } = this.state;
     return (
       <div className="wiki">
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
@@ -122,7 +69,12 @@ export default class Wiki extends Component {
             handleChange={this.handleChange}
             loadContent={this.loadContent}
           />
-          <WikiContent data={data} renderWithStyles={this.renderWithStyles} />
+          <WikiContent
+            data={data}
+            url={url}
+            renderWithStyles={this.renderWithStyles}
+            loadContent={this.loadContent}
+          />
         </div>
       </div>
     );

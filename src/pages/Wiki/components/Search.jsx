@@ -2,8 +2,29 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Link } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  link: {
+    fontSize: 10
+  },
+  title: {
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  results: {
+    textAlign: "center",
+    margin: "auto"
+  },result:{
+      margin:"10px auto",
+      borderBottom:"dashed #555 1px"
+  }
+}));
 
 export default function Search({ searchResults, handleChange, loadContent }) {
+  const classes = useStyles();
+
   return (
     <div>
       <div className="wikisearch">
@@ -14,16 +35,20 @@ export default function Search({ searchResults, handleChange, loadContent }) {
           onChange={handleChange}
         />
       </div>
-      <div className="results">
+      <div className={classes.results}>
         {searchResults.length ? (
           searchResults.map(e => (
-            <div>
-              <Typography gutterBottom onClick={() => loadContent(e.name)}>
+            <div className={classes.result}>
+              <Typography
+                className={classes.title}
+                variant="body1"
+                onClick={() => loadContent(e.name)}
+              >
                 {e.name}
-                <Link color="secondary" href={e.url}>
-                  {e.url}
-                </Link>
               </Typography>
+              <Link className={classes.link} color="secondary" href={e.url}>
+                {e.url}
+              </Link>
             </div>
           ))
         ) : (
