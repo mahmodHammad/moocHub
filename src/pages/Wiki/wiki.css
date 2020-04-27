@@ -1,0 +1,41 @@
+.wiki {
+  background-color: #222;
+  color: #eee;
+  padding: 1px;
+  min-height: calc(100vh - 48px);
+}
+
+.wiki .link {
+  font-weight: 900;
+}
+.linkx{
+  color:#48f;
+}
+.linkx:hover {
+  cursor: pointer ;
+}
+
+.wbold {
+  font-weight: 900;
+  color: #fff;
+}
+
+.wikisearch {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.wikisearch .MuiInputBase-root {
+  padding: 0 !important;
+  margin: 8px auto;
+  color: #eee !important;
+}
+
+.wikisearch .MuiOutlinedInput-input {
+  padding: 8px !important;
+  color: #eee !important;
+}
+
+.wikisearch .MuiFormLabel-root {
+  color: #ddd !important;
+}

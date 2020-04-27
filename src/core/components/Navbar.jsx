@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import  Icon  from "@material-ui/core/Icon";
 const useStyles = makeStyles(theme => ({
   logo: {
     flexGrow: 1,
@@ -15,8 +16,15 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   study: {
-    padding: " 2px 9px",
-    fontSize: "0.7125rem"
+    padding: " 2px 8px",
+    fontSize: "0.7rem"
+  },
+  wiki: {
+    marginLeft:7,
+    marginBottom:4,
+    color:"#eee",
+    fontSize:15,
+    fontWeight:"bold"
   }
 }));
 
@@ -69,6 +77,15 @@ export default function Navbar({
           >
             Study Room
           </Button>
+
+          <Icon
+            size="small"
+            className={classes.wiki}
+            component={Link}
+            to="/wiki"
+          >
+            W
+          </Icon>
         </Toolbar>
       </AppBar>
 

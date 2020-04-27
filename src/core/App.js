@@ -27,6 +27,7 @@ import communities from "../config/communities";
 
 // My components ---------------------------
 import Video from "./Video/Video";
+import Wiki from './../pages/Wiki/Wiki';
 
 export default class App extends Component {
   state = {
@@ -280,6 +281,8 @@ export default class App extends Component {
                 )}
               />
               <Route exact path="/fill" component={Fill} />
+              <Route exact path="/wiki" component={Wiki} />
+              
             </Switch>
             {/* end routing **********************************************/}
 
