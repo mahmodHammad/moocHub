@@ -1,5 +1,5 @@
-// works form window routing not hash routing
-import React, { useState, useEffect } from "react";
+//XXX needs refactoring XXX
+import React, { useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -7,7 +7,6 @@ import VideoIcon from "@material-ui/icons/YouTube";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import PopContent from "../../../core/Content/components/PopContent";
-const useStyles = makeStyles({});
 
 export default function PdfIframe({
   content,
