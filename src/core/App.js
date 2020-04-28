@@ -93,7 +93,7 @@ export default class App extends Component {
     if(isVideo){
       item.id=item.url
     }
-    console.log("item",item)
+
     // for theme (each subject has unique index)
     todo.forEach((subj, index) => {
       if (subj.id === parent.id) indexOfSubject = index;
@@ -286,6 +286,7 @@ export default class App extends Component {
                     communities={this.state.communities}
                     content={this.state.content}
                     changeTheme={this.changeTheme}
+                    handleVideoPin={this.handleVideoPin}
 
                   />
                 )}

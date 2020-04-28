@@ -53,7 +53,6 @@ export default function PersistentDrawerLeft({
             removeFromTodo={removeFromTodo}
             isTodo={true}
             handleSelect={f =>{
-              console.log("selected")
               setopen(false)}}
           />
           <Divider />

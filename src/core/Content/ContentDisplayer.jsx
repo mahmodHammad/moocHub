@@ -88,7 +88,7 @@ export default function ContentDisplayer({
             onSwipedLeft={() => swipe(1)}
           >
             <div className={classes.content}>
-              {PrimarySliderSelectedIndex !== false &&
+              {content[PrimarySliderSelectedIndex]!==undefined && PrimarySliderSelectedIndex !== false &&
                 content[PrimarySliderSelectedIndex].value !== false && (
                   <SecondarySlide
                     subject={subject}

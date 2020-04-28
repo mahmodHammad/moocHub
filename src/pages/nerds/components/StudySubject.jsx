@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import themes from "../../../config/theme";
-
+import VideoIframe from "./VideoIframe";
 const useStyles = makeStyles({
   subject: props => ({
     background: `radial-gradient(ellipse,${themes[props.index][1]}, ${
@@ -27,7 +27,8 @@ export default function StudySubject({
   setopened,
   checkSelected,
   selected,
-  index
+  index,
+  handleVideoPin
 }) {
   const classes = useStyles({ index });
 
@@ -44,15 +45,25 @@ export default function StudySubject({
         </Typography>
         {e.value.map(item => (
           <React.Fragment key={item.id}>
-            <PdfIframe
-              file={item}
-              removeFromTodo={removeFromTodo}
-              parentId={e.id}
-              opened={opened}
-              setopened={setopened}
-              selected={checkSelected(selected, item)}
-              closeIconCol={themes[index][0]}
-            />
+            {item.isVideo === false ? (
+              <PdfIframe
+                file={item}
+                removeFromTodo={removeFromTodo}
+                parentId={e.id}
+                opened={opened}
+                setopened={setopened}
+                selected={checkSelected(selected, item)}
+                closeIconCol={themes[index][0]}
+              />
+            ) : (
+              <VideoIframe
+                content={item}
+                removeFromTodo={removeFromTodo}
+                parentId={e.id}
+                closeIconCol={themes[index][0]}
+                handleVideoPin={handleVideoPin}
+              />
+            )}
           </React.Fragment>
         ))}
       </List>
