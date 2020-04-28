@@ -83,10 +83,18 @@ export default class App extends Component {
     });
   };
 
-  addToTodo = (item, parent, index) => {
+  addToTodo = (item, parent, index,isVideo) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
+    
+    item.isVideo=isVideo 
 
+    // special case for videos (it doesn't have id but have uniqe url instead)
+    if(isVideo){
+      item.id=item.url
+    }
+    console.log("item",item)
+    // for theme (each subject has unique index)
     todo.forEach((subj, index) => {
       if (subj.id === parent.id) indexOfSubject = index;
     });
@@ -96,6 +104,7 @@ export default class App extends Component {
       parent.index = index;
       todo.push({ ...parent, value: [{ ...item }] });
     }
+    
     // else {get index then push item to it's value property}
     else {
       let value = todo[indexOfSubject].value;
@@ -108,6 +117,7 @@ export default class App extends Component {
         value.push({ ...item });
       }
     }
+    
     this.setState({ todo });
     // store it in local storage
     let tostring = JSON.stringify(todo);

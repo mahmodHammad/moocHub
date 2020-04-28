@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
-
 import { withStyles } from "@material-ui/core/styles";
 
 import PopContent from "../components/PopContent";
@@ -71,7 +70,7 @@ function ComponentName({
 
   const handleAdd = (index) => {
     setPop(false);
-    addToTodo(content, subject,index);
+    addToTodo(content, subject, index,isVideo);
   };
 
   const handleRemove = () => {
@@ -91,7 +90,9 @@ function ComponentName({
             <PopContent
               handleClose={handleClose}
               handleSelect={
-                isExistOnTodo(todo, content, subject) ? handleRemove : ()=>handleAdd(index)
+                isExistOnTodo(todo, content, subject)
+                  ? handleRemove
+                  : () => handleAdd(index,isVideo)
               }
               Pop={Pop}
               content={content}
@@ -117,7 +118,7 @@ function ComponentName({
                 size="large"
                 color="primary"
                 onClick={() => {
-                  addToTodo(content, subject,index);
+                  addToTodo(content, subject, index, isVideo);
                   setContent(!addContent);
                 }}
               />
