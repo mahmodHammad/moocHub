@@ -27,7 +27,7 @@ import communities from "../config/communities";
 
 // My components ---------------------------
 import Video from "./Video/Video";
-import Wiki from './../pages/Wiki/Wiki';
+import Wiki from "./../pages/Wiki/Wiki";
 
 export default class App extends Component {
   state = {
@@ -83,10 +83,18 @@ export default class App extends Component {
     });
   };
 
-  addToTodo = (item, parent, index) => {
+  addToTodo = (item, parent, index, isVideo) => {
     let [todo] = [this.state.todo];
     let indexOfSubject = false;
 
+    item.isVideo = isVideo;
+
+    // special case for videos (it doesn't have id but have uniqe url instead)
+    if (isVideo) {
+      item.id = item.url;
+    }
+
+    // for theme (each subject has unique index)
     todo.forEach((subj, index) => {
       if (subj.id === parent.id) indexOfSubject = index;
     });
@@ -96,6 +104,7 @@ export default class App extends Component {
       parent.index = index;
       todo.push({ ...parent, value: [{ ...item }] });
     }
+
     // else {get index then push item to it's value property}
     else {
       let value = todo[indexOfSubject].value;
@@ -108,6 +117,7 @@ export default class App extends Component {
         value.push({ ...item });
       }
     }
+
     this.setState({ todo });
     // store it in local storage
     let tostring = JSON.stringify(todo);
@@ -144,7 +154,7 @@ export default class App extends Component {
   };
 
   ChooseCommumity = community => {
-    const {name,id} = community;
+    const { name, id } = community;
     this.loadSubject(id);
     window.localStorage.setItem("community", `/${name}/${id}`);
   };
@@ -198,17 +208,28 @@ export default class App extends Component {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   render() {
+    const {
+      theme,
+      removeFromTodo,
+      getCommunity,
+      clearLocalStorage,
+      ChooseCommumity,
+      addToTodo,
+      changeTheme,
+      handleVideoPin
+    } = this;
+    const { communities, todo, content, pinnedVideo } = this.state;
     return (
-      <MuiThemeProvider theme={this.theme}>
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <div style={{ background: this.theme.palette.background.default }}>
+        <div style={{ background: theme.palette.background.default }}>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
-              communities={this.state.communities}
-              todo={this.state.todo}
-              removeFromTodo={this.removeFromTodo}
-              getCommunity={this.getCommunity}
-              clearLocalStorage={this.clearLocalStorage}
+              communities={communities}
+              todo={todo}
+              removeFromTodo={removeFromTodo}
+              getCommunity={getCommunity}
+              clearLocalStorage={clearLocalStorage}
             />
 
             {/* START ROUTING  **********************************************/}
@@ -219,8 +240,8 @@ export default class App extends Component {
                 render={props => (
                   <Communities
                     {...props}
-                    communities={this.state.communities}
-                    ChooseCommumity={this.ChooseCommumity}
+                    communities={communities}
+                    ChooseCommumity={ChooseCommumity}
                   />
                 )}
               />
@@ -230,24 +251,23 @@ export default class App extends Component {
                 render={props => (
                   <Home
                     {...props}
-                    addToTodo={this.addToTodo}
-                    removeFromTodo={this.removeFromTodo}
-                    communities={this.state.communities}
-                    content={this.state.content}
-                    changeTheme={this.changeTheme}
+                    addToTodo={addToTodo}
+                    removeFromTodo={removeFromTodo}
+                    communities={communities}
+                    content={content}
+                    changeTheme={changeTheme}
                   />
                 )}
               />
-
               <Route
                 exact
                 path="/subject/:subjectName/:subjectId"
                 render={props => (
                   <Subject
                     {...props}
-                    addToTodo={this.addToTodo}
-                    removeFromTodo={this.removeFromTodo}
-                    todo={this.state.todo}
+                    addToTodo={addToTodo}
+                    removeFromTodo={removeFromTodo}
+                    todo={todo}
                   />
                 )}
               />
@@ -257,10 +277,10 @@ export default class App extends Component {
                 render={props => (
                   <VideosDisplayer
                     {...props}
-                    addToTodo={this.addToTodo}
-                    removeFromTodo={this.removeFromTodo}
-                    todo={this.state.todo}
-                    handleVideoPin={this.handleVideoPin}
+                    addToTodo={addToTodo}
+                    removeFromTodo={removeFromTodo}
+                    todo={todo}
+                    handleVideoPin={handleVideoPin}
                   />
                 )}
               />
@@ -270,24 +290,23 @@ export default class App extends Component {
                 render={props => (
                   <Nerds
                     {...props}
-                    todo={this.state.todo}
-                    addToTodo={this.addToTodo}
-                    removeFromTodo={this.removeFromTodo}
-                    communities={this.state.communities}
-                    content={this.state.content}
-                    changeTheme={this.changeTheme}
-
+                    todo={todo}
+                    addToTodo={addToTodo}
+                    removeFromTodo={removeFromTodo}
+                    communities={communities}
+                    content={content}
+                    changeTheme={changeTheme}
+                    handleVideoPin={handleVideoPin}
                   />
                 )}
               />
               <Route exact path="/fill" component={Fill} />
               <Route exact path="/wiki" component={Wiki} />
-              
             </Switch>
             {/* end routing **********************************************/}
 
             {/* Will Work When Pin Button Is Pressed  */}
-            {this.state.pinnedVideo.isOpenNextTime !== false && (
+            {pinnedVideo.isOpenNextTime !== false && (
               <Rnd
                 default={{
                   x: window.innerWidth - 500,
@@ -301,12 +320,12 @@ export default class App extends Component {
                 lockAspectRatio={true}
               >
                 <Video
-                  url={this.state.pinnedVideo.url}
+                  url={pinnedVideo.url}
                   isPinned={true}
-                  goto={this.state.pinnedVideo.goto}
+                  goto={pinnedVideo.goto}
                   // this Shitty line fixed Every thing
-                  played={this.state.pinnedVideo.played}
-                  handleVideoPin={this.handleVideoPin}
+                  played={pinnedVideo.played}
+                  handleVideoPin={handleVideoPin}
                 />
               </Rnd>
             )}

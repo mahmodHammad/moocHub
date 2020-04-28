@@ -6,7 +6,6 @@ export default class Nerds extends Component {
   state = {
     opened: [],
     At: 0,
-    VideoIndex: 0
   };
 
   handleOpendContent = opened => {
@@ -39,6 +38,7 @@ export default class Nerds extends Component {
           setopened={this.handleOpendContent}
           opened={opened}
           selected={StateFromLink}
+          handleVideoPin={this.props.handleVideoPin}
         />
       </div>
     );

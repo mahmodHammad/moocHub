@@ -29,6 +29,7 @@ export default function DisplayContent({
   opened,
   setopened,
   selected,
+  handleVideoPin
   
 }) {
   const classes = useStyles();
@@ -45,6 +46,7 @@ export default function DisplayContent({
             checkSelected={checkSelected}
             selected={selected}
             index={e.index}
+            handleVideoPin={handleVideoPin}
           />
         ))
       ) : (
