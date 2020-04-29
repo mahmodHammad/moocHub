@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import YouTubeIcon from "@material-ui/icons/YouTube";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import { Link } from "react-router-dom";
 
+import PdfIcon from "@material-ui/icons/PictureAsPdf";
 
 // to make user see his subjects directly withou choosing his community again
 
@@ -60,7 +60,7 @@ export default function SimpleBottomNavigation({
               pathname: `/subject/${subject.name}/${subject.id}`,
               state: { divided }
             }}
-            icon={<DriveEtaIcon color="secondary" />}
+            icon={<PdfIcon color="secondary" />}
           />
         ) : (
           <BottomNavigationAction

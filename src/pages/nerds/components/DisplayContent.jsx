@@ -50,6 +50,7 @@ export default function DisplayContent({
       {todo.length ? (
         todo.map(e => (
           <StudySubject
+            key={e.index}
             e={e}
             opened={opened}
             removeFromTodo={removeFromTodo}
