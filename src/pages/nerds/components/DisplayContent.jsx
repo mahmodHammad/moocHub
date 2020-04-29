@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import StudySubject from "./StudySubject";
-
+import { Swipeable } from "react-swipeable";
+import { Redirect } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minHeight: "calc(100vh - 48px)"
@@ -30,12 +31,22 @@ export default function DisplayContent({
   setopened,
   selected,
   handleVideoPin
-  
 }) {
   const classes = useStyles();
 
+  const [swiped, setswiped] = React.useState(0);
+  if (swiped === 1) {
+    return <Redirect to="/wiki" />;
+  } else if (swiped === -1) {
+    return <Redirect to="/" />;
+  }
+
   return (
-    <div className={classes.root}>
+    <Swipeable
+      className={classes.root}
+      onSwipedRight={() => setswiped(-1)}
+      onSwipedLeft={() => setswiped(1)}
+    >
       {todo.length ? (
         todo.map(e => (
           <StudySubject
@@ -61,6 +72,6 @@ export default function DisplayContent({
           </Typography>
         </div>
       )}
-    </div>
+    </Swipeable>
   );
 }

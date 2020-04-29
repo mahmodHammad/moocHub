@@ -5,6 +5,9 @@ import "./wiki.css";
 import axios from "axios";
 import Search from "./components/Search";
 import WikiContent from "./components/WikiContent";
+import { Swipeable } from "react-swipeable";
+import { Redirect } from "react-router-dom";
+
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
 
@@ -14,7 +17,8 @@ export default class Wiki extends Component {
     searchResults: [],
     data: false,
     loading: false,
-    url: ""
+    url: "",
+    swiped: 0
   };
 
   handleChange = e => {
@@ -54,9 +58,17 @@ export default class Wiki extends Component {
   // XXX Needs Refactoring XXX
 
   render() {
-    const { searchResults, loading, data, url } = this.state;
+    const { searchResults, loading, data, url, swiped } = this.state;
+
+    if (swiped === 1) {
+      return <Redirect to="/nerds" />;
+    }
+
     return (
-      <div className="wiki">
+      <Swipeable
+        className="wiki"
+        onSwipedRight={() => this.setState({ swiped: 1 })}
+      >
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
         <div>
@@ -72,7 +84,7 @@ export default class Wiki extends Component {
             loadContent={this.loadContent}
           />
         </div>
-      </div>
+      </Swipeable>
     );
   }
 }
