@@ -9,6 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import  Icon  from "@material-ui/core/Icon";
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
+
 const useStyles = makeStyles(theme => ({
   logo: {
     flexGrow: 1,
@@ -34,17 +37,35 @@ let department = "Electrical";
 // XXXXXXXXXXXXXXXXXXXXXX
 
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+
+
 export default function Navbar({
   todo,
   removeFromTodo,
   communities,
   getCommunity,
+  props
 }) {
   const [open, setopen] = useState(false);
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="sticky">
+      <HideOnScroll {...props}>
+      <AppBar>
         <Toolbar variant="dense">
           <IconButton
             color="inherit"
@@ -88,6 +109,7 @@ export default function Navbar({
           </Icon>
         </Toolbar>
       </AppBar>
+      </HideOnScroll>
 
       <Sidebar
         open={open}
