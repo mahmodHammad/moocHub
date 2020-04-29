@@ -8,6 +8,7 @@ import BottomBar from "./components/BottomBar";
 import Empty from "./components/Empty";
 import { makeStyles } from "@material-ui/core/styles";
 import { Swipeable } from "react-swipeable";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles({
     minHeight: "calc(100vh - 212px)",
     background: "#fff2",
     paddingBottom: "50px"
+  },
+  swip: {
+    display: "flex",
+    width: "100%"
   }
 });
 
@@ -49,7 +54,12 @@ export default function ContentDisplayer({
       }
     }
   }
-
+  const [swiped, setswiped] = React.useState(0);
+  if (swiped === 1) {
+    return <Redirect to="/nerds" />;
+  } else if (swiped === -1) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className={classes.root}>
       {/******  display subject name  ******/}
@@ -89,7 +99,8 @@ export default function ContentDisplayer({
             onSwipedLeft={() => swipe(1)}
           >
             <div className={classes.content}>
-              {content[PrimarySliderSelectedIndex]!==undefined && PrimarySliderSelectedIndex !== false &&
+              {content[PrimarySliderSelectedIndex] !== undefined &&
+                PrimarySliderSelectedIndex !== false &&
                 content[PrimarySliderSelectedIndex].value !== false && (
                   <SecondarySlide
                     subject={subject}
@@ -108,13 +119,18 @@ export default function ContentDisplayer({
             </div>
           </Swipeable>
         </Grid>
-
-        <BottomBar
-          divided={divided}
-          loadSubject={loadSubject}
-          isVideo={isVideo}
-          subject={subject}
-        />
+        <Swipeable
+          className={classes.swip}
+          onSwipedRight={() => setswiped(-1)}
+          onSwipedLeft={() => setswiped(1)}
+        >
+          <BottomBar
+            divided={divided}
+            loadSubject={loadSubject}
+            isVideo={isVideo}
+            subject={subject}
+          />
+        </Swipeable>
       </Grid>
     </div>
   );
