@@ -37,7 +37,7 @@ export default class VideosDisplayer extends Component {
         this.setState({ content, loading: false,PrimarySliderSelectedIndex: 0 });
       })
       .catch(err => {
-        alert("WE can not load this video right now!")
+        // alert("WE can not load this video right now!")
         console.log(err);
       });
   };

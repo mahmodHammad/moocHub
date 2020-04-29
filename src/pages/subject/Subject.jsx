@@ -17,7 +17,7 @@ class Home extends Component {
   //////// get files after clicking on prime slide  ////////
   handlePrimeTabClick = index => {
     this.setState({ loading: true });
-    this.state.content[index].value === false
+    (this.state.content[index]!==undefined&&this.state.content[index].value === false)
       ? getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
           let [content] = [this.state.content];
           content[index].value = theactualContent.files;
@@ -50,7 +50,7 @@ class Home extends Component {
         .then(subjectContent => {
           this.loadContent(subjectContent);
         })
-        .catch(() => alert("Can not load content , try againg later"))
+        .catch((err) => console.log(err))
     );
   };
 
