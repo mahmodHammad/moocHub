@@ -12,12 +12,16 @@ export default class home extends Component {
   state = {
     swiped: 0
   };
+
   componentDidMount() {
-    this.props.changeTheme(
-      "#333",
-      "#1e88e5",
-      "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#ddd)"
-    );
+    // TEMP fix for laggin
+    if (this.props.cutumeTheme.secondary.main !== "#1e88e5") {
+      this.props.changeTheme(
+        "#333",
+        "#1e88e5",
+        "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
+      );
+    }
   }
 
   swip = val => {

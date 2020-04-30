@@ -23,9 +23,11 @@
     "react-scrollable-anchor": "^0.6.1",
     "react-swipeable": "^5.5.1",
     "screenfull": "^5.0.2",
+    "source-map-explorer": "^2.4.2",
     "wtf_wikipedia": "^8.1.2"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
