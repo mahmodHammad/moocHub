@@ -14,8 +14,8 @@ const useStyles = makeStyles({
     width: "100%",
     position: "fixed",
     bottom: 0,
-    background: "#ffffffaa",
-    borderTop: "1px solid #fff"
+    background: "#ffffffbb",
+    borderTop: "2px solid #fff"
   }
 });
 
