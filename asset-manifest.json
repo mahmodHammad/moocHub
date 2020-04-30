@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/moocHub/static/css/main.c34b4a78.chunk.css",
-    "main.js": "/moocHub/static/js/main.7f4ea150.chunk.js",
-    "main.js.map": "/moocHub/static/js/main.7f4ea150.chunk.js.map",
+    "main.js": "/moocHub/static/js/main.5f442a75.chunk.js",
+    "main.js.map": "/moocHub/static/js/main.5f442a75.chunk.js.map",
     "runtime-main.js": "/moocHub/static/js/runtime-main.4aaef747.js",
     "runtime-main.js.map": "/moocHub/static/js/runtime-main.4aaef747.js.map",
     "static/js/2.51a82221.chunk.js": "/moocHub/static/js/2.51a82221.chunk.js",
     "static/js/2.51a82221.chunk.js.map": "/moocHub/static/js/2.51a82221.chunk.js.map",
     "index.html": "/moocHub/index.html",
-    "precache-manifest.07edbf56e19cd0dbbe7601050ef6b3dd.js": "/moocHub/precache-manifest.07edbf56e19cd0dbbe7601050ef6b3dd.js",
+    "precache-manifest.2ad5f1a74c66c7780dbfa9b33a0a6b00.js": "/moocHub/precache-manifest.2ad5f1a74c66c7780dbfa9b33a0a6b00.js",
     "service-worker.js": "/moocHub/service-worker.js",
     "static/css/main.c34b4a78.chunk.css.map": "/moocHub/static/css/main.c34b4a78.chunk.css.map",
     "static/js/2.51a82221.chunk.js.LICENSE.txt": "/moocHub/static/js/2.51a82221.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.4aaef747.js",
     "static/js/2.51a82221.chunk.js",
     "static/css/main.c34b4a78.chunk.css",
-    "static/js/main.7f4ea150.chunk.js"
+    "static/js/main.5f442a75.chunk.js"
   ]
 }
