@@ -30,18 +30,21 @@ export default function Community({ communities, ChooseCommumity }) {
             <Typography variant="h4" align="center" color="primary">
               Faculty Of Engineering
             </Typography>
-            <Typography variant="h6" align="center" color="secondary">
+            <Typography gutterBottom variant="h6" align="center" color="secondary">
               Ain Shams University
             </Typography>
           </div>
-          <Typography variant="body1" align="center" color="inherit">
+          <Typography gutterBottom variant="body1" align="center" color="inherit">
             This page will appear only <b> for the first time</b>
           </Typography>
           <Typography gutterBottom variant="body2" align="center" color="primary">
             Your Home page will be the department that you will <b> select</b>
           </Typography>
           <Typography gutterBottom variant="subtitle2" align="center" color="primary">
-          you can <b>change</b> the default department later from the sidebar
+          You can <b>change</b> the default department later from the sidebar
+        </Typography>     
+        <Typography gutterBottom variant="body1" align="center" color="primary">
+        <b>نسألكم الدعاء </b>
         </Typography>
         <br/>
         <br/>
