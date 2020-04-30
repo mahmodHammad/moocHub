@@ -32,8 +32,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // will be deprecated XXX
-let year = "2nd";
-let department = "Electrical";
+let year = "Asu";
+let department = "Engineer";
 // XXXXXXXXXXXXXXXXXXXXXX
 
 function HideOnScroll(props) {
@@ -57,6 +57,17 @@ export default function Navbar({
   getCommunity,
   props
 }) {
+
+  // useEfect will not help , it will not takeEfect if the user selected his dof3a,
+  // because there's no rerendering on the selection action
+  let comm = localStorage.getItem("community");
+  if (comm) {
+    let dof = comm.split("/")[1];
+    let dofsp = dof.split(" ");
+    year = dofsp[0];
+    department = dofsp[1];
+  }
+
   const [open, setopen] = useState(false);
   const classes = useStyles();
   return (
