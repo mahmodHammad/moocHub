@@ -24,8 +24,8 @@ export default [
     id: "1HQ2kQCTYJ0k6NglF1JtYoZMHQ-TBUYuS",
     name: "Signal Processing",
     divided: [
-      { id: "14FUTHEWwyJacz3NMaHlrxosi984RsqKA", name: "Dr wagdy" },
-      { id: "14E_6i5-MJI88j2g-_ObfGGnpLWbyggQh", name: "Dr sameh" }
+      { id: "1AdhmaALJGxToFGFLVHgIYBzoyhOPaQ1r", name: "Dr wagdy" },
+      { id: "1QIHu4P7BYqGVjlVvtJWIGxSS8Arw0kJ9", name: "Dr sameh" }
     ]
   },
   {
