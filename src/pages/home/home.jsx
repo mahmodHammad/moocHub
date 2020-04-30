@@ -31,7 +31,7 @@ export default class home extends Component {
     }
 
     return (
-      <Swipeable className="App" onSwipedLeft={() => this.swip(1)}>
+      <Swipeable className="Home" onSwipedLeft={() => this.swip(1)}>
         <Grid container align="center" justify="center" direction="column">
           <Grid container item xs={11} md={10} justify="center">
             {content.map((folder, N) => {
