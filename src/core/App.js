@@ -57,6 +57,7 @@ export default class App extends Component {
     palette: this.state.cutumeTheme
   });
 
+  // XXX will be deprecated XXX
   changeThemeOnce = (main, sec, value) => {
     let oldTheme = { ...this.state.cutumeTheme };
     oldTheme[main][sec] = value;
@@ -145,6 +146,7 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
+  // XXX will be deprecated XXX
   loadSubject = id => {
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
@@ -168,6 +170,7 @@ export default class App extends Component {
     }
   };
 
+  // XXX needs refactoring ({url,goto,played})
   handleVideoPin = (url, goto, played) => {
     if (this.state.pinnedVideo.isOpenNextTime !== false) {
       this.setState({

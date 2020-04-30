@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
-import PdfIcon from "@material-ui/icons/Book";
+import PdfIcon from "@material-ui/icons/PictureAsPdf";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Pdf from "./Pdf";
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   pdfIcon: props => ({
     color: props.closeIconCol,
     marginRight:7,
-    padding: 1.5
+    padding: 1
 
   }),
   center: {

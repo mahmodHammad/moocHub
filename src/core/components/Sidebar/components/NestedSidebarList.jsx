@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     }
   },
   borderb: {
-    borderBottom: "1px dashed #ccc"
+    borderBottom: "0.7px dotted #cacaca"
   }
 });
 

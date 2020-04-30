@@ -32,8 +32,7 @@ export default function PdfIframe({
     Icon: props => ({
       color: props.closeIconCol,
       marginRight:7,
-      padding: 1.5
-  
+      padding: 1
     }),
     center: {
       margin: "auto",

@@ -138,11 +138,6 @@ a:hover {
 }
 /* git add . && git commit -am " " */
 
-/* colors - XXX will be deprecated XXX */
-.bcol1 {
-  background-color: #fff !important;
-  margin-top: 15px !important;
-}
 
 /* to center Grid on firefox */
 .MuiGrid-justify-xs-center {

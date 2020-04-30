@@ -1,3 +1,4 @@
+//XXX Will be converted to a functional conponent later XXX
 import React, { Component } from "react";
 import Scroll from "./components/Scoll";
 import DisplayContent from "./components/DisplayContent";
