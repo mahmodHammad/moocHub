@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 4,
     color: "#eee",
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: "Linux Libertine Georgia Times serif"
   }
 }));
 
@@ -57,7 +58,6 @@ export default function Navbar({
   getCommunity,
   props
 }) {
-
   // useEfect will not help , it will not takeEfect if the user selected his dof3a,
   // because there's no rerendering on the selection action
   let comm = localStorage.getItem("community");
