@@ -221,7 +221,7 @@ export default class App extends Component {
       changeTheme,
       handleVideoPin
     } = this;
-    const { communities, todo, content, pinnedVideo } = this.state;
+    const { communities, todo, content, pinnedVideo, cutumeTheme } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -262,6 +262,7 @@ export default class App extends Component {
                     communities={communities}
                     content={content}
                     changeTheme={changeTheme}
+                    cutumeTheme={cutumeTheme}
                   />
                 )}
               />
@@ -303,6 +304,7 @@ export default class App extends Component {
                     content={content}
                     changeTheme={changeTheme}
                     handleVideoPin={handleVideoPin}
+                    cutumeTheme={cutumeTheme}
                   />
                 )}
               />
