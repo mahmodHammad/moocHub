@@ -3,16 +3,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import YouTubeIcon from "@material-ui/icons/YouTube";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import { Link } from "react-router-dom";
+
+import PdfIcon from "@material-ui/icons/PictureAsPdf";
+
+// to make user see his subjects directly withou choosing his community again
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
     position: "fixed",
     bottom: 0,
-    background: "#ffffffaa",
-    borderTop: "1px solid #fff"
+    background: "#ffffffbb",
+    borderTop: "2px solid #fff"
   }
 });
 
@@ -24,6 +27,10 @@ export default function SimpleBottomNavigation({
 }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  // 1 -> study -1 -> home
+
+ 
+
   return (
     <BottomNavigation
       value={value}
@@ -45,27 +52,28 @@ export default function SimpleBottomNavigation({
         <BottomNavigationAction label={d.name} key={d.id} />
       ))}
 
-      {isVideo ? (
-        <BottomNavigationAction
-          value="100"
-          component={Link}
-          to={{
-            pathname: `/subject/${subject.name}/${subject.id}`,
-            state: { divided}
-          }}
-          icon={<DriveEtaIcon color="secondary" />}
-        />
-      ) : (
-        <BottomNavigationAction
-          value="10"
-          component={Link}
-          to={{
-            pathname: `/videos/${subject.name}/${subject.id}`,
-            state:{divided}
-          }}
-          icon={<YouTubeIcon color="secondary" />}
-        />
-      )}
+        {isVideo ? (
+          <BottomNavigationAction
+            value="100"
+            component={Link}
+            to={{
+              pathname: `/subject/${subject.name}/${subject.id}`,
+              state: { divided }
+            }}
+            icon={<PdfIcon color="secondary" />}
+          />
+        ) : (
+          <BottomNavigationAction
+            value="10"
+            component={Link}
+            to={{
+              pathname: `/videos/${subject.name}/${subject.id}`,
+              state: { divided }
+            }}
+            icon={<YouTubeIcon color="secondary" />}
+          />
+        )}
+
     </BottomNavigation>
   );
 }

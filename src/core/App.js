@@ -57,6 +57,7 @@ export default class App extends Component {
     palette: this.state.cutumeTheme
   });
 
+  // XXX will be deprecated XXX
   changeThemeOnce = (main, sec, value) => {
     let oldTheme = { ...this.state.cutumeTheme };
     oldTheme[main][sec] = value;
@@ -145,6 +146,7 @@ export default class App extends Component {
     window.localStorage.setItem("todo", JSON.stringify(notEmptyTodo));
   };
 
+  // XXX will be deprecated XXX
   loadSubject = id => {
     loadApi().then(() =>
       getFiles(id, "folder").then(folders => {
@@ -168,6 +170,7 @@ export default class App extends Component {
     }
   };
 
+  // XXX needs refactoring ({url,goto,played})
   handleVideoPin = (url, goto, played) => {
     if (this.state.pinnedVideo.isOpenNextTime !== false) {
       this.setState({
@@ -218,11 +221,14 @@ export default class App extends Component {
       changeTheme,
       handleVideoPin
     } = this;
-    const { communities, todo, content, pinnedVideo } = this.state;
+    const { communities, todo, content, pinnedVideo, cutumeTheme } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <div style={{ background: theme.palette.background.default }}>
+        <div
+          className="App"
+          style={{ background: theme.palette.background.default }}
+        >
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Navbar
               communities={communities}
@@ -256,6 +262,7 @@ export default class App extends Component {
                     communities={communities}
                     content={content}
                     changeTheme={changeTheme}
+                    cutumeTheme={cutumeTheme}
                   />
                 )}
               />
@@ -297,6 +304,7 @@ export default class App extends Component {
                     content={content}
                     changeTheme={changeTheme}
                     handleVideoPin={handleVideoPin}
+                    cutumeTheme={cutumeTheme}
                   />
                 )}
               />

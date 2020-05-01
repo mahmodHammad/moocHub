@@ -2,11 +2,9 @@ const listchindrens = (folderID , type) => {
   return new Promise((resolve, reject) => {
     let q 
     if(type ==="folder"){
-       q =transformFolderID(folderID)+" and mimeType = 'application/vnd.google-apps.folder'"
+       q =" name contains '_' and"+transformFolderID(folderID)+" and mimeType = 'application/vnd.google-apps.folder' "
     }else if(type ==="pdf"){
       q =transformFolderID(folderID)+" and mimeType = 'application/pdf'"
-    }else if(type ==="_"){
-     q = transformFolderID(folderID)+" and name contains '_' " ;
     }
     window.gapi.client.drive.files
       .list({ q ,orderBy:"createdTime",spaces:"drive",fields:"files(name ,id)" })
@@ -22,7 +20,7 @@ const listchindrens = (folderID , type) => {
 // to make it    "1DQNrFndwdH1_D_026miRfwM7nA1duKVF" in parents
 function transformFolderID(folderID) {
   let s1 = "";
-  let s2 = s1+ '"' + folderID + '" ' +  "in parents";
+  let s2 = s1+ '"' + folderID + '" in parents';
   return s2;
 }
 export default listchindrens;

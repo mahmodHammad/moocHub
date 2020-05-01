@@ -1,3 +1,4 @@
+//XXX Will be converted to a functional conponent later XXX
 import React, { Component } from "react";
 import Scroll from "./components/Scoll";
 import DisplayContent from "./components/DisplayContent";
@@ -5,7 +6,7 @@ import DisplayContent from "./components/DisplayContent";
 export default class Nerds extends Component {
   state = {
     opened: [],
-    At: 0,
+    At: 0
   };
 
   handleOpendContent = opened => {
@@ -20,11 +21,18 @@ export default class Nerds extends Component {
     this.setState({ url });
   };
 
-  componentDidMount() {    
-  //XXX works but with lagging XXX 
-    this.props.changeTheme("#333","#1e88e5","radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)")
+  componentDidMount() {
+    //XXX works but with lagging XXX 
+    // TEMP Fix for laggin
+    if (this.props.cutumeTheme.secondary.main !== "#1e88e5") {
+      this.props.changeTheme(
+        "#333",
+        "#1e88e5",
+        "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
+      );
+    }
   }
-  
+
   render() {
     const { todo, removeFromTodo } = this.props;
     const { opened, At } = this.state;
