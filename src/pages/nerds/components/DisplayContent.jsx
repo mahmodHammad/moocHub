@@ -11,6 +11,14 @@ const useStyles = makeStyles({
   root: {
     minHeight: "calc(100vh - 48px)"
   }
+  ,escape:{
+    background:"#eee2",
+    height:"calc(100vh + 48px)",
+    position:"fixed",
+    width: "20vw",
+    top: -48,
+    zIndex:200
+  }
 });
 
 function checkSelected(selected, item) {
@@ -47,6 +55,8 @@ export default function DisplayContent({
       onSwipedRight={() => setswiped(-1)}
       onSwipedLeft={() => setswiped(1)}
     >
+        <div className={classes.escape}></div>
+
       {todo.length ? (
         todo.map(e => (
           <StudySubject

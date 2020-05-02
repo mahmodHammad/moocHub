@@ -4,8 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SidebarList from "./components/SidebarList";
-
 import { makeStyles } from "@material-ui/core/styles";
+
 const useStyles = makeStyles({
   list: {
     width: 282,
@@ -82,3 +82,4 @@ export default function PersistentDrawerLeft({
     </div>
   );
 }
+  
