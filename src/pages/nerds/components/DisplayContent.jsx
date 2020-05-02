@@ -12,10 +12,10 @@ const useStyles = makeStyles({
     minHeight: "calc(100vh - 48px)"
   }
   ,escape:{
-    background:"#eee2",
+    background:"#fff1",
     height:"calc(100vh + 48px)",
     position:"fixed",
-    width: "20vw",
+    width: "9vw",
     top: -48,
     zIndex:200
   }
