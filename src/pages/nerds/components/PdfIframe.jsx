@@ -15,13 +15,16 @@ const useStyles = makeStyles({
     border: ` #ccc solid 0.7px`,
     background: `#fff`,
     borderRadius: "50%",
-    padding: 1
+    padding: 1,
+    "&:hover": {
+      background: props.closeIconCol,
+      color: "#fff"
+    }
   }),
   pdfIcon: props => ({
     color: props.closeIconCol,
-    marginRight:7,
+    marginRight: 7,
     padding: 1
-
   }),
   center: {
     margin: "auto",
@@ -48,7 +51,7 @@ export default function PdfIframe({
 }) {
   const [display, setdisplay] = useState(false);
 
- function handleToggleContent(file) {
+  function handleToggleContent(file) {
     if (display) {
       setdisplay(false);
       const withoutReduncancy = opened.filter(e => e.id !== file.id);
@@ -86,7 +89,7 @@ export default function PdfIframe({
             color: "primary"
           }}
         />
-        <PdfIcon  className={classes.pdfIcon}/>
+        <PdfIcon className={classes.pdfIcon} />
         <CloseIcon
           fontSize="small"
           className={classes.close}

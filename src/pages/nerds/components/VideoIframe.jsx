@@ -1,5 +1,5 @@
 //XXX needs refactoring XXX
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -21,17 +21,21 @@ export default function PdfIframe({
     setdisplay(open);
   }
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles(theme => ({
     close: props => ({
       color: props.closeIconCol,
       border: ` #ccc solid 0.7px`,
       background: `#fff`,
       borderRadius: "50%",
-      padding: 1
+      padding: 1,
+      "&:hover":{
+        background:props.closeIconCol,
+        color:'#fff'
+      }
     }),
     Icon: props => ({
       color: props.closeIconCol,
-      marginRight:7,
+      marginRight: 7,
       padding: 1
     }),
     center: {
@@ -43,7 +47,7 @@ export default function PdfIframe({
       paddingRight: 26,
       color: "#666"
     }
-  });
+  }));
 
   const classes = useStyles({ closeIconCol });
   return (
