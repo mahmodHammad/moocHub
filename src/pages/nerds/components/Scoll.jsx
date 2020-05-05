@@ -16,7 +16,7 @@ const styles = makeStyles(theme => ({
     }
   },
   border: {
-    border: "1px solid #999",
+    border: `1px solid #999`,
     borderRadius: "50%",
     cursor: "pointer",
     display: "block",
