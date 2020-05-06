@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Search({ searchResults, handleChange, loadContent }) {
+export default function Search({ searchResults, handleChange, loadContent,placeholder }) {
   const classes = useStyles();
 
   return (
@@ -30,7 +30,7 @@ export default function Search({ searchResults, handleChange, loadContent }) {
       <div className="wikisearch">
         <TextField
           name="wiki"
-          label="Search on WikiPedia"
+          label={placeholder}
           variant="outlined"
           onChange={handleChange}
         />

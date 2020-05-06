@@ -73,6 +73,7 @@ export default class Wiki extends Component {
 
         <div>
           <Search
+            placeholder="search on Wikipedia"
             searchResults={searchResults}
             handleChange={this.handleChange}
             loadContent={this.loadContent}
