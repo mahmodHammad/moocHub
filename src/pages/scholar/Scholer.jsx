@@ -4,6 +4,7 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import Search from "./../Wiki/components/Search";
+import Link from "@material-ui/core/Link";
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const config = {
@@ -49,12 +50,12 @@ export default class componentName extends Component {
     // y:year
     // s:[.U] links
     const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=12&offset=0&attributes=${attr}`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=2&offset=0&attributes=${attr}`;
     axios
       .get(search, config)
       .then(e => {
         const entity = e.data.entities;
-        console.log(e.data.entities);
+        // console.log(e.data.entities);
         let entities = [...this.state.entities, entity];
         this.setState({ entities });
         console.log(e.data);
@@ -78,7 +79,19 @@ export default class componentName extends Component {
           <div>
             --------------------------------------
             {e.map(f => (
-              <div> {f.Ti} </div>
+              <div>
+                <div>************************************</div>
+                {f.Ti}
+                <div>
+                  {f.S!==undefined && f.S.map(l => (
+                    <div className="link">
+                      <Link target="_blank" color="secondary" href={l.U}>
+                        {l.U}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
             {/* {e[0].Ti} */}
             --------------------------------------

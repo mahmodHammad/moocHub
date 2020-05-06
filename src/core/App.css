@@ -149,3 +149,9 @@ a:hover {
 .MuiDialog-paperFullScreen {
   background-color: rgb(209, 209, 209) !important;
 }
+
+.link{
+  font-size: 11px;
+  padding: 2px;
+  font-weight: 400 !important;
+}
