@@ -16,6 +16,7 @@ export default class componentName extends Component {
   state = {
     interpret: [],
     results: [],
+    rearch: [],
     entities: []
   };
 
@@ -29,15 +30,18 @@ export default class componentName extends Component {
 
   inter = query => {
     //   composit queries later
+    this.setState({ rearch: [] });
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=12`;
     axios
       .get(search, config)
       .then(e => {
         let mod = e.data.interpretations.map(i => {
           let exp = i.rules[0].output.value;
-          this.search(exp);
-          return exp;
+          let name = exp.split("'")[1];
+          let url=''
+          return { exp,url, name };
         });
+        this.setState({ results: mod });
         console.log(e);
         console.log(mod);
       })
@@ -70,36 +74,38 @@ export default class componentName extends Component {
     return (
       <div className="wiki">
         <Search
-          searchResults={[]}
+          searchResults={this.state.results}
           placeholder="search on Acadimics"
           handleChange={this.handleChange}
           loadContent={this.loadContent}
         />
-        {this.state.entities.map(e => (
-          <div>
-            --------------------------------------
-            {e.map(f => (
-              <div>
-                <div>************************************</div>
-                {f.Ti}
-                <div>
-                  {f.S !== undefined &&
-                    f.S.map(l => (
-                      <div className="link">
-                        {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-                        <Link target="_blank" color="secondary" href={l.U}>
-                          {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
-                        </Link>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ))}
-            {/* {e[0].Ti} */}
-            --------------------------------------
-          </div>
-        ))}
+        <div>
+          {this.state.results.map(e => (
+            <div>{e.name}</div>
+          ))}
+        </div>
       </div>
     );
   }
 }
+
+// {this.state.entities.map(e => (
+//   <div>
+//     {e.map(f => (
+//       <div>
+//         {f.Ti}
+//         <div>
+//           {f.S !== undefined &&
+//             f.S.map(l => (
+//               <div className="link">
+//                 {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
+//                 <Link target="_blank" color="secondary" href={l.U}>
+//                   {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
+//                 </Link>
+//               </div>
+//             ))}
+//         </div>
+//       </div>
+//     ))}
+//   </div>
+// ))}
