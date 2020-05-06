@@ -14,7 +14,7 @@ export default class componentName extends Component {
 
   inter = (query) => {
     //   composit queries later
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=DN:${query}&complete=1&count=50`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=10`;
     axios
       .get(search, config)
       .then(e => {
@@ -30,7 +30,12 @@ export default class componentName extends Component {
   };
 
   search=exp=>{
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=10&offset=0&attributes=Ti,Y,CC,AA.AuN,AA.AuId`
+    //  f: [.FN] field
+    // Ti :title
+    // y:year
+    // s:[.U] links 
+      const attr="Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId"
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=3&offset=0&attributes=${attr}`
     axios
       .get(search, config)
       .then(e => {
@@ -38,13 +43,13 @@ export default class componentName extends Component {
         //   return i.rules[0].output.value;
         // });
         // console.log(mod);
-        console.log(e);
+        console.log(e.data.entities);
       })
       .then(err => console.log(err));
   }
 
   componentDidMount() {
-    let query = " atom";
+    let query = " video processing";
     this.inter(query)
 
   }
