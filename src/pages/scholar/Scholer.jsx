@@ -83,13 +83,15 @@ export default class componentName extends Component {
                 <div>************************************</div>
                 {f.Ti}
                 <div>
-                  {f.S!==undefined && f.S.map(l => (
-                    <div className="link">
-                      <Link target="_blank" color="secondary" href={l.U}>
-                        {l.U}
-                      </Link>
-                    </div>
-                  ))}
+                  {f.S !== undefined &&
+                    f.S.map(l => (
+                      <div className="link">
+                        {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
+                        <Link target="_blank" color="secondary" href={l.U}>
+                          {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
+                        </Link>
+                      </div>
+                    ))}
                 </div>
               </div>
             ))}
