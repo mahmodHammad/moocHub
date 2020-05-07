@@ -29,7 +29,6 @@ export default class componentName extends Component {
   };
 
   inter = query => {
-    
     //   composit queries later
     this.setState({ rearch: [] });
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=14`;
@@ -38,14 +37,13 @@ export default class componentName extends Component {
       .then(e => {
         let mod = e.data.interpretations.map(i => {
           let exp = i.rules[0].output.value;
-          const getfieldName = exp.split("F.FN")
-          let name ;
-          console.log("getfieldName", getfieldName)
-          if(getfieldName.length>1){
-              name = getfieldName[1].split("'")[1]
-          }else{
-             name = exp.split("'")[1];
-
+          const getfieldName = exp.split("F.FN");
+          let name;
+          console.log("getfieldName", getfieldName);
+          if (getfieldName.length > 1) {
+            name = getfieldName[1].split("'")[1];
+          } else {
+            name = exp.split("'")[1];
           }
           let url = "";
           return { exp, url, name };
@@ -58,12 +56,12 @@ export default class componentName extends Component {
   };
 
   loadContent = data => {
-    let exp = data.exp
+    let exp = data.exp;
     // f: [.FN] field
     // Ti :title
     // y:year
     // s:[.U] links
-    this.setState({entities:[]})
+    this.setState({ entities: [] });
     const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=16&offset=0&attributes=${attr}`;
     axios
@@ -94,7 +92,7 @@ export default class componentName extends Component {
         {this.state.entities.map(e => (
           <div>
             {e.map(f => (
-              <div>
+              <div key={f.Ti} className="contentPapers">
                 {f.Ti}
                 <div>
                   {f.S !== undefined &&
@@ -106,6 +104,14 @@ export default class componentName extends Component {
                         </Link>
                       </div>
                     ))}
+                  <div className="original">
+                    <Link
+                      href={`https://academic.microsoft.com/paper/${f.Id}`}
+                      target="_blank"
+                    >
+                      More details...
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

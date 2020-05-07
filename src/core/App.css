@@ -150,8 +150,18 @@ a:hover {
   background-color: rgb(209, 209, 209) !important;
 }
 
-.link{
+.link {
   font-size: 11px;
   padding: 2px;
   font-weight: 400 !important;
+}
+
+.original {
+  margin-bottom: 5px;
+}
+.original .MuiTypography-colorPrimary {
+  color: rgb(36, 251, 180) !important;
+}
+.contentPapers{
+  margin: 15px auto;
 }
