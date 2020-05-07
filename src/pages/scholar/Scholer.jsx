@@ -29,15 +29,24 @@ export default class componentName extends Component {
   };
 
   inter = query => {
+    
     //   composit queries later
     this.setState({ rearch: [] });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=12`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=14`;
     axios
       .get(search, config)
       .then(e => {
         let mod = e.data.interpretations.map(i => {
           let exp = i.rules[0].output.value;
-          let name = exp.split("'")[1];
+          const getfieldName = exp.split("F.FN")
+          let name ;
+          console.log("getfieldName", getfieldName)
+          if(getfieldName.length>1){
+              name = getfieldName[1].split("'")[1]
+          }else{
+             name = exp.split("'")[1];
+
+          }
           let url = "";
           return { exp, url, name };
         });
@@ -50,12 +59,13 @@ export default class componentName extends Component {
 
   loadContent = data => {
     let exp = data.exp
-    //  f: [.FN] field
+    // f: [.FN] field
     // Ti :title
     // y:year
     // s:[.U] links
+    this.setState({entities:[]})
     const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=2&offset=0&attributes=${attr}`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=16&offset=0&attributes=${attr}`;
     axios
       .get(search, config)
       .then(e => {
@@ -76,7 +86,7 @@ export default class componentName extends Component {
       <div className="wiki">
         <Search
           searchResults={this.state.results}
-          placeholder="search on Acadimics"
+          placeholder="search on papers"
           handleChange={this.handleChange}
           loadContent={this.loadContent}
         />
