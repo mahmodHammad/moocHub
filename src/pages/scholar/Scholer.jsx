@@ -6,6 +6,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import Search from "./../Wiki/components/Search";
 import Grid from "@material-ui/core/Grid";
+import LinearProgress from "@material-ui/core/LinearProgress";
+
 import SearchResults from "../Wiki/components/SearchResults";
 import MAcontent from "./components/MAcontent";
 import { goToAnchor } from "react-scrollable-anchor";
@@ -27,7 +29,8 @@ export default class componentName extends Component {
     entities: [],
     offset: 0,
     exp: "",
-    swiped: 0
+    swiped: 0,
+    loading: false
   };
 
   loadMoreContent = () => {
@@ -43,7 +46,7 @@ export default class componentName extends Component {
 
   inter = query => {
     //   composit queries later
-    this.setState({ rearch: [] });
+    this.setState({ rearch: [], loading: true });
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=13 `;
     axios
       .get(search, config)
@@ -52,7 +55,6 @@ export default class componentName extends Component {
           let exp = i.rules[0].output.value;
           const getfieldName = exp.split("F.FN");
           let name;
-          console.log("getfieldName", getfieldName);
           if (getfieldName.length > 1) {
             name = getfieldName[1].split("'")[1];
           } else {
@@ -61,11 +63,11 @@ export default class componentName extends Component {
           let url = "";
           return { exp, url, name };
         });
-        this.setState({ results: mod });
+        this.setState({ results: mod, loading: false });
         console.log(e);
         console.log(mod);
       })
-      .then(err => console.log(err));
+      .catch(err => console.log(err));
   };
 
   loadContent = data => {
@@ -83,11 +85,11 @@ export default class componentName extends Component {
     if (data === false) {
       // paginatino
       exp = this.state.exp;
-      this.setState({ offset: this.state.offset + 1 });
+      this.setState({ offset: this.state.offset + 1, loading: true });
     } else {
       // result form clicking on the search results
       exp = data.exp;
-      this.setState({ exp, entities: [], offset: 0 });
+      this.setState({ exp, entities: [], offset: 0, loading: true });
       goToAnchor("MAcontent");
     }
     let offset = this.state.offset;
@@ -99,7 +101,7 @@ export default class componentName extends Component {
         const entity = e.data.entities;
         // console.log(e.data.entities);
         let entities = [...this.state.entities, entity];
-        this.setState({ entities });
+        this.setState({ entities, loading: false });
         console.log(e.data);
       })
       .then(err => console.log(err));
@@ -108,19 +110,21 @@ export default class componentName extends Component {
   // componentDidMount() {
   // }
   render() {
-    const { entities, swiped } = this.state;
+    const { entities, swiped, loading } = this.state;
     if (swiped === 1) {
       return <Redirect to="/nerds" />;
-    }else if (swiped === -1) {
+    } else if (swiped === -1) {
       return <Redirect to="/wiki" />;
     }
-  
+
     return (
       <Swipeable
         className="wiki"
         onSwipedRight={() => this.setState({ swiped: 1 })}
         onSwipedLeft={() => this.setState({ swiped: -1 })}
       >
+        {loading ? <LinearProgress color="secondary" /> : <span></span>}
+
         <Grid container>
           <Grid item xs={12} md={3}>
             <div className="searchMA">
