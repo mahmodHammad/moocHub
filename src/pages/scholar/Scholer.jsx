@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SearchResults from "../Wiki/components/SearchResults";
+import MAcontent from "./components/MAcontent";
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const config = {
@@ -41,7 +42,7 @@ export default class componentName extends Component {
   inter = query => {
     //   composit queries later
     this.setState({ rearch: [] });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=20`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=16 `;
     axios
       .get(search, config)
       .then(e => {
@@ -88,7 +89,7 @@ export default class componentName extends Component {
     }
     let offset = this.state.offset;
 
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=${model}&Y>=2019&count=${count}&offset=${offset}&attributes=${attr}`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=${model}&count=${count}&offset=${offset}&attributes=${attr}`;
     axios
       .get(search, config)
       .then(e => {
@@ -123,40 +124,7 @@ export default class componentName extends Component {
           <Grid item md={9}>
             {entities.length ? (
               <div className="MAresults">
-                {entities.map(e => (
-                  <div>
-                    {e.map(f => (
-                      <div key={f.Ti} className="contentPapers">
-                        {f.Ti}
-                        <div>
-                          {f.S !== undefined &&
-                            f.S.map(l => (
-                              <div className="link">
-                                {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-                                <Link
-                                  target="_blank"
-                                  color="secondary"
-                                  href={l.U}
-                                >
-                                  {l.U.length > 63
-                                    ? l.U.substring(0, 59) + "..."
-                                    : l.U}
-                                </Link>
-                              </div>
-                            ))}
-                          <div className="original">
-                            <Link
-                              href={`https://academic.microsoft.com/paper/${f.Id}`}
-                              target="_blank"
-                            >
-                              More details...
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                <MAcontent entities={entities} />
                 {entities.length ? (
                   <Button
                     endIcon={<ExpandMoreIcon />}
