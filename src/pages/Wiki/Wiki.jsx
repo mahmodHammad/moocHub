@@ -48,7 +48,7 @@ export default class Wiki extends Component {
   loadContent = title => {
     this.setState({ data: false, loading: true, url: "", searchResults: [] });
     wtf
-      .fetch(title)
+      .fetch(title.name)
       .then(data => {
         this.setState({ data: data.json(), url: data.url(), loading: false });
       })

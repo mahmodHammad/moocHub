@@ -42,7 +42,7 @@ export default function Search({ searchResults, handleChange, loadContent,placeh
               <Typography
                 className={classes.title}
                 variant="body1"
-                onClick={() => loadContent(e.name)}
+                onClick={() => loadContent(e)}
               >
                 {e.name}
               </Typography>

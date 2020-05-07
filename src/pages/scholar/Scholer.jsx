@@ -38,8 +38,8 @@ export default class componentName extends Component {
         let mod = e.data.interpretations.map(i => {
           let exp = i.rules[0].output.value;
           let name = exp.split("'")[1];
-          let url=''
-          return { exp,url, name };
+          let url = "";
+          return { exp, url, name };
         });
         this.setState({ results: mod });
         console.log(e);
@@ -48,7 +48,8 @@ export default class componentName extends Component {
       .then(err => console.log(err));
   };
 
-  search = exp => {
+  loadContent = data => {
+    let exp = data.exp
     //  f: [.FN] field
     // Ti :title
     // y:year
@@ -79,33 +80,28 @@ export default class componentName extends Component {
           handleChange={this.handleChange}
           loadContent={this.loadContent}
         />
-        <div>
-          {this.state.results.map(e => (
-            <div>{e.name}</div>
-          ))}
-        </div>
+
+        {this.state.entities.map(e => (
+          <div>
+            {e.map(f => (
+              <div>
+                {f.Ti}
+                <div>
+                  {f.S !== undefined &&
+                    f.S.map(l => (
+                      <div className="link">
+                        {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
+                        <Link target="_blank" color="secondary" href={l.U}>
+                          {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
+                        </Link>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     );
   }
 }
-
-// {this.state.entities.map(e => (
-//   <div>
-//     {e.map(f => (
-//       <div>
-//         {f.Ti}
-//         <div>
-//           {f.S !== undefined &&
-//             f.S.map(l => (
-//               <div className="link">
-//                 {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-//                 <Link target="_blank" color="secondary" href={l.U}>
-//                   {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
-//                 </Link>
-//               </div>
-//             ))}
-//         </div>
-//       </div>
-//     ))}
-//   </div>
-// ))}
