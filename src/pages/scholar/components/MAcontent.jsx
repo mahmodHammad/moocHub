@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -7,6 +7,8 @@ import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -33,12 +35,22 @@ const useStyles = makeStyles(theme => ({
   },
   originalText: {
     display: "inline-block",
-    margin: "5px 2px",
+    margin: "5px 10px",
     color: "#aaa"
+  },
+  previewIcon: {
+    position: "relative",
+    top: -2,
+    marginRight: 4,
+    color: "#ccc"
   }
 }));
 
-export default function MAcontent({ entities, loadMoreContent }) {
+export default function MAcontent({
+  entities,
+  loadMoreContent,
+  handlepreview
+}) {
   const classes = useStyles();
 
   return (
@@ -56,18 +68,28 @@ export default function MAcontent({ entities, loadMoreContent }) {
                     f.S.map(l => (
                       <div className="link">
                         {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
+                        <IconButton>
+                          <VisibilityIcon
+                            fontSize="small"
+                            className={classes.previewIcon}
+                            onClick={() => handlepreview(l.U)}
+                          />
+                        </IconButton>
+
                         <Link target="_blank" color="secondary" href={l.U}>
-                          {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
+                          {l.U.length > 35 ? l.U.substring(0, 34) + "..." : l.U}
                         </Link>
                       </div>
                     ))}
-                  <Link
-                    className={classes.originalText}
-                    href={`https://academic.microsoft.com/paper/${f.Id}`}
-                    target="_blank"
-                  >
-                    More details...
-                  </Link>
+                  <div>
+                    <Link
+                      className={classes.originalText}
+                      href={`https://academic.microsoft.com/paper/${f.Id}`}
+                      target="_blank"
+                    >
+                      More details...
+                    </Link>
+                  </div>
                 </div>
               </Grid>
               <Grid item xs={3} sm={2} lg={1}>

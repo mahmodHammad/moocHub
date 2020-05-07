@@ -13,6 +13,7 @@ import MAcontent from "./components/MAcontent";
 import { goToAnchor } from "react-scrollable-anchor";
 import { Swipeable } from "react-swipeable";
 import { Redirect } from "react-router-dom";
+import Microlink from "@microlink/react";
 
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
@@ -30,7 +31,8 @@ export default class componentName extends Component {
     offset: 0,
     exp: "",
     swiped: 0,
-    loading: false
+    loading: false,
+    preview: false
   };
 
   loadMoreContent = () => {
@@ -44,10 +46,15 @@ export default class componentName extends Component {
     }
   };
 
+  handlepreview = link => {
+    this.setState({ preview: link });
+    goToAnchor("preview")
+  };
+
   inter = query => {
     //   composit queries later
-    this.setState({ rearch: [], loading: true });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=13 `;
+    this.setState({ rearch: [], loading: true ,preview:false});
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=10 `;
     axios
       .get(search, config)
       .then(e => {
@@ -101,7 +108,7 @@ export default class componentName extends Component {
         const entity = e.data.entities;
         // console.log(e.data.entities);
         let entities = [...this.state.entities, entity];
-        this.setState({ entities, loading: false });
+        this.setState({ entities, loading: false ,preview:false});
         console.log(e.data);
       })
       .then(err => console.log(err));
@@ -110,7 +117,7 @@ export default class componentName extends Component {
   // componentDidMount() {
   // }
   render() {
-    const { entities, swiped, loading } = this.state;
+    const { entities, swiped, loading, preview } = this.state;
     if (swiped === 1) {
       return <Redirect to="/nerds" />;
     } else if (swiped === -1) {
@@ -136,6 +143,11 @@ export default class componentName extends Component {
                 searchResults={this.state.results}
                 loadContent={this.loadContent}
               />
+              {preview !== false ? (
+                <Microlink id="preview" style={{ width: "100%" ,margin:"auto"}} url={preview} />
+              ) : (
+                <span></span>
+              )}
             </div>
           </Grid>
           <Grid item xs={12} md={9} id="MAcontent">
@@ -144,6 +156,7 @@ export default class componentName extends Component {
                 <MAcontent
                   entities={entities}
                   loadMoreContent={this.loadMoreContent}
+                  handlepreview={this.handlepreview}
                 />
               </div>
             ) : (
