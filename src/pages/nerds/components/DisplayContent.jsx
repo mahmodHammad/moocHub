@@ -10,14 +10,14 @@ import { Redirect } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minHeight: "calc(100vh - 48px)"
-  }
-  ,escape:{
-    background:"#fff1",
-    height:"calc(100vh + 48px)",
-    position:"fixed",
+  },
+  escape: {
+    background: "#fff1",
+    height: "calc(100vh + 48px)",
+    position: "fixed",
     width: "9vw",
     top: -48,
-    zIndex:200
+    zIndex: 200
   }
 });
 
@@ -44,7 +44,7 @@ export default function DisplayContent({
 
   const [swiped, setswiped] = React.useState(0);
   if (swiped === 1) {
-    return <Redirect to="/wiki" />;
+    return <Redirect to="/scholar" />;
   } else if (swiped === -1) {
     return <Redirect to="/" />;
   }
@@ -55,7 +55,7 @@ export default function DisplayContent({
       onSwipedRight={() => setswiped(-1)}
       onSwipedLeft={() => setswiped(1)}
     >
-        <div className={classes.escape}></div>
+      <div className={classes.escape}></div>
 
       {todo.length ? (
         todo.map(e => (

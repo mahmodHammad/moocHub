@@ -7,6 +7,8 @@ import Search from "./components/Search";
 import WikiContent from "./components/WikiContent";
 import { Swipeable } from "react-swipeable";
 import { Redirect } from "react-router-dom";
+import SearchResults from "./components/SearchResults";
+
 
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
@@ -48,7 +50,7 @@ export default class Wiki extends Component {
   loadContent = title => {
     this.setState({ data: false, loading: true, url: "", searchResults: [] });
     wtf
-      .fetch(title)
+      .fetch(title.name)
       .then(data => {
         this.setState({ data: data.json(), url: data.url(), loading: false });
       })
@@ -61,7 +63,7 @@ export default class Wiki extends Component {
     const { searchResults, loading, data, url, swiped } = this.state;
 
     if (swiped === 1) {
-      return <Redirect to="/nerds" />;
+      return <Redirect to="/scholar" />;
     }
 
     return (
@@ -73,8 +75,11 @@ export default class Wiki extends Component {
 
         <div>
           <Search
-            searchResults={searchResults}
+            placeholder="search on Wikipedia"
             handleChange={this.handleChange}
+          />
+          <SearchResults
+            searchResults={searchResults}
             loadContent={this.loadContent}
           />
           <WikiContent

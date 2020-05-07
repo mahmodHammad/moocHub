@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
+    "@microlink/react": "^5.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
@@ -25,6 +26,7 @@
     "react-swipeable": "^5.5.1",
     "screenfull": "^5.0.2",
     "source-map-explorer": "^2.4.2",
+    "styled-components": "^5.1.0",
     "wtf_wikipedia": "^8.1.2"
   },
   "scripts": {
