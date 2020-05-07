@@ -8,27 +8,39 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 
 const useStyles = makeStyles(theme => ({
   logo: {
     flexGrow: 1,
     justifyContent: "left",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginLeft:-5
+
   },
   study: {
-    padding: " 2px 8px",
-    fontSize: "0.7rem"
+    padding: "2px 8px",
+    fontSize: "0.7rem",
+    marginRight:3
   },
   wiki: {
-    marginLeft: 7,
-    marginBottom: 4,
+    marginLeft: 3,
     color: "#eee",
     fontSize: 15,
     fontWeight: "bold",
     fontFamily: "Linux Libertine Georgia Times serif"
+  },
+  "@media (max-width: 600px)": {
+    study: {
+      fontSize: "0.6rem",
+      padding: "2px 6px"
+    },
+    logoText: { fontSize: "0.8rem" },
+    logo:{
+      marginLeft:-10
+    }  
   }
 }));
 
@@ -85,10 +97,16 @@ export default function Navbar({
             </IconButton>
             <div className={classes.logo}>
               <Button color="inherit" component={Link} to="/" size="large">
-                <Typography align="left" color="inherit">
+                <Typography
+                  align="left"
+                  color="inherit"
+                  className={classes.logoText}
+                >
                   {year}
                 </Typography>
-                <Typography color="secondary"> {department} </Typography>
+                <Typography color="secondary" className={classes.logoText}>
+                  {department}
+                </Typography>
               </Button>
             </div>
             <Button
@@ -102,14 +120,23 @@ export default function Navbar({
               Study Room
             </Button>
 
-            <Icon
+            <IconButton
+              size="small"
+              className={classes.wiki}
+              component={Link}
+              to="/scholar"
+            >
+              <FormatQuoteIcon />
+            </IconButton>
+
+            <IconButton
               size="small"
               className={classes.wiki}
               component={Link}
               to="/wiki"
             >
               W
-            </Icon>
+            </IconButton>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
