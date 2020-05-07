@@ -9,6 +9,10 @@ export default function Textarea({handleChange , name ,label ,value}) {
       label={label}
       onChange={e => handleChange(e)}
       value={value}
+      multiline
+      fullWidth
+      rowsMax={30}
     />
   );
 }
+

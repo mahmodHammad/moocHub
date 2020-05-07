@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Textarea from "./components/Textarea";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const key = "49dd31f486204254b3dc23dde8c5304c";
 const config = {
@@ -11,26 +12,35 @@ const config = {
     "Ocp-Apim-Subscription-Key": key
   }
 };
+function toFixed(num, fixed) {
+  var re = new RegExp("^-?\\d+(?:.\\d{0," + (fixed || -1) + "})?");
+  return num.toString().match(re)[0];
+}
+
 export default class Paligrism extends Component {
   state = {
     s1: "",
     s2: "",
-    result: false
+    result: false,
+    error: false
   };
-  similarityCheck = (s1, s2) => {
+  similarityCheck = () => {
     const url =
       " https://api.labs.cognitive.microsoft.com/academic/v1.0/similarity?";
-    const s11 =
-      "s1=Using complementary priors, we derive a fast greedy algorithm that can learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
-    const s22 =
-      "s2=Using complementary priors, we derive a fast greedy algorithm that can you learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
+
+    const s11 = this.state.s1;
+    const s22 = this.state.s2;
     axios
-      .get(url + s11 + "&" + s22, config)
+      .get(url + "s1=" + s11 + "&s2=" + s22, config)
       .then(r => {
         console.log(r);
+        let tofixed = toFixed(r.data*100, 2 );
+        let result =tofixed+"%"
+        this.setState({ result, error: false });
       })
       .catch(err => {
         console.log(err);
+        this.setState({ error: true });
       });
   };
   handleChange = e => {
@@ -50,19 +60,41 @@ export default class Paligrism extends Component {
   render() {
     return (
       <div>
-        <Typography variant="h6">Plagiarism Check betweeen 2 texts</Typography>
-        <Textarea
-          name="s1"
-          label="enter the First text"
-          value={this.state.s1}
-          handleChange={this.handleChange}
-        />
-        <Textarea
-          name="s2"
-          label="enter the Seconds text"
-          value={this.state.s2}
-          handleChange={this.handleChange}
-        />
+        <Typography align="center" variant="h6">
+          Similarity Check betweeen 2 texts
+        </Typography>
+        <Grid container justify="center">
+          <Grid item xs={12} md={6}>
+            <Textarea
+              name="s1"
+              label="enter the First text"
+              value={this.state.s1}
+              handleChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Textarea
+              name="s2"
+              label="enter the Seconds text"
+              value={this.state.s2}
+              handleChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Grid item xs={12}>
+              <Button onClick={this.similarityCheck} variant="outlined">
+                Check
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {this.state.result !== false ? (
+              <Typography align="center">Similarity {this.state.result}</Typography>
+              ) : (
+                <span></span>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
     );
   }
