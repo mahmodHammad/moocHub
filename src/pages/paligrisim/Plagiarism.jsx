@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
 
 import axios from "axios";
-import Textarea from "./components/Textarea";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import View from "./components/View";
 
 const key = "49dd31f486204254b3dc23dde8c5304c";
 const config = {
@@ -22,7 +19,8 @@ export default class Paligrism extends Component {
     s1: "",
     s2: "",
     result: false,
-    error: false
+    error: false,
+    loading: false
   };
   similarityCheck = () => {
     const url =
@@ -30,17 +28,26 @@ export default class Paligrism extends Component {
 
     const s11 = this.state.s1;
     const s22 = this.state.s2;
+    if (s11.trim() === "" || s22.trim() === "") {
+      this.setState({ error: "Input fields can not be EMPTY", result: false });
+      return;
+    }
+    this.setState({ loading: true });
     axios
       .get(url + "s1=" + s11 + "&s2=" + s22, config)
       .then(r => {
         console.log(r);
-        let tofixed = toFixed(r.data*100, 2 );
-        let result =tofixed+"%"
-        this.setState({ result, error: false });
+        let result = toFixed(r.data * 100, 2);
+        this.setState({ result, error: false, loading: false });
       })
       .catch(err => {
         console.log(err);
-        this.setState({ error: true });
+        this.setState({
+          error:
+            "ERROR!, please enter valid input or make the paragraph shorter then try again (maximum length tested was 1780 word {of both paragraphs compined} )",
+          loading: false,
+          result: false
+        });
       });
   };
   handleChange = e => {
@@ -53,49 +60,20 @@ export default class Paligrism extends Component {
     } else if (name === "s2") {
       this.setState({ s2: value });
     }
-    console.log("name", name);
-    console.log("value", value);
   };
 
   render() {
+    const { s1, s2, result, error, loading } = this.state;
     return (
-      <div>
-        <Typography align="center" variant="h6">
-          Similarity Check betweeen 2 texts
-        </Typography>
-        <Grid container justify="center">
-          <Grid item xs={12} md={6}>
-            <Textarea
-              name="s1"
-              label="enter the First text"
-              value={this.state.s1}
-              handleChange={this.handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Textarea
-              name="s2"
-              label="enter the Seconds text"
-              value={this.state.s2}
-              handleChange={this.handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={12}>
-              <Button onClick={this.similarityCheck} variant="outlined">
-                Check
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              {this.state.result !== false ? (
-              <Typography align="center">Similarity {this.state.result}</Typography>
-              ) : (
-                <span></span>
-              )}
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
+      <View
+        handleChange={this.handleChange}
+        s1={s1}
+        s2={s2}
+        similarityCheck={this.similarityCheck}
+        result={result}
+        error={error}
+        loading={loading}
+      />
     );
   }
 }

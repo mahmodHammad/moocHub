@@ -51,6 +51,12 @@ export default class App extends Component {
       background: {
         default:
           "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
+      },
+      success:{
+        main:"#43ff54"
+      },
+      error:{
+        main:"#f44336"
       }
     }
   };
