@@ -15,8 +15,8 @@ import { Swipeable } from "react-swipeable";
 import { Redirect } from "react-router-dom";
 import Microlink from "@microlink/react";
 
-const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
+const key = "49dd31f486204254b3dc23dde8c5304c";
 const config = {
   headers: {
     "Ocp-Apim-Subscription-Key": key
@@ -32,7 +32,26 @@ export default class componentName extends Component {
     exp: "",
     swiped: 0,
     loading: false,
-    preview: false
+    preview: false,
+    s1: "",
+    s2: ""
+  };
+
+  similarityCheck = (s1, s2) => {
+    const url =
+      " https://api.labs.cognitive.microsoft.com/academic/v1.0/similarity?";
+    const s11 =
+      "s1=Using complementary priors, we derive a fast greedy algorithm that can learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
+    const s22 =
+      "s2=Using complementary priors, we derive a fast greedy algorithm that can you learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
+    axios
+      .get(url + s11 + "&" + s22, config)
+      .then(r => {
+        console.log(r);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   loadMoreContent = () => {
@@ -48,12 +67,12 @@ export default class componentName extends Component {
 
   handlepreview = link => {
     this.setState({ preview: link });
-    goToAnchor("preview")
+    goToAnchor("preview");
   };
 
   inter = query => {
     //   composit queries later
-    this.setState({ rearch: [], loading: true ,preview:false});
+    this.setState({ rearch: [], loading: true, preview: false });
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=10 `;
     axios
       .get(search, config)
@@ -108,14 +127,15 @@ export default class componentName extends Component {
         const entity = e.data.entities;
         // console.log(e.data.entities);
         let entities = [...this.state.entities, entity];
-        this.setState({ entities, loading: false ,preview:false});
+        this.setState({ entities, loading: false, preview: false });
         console.log(e.data);
       })
       .then(err => console.log(err));
   };
 
-  // componentDidMount() {
-  // }
+  componentDidMount() {
+    this.similarityCheck();
+  }
   render() {
     const { entities, swiped, loading, preview } = this.state;
     if (swiped === 1) {
@@ -144,7 +164,11 @@ export default class componentName extends Component {
                 loadContent={this.loadContent}
               />
               {preview !== false ? (
-                <Microlink id="preview" style={{ width: "100%" ,margin:"auto"}} url={preview} />
+                <Microlink
+                  id="preview"
+                  style={{ width: "100%", margin: "auto" }}
+                  url={preview}
+                />
               ) : (
                 <span></span>
               )}

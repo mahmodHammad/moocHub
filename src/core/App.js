@@ -29,6 +29,7 @@ import communities from "../config/communities";
 import Video from "./Video/Video";
 import Wiki from "./../pages/Wiki/Wiki";
 import Scholer from './../pages/scholar/Scholer';
+import Paligrism from './../pages/paligrisim/Plagiarism';
 
 export default class App extends Component {
   state = {
@@ -312,7 +313,8 @@ export default class App extends Component {
               
               <Route exact path="/fill" component={Fill} />
               <Route exact path="/wiki" component={Wiki} />
-              <Route exact path="/scholar" component={Scholer} />
+              <Route exact path="/Plagiarism" component={Paligrism} />
+              
             </Switch>
             {/* end routing **********************************************/}
 
