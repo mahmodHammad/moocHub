@@ -7,7 +7,9 @@ import axios from "axios";
 import Search from "./../Wiki/components/Search";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Grid from "@material-ui/core/Grid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import SearchResults from "../Wiki/components/SearchResults";
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const config = {
@@ -32,7 +34,6 @@ export default class componentName extends Component {
   handleChange = e => {
     const value = e.currentTarget.value;
     if (value.trim().length > 1) {
-      this.setState({ entities: [] });
       this.inter(value);
     }
   };
@@ -40,7 +41,7 @@ export default class componentName extends Component {
   inter = query => {
     //   composit queries later
     this.setState({ rearch: [] });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=14`;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=20`;
     axios
       .get(search, config)
       .then(e => {
@@ -68,22 +69,24 @@ export default class componentName extends Component {
     // filters --------------------->
     const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
     let model = "latest";
-    let count = 1;
+    let count = 12;
     //for pagination
 
     // f: [.FN] field
     // Ti :title
     // y:year
     // s:[.U] links
+    let exp;
     if (data === false) {
       // paginatino
+      exp = this.state.exp;
       this.setState({ offset: this.state.offset + 1 });
     } else {
+      exp = data.exp;
       // result form clicking on the search results
-      this.setState({ exp: data.exp, entities: [], offset: 0 });
+      this.setState({ exp, entities: [], offset: 0 });
     }
     let offset = this.state.offset;
-    let exp = this.state.exp;
 
     const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=${model}&Y>=2019&count=${count}&offset=${offset}&attributes=${attr}`;
     axios
@@ -100,54 +103,79 @@ export default class componentName extends Component {
 
   // componentDidMount() {
   // }
-
   render() {
+    const { entities } = this.state;
     return (
       <div className="wiki">
         <Search
-          searchResults={this.state.results}
           placeholder="search on papers"
           handleChange={this.handleChange}
-          loadContent={this.loadContent}
         />
-
-        {this.state.entities.map(e => (
-          <div>
-            {e.map(f => (
-              <div key={f.Ti} className="contentPapers">
-                {f.Ti}
-                <div>
-                  {f.S !== undefined &&
-                    f.S.map(l => (
-                      <div className="link">
-                        {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-                        <Link target="_blank" color="secondary" href={l.U}>
-                          {l.U.length > 63 ? l.U.substring(0, 59) + "..." : l.U}
-                        </Link>
+        <Grid container>
+          <Grid item md={3}>
+            <div className="searchMA">
+              <SearchResults
+                searchResults={this.state.results}
+                loadContent={this.loadContent}
+              />
+            </div>
+          </Grid>
+          <Grid item md={9}>
+            {entities.length ? (
+              <div className="MAresults">
+                {entities.map(e => (
+                  <div>
+                    {e.map(f => (
+                      <div key={f.Ti} className="contentPapers">
+                        {f.Ti}
+                        <div>
+                          {f.S !== undefined &&
+                            f.S.map(l => (
+                              <div className="link">
+                                {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
+                                <Link
+                                  target="_blank"
+                                  color="secondary"
+                                  href={l.U}
+                                >
+                                  {l.U.length > 63
+                                    ? l.U.substring(0, 59) + "..."
+                                    : l.U}
+                                </Link>
+                              </div>
+                            ))}
+                          <div className="original">
+                            <Link
+                              href={`https://academic.microsoft.com/paper/${f.Id}`}
+                              target="_blank"
+                            >
+                              More details...
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     ))}
-                  <div className="original">
-                    <Link
-                      href={`https://academic.microsoft.com/paper/${f.Id}`}
-                      target="_blank"
-                    >
-                      More details...
-                    </Link>
                   </div>
-                </div>
+                ))}
+                {entities.length ? (
+                  <Button
+                    endIcon={<ExpandMoreIcon />}
+                    color="primary"
+                    variant="contained"
+                    size="small"
+                    onClick={this.loadMoreContent}
+                  >
+                    Load more results
+                  </Button>
+                ) : (
+                  <span></span>
+                )}
               </div>
-            ))}
-          </div>
-        ))}
-        <Button
-          endIcon={<ExpandMoreIcon />}
-          color="primary"
-          variant="contained"
-          size="small"
-          onClick={this.loadMoreContent}
-        >
-          Load more details
-        </Button>
+            ) : (
+              <span></span>
+            )}
+          </Grid>
+        </Grid>
       </div>
     );
   }

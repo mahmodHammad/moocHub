@@ -7,6 +7,8 @@ import Search from "./components/Search";
 import WikiContent from "./components/WikiContent";
 import { Swipeable } from "react-swipeable";
 import { Redirect } from "react-router-dom";
+import SearchResults from "./components/SearchResults";
+
 
 let searchUrl =
   "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=";
@@ -74,8 +76,10 @@ export default class Wiki extends Component {
         <div>
           <Search
             placeholder="search on Wikipedia"
-            searchResults={searchResults}
             handleChange={this.handleChange}
+          />
+          <SearchResults
+            searchResults={searchResults}
             loadContent={this.loadContent}
           />
           <WikiContent
