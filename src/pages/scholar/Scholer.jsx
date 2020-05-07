@@ -79,7 +79,7 @@ export default class componentName extends Component {
 
   loadContent = data => {
     // filters --------------------->
-    const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
+    const attr = "Id,S,Ti,Y,CC";
     let model = "latest";
     let count = 12;
     //for pagination
