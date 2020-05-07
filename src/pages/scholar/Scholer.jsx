@@ -106,7 +106,7 @@ export default class componentName extends Component {
     return (
       <div className="wiki">
         <Grid container>
-          <Grid item md={3}>
+          <Grid item xs={12} md={3}>
             <div className="searchMA">
               <Search
                 placeholder="search on papers"
@@ -118,7 +118,7 @@ export default class componentName extends Component {
               />
             </div>
           </Grid>
-          <Grid item md={9}>
+          <Grid item xs={12} md={9}>
             {entities.length ? (
               <div className="MAresults results">
                 <MAcontent

@@ -12,28 +12,29 @@ const useStyles = makeStyles(theme => ({
   content: {
     margin: "5px 0px",
     borderBottom: "1px solid #777",
-    padding: "10px"
+    padding: "9px"
   },
   cIcon: {
     borderBottom: "solid 1px #999",
     borderLeft: "solid 1px #777",
     borderRadius: 10,
-    padding: "8px 5px 20px 20px",
+    padding: "5px 5px 18px 18px",
     background: "#333",
     borderBottomLeftRadius: 50,
     color: "#ccc"
   },
   info: {
     position: "relative",
-    top: -3
+    top: -3,
+    left: 3
   },
   loadmore: {
     margin: "12px 10px 18px"
   },
-  originalText:{
-    display:"inline-block", 
-    margin: 5,
-    color: "rgb(36, 251, 180) "
+  originalText: {
+    display: "inline-block",
+    margin: "5px 2px",
+    color: "#aaa"
   }
 }));
 
@@ -46,7 +47,7 @@ export default function MAcontent({ entities, loadMoreContent }) {
         <div>
           {e.map(f => (
             <Grid container key={f.Ti} className={classes.content}>
-              <Grid item md={10} lg={11}>
+              <Grid item xs={9} sm={10} lg={11}>
                 <Typography variant="h6" gutterBottom>
                   {f.Ti}
                 </Typography>
@@ -60,16 +61,16 @@ export default function MAcontent({ entities, loadMoreContent }) {
                         </Link>
                       </div>
                     ))}
-                    <Link
+                  <Link
                     className={classes.originalText}
-                      href={`https://academic.microsoft.com/paper/${f.Id}`}
-                      target="_blank"
-                    >
-                      More details...
-                    </Link>
+                    href={`https://academic.microsoft.com/paper/${f.Id}`}
+                    target="_blank"
+                  >
+                    More details...
+                  </Link>
                 </div>
               </Grid>
-              <Grid item md={2} lg={1}>
+              <Grid item xs={3} sm={2} lg={1}>
                 <div className={classes.cIcon}>
                   <Grid item md={12}>
                     <FormatQuoteIcon fontSize="small" />
@@ -91,7 +92,6 @@ export default function MAcontent({ entities, loadMoreContent }) {
           endIcon={<ExpandMoreIcon />}
           color="primary"
           variant="contained"
-          size="small"
           onClick={loadMoreContent}
         >
           Load more results
