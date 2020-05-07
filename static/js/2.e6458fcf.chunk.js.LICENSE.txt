@@ -11,9 +11,23 @@ object-assign
     */
 
 /*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * Jump.js 1.0.1 - A small, modern, dependency-free smooth scrolling library.
  * Copyright (c) 2016 Michael Cavalea - https://github.com/callmecavs/jump.js
  * License: MIT
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
  */
 
 /*!
@@ -21,6 +35,8 @@ object-assign
 * v5.0.2 - 2020-02-13
 * (c) Sindre Sorhus; MIT License
 */
+
+/*! https://mths.be/punycode v1.4.1 by @mathias */
 
 /**
  * A better abstraction over CSS.
