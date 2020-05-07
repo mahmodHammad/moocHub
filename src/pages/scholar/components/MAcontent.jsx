@@ -5,30 +5,39 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import Button from "@material-ui/core/Button";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({
   content: {
     margin: "5px 0px",
     borderBottom: "1px solid #777",
-    padding: "10px 4px"
+    padding: "10px"
   },
   cIcon: {
-    borderBottom: "solid 1px #aaa",
+    borderBottom: "solid 1px #999",
     borderLeft: "solid 1px #777",
     borderRadius: 10,
-    padding:"8px 5px 20px 20px",
-    background: '#333',
+    padding: "8px 5px 20px 20px",
+    background: "#333",
     borderBottomLeftRadius: 50,
-    color:"#ccc"
+    color: "#ccc"
   },
-  info:{
-      position:"relative",
-      top:-3,
-
+  info: {
+    position: "relative",
+    top: -3
+  },
+  loadmore: {
+    margin: "12px 10px 18px"
+  },
+  originalText:{
+    display:"inline-block", 
+    margin: 5,
+    color: "rgb(36, 251, 180) "
   }
 }));
 
-export default function MAcontent({ entities }) {
+export default function MAcontent({ entities, loadMoreContent }) {
   const classes = useStyles();
 
   return (
@@ -51,23 +60,24 @@ export default function MAcontent({ entities }) {
                         </Link>
                       </div>
                     ))}
-                  <div className="original">
                     <Link
+                    className={classes.originalText}
                       href={`https://academic.microsoft.com/paper/${f.Id}`}
                       target="_blank"
                     >
                       More details...
                     </Link>
-                  </div>
                 </div>
               </Grid>
-              <Grid item md={2} lg={1} >
+              <Grid item md={2} lg={1}>
                 <div className={classes.cIcon}>
                   <Grid item md={12}>
-                    <FormatQuoteIcon fontSize="small" /> <span className={classes.info}>{f.CC}</span>
+                    <FormatQuoteIcon fontSize="small" />
+                    <span className={classes.info}>{f.CC}</span>
                   </Grid>
                   <Grid item md={12}>
-                    <CalendarTodayIcon fontSize="small" /> <span className={classes.info}>{f.Y}</span>
+                    <CalendarTodayIcon fontSize="small" />
+                    <span className={classes.info}>{f.Y}</span>
                   </Grid>
                 </div>
               </Grid>
@@ -75,6 +85,20 @@ export default function MAcontent({ entities }) {
           ))}
         </div>
       ))}
+      {entities.length ? (
+        <Button
+          className={classes.loadmore}
+          endIcon={<ExpandMoreIcon />}
+          color="primary"
+          variant="contained"
+          size="small"
+          onClick={loadMoreContent}
+        >
+          Load more results
+        </Button>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 }

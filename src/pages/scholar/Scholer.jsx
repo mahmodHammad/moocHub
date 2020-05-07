@@ -5,10 +5,7 @@ import React, { Component } from "react";
 // custumize the query expression later
 import axios from "axios";
 import Search from "./../Wiki/components/Search";
-import Link from "@material-ui/core/Link";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SearchResults from "../Wiki/components/SearchResults";
 import MAcontent from "./components/MAcontent";
 const key = "49dd31f486204254b3dc23dde8c5304c";
@@ -42,7 +39,7 @@ export default class componentName extends Component {
   inter = query => {
     //   composit queries later
     this.setState({ rearch: [] });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=16 `;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=15 `;
     axios
       .get(search, config)
       .then(e => {
@@ -108,13 +105,13 @@ export default class componentName extends Component {
     const { entities } = this.state;
     return (
       <div className="wiki">
-        <Search
-          placeholder="search on papers"
-          handleChange={this.handleChange}
-        />
         <Grid container>
           <Grid item md={3}>
             <div className="searchMA">
+              <Search
+                placeholder="search on papers"
+                handleChange={this.handleChange}
+              />
               <SearchResults
                 searchResults={this.state.results}
                 loadContent={this.loadContent}
@@ -123,24 +120,14 @@ export default class componentName extends Component {
           </Grid>
           <Grid item md={9}>
             {entities.length ? (
-              <div className="MAresults">
-                <MAcontent entities={entities} />
-                {entities.length ? (
-                  <Button
-                    endIcon={<ExpandMoreIcon />}
-                    color="primary"
-                    variant="contained"
-                    size="small"
-                    onClick={this.loadMoreContent}
-                  >
-                    Load more results
-                  </Button>
-                ) : (
-                  <span></span>
-                )}
+              <div className="MAresults results">
+                <MAcontent
+                  entities={entities}
+                  loadMoreContent={this.loadMoreContent}
+                />
               </div>
             ) : (
-              <span></span>
+              <div className="MAresults Noresults"></div>
             )}
           </Grid>
         </Grid>

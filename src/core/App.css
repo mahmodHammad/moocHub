@@ -156,20 +156,18 @@ a:hover {
   font-weight: 400 !important;
 }
 
-.original {
-  margin-bottom: 5px;
-}
-.original .MuiTypography-colorPrimary {
-  color: rgb(36, 251, 180) !important;
-}
-
-/* .searchMA {
-
-} */
 .MAresults {
   border-radius: 7px;
   border-left: solid #777 1px;
   border-top: solid #777 1px;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 70px);
+  margin: 7px 0;
   overflow: auto;
+}
+
+.Noresults {
+  background-color: #333;
+}
+.results {
+  background-color: #111;
 }

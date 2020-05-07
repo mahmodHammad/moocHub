@@ -18,8 +18,9 @@ const useStyles = makeStyles(theme => ({
   },
   result: {
     margin: "10px auto",
-    borderBottom: "dashed #555 1px"
-  }
+    borderBottom: "dotted #555 1px",
+    paddingBottom:10    
+}
 }));
 
 export default function Search({ searchResults, loadContent }) {
