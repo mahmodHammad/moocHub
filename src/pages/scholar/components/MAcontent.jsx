@@ -42,7 +42,13 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     top: -2,
     marginRight: 4,
-    color: "#ccc"
+    color: "#aaa",
+    "&:hover": {
+      color: "#fff"
+    }
+  },
+  previewButton: {
+    padding: 2
   }
 }));
 
@@ -68,7 +74,7 @@ export default function MAcontent({
                     f.S.map(l => (
                       <div className="link">
                         {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-                        <IconButton>
+                        <IconButton className={classes.previewButton}>
                           <VisibilityIcon
                             fontSize="small"
                             className={classes.previewIcon}
