@@ -8,6 +8,8 @@ import Search from "./../Wiki/components/Search";
 import Grid from "@material-ui/core/Grid";
 import SearchResults from "../Wiki/components/SearchResults";
 import MAcontent from "./components/MAcontent";
+import { goToAnchor } from "react-scrollable-anchor";
+
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const config = {
@@ -39,7 +41,7 @@ export default class componentName extends Component {
   inter = query => {
     //   composit queries later
     this.setState({ rearch: [] });
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=15 `;
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/interpret?query=${query}&complete=1&count=13 `;
     axios
       .get(search, config)
       .then(e => {
@@ -80,9 +82,10 @@ export default class componentName extends Component {
       exp = this.state.exp;
       this.setState({ offset: this.state.offset + 1 });
     } else {
-      exp = data.exp;
       // result form clicking on the search results
+      exp = data.exp;
       this.setState({ exp, entities: [], offset: 0 });
+      goToAnchor("MAcontent");
     }
     let offset = this.state.offset;
 
@@ -118,7 +121,7 @@ export default class componentName extends Component {
               />
             </div>
           </Grid>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9} id="MAcontent">
             {entities.length ? (
               <div className="MAresults results">
                 <MAcontent
