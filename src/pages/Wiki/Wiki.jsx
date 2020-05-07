@@ -63,7 +63,7 @@ export default class Wiki extends Component {
     const { searchResults, loading, data, url, swiped } = this.state;
 
     if (swiped === 1) {
-      return <Redirect to="/nerds" />;
+      return <Redirect to="/scholar" />;
     }
 
     return (

@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import SearchResults from "../Wiki/components/SearchResults";
 import MAcontent from "./components/MAcontent";
 import { goToAnchor } from "react-scrollable-anchor";
+import { Swipeable } from "react-swipeable";
+import { Redirect } from "react-router-dom";
 
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
@@ -24,7 +26,8 @@ export default class componentName extends Component {
     rearch: [],
     entities: [],
     offset: 0,
-    exp: ""
+    exp: "",
+    swiped: 0
   };
 
   loadMoreContent = () => {
@@ -105,9 +108,19 @@ export default class componentName extends Component {
   // componentDidMount() {
   // }
   render() {
-    const { entities } = this.state;
+    const { entities, swiped } = this.state;
+    if (swiped === 1) {
+      return <Redirect to="/nerds" />;
+    }else if (swiped === -1) {
+      return <Redirect to="/wiki" />;
+    }
+  
     return (
-      <div className="wiki">
+      <Swipeable
+        className="wiki"
+        onSwipedRight={() => this.setState({ swiped: 1 })}
+        onSwipedLeft={() => this.setState({ swiped: -1 })}
+      >
         <Grid container>
           <Grid item xs={12} md={3}>
             <div className="searchMA">
@@ -134,7 +147,7 @@ export default class componentName extends Component {
             )}
           </Grid>
         </Grid>
-      </div>
+      </Swipeable>
     );
   }
 }
