@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 // key
 // 49dd31f486204254b3dc23dde8c5304c
-
+// i can use url preview to display data on hover !!!!!!!!!!!!!!!!!!!!!!!!!!!
+// custumize the query expression later
 import axios from "axios";
 import Search from "./../Wiki/components/Search";
 import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const key = "49dd31f486204254b3dc23dde8c5304c";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const config = {
@@ -17,7 +20,13 @@ export default class componentName extends Component {
     interpret: [],
     results: [],
     rearch: [],
-    entities: []
+    entities: [],
+    offset: 0,
+    exp: ""
+  };
+
+  loadMoreContent = () => {
+    this.loadContent(false);
   };
 
   handleChange = e => {
@@ -56,14 +65,27 @@ export default class componentName extends Component {
   };
 
   loadContent = data => {
-    let exp = data.exp;
+    // filters --------------------->
+    const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
+    let model = "latest";
+    let count = 1;
+    //for pagination
+
     // f: [.FN] field
     // Ti :title
     // y:year
     // s:[.U] links
-    this.setState({ entities: [] });
-    const attr = "Id,BT,FP,CitCon,C,DOI,I,S,F.FN,Ty,Ti,Y,CC,AA.AuN,AA.AuId";
-    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=latest&count=16&offset=0&attributes=${attr}`;
+    if (data === false) {
+      // paginatino
+      this.setState({ offset: this.state.offset + 1 });
+    } else {
+      // result form clicking on the search results
+      this.setState({ exp: data.exp, entities: [], offset: 0 });
+    }
+    let offset = this.state.offset;
+    let exp = this.state.exp;
+
+    const search = `https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=${exp}&model=${model}&Y>=2019&count=${count}&offset=${offset}&attributes=${attr}`;
     axios
       .get(search, config)
       .then(e => {
@@ -117,6 +139,15 @@ export default class componentName extends Component {
             ))}
           </div>
         ))}
+        <Button
+          endIcon={<ExpandMoreIcon />}
+          color="primary"
+          variant="contained"
+          size="small"
+          onClick={this.loadMoreContent}
+        >
+          Load more details
+        </Button>
       </div>
     );
   }
