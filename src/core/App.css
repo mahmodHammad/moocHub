@@ -104,7 +104,7 @@ a:hover {
 }
 
 .popContent {
-  height: 98vh;
+  height: 100vh;
 }
 @media (max-width: 960px) {
   .subjectCard {

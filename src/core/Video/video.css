@@ -86,7 +86,8 @@
 }
 
 .popContent .player-wrapper {
-  height: calc(100vh - 45px);
+  height: calc(100vh - 35px);
+  margin-top: 35px;
 }
 
 @media (max-width: 960px) {
@@ -103,4 +104,9 @@
     /* padding: 0px !important; */
     font-size: 1.3em;
   }
+  .popContent .player-wrapper {
+    height: calc(100vh - 48px);
+    margin-top: 0;
+  }
+  
 }
