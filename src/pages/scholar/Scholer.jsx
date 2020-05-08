@@ -1,23 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { goToAnchor } from "react-scrollable-anchor";
+import ViewAcadimics from "./components/ViewAcadimics";
 // key
 // 49dd31f486204254b3dc23dde8c5304c
 // i can use url preview to display data on hover !!!!!!!!!!!!!!!!!!!!!!!!!!!
 // custumize the query expression later
-import axios from "axios";
-import Search from "./../Wiki/components/Search";
-import Grid from "@material-ui/core/Grid";
-import LinearProgress from "@material-ui/core/LinearProgress";
-
-import SearchResults from "../Wiki/components/SearchResults";
-import MAcontent from "./components/MAcontent";
-import { goToAnchor } from "react-scrollable-anchor";
-import { Swipeable } from "react-swipeable";
-import { Redirect } from "react-router-dom";
-import Microlink from "@microlink/react";
-import CheckIcon from "@material-ui/icons/Check";
-import IconButton from "@material-ui/core/IconButton";
-
-import { Link } from "react-router-dom";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const key = "49dd31f486204254b3dc23dde8c5304c";
 const config = {
@@ -33,28 +21,10 @@ export default class componentName extends Component {
     entities: [],
     offset: 0,
     exp: "",
-    swiped: 0,
     loading: false,
     preview: false,
     s1: "",
     s2: ""
-  };
-
-  similarityCheck = (s1, s2) => {
-    const url =
-      " https://api.labs.cognitive.microsoft.com/academic/v1.0/similarity?";
-    const s11 =
-      "s1=Using complementary priors, we derive a fast greedy algorithm that can learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
-    const s22 =
-      "s2=Using complementary priors, we derive a fast greedy algorithm that can you learn deep directed belief networks one layer at a time, provided the top two layers form an undirected associative memory";
-    axios
-      .get(url + s11 + "&" + s22, config)
-      .then(r => {
-        console.log(r);
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
 
   loadMoreContent = () => {
@@ -128,79 +98,35 @@ export default class componentName extends Component {
       .get(search, config)
       .then(e => {
         const entity = e.data.entities;
-        // console.log(e.data.entities);
         let entities = [...this.state.entities, entity];
         this.setState({ entities, loading: false, preview: false });
-        console.log(e.data);
       })
-      .then(err => console.log(err));
+      .then(err => {
+        alert("unexpected error occured! , try again later");
+        console.log(err);
+      });
   };
-
-  componentDidMount() {
-    this.similarityCheck();
-  }
   render() {
-    const { entities, swiped, loading, preview } = this.state;
-    if (swiped === 1) {
-      return <Redirect to="/nerds" />;
-    } else if (swiped === -1) {
-      return <Redirect to="/wiki" />;
-    }
+    const { entities, loading, preview } = this.state;
+    const {
+      loadMoreContent,
+      handlepreview,
+      handleChange,
+      results,
+      loadContent
+    } = this.state;
 
     return (
-      <Swipeable
-        className="wiki"
-        onSwipedRight={() => this.setState({ swiped: 1 })}
-        onSwipedLeft={() => this.setState({ swiped: -1 })}
-      >
-        {loading ? <LinearProgress color="secondary" /> : <span></span>}
-
-        <Grid container>
-          <Grid container item xs={12} md={3}>
-            <div className="searchMA">
-              <Grid item container justify="center">
-                <Grid item xs={10}>
-                  <Search
-                    placeholder="search on papers"
-                    handleChange={this.handleChange}
-                  />
-                </Grid>
-                <Grid item xs={2}>
-                  <IconButton component={Link} to="./pali">
-                    <CheckIcon color="secondary" />
-                  </IconButton>
-                </Grid>
-              </Grid>
-              <SearchResults
-                searchResults={this.state.results}
-                loadContent={this.loadContent}
-              />
-              {preview !== false ? (
-                <Microlink
-                  id="preview"
-                  style={{ width: "100%", margin: "auto" }}
-                  url={preview}
-                />
-              ) : (
-                <span></span>
-              )}
-            </div>
-          </Grid>
-          <Grid item xs={12} md={9} id="MAcontent">
-            {entities.length ? (
-              <div className="MAresults results">
-                <MAcontent
-                  entities={entities}
-                  loadMoreContent={this.loadMoreContent}
-                  handlepreview={this.handlepreview}
-                />
-              </div>
-            ) : (
-              <div className="MAresults Noresults"></div>
-            )}
-          </Grid>
-        </Grid>
-      </Swipeable>
+      <ViewAcadimics
+        handlepreview={handlepreview}
+        results={results}
+        loadContent={loadContent}
+        handleChange={handleChange}
+        loadMoreContent={loadMoreContent}
+        entities={entities}
+        loading={loading}
+        preview={preview}
+      />
     );
   }
 }
