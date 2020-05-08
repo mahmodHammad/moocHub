@@ -35,10 +35,6 @@ a:hover {
   text-decoration: none !important;
 }
 
-.communityLabel {
-  padding: 55px 0 30px !important;
-}
-
 .subjectLabel {
   padding: 40px 0 20px 0 !important;
 }
@@ -150,23 +146,7 @@ a:hover {
   background-color: rgb(209, 209, 209) !important;
 }
 
-.link {
-  font-size: 11px;
-  font-weight: 400 !important;
-}
-
-.MAresults {
-  border-radius: 7px;
-  border-left: solid #777 1px;
-  border-top: solid #777 1px;
-  height: calc(100vh - 70px);
-  margin: 7px 0;
-  overflow: auto;
-}
-
-.Noresults {
-  background-color: #333;
-}
-.results {
-  background-color: #111;
+.iconPos{
+  position:relative;
+  top:6px
 }

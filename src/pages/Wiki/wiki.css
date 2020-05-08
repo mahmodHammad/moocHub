@@ -8,11 +8,11 @@
 .wiki .link {
   font-weight: 900;
 }
-.linkx{
-  color:#48f;
+.linkx {
+  color: #48f;
 }
 .linkx:hover {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .wbold {
@@ -38,4 +38,15 @@
 
 .wikisearch .MuiFormLabel-root {
   color: #ddd !important;
+}
+.pali .MuiInputBase-root {
+  color: #eee !important;
+}
+
+.pali .MuiFormLabel-root {
+  color: #ddd !important;
+}
+
+.pali {
+  margin:10px  25px;
 }

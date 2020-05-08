@@ -6,13 +6,17 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 
 
 const useStyles = makeStyles({
   root: {
    minHeight:"calc(100vh - 48px)"
+  },
+  community:{
+    padding: "55px 0 30px "
   }
-});
+  });
 
 
 export default function Community({ communities, ChooseCommumity }) {
@@ -26,7 +30,7 @@ export default function Community({ communities, ChooseCommumity }) {
     <div className={classes.root}>
       <Grid container justify="center">
         <Grid item xs={12}>
-          <div className="communityLabel">
+          <div className={classes.community}>
             <Typography variant="h4" align="center" color="primary">
               Faculty Of Engineering
             </Typography>
@@ -43,6 +47,12 @@ export default function Community({ communities, ChooseCommumity }) {
           <Typography gutterBottom variant="subtitle2" align="center" color="primary">
           You can <b>change</b> the default department later from the sidebar
         </Typography>     
+        <Typography  variant="subtitle2" align="center" color="primary">
+        the <FormatQuoteIcon className="iconPos"/> Icon in the navbar is for the research page
+        </Typography>   
+        <Typography gutterBottom variant="subtitle2" align="center" color="primary">
+        the <b><i>W</i></b> Icon in the navbar is for wikipedia page
+        </Typography>  
         <Typography gutterBottom variant="body1" align="center" color="primary">
         <b>نسألكم الدعاء </b>
         </Typography>

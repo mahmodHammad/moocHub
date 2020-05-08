@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -49,6 +49,10 @@ const useStyles = makeStyles(theme => ({
   },
   previewButton: {
     padding: 2
+  },
+  link: {
+    fontSize: 11,
+    fontWeight: 400
   }
 }));
 
@@ -58,13 +62,12 @@ export default function MAcontent({
   handlepreview
 }) {
   const classes = useStyles();
-
   return (
     <div>
-      {entities.map(e => (
-        <div>
+      {entities.map((e, index) => (
+        <div key={index}>
           {e.map(f => (
-            <Grid container key={f.Ti} className={classes.content}>
+            <Grid container key={f.Id} className={classes.content}>
               <Grid item xs={9} sm={10} lg={11}>
                 <Typography variant="h6" gutterBottom>
                   {f.Ti}
@@ -72,13 +75,15 @@ export default function MAcontent({
                 <div>
                   {f.S !== undefined &&
                     f.S.map(l => (
-                      <div className="link">
+                      <div className={classes.link} key={l.U}>
                         {/* XXX this substring wil be only for phone sized (we may need to extract the windo widht later) */}
-                        <IconButton className={classes.previewButton}>
+                        <IconButton
+                          className={classes.previewButton}
+                          onClick={() => handlepreview(l.U)}
+                        >
                           <VisibilityIcon
                             fontSize="small"
                             className={classes.previewIcon}
-                            onClick={() => handlepreview(l.U)}
                           />
                         </IconButton>
 
