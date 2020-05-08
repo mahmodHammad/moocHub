@@ -35,10 +35,6 @@ a:hover {
   text-decoration: none !important;
 }
 
-.communityLabel {
-  padding: 55px 0 30px !important;
-}
-
 .subjectLabel {
   padding: 40px 0 20px 0 !important;
 }
@@ -148,4 +144,9 @@ a:hover {
 
 .MuiDialog-paperFullScreen {
   background-color: rgb(209, 209, 209) !important;
+}
+
+.iconPos{
+  position:relative;
+  top:6px
 }

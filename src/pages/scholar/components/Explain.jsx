@@ -25,9 +25,6 @@ const useStyles = makeStyles(theme => ({
       "& b":{
           color:"#fff"
       }
-  },Icon:{
-      position:"relative",
-      top:6
   },
   links:{
       marginTop:20
@@ -49,9 +46,9 @@ export default function MAcontent() {
             <li>I will  only display the content that we will may need without distraction like:
                 <ul>
                     <li><b>Links</b> to the content related to the topic, some may be <b>PDF</b> ,and other may be <b>websites</b>, will be opened on a <b>new tab </b> </li>
-                    <li><VisibilityIcon className={classes.Icon}/> clicking on it will show you a <b>preview</b> of the link _<i>if we did not consume our free plan 100 free requests/day</i> if we did then it will just display the URL instead</li>
-                    <li><FormatQuoteIcon className={classes.Icon}/> means the number of <b>CITATIONS</b> of the paper</li>
-                    <li><CalendarToday className={classes.Icon}/> means the <b>YEAR</b> of the publication of paper</li>                
+                    <li><VisibilityIcon className="iconPos"/> clicking on it will show you a <b>preview</b> of the link _<i>if we did not consume our free plan 100 free requests/day</i> if we did then it will just display the URL instead</li>
+                    <li><FormatQuoteIcon className="iconPos"/> means the number of <b>CITATIONS</b> of the paper</li>
+                    <li><CalendarToday className="iconPos"/> means the <b>YEAR</b> of the publication of paper</li>                
                 </ul>
             </li>
             
