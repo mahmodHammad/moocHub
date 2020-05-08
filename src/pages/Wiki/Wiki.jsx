@@ -77,6 +77,7 @@ export default class Wiki extends Component {
           <Search
             placeholder="search on Wikipedia"
             handleChange={this.handleChange}
+            FS={false}
           />
           <SearchResults
             searchResults={searchResults}

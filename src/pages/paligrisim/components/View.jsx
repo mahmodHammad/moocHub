@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
   checkBtn: {
     marginTop: 40,
     marginBottom: 20
+  },
+  header:{
+    marginBottom:30
+
   }
 }));
 
@@ -38,14 +42,14 @@ export default function View({
     <div className="wiki">
       {loading ? <LinearProgress color="secondary" /> : <span></span>}
       <div className={classes.root}>
-        <Typography align="center" variant="h6" gutterBottom>
+        <Typography align="center" variant="h6" className={classes.header}>
           Similarity Check between two paragraphs
         </Typography>
         <Grid container justify="center">
           <Grid item xs={12} md={6}>
             <Textarea
               name="s1"
-              label="enter the First paragraph"
+              label="Enter the First paragraph"
               value={s1}
               handleChange={handleChange}
             />
@@ -53,7 +57,7 @@ export default function View({
           <Grid item xs={12} md={6}>
             <Textarea
               name="s2"
-              label="enter the Second paragraph"
+              label="Enter the Second paragraph"
               value={s2}
               handleChange={handleChange}
             />
@@ -78,7 +82,7 @@ export default function View({
                   {result !== false ? (
                     <Typography align="center">
                      The Similarity Is:{" "}
-                      {result > 70 ? (
+                      {result > 30 ? (
                         <span className={classes.fail}>{result}%</span>
                       ) : (
                         <span className={classes.pass}>{result}%</span>

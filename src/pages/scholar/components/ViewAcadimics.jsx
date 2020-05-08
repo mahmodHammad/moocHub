@@ -20,6 +20,23 @@ const useStyles = makeStyles(theme => ({
   CheckIcon: {
     position: "relative",
     top: 20
+  },
+  MAresults: {
+    borderRadius: 7,
+    borderLeft: "solid #777 1px",
+    borderTop: " solid #777 1px",
+    height: "calc(100vh - 70px)",
+    margin: " 7px 0",
+    overflow: "auto"
+  },
+  results:{
+    background:"#111"
+  },
+  Noresults:{
+    background:"#333"
+  },
+  height:{
+    height:20
   }
 }));
 
@@ -49,16 +66,16 @@ export default function ViewAcadimics({
       {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container>
-        <Grid container item xs={12} md={3}>
-          <div className="searchMA">
-            <Grid item container justify="center">
-              <Grid item xs={10}>
+        <Grid container item xs={12} md={3} >
+            <Grid item container align="center" className={classes.height}>
+              <Grid item xs={10} className={classes.height}>
                 <Search
                   placeholder="search on papers"
                   handleChange={handleChange}
+                  FS={true}
                 />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={2}  className={classes.height}>
                 <IconButton
                   size="medium"
                   component={Link}
@@ -79,11 +96,10 @@ export default function ViewAcadimics({
             ) : (
               <span></span>
             )}
-          </div>
         </Grid>
         <Grid item xs={12} md={9} id="MAcontent">
           {entities.length ? (
-            <div className="MAresults results">
+            <div className={`${classes.MAresults} ${classes.results}`}>
               <MAcontent
                 entities={entities}
                 loadMoreContent={loadMoreContent}
@@ -91,7 +107,7 @@ export default function ViewAcadimics({
               />
             </div>
           ) : (
-            <div className="MAresults Noresults"></div>
+            <div className={`${classes.MAresults} ${classes.Noresults}`}></div>
           )}
         </Grid>
       </Grid>

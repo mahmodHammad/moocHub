@@ -4,7 +4,6 @@ import { goToAnchor } from "react-scrollable-anchor";
 import ViewAcadimics from "./components/ViewAcadimics";
 // key
 // 49dd31f486204254b3dc23dde8c5304c
-// i can use url preview to display data on hover !!!!!!!!!!!!!!!!!!!!!!!!!!!
 // custumize the query expression later
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const key = "49dd31f486204254b3dc23dde8c5304c";
@@ -63,8 +62,6 @@ export default class componentName extends Component {
           return { exp, url, name };
         });
         this.setState({ results: mod, loading: false });
-        console.log(e);
-        console.log(mod);
       })
       .catch(err => console.log(err));
   };
@@ -102,19 +99,12 @@ export default class componentName extends Component {
         this.setState({ entities, loading: false, preview: false });
       })
       .then(err => {
-        alert("unexpected error occured! , try again later");
         console.log(err);
       });
   };
   render() {
-    const { entities, loading, preview } = this.state;
-    const {
-      loadMoreContent,
-      handlepreview,
-      handleChange,
-      results,
-      loadContent
-    } = this.state;
+    const { entities, results, loading, preview } = this.state;
+    const { loadMoreContent, handlepreview, handleChange, loadContent } = this;
 
     return (
       <ViewAcadimics

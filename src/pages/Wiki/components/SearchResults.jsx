@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
   },
   results: {
     textAlign: "center",
-    margin: "auto"
+    margin: "10px auto",
+    width:"100%"
   },
   result: {
     margin: "10px auto",
@@ -25,12 +26,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Search({ searchResults, loadContent }) {
   const classes = useStyles();
-
   return (
     <div className={classes.results}>
       {searchResults.length ? (
         searchResults.map(e => (
-          <div className={classes.result}>
+          <div className={classes.result} key={e.exp}>
             <Typography
               className={classes.title}
               variant="body1"
