@@ -71,12 +71,14 @@ export default function View({
           </div>
           <Grid item xs={12}>
             {loading ? (
-              <span>Pending</span>
+              <Typography align="center">
+              Please wait...
+            </Typography>
             ) : (
               <div>
                 {result !== false ? (
                   <Typography align="center">
-                    Similarity is {" "}
+                    Similarity is: {" "}
                     {result > 70 ? (
                       <span className={classes.fail}>{result}%</span>
                     ) : (

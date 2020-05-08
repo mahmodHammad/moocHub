@@ -14,7 +14,10 @@ import { goToAnchor } from "react-scrollable-anchor";
 import { Swipeable } from "react-swipeable";
 import { Redirect } from "react-router-dom";
 import Microlink from "@microlink/react";
+import CheckIcon from "@material-ui/icons/Check";
+import IconButton from "@material-ui/core/IconButton";
 
+import { Link } from "react-router-dom";
 // 4e08ba45eee44bfcb1e10af8c86e0e3d
 const key = "49dd31f486204254b3dc23dde8c5304c";
 const config = {
@@ -153,12 +156,21 @@ export default class componentName extends Component {
         {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
         <Grid container>
-          <Grid item xs={12} md={3}>
+          <Grid container item xs={12} md={3}>
             <div className="searchMA">
-              <Search
-                placeholder="search on papers"
-                handleChange={this.handleChange}
-              />
+              <Grid item container justify="center">
+                <Grid item xs={10}>
+                  <Search
+                    placeholder="search on papers"
+                    handleChange={this.handleChange}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <IconButton component={Link} to="./pali">
+                    <CheckIcon color="secondary" />
+                  </IconButton>
+                </Grid>
+              </Grid>
               <SearchResults
                 searchResults={this.state.results}
                 loadContent={this.loadContent}
