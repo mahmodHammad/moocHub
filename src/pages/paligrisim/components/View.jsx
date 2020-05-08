@@ -82,7 +82,7 @@ export default function View({
                   {result !== false ? (
                     <Typography align="center">
                      The Similarity Is:{" "}
-                      {result > 30 ? (
+                      {result > 60 ? (
                         <span className={classes.fail}>{result}%</span>
                       ) : (
                         <span className={classes.pass}>{result}%</span>
