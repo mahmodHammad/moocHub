@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import CalendarToday from "@material-ui/icons/CalendarToday";
@@ -29,6 +28,9 @@ const useStyles = makeStyles(theme => ({
   },Icon:{
       position:"relative",
       top:6
+  },
+  links:{
+      marginTop:20
   }
 }));
 
@@ -55,15 +57,15 @@ export default function MAcontent() {
             
             <li>If you are not satisfied with my result you can see the <b>original results</b> at the MS Acadimics, click on the <b>More details...</b> Link , it will open it on a new tab for you</li>
             <li>If the results was not enought ,click on the <b>LOAD MORE DETALS</b> button at the bottom of the loaded content </li>
-            <li>Useful Links:
+            <li className={classes.links}>Useful Links:
 
-                <ul>
-                    <li> <Link color="secondary" href=" https://www.facebook.com/photo.php?fbid=3149532118403983&set=a.497124656978089&type=1&theater">Facebook post (Dr Ramzy)  </Link> </li>
-                    <li> <Link color="secondary" href="https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en">Browser extension for chrome ->Grammarly (correct any spelling or grammar mistakes) </Link> </li>
-                    <li> <Link color="secondary" href="https://www.wikihow.com/Write-an-Academic-Essay?amp=1&fbclid=IwAR0aq2ydRF8k32bGvlQIl4SEghOS5sOB2kI4iSW6y2b2II8VbmmKg4sQyVc"> Wikihow -> how to write an Academic Essay </Link> </li>
+                <ul >
+                    <li> <Link target="_blank" color="secondary" href=" https://www.facebook.com/photo.php?fbid=3149532118403983&set=a.497124656978089&type=1&theater">Facebook post (Dr Ramzy)</Link> </li>
+                    <li> <Link target="_blank" color="secondary" href="https://chrome.google.com/webstore/detail/grammarly-for-chrome/kbfnbcaeplbcioakkpcpgfkobkghlhen?hl=en">Grammarly extension for chrome -> correct any spelling or grammar mistakes </Link> </li>
+                    <li> <Link target="_blank" color="secondary" href="https://www.wikihow.com/Write-an-Academic-Essay?amp=1&fbclid=IwAR0aq2ydRF8k32bGvlQIl4SEghOS5sOB2kI4iSW6y2b2II8VbmmKg4sQyVc"> Wikihow -> how to write an Academic Essay </Link> </li>
                   
-                    <li> <Link color="secondary" href="https://www.youtube.com/watch?v=jVbhfdvkSJc">Youtube -> how to write an Academic Essay WITHOUT any Citations (Arabic)  </Link> </li>
-                    <li> <Link color="secondary" href="https://www.facebook.com/groups/Coursat2019/permalink/2872339322814347/"> Facebook post -> important Keybaord shortcuts</Link> </li>
+                    <li> <Link target="_blank" color="secondary" href="https://www.youtube.com/watch?v=jVbhfdvkSJc">Youtube -> how to write an Academic Essay WITHOUT any Citations (Arabic)  </Link> </li>
+                    <li> <Link target="_blank" color="secondary" href="https://www.facebook.com/groups/Coursat2019/permalink/2872339322814347/"> Facebook post -> important Keybaord shortcuts</Link> </li>
                 </ul>
             </li>
         </ul>
