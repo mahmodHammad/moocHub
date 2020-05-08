@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Search from "../../Wiki/components/Search";
 import MAcontent from "./MAcontent";
+import Explain from "./Explain";
 // import SearchResults from "../../Wiki/components/SearchResults";
 import SearchResults from "../../Wiki/components/SearchResults";
 import { Swipeable } from "react-swipeable";
@@ -11,8 +12,8 @@ import Microlink from "@microlink/react";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-
 import BarChart from "@material-ui/icons/BarChart";
+
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: 30
@@ -36,7 +37,13 @@ const useStyles = makeStyles(theme => ({
     background:"#333"
   },
   height:{
-    height:20
+    height:4,
+    padding:"0 10px"
+  },
+  "@media (max-width: 600px)": {
+    height:{
+      height:60
+    }  
   }
 }));
 
@@ -66,7 +73,9 @@ export default function ViewAcadimics({
       {loading ? <LinearProgress color="secondary" /> : <span></span>}
 
       <Grid container>
-        <Grid container item xs={12} md={3} >
+        <Grid container item xs={12} md={3} > 
+
+          {/* search -------------------------->start */}
             <Grid item container align="center" className={classes.height}>
               <Grid item xs={10} className={classes.height}>
                 <Search
@@ -87,6 +96,9 @@ export default function ViewAcadimics({
               </Grid>
             </Grid>
             <SearchResults searchResults={results} loadContent={loadContent} />
+          {/* search --------------------------->end */}
+        
+          {/* preview --------------------------->start */}
             {preview !== false ? (
               <Microlink
                 id="preview"
@@ -96,7 +108,10 @@ export default function ViewAcadimics({
             ) : (
               <span></span>
             )}
+          {/* preview --------------------------->end */}
         </Grid>
+
+
         <Grid item xs={12} md={9} id="MAcontent">
           {entities.length ? (
             <div className={`${classes.MAresults} ${classes.results}`}>
@@ -107,7 +122,9 @@ export default function ViewAcadimics({
               />
             </div>
           ) : (
-            <div className={`${classes.MAresults} ${classes.Noresults}`}></div>
+            <div className={`${classes.MAresults} ${classes.Noresults}`}>
+              <Explain/>
+            </div>
           )}
         </Grid>
       </Grid>
