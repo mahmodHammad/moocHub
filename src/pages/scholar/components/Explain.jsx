@@ -56,8 +56,8 @@ export default function MAcontent() {
         </li>
 
         <li>
-          I will only display the content that we may need without
-          distraction like:
+          I will only display the content that we may need without distraction
+          like:
           <ul>
             <li>
               <b>Links</b> to the content related to the topic, some may be{" "}
@@ -66,7 +66,7 @@ export default function MAcontent() {
             </li>
             <li>
               <VisibilityIcon className="iconPos" /> clicking on it will show
-              you a <b>preview</b> of the link {" "}
+              you a <b>preview</b> of the link{" "}
               <i>if we did not consume our free plan 100 free requests/day</i>{" "}
               if we did then it will just display the URL instead
             </li>
@@ -99,7 +99,7 @@ export default function MAcontent() {
                 color="secondary"
                 href=" https://www.facebook.com/photo.php?fbid=3149532118403983&set=a.497124656978089&type=1&theater"
               >
-                Facebook post (Dr Ramzy)
+                Facebook post (Dr_Ramzy)
               </Link>
             </li>
 
@@ -146,6 +146,23 @@ export default function MAcontent() {
                 href="https://play.google.com/store/apps/details?id=com.plagiarism_checker.duplicate"
               >
                 Android App (Limited to 10 requests)
+              </Link>{" "}
+              OR{" "}
+              <Link
+                target="_blank"
+                color="secondary"
+                href="https://www.facebook.com/photo.php?fbid=2936060563147020&set=a.118967304856374&type=3&theater"
+              >
+                Desktop App (CRACKED والعياذ بالله)
+              </Link>
+            </li>
+            <li>
+              <Link
+                target="_blank"
+                color="secondary"
+                href="https://www.facebook.com/amrkhaled69/posts/10157428378651733"
+              >
+                Facebook post (Eng_Amr_Khaled)
               </Link>
             </li>
 
@@ -155,8 +172,7 @@ export default function MAcontent() {
                 color="secondary"
                 href="https://www.wikihow.com/Write-an-Academic-Essay"
               >
-                {" "}
-                Wikihow -> how to write an Academic Essay{" "}
+                Wikihow -> how to write an Academic Essay
               </Link>
             </li>
 
@@ -166,7 +182,8 @@ export default function MAcontent() {
                 color="secondary"
                 href="https://www.youtube.com/watch?v=jVbhfdvkSJc"
               >
-                Youtube -> how to write an Academic Essay WITHOUT Noticeable Citations (Arabic)
+                Youtube -> how to write an Academic Essay WITHOUT Noticeable
+                Citations (Arabic)
               </Link>
             </li>
 
@@ -174,9 +191,28 @@ export default function MAcontent() {
               <Link
                 target="_blank"
                 color="secondary"
+                href="https://www.facebook.com/IMFarouq/posts/2595378997342196"
+              >
+                Facebook post -> how to mention the resources in your Academic
+                Essay
+              </Link>
+            </li>
+            <li>
+              <Link
+                target="_blank"
+                color="secondary"
                 href="https://www.facebook.com/groups/Coursat2019/permalink/2872339322814347/"
               >
                 Facebook post -> important Keybaord shortcuts
+              </Link>
+            </li>
+            <li>
+              <Link
+                target="_blank"
+                color="secondary"
+                href="https://drive.google.com/file/d/1i9o5Z_WCe93j2pLy9HItgmjP8iQx2v5k/view?fbclid=IwAR3KQiLFZTkSdFbDUw9VjWLv1PEhVv3mqeUZx9Cwq3UdpwX37LFQEy-dlcA"
+              >
+                Signal processing Course Project
               </Link>
             </li>
           </ul>
