@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import BarChart from "@material-ui/icons/BarChart";
+
 
 const useStyles = makeStyles(theme => ({
   logo: {
@@ -18,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "left",
     fontWeight: "bold",
     marginLeft:-5
-
   },
   study: {
     padding: "2px 8px",
@@ -31,6 +32,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: 15,
     fontWeight: "bold",
     fontFamily: "Linux Libertine Georgia Times serif"
+  },
+  Icon:{
+    color: "#eee",
+    marginRight: -4,
+
   },
   "@media (max-width: 600px)": {
     study: {
@@ -119,16 +125,6 @@ export default function Navbar({
             >
               Study Room
             </Button>
-
-            <IconButton
-              size="small"
-              className={classes.wiki}
-              component={Link}
-              to="/scholar"
-            >
-              <FormatQuoteIcon />
-            </IconButton>
-
             <IconButton
               size="small"
               className={classes.wiki}
@@ -136,6 +132,22 @@ export default function Navbar({
               to="/wiki"
             >
               W
+            </IconButton>
+            <IconButton
+              size="small"
+              className={classes.Icon}
+              component={Link}
+              to="/scholar"
+            >
+              <FormatQuoteIcon />
+            </IconButton>
+            <IconButton
+              size="small"
+              className={classes.Icon}
+              component={Link}
+              to="/pali"
+            >
+              <BarChart/>
             </IconButton>
           </Toolbar>
         </AppBar>
