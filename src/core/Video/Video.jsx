@@ -10,6 +10,7 @@ import ProgressBar from "./components/ProgressBar";
 import Pin from "./components/Pin";
 import ControlCameraIcon from "@material-ui/icons/ControlCamera";
 import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
 import CloseIcon from "@material-ui/icons/Close";
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
     isPinned: false,
     url: "",
     content: [],
-    settingOptions: [1, 1.2, 1.4, 1.6, 1.8 ,2],
+    settingOptions: [1, 1.2, 1.4, 1.6, 1.8, 2],
     playing: true,
     controls: false,
     light: false,
@@ -131,10 +132,10 @@ class App extends Component {
       duration,
       playbackRate,
       isRemaining,
-      settingOptions,
+      settingOptions
     } = this.state;
 
-    const { handleVideoPin ,goto } = this.props;
+    const { handleVideoPin, goto } = this.props;
 
     return (
       <React.Fragment>
@@ -196,13 +197,17 @@ class App extends Component {
                         <ControlCameraIcon color="inherit" />
                       </Button>
                     ) : (
-                      <Pause
-                        handlePlayPause={this.handlePlayPause}
-                        playing={playing}
-                      />
+                      <Hidden smUp={false} smDown={true}>
+                        <Pause
+                          handlePlayPause={this.handlePlayPause}
+                          playing={playing}
+                        />
+                      </Hidden>
                     )}
                     {!isPinned && (
-                      <Audio muted={muted} handleMute={this.handleMute} />
+                      <Hidden smUp={false} smDown={true}>
+                        <Audio muted={muted} handleMute={this.handleMute} />
+                      </Hidden>
                     )}
                     <Time
                       handleRemaining={this.handleRemaining}
