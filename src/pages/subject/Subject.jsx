@@ -4,6 +4,8 @@ import getFiles from "../../helper/getfiles";
 import loadApi from "../../helper/loadApi";
 import ContentDisplayer from "../../core/Content/ContentDisplayer";
 
+import themes from "../../config/theme";
+
 class Home extends Component {
   state = {
     subject: {},
@@ -11,30 +13,33 @@ class Home extends Component {
     PrimarySliderSelectedIndex: false,
     loading: false,
     divided: [],
-    index:0
+    index: 0,
   };
 
   //////// get files after clicking on prime slide  ////////
-  handlePrimeTabClick = index => {
+  handlePrimeTabClick = (index) => {
     this.setState({ loading: true });
-    (this.state.content[index]!==undefined&&this.state.content[index].value === false)
-      ? getFiles(this.state.content[index].id, "pdf").then(theactualContent => {
-          let [content] = [this.state.content];
-          content[index].value = theactualContent.files;
-          this.setState({ content, loading: false });
-        })
+    this.state.content[index] !== undefined &&
+    this.state.content[index].value === false
+      ? getFiles(this.state.content[index].id, "pdf").then(
+          (theactualContent) => {
+            let [content] = [this.state.content];
+            content[index].value = theactualContent.files;
+            this.setState({ content, loading: false });
+          }
+        )
       : this.setState({ loading: false });
 
     this.setState({
-      PrimarySliderSelectedIndex: index
+      PrimarySliderSelectedIndex: index,
     });
   };
 
-  setLoading = loading => {
+  setLoading = (loading) => {
     this.setState({ loading });
   };
 
-  loadContent = subjects => {
+  loadContent = (subjects) => {
     let realcontent = subjects.files.map(({ name, id }) => {
       const value = false;
       return { name, id, value };
@@ -43,11 +48,11 @@ class Home extends Component {
     this.handlePrimeTabClick(0);
   };
 
-  loadSubject = id => {
+  loadSubject = (id) => {
     this.setState({ loading: true, PrimarySliderSelectedIndex: false });
     loadApi().then(() =>
       getFiles(id, "folder")
-        .then(subjectContent => {
+        .then((subjectContent) => {
           this.loadContent(subjectContent);
         })
         .catch((err) => console.log(err))
@@ -66,6 +71,16 @@ class Home extends Component {
     else if (divided[0] !== undefined) id = divided[0].id;
     this.setState({ divided, index });
     this.loadSubject(id);
+
+    console.log(this.props, "FJFJFJFJFJFJJFJ");
+    // console.log(this.props.history.location.state,"hell is bad")
+    this.props.changeTheme(
+      undefined,
+      themes[index][0],
+      // "radial-gradient(ellipse at bottom,#9999a4,#303040)"
+      // `radial-gradient(ellipse at bottom,${themes[index][3]},#333333)`
+     `linear-gradient(90deg,#333333 -150%, ${themes[index][3]}, #333333 250%)`
+    );
   }
 
   render() {
@@ -76,7 +91,7 @@ class Home extends Component {
       PrimarySliderSelectedIndex,
       loading,
       divided,
-      index
+      index,
     } = this.state;
     const { todo, addToTodo, removeFromTodo } = this.props;
     return (

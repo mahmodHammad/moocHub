@@ -32,7 +32,7 @@ export default function DisplaySubjects({ folder, index, changeTheme }) {
         disableTouchRipple
         onClick={() =>
           changeTheme(
-            "#333",
+            "#343444",
             themes[index][0],
             `radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),${themes[index][3]})`
           )

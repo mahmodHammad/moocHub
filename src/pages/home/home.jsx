@@ -10,21 +10,21 @@ import content from "../../config/subjects";
 // XXX refactor it to a function component XXX
 export default class home extends Component {
   state = {
-    swiped: 0
+    swiped: 0,
   };
 
   componentDidMount() {
     // TEMP fix for laggin
     if (this.props.cutumeTheme.secondary.main !== "#1e88e5") {
       this.props.changeTheme(
-        "#333",
+        undefined,
         "#1e88e5",
-        "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
+        "radial-gradient(ellipse at bottom,#9999a4,#303040)"
       );
     }
   }
 
-  swip = val => {
+  swip = (val) => {
     this.setState({ swiped: val });
   };
 

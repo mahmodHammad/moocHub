@@ -41,29 +41,27 @@ export default class App extends Component {
     collapse: true,
     cutumeTheme: {
       primary: {
-        main: "#343444"
+        main: "#343444",
       },
       secondary: {
         light: "#fff",
         main: "#1e88e5",
-        contrastText: "#000"
+        contrastText: "#000",
       },
       background: {
-        default:
-          "radial-gradient(ellipse at bottom,#9999a4,#303040)"
-          
-        },
-      success:{
-        main:"#43ff54"
+        default: "radial-gradient(ellipse at bottom,#9999a4,#303040)",
       },
-      error:{
-        main:"#f44336"
-      }
-    }
+      success: {
+        main: "#43ff54",
+      },
+      error: {
+        main: "#f44336",
+      },
+    },
   };
 
   theme = createMuiTheme({
-    palette: this.state.cutumeTheme
+    palette: this.state.cutumeTheme,
   });
 
   // XXX will be deprecated XXX
@@ -73,7 +71,7 @@ export default class App extends Component {
     this.setState({ cutumeTheme: oldTheme });
 
     this.theme = createMuiTheme({
-      palette: this.state.cutumeTheme
+      palette: this.state.cutumeTheme,
     });
   };
 
@@ -89,7 +87,7 @@ export default class App extends Component {
     this.setState({ cutumeTheme: oldTheme });
 
     this.theme = createMuiTheme({
-      palette: this.state.cutumeTheme
+      palette: this.state.cutumeTheme,
     });
   };
 
@@ -137,10 +135,10 @@ export default class App extends Component {
   removeFromTodo = (item, parentId) => {
     let [todo] = [this.state.todo];
 
-    let filteredTodo = todo.map(subject => {
+    let filteredTodo = todo.map((subject) => {
       if (subject.id === parentId) {
         let filteredSubject = subject.value.filter(
-          content => content.id !== item.id
+          (content) => content.id !== item.id
         );
         subject.value = filteredSubject;
         return subject;
@@ -148,7 +146,7 @@ export default class App extends Component {
     });
 
     let notEmptyTodo = filteredTodo.filter(
-      subject => subject.value.length !== 0
+      (subject) => subject.value.length !== 0
     );
 
     this.setState({ todo: notEmptyTodo });
@@ -156,15 +154,15 @@ export default class App extends Component {
   };
 
   // XXX will be deprecated XXX
-  loadSubject = id => {
+  loadSubject = (id) => {
     loadApi().then(() =>
-      getFiles(id, "folder").then(folders => {
+      getFiles(id, "folder").then((folders) => {
         this.setState({ content: folders.files });
       })
     );
   };
 
-  ChooseCommumity = community => {
+  ChooseCommumity = (community) => {
     const { name, id } = community;
     this.loadSubject(id);
     window.localStorage.setItem("community", `/${name}/${id}`);
@@ -187,8 +185,8 @@ export default class App extends Component {
           isOpenNextTime: false,
           url: url,
           goto: goto,
-          played: played
-        }
+          played: played,
+        },
       });
     } else {
       this.setState({
@@ -196,8 +194,8 @@ export default class App extends Component {
           isOpenNextTime: true,
           url: url,
           goto: goto,
-          played: played
-        }
+          played: played,
+        },
       });
     }
   };
@@ -228,7 +226,7 @@ export default class App extends Component {
       ChooseCommumity,
       addToTodo,
       changeTheme,
-      handleVideoPin
+      handleVideoPin,
     } = this;
     const { communities, todo, content, pinnedVideo, cutumeTheme } = this.state;
     return (
@@ -252,7 +250,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/"
-                render={props => (
+                render={(props) => (
                   <Communities
                     {...props}
                     communities={communities}
@@ -263,7 +261,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/:subjectName/:subjectId"
-                render={props => (
+                render={(props) => (
                   <Home
                     {...props}
                     addToTodo={addToTodo}
@@ -278,32 +276,34 @@ export default class App extends Component {
               <Route
                 exact
                 path="/subject/:subjectName/:subjectId"
-                render={props => (
+                render={(props) => (
                   <Subject
                     {...props}
                     addToTodo={addToTodo}
                     removeFromTodo={removeFromTodo}
                     todo={todo}
+                    changeTheme={changeTheme}
                   />
                 )}
               />
               <Route
                 exact
                 path="/videos/:subjectName/:subjectId"
-                render={props => (
+                render={(props) => (
                   <VideosDisplayer
                     {...props}
                     addToTodo={addToTodo}
                     removeFromTodo={removeFromTodo}
                     todo={todo}
                     handleVideoPin={handleVideoPin}
+                    changeTheme={changeTheme}
                   />
                 )}
               />
               <Route
                 exact
                 path="/nerds"
-                render={props => (
+                render={(props) => (
                   <Nerds
                     {...props}
                     todo={todo}
@@ -332,7 +332,7 @@ export default class App extends Component {
                   x: window.innerWidth - 500,
                   y: window.innerHeight - 310,
                   width: 444,
-                  height: 250
+                  height: 250,
                 }}
                 minWidth={440}
                 minHeight={110}
