@@ -12,32 +12,41 @@ import Video from "../../Video/Video";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+
 import { Swipeable } from "react-swipeable";
 
-const useStyles = makeStyles(theme => ({
- bottom:{
-  top: "auto",
-  bottom: 0
- },
+const useStyles = makeStyles((theme) => ({
+  bottom: {
+    top: "auto",
+    bottom: 0,
+  },
   appBar: {
     transition: "all 0.2s ease",
     "&:hover": {
-      opacity: 1
-    }
+      // opacity: 1,
+    },
+  },
+  mode: {
+    marginRight: 10,
+    cursor: "pointer",
+  },
+  hover: {
+    cursor: "pointer",
   },
   title: {
     marginLeft: theme.spacing(2),
-    flex: 1
+    flex: 1,
   },
   op: {
-    opacity: 0.4
+    opacity: 0.4,
   },
   root: {
-    background: "#000"
+    background: "#000",
   },
   vid: {
-    marginTop: 48
-  }
+    marginTop: 48,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -51,7 +60,9 @@ export default function FullScreenDialog({
   content,
   isAdd,
   isVideo,
-  handleVideoPin
+  handleVideoPin,
+  mode,
+  changeMode,
 }) {
   const classes = useStyles();
   const handleVideoPinClick = (url, goto, played) => {
@@ -69,28 +80,34 @@ export default function FullScreenDialog({
         {/* Content----------------------------------> */}
         <div className="popContent">
           {isVideo ? (
-              <Video
-                goto={content.goto}
-                url={content.url}
-                handleVideoPin={handleVideoPinClick}
-                isPinned={false}
-              />
+            <Video
+              goto={content.goto}
+              url={content.url}
+              handleVideoPin={handleVideoPinClick}
+              isPinned={false}
+            />
           ) : (
-            <Pdf pdfId={content.id} />
+            <Pdf pdfId={content.id} mode={mode} />
           )}
         </div>
 
         {/* Bottom BAR--------------------------------> */}
         <Swipeable onSwipedUp={() => handleClose()}>
           <Hidden mdUp={true}>
-            <AppBar className={`${classes.appBar} ${classes.bottom} ${!isVideo && classes.op}`}>
+            <AppBar
+              className={`${classes.appBar} ${classes.bottom} ${
+                !isVideo && classes.op
+              }`}
+            >
               <Toolbar variant="dense">
                 <CloseIcon
                   edge="start"
                   color="inherit"
                   onClick={handleClose}
                   aria-label="close"
+                  className={classes.hover}
                 />
+
                 <Typography
                   variant="inherit"
                   noWrap={true}
@@ -98,10 +115,22 @@ export default function FullScreenDialog({
                 >
                   {content.name}
                 </Typography>
+                <Brightness4Icon
+                  color="inherit"
+                  className={classes.mode}
+                  onClick={() => changeMode()}
+                />
                 {isAdd ? (
-                  <AddCircleIcon onClick={handleSelect} />
+                  <AddCircleIcon
+                    onClick={handleSelect}
+                    className={classes.hover}
+                  />
                 ) : (
-                  <RemoveCircleIcon color="secondary" onClick={handleSelect} />
+                  <RemoveCircleIcon
+                    color="secondary"
+                    className={classes.hover}
+                    onClick={handleSelect}
+                  />
                 )}
               </Toolbar>
             </AppBar>
@@ -115,6 +144,7 @@ export default function FullScreenDialog({
                 color="inherit"
                 onClick={handleClose}
                 aria-label="close"
+                className={classes.hover}
               />
               <Typography
                 variant="inherit"
@@ -123,10 +153,22 @@ export default function FullScreenDialog({
               >
                 {content.name}
               </Typography>
+              <Brightness4Icon
+                color="inherit"
+                className={`${classes.mode}`}
+                onClick={() => changeMode()}
+              />
               {isAdd ? (
-                <AddCircleIcon onClick={handleSelect} />
+                <AddCircleIcon
+                  onClick={handleSelect}
+                  className={classes.hover}
+                />
               ) : (
-                <RemoveCircleIcon color="secondary" onClick={handleSelect} />
+                <RemoveCircleIcon
+                  color="secondary"
+                  onClick={handleSelect}
+                  className={classes.hover}
+                />
               )}
             </Toolbar>
           </AppBar>

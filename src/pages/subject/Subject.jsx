@@ -79,7 +79,7 @@ class Home extends Component {
       themes[index][0],
       // "radial-gradient(ellipse at bottom,#9999a4,#303040)"
       // `radial-gradient(ellipse at bottom,${themes[index][3]},#333333)`
-     `linear-gradient(90deg,#333333 -150%, ${themes[index][3]}, #333333 250%)`
+      `linear-gradient(90deg,#333333 -150%, ${themes[index][3]}, #333333 250%)`
     );
   }
 
@@ -93,9 +93,11 @@ class Home extends Component {
       divided,
       index,
     } = this.state;
-    const { todo, addToTodo, removeFromTodo } = this.props;
+    const { todo, addToTodo, removeFromTodo, mode, changeMode } = this.props;
     return (
       <ContentDisplayer
+        mode={mode}
+        changeMode={changeMode}
         subject={subject}
         content={content}
         PrimarySliderSelectedIndex={PrimarySliderSelectedIndex}

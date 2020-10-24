@@ -24,11 +24,10 @@ const useStyles = makeStyles({
     display: "flex",
     width: "100%",
   },
-  mainSlider:{
+  mainSlider: {
     position: "sticky",
     top: "-20px",
-
-  }
+  },
 });
 
 export default function ContentDisplayer({
@@ -45,6 +44,8 @@ export default function ContentDisplayer({
   divided,
   loadSubject,
   subjectIndex,
+  mode,
+  changeMode,
 }) {
   const classes = useStyles();
 
@@ -108,6 +109,8 @@ export default function ContentDisplayer({
                 PrimarySliderSelectedIndex !== false &&
                 content[PrimarySliderSelectedIndex].value !== false && (
                   <SecondarySlide
+                    mode={mode}
+                    changeMode={changeMode}
                     subject={subject}
                     content={content[PrimarySliderSelectedIndex].value}
                     removeFromTodo={removeFromTodo}

@@ -33,6 +33,7 @@ import Paligrism from "./../pages/paligrisim/Plagiarism";
 
 export default class App extends Component {
   state = {
+    mode: "dark",
     pinnedVideo: { isOpenNextTime: false },
     played: 0,
     communities: communities,
@@ -75,6 +76,10 @@ export default class App extends Component {
     });
   };
 
+  changeMode = () => {
+    const mode = this.state.mode === "light" ? "dark" : "light";
+    this.setState({ mode });
+  };
   changeTheme = (
     main = this.state.cutumeTheme.primary.main,
     sec = this.state.cutumeTheme.secondary.main,
@@ -227,8 +232,16 @@ export default class App extends Component {
       addToTodo,
       changeTheme,
       handleVideoPin,
+      changeMode,
     } = this;
-    const { communities, todo, content, pinnedVideo, cutumeTheme } = this.state;
+    const {
+      communities,
+      todo,
+      content,
+      pinnedVideo,
+      cutumeTheme,
+      mode,
+    } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -279,6 +292,8 @@ export default class App extends Component {
                 render={(props) => (
                   <Subject
                     {...props}
+                    mode={mode}
+                    changeMode={changeMode}
                     addToTodo={addToTodo}
                     removeFromTodo={removeFromTodo}
                     todo={todo}

@@ -9,6 +9,8 @@ const styles = {
     width: "100%",
     height: "100%",
     zIndex: "3",
+  },
+  dark: {
     filter: "invert(1) hue-rotate(180deg)",
   },
   container: {
@@ -23,16 +25,17 @@ const styles = {
   },
 };
 
-function PdfIframe({ pdfId, classes }) {
+function PdfIframe({ pdfId, classes, mode }) {
   const fileurl = IdtoUrl(pdfId);
 
   return (
     <ScrollableAnchor id={pdfId}>
+      {/* {console.log("mode is: ", mode)} */}
       <div className={`${classes.container}`}>
         {/* <div className={classes.loading}>Loading... </div> */}
         <iframe
           title="lecture"
-          className={`${classes.root}`}
+          className={`${classes.root} ${mode === "dark" ? classes.dark : ""}`}
           frameBorder="0"
           src={fileurl.displayPdf}
         ></iframe>

@@ -11,31 +11,32 @@ import { withStyles } from "@material-ui/core/styles";
 import PopContent from "../components/PopContent";
 const styles = {
   op: {
-    opacity: "0.75"
+    opacity: "0.75",
   },
   container: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: " center"
+    justifyContent: " center",
   },
   cardText: {
-    flexGrow: "20"
+    flexGrow: "20",
   },
   add: {
     flexGrow: "1",
     float: "right",
-    alignSelf: "center"
+    alignSelf: "center",
+    cursor:'pointer'
   },
   margin: {
-    margin: "16px"
-  }
+    margin: "16px",
+  },
 };
 
 function isExistOnTodo(todo, content, parent) {
   let flag = false;
-  todo.forEach(e => {
+  todo.forEach((e) => {
     if (e.id === parent.id) {
-      e.value.forEach(item => {
+      e.value.forEach((item) => {
         if (item.id === content.id) {
           flag = true;
         }
@@ -55,7 +56,9 @@ function ComponentName({
   subject,
   isVideo,
   handleVideoPin,
-  index
+  index,
+  mode,
+  changeMode
 }) {
   const [addContent, setContent] = useState(true);
   const [Pop, setPop] = React.useState(false);
@@ -69,12 +72,12 @@ function ComponentName({
   };
 
   const handleAdd = (index) => {
-    setPop(false);
-    addToTodo(content, subject, index,isVideo);
+    // setPop(false);
+    addToTodo(content, subject, index, isVideo);
   };
 
   const handleRemove = () => {
-    setPop(false);
+    // setPop(false);
     removeFromTodo(content, subject.id);
   };
 
@@ -88,11 +91,13 @@ function ComponentName({
 
           <React.Fragment>
             <PopContent
+              mode={mode}
+              changeMode={changeMode}
               handleClose={handleClose}
               handleSelect={
                 isExistOnTodo(todo, content, subject)
                   ? handleRemove
-                  : () => handleAdd(index,isVideo)
+                  : () => handleAdd(index, isVideo)
               }
               Pop={Pop}
               content={content}
