@@ -13,16 +13,21 @@ import { Redirect } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minHeight: "calc(100vh - 50px)",
-    padding: 0.2
+    padding: 0.2,
   },
   content: {
     minHeight: "calc(100vh - 212px)",
     background: "#fff2",
-    paddingBottom: "50px"
+    paddingBottom: "50px",
   },
   swip: {
     display: "flex",
-    width: "100%"
+    width: "100%",
+  },
+  mainSlider:{
+    position: "sticky",
+    top: "-20px",
+
   }
 });
 
@@ -39,7 +44,7 @@ export default function ContentDisplayer({
   loading,
   divided,
   loadSubject,
-  subjectIndex
+  subjectIndex,
 }) {
   const classes = useStyles();
 
@@ -78,7 +83,7 @@ export default function ContentDisplayer({
         {/******  display MainSlider   ******/}
 
         {content.length ? (
-          <Grid item xs={12} md={"auto"}>
+          <Grid item xs={12} md={"auto"} className={classes.mainSlider}>
             <MainSlide
               content={content}
               selectedIndex={PrimarySliderSelectedIndex}
