@@ -41,7 +41,7 @@ export default class App extends Component {
     collapse: true,
     cutumeTheme: {
       primary: {
-        main: "#333"
+        main: "#343444"
       },
       secondary: {
         light: "#fff",
@@ -50,8 +50,9 @@ export default class App extends Component {
       },
       background: {
         default:
-          "radial-gradient(ellipse at top,#fff,rgb(255, 255, 255),#cacaca)"
-      },
+          "radial-gradient(ellipse at bottom,#9999a4,#303040)"
+          
+        },
       success:{
         main:"#43ff54"
       },

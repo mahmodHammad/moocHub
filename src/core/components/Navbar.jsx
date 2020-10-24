@@ -125,7 +125,7 @@ export default function Navbar({
             >
               Study Room
             </Button>
-            <IconButton
+            {/* <IconButton
               size="small"
               className={classes.wiki}
               component={Link}
@@ -148,7 +148,7 @@ export default function Navbar({
               to="/pali"
             >
               <BarChart/>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
       </HideOnScroll>
