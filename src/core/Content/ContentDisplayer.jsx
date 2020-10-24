@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
   content: {
     minHeight: "calc(100vh - 212px)",
-    background: "#fff2",
+    // background: "#fff2",
     paddingBottom: "50px",
   },
   swip: {

@@ -8,18 +8,19 @@ const styles = {
   root: {
     width: "100%",
     height: "100%",
-    zIndex: "3"
+    zIndex: "3",
+    filter: "invert(1) hue-rotate(180deg)",
   },
   container: {
     width: "100%",
     height: "100%",
-    background: "rgba(105, 104, 104, 0.25)"
+    background: "rgba(105, 104, 104, 0.25)",
   },
   loading: {
     position: "relative",
     top: "50%",
-    zIndex: "-1"
-  }
+    zIndex: "-1",
+  },
 };
 
 function PdfIframe({ pdfId, classes }) {
@@ -29,12 +30,12 @@ function PdfIframe({ pdfId, classes }) {
     <ScrollableAnchor id={pdfId}>
       <div className={`${classes.container}`}>
         {/* <div className={classes.loading}>Loading... </div> */}
-          <iframe
-            title="lecture"
-            className={`${classes.root}`}
-            frameBorder="0"
-            src={fileurl.displayPdf}
-          ></iframe>
+        <iframe
+          title="lecture"
+          className={`${classes.root}`}
+          frameBorder="0"
+          src={fileurl.displayPdf}
+        ></iframe>
       </div>
     </ScrollableAnchor>
   );
