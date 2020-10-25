@@ -1,6 +1,6 @@
 {
   "short_name": "Don't cry",
-  "name": "سبحان الله وبحمده سبحن الله العظيم",
+  "name": "2nd Electrical",
   "icons": [
     {
       "src": "fav.png",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "fullscreen",
-  "theme_color": "#222222",
-  "background_color": "#222222"
+  "theme_color": "#343444",
+  "background_color": "#343444"
 }
